@@ -1,0 +1,29 @@
+PASS: 12 native norm cases, BF16 boundaries, FP32/gradient fallback, restoration
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+PASS: 40 convolution cases, short-sequence padding, BF16/FP32, bias/SiLU, future-token invariance
+PASS: 40 native/fallback conv cases; native dispatch and restoration verified
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  48%|████▊     | 146/305 [00:00<00:00, 1455.45it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1701.96it/s]
+chunk128-normTrue 0 {"seconds": 0.8455260959453881, "max_delta": 0.0, "minor_faults": 20672, "voluntary_switches": 738, "involuntary_switches": 16}
+chunk128-normTrue 1 {"seconds": 0.8584324570838362, "max_delta": 0.0, "minor_faults": 18836, "voluntary_switches": 786, "involuntary_switches": 11}
+chunk128-normTrue 2 {"seconds": 0.8575087629724294, "max_delta": 0.0, "minor_faults": 18760, "voluntary_switches": 749, "involuntary_switches": 11}
+chunk128-normTrue 3 {"seconds": 0.8595238719135523, "max_delta": 0.0, "minor_faults": 18922, "voluntary_switches": 762, "involuntary_switches": 12}
+chunk128-normTrue 4 {"seconds": 0.8608712530694902, "max_delta": 0.0, "minor_faults": 18377, "voluntary_switches": 755, "involuntary_switches": 16}
+chunk128-normTrue 5 {"seconds": 0.8614254619460553, "max_delta": 0.0, "minor_faults": 19018, "voluntary_switches": 797, "involuntary_switches": 15}
+chunk128-normTrue 6 {"seconds": 0.8607259900309145, "max_delta": 0.0, "minor_faults": 18592, "voluntary_switches": 799, "involuntary_switches": 12}
+chunk128-normTrue 7 {"seconds": 0.8592181808780879, "max_delta": 0.0, "minor_faults": 18776, "voluntary_switches": 782, "involuntary_switches": 10}
+chunk128-normTrue 8 {"seconds": 0.8630705829709768, "max_delta": 0.0, "minor_faults": 19410, "voluntary_switches": 801, "involuntary_switches": 10}
+chunk128-normTrue 9 {"seconds": 0.8613245489541441, "max_delta": 0.0, "minor_faults": 18997, "voluntary_switches": 789, "involuntary_switches": 11}
+chunk128-normTrue 10 {"seconds": 0.8597671510651708, "max_delta": 0.0, "minor_faults": 18984, "voluntary_switches": 781, "involuntary_switches": 10}
+chunk128-normTrue 11 {"seconds": 0.8621561420150101, "max_delta": 0.0, "minor_faults": 19294, "voluntary_switches": 798, "involuntary_switches": 12}
+chunk128-normTrue-convTrue 0 {"seconds": 0.8205892369151115, "max_delta": 0.0, "minor_faults": 18934, "voluntary_switches": 797, "involuntary_switches": 14}
+chunk128-normTrue-convTrue 1 {"seconds": 0.820887008914724, "max_delta": 0.0, "minor_faults": 19262, "voluntary_switches": 818, "involuntary_switches": 14}
+chunk128-normTrue-convTrue 2 {"seconds": 0.8256027579773217, "max_delta": 0.0, "minor_faults": 19101, "voluntary_switches": 804, "involuntary_switches": 12}
+chunk128-normTrue-convTrue 3 {"seconds": 0.8208125790115446, "max_delta": 0.0, "minor_faults": 19033, "voluntary_switches": 813, "involuntary_switches": 6}
+chunk128-normTrue-convTrue 4 {"seconds": 0.8180994191206992, "max_delta": 0.0, "minor_faults": 18484, "voluntary_switches": 783, "involuntary_switches": 10}
+chunk128-normTrue-convTrue 5 {"seconds": 0.81970244506374, "max_delta": 0.0, "minor_faults": 19175, "voluntary_switches": 779, "involuntary_switches": 15}
+chunk128-normTrue-convTrue 6 {"seconds": 0.8276240820996463, "max_delta": 0.0, "minor_faults": 19352, "voluntary_switches": 790, "involuntary_switches": 8}
+chunk128-normTrue-convTrue 7 {"seconds": 0.8229149980470538, "max_delta": 0.0, "minor_faults": 19759, "voluntary_switches": 800, "involuntary_switches": 11}
+chunk128-normTrue-convTrue 8 {"seconds": 0.8250361660029739, "max_delta": 0.0, "minor_faults": 20845, "voluntary_switches": 806, "involuntary_switches": 12}
+chunk128-normTrue-convTrue 9 {"seconds": 0.8238380409311503, "max_delta": 0.0, "minor_faults": 19979, "voluntary_switches": 800, "involuntary_switches": 9}
+chunk128-normTrue-convTrue 10 {"seconds": 0.8711095838807523, "max_delta": 0.0, "minor_faults": 20213, "voluntary_switches": 1048, "involuntary_switches": 17}
+chunk128-normTrue-convTrue 11 {"seconds": 0.8554922060575336, "max_delta": 0.0, "minor_faults": 21396, "voluntary_switches": 953, "involuntary_switches": 19}

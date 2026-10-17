@@ -1,0 +1,38 @@
+PASS: 40 convolution cases, short-sequence padding, BF16/FP32, bias/SiLU, future-token invariance
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+PASS: 14 scan cases exact, chunk edges, future-token invariance, cached/state fallback, restoration
+PASS: text-only FP32/BF16 attention, masks, future keys, padding, exact non-text fallthrough
+PASS: 44 chunk partition cases exact vs stock same partition; future-token invariance, install/restore
+PASS: 12 native norm cases, BF16 boundaries, FP32/gradient fallback, restoration
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+PASS: 40 convolution cases, short-sequence padding, BF16/FP32, bias/SiLU, future-token invariance
+PASS: 40 native/fallback conv cases + 10 bitwise vectorized-equivalence cases; dispatch/kwargs/restoration verified
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 104/305 [00:00<00:00, 1039.34it/s]Loading weights:  69%|██████▉   | 211/305 [00:00<00:00, 1055.62it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1237.65it/s]
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff7ecea988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff7ec89018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff809bef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff8037f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff8037fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff812fabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff7fd85cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff7fd60c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff7fd9b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff7fd87538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff897038a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff8b757744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff8b757818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+PROFILE original_rknn {"prepare": 0.0016417328733950853, "rmsnorm": 0.11248188326135278, "run": 0.44259670143947005, "causal_conv1d_fn": 1.2547629044856876, "torch_chunk_gated_delta_rule": 0.3715039745438844, "scaled_dot_product_attention": 0.1549187849741429, "respond": 7.495400495827198e-05, "total": 2.509859130019322, "other": 0.17187819443643093}
+VALIDATED chinese-0 {"seconds": [2.480487798107788, 2.5166788888163865, 2.4712824281305075], "median": 2.480487798107788, "max_delta_vs_original_rknn": 0.0018719574681583667, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.0007422100979154189, "choices_unchanged_vs_cpu": true}
+VALIDATED chinese-1 {"seconds": [2.880843883147463, 2.4121198889333755, 2.4047932950779796], "median": 2.4121198889333755, "max_delta_vs_original_rknn": 0.00010073557679186537, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 5.296977865673104e-05, "choices_unchanged_vs_cpu": true}
+VALIDATED english {"seconds": [2.371969714993611, 2.374861469026655, 2.375104163074866], "median": 2.374861469026655, "max_delta_vs_original_rknn": 0.0012037185302519182, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.00489881374262241, "choices_unchanged_vs_cpu": true}
+VALIDATED single {"seconds": [0.7725320670288056, 0.7600120811257511, 0.7524709759745747], "median": 0.7600120811257511, "max_delta_vs_original_rknn": 2.89921870021961e-06, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 1.2011840210601754e-05, "choices_unchanged_vs_cpu": true}
+VALIDATED image {"seconds": [9.589063419029117, 9.042896395782009, 9.141682256944478], "median": 9.141682256944478, "max_delta_vs_original_rknn": 0.002094949712175609, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.0024895148224974295, "choices_unchanged_vs_cpu": true}
+VALIDATED novel-math {"seconds": [0.7584281938616186, 0.758464670041576, 0.7587968748994172], "median": 0.758464670041576, "max_delta_vs_original_rknn": 5.4903190958090946e-05, "choices_unchanged": true}
+VALIDATED novel-chat {"seconds": [0.7572658699937165, 0.7480063568800688, 1.1269882589112967], "median": 0.7572658699937165, "max_delta_vs_original_rknn": 1.5965061159530918e-06, "choices_unchanged": true}
+PROFILE candidate {"prepare": 0.0018775290809571743, "rmsnorm": 0.03459682036191225, "run": 0.3368263759184629, "causal_conv1d_fn": 0.05137575208209455, "torch_chunk_gated_delta_rule": 0.31812905124388635, "scaled_dot_product_attention": 0.03482939279638231, "respond": 6.614392623305321e-05, "total": 0.9206574109848589, "other": 0.1429563455749303}
+TEMPORARY_HTTP_READY 8901

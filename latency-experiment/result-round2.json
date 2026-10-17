@@ -1,0 +1,1118 @@
+{
+  "scope": "RK3576, CPU cores 4-7, Torch 4 threads, 115 input tokens, single question, concurrency 1. Each fresh process gets exactly one warmup; initialization excluded. No response memoization.",
+  "model": "vllm-sr/d3-edge@20c745653400d191ecacd99c4eafc0c5900dc15e",
+  "selected": "three",
+  "original_weights_and_12_layers_preserved": true,
+  "noncausal_full_attention_and_causal_delta_scan_preserved": true,
+  "experiments": {
+    "previous_candidate": {
+      "source": "logs/tail-default-allocator.json",
+      "count": 40,
+      "median": 0.9887908134842291,
+      "p95_nearest_rank": 1.0186838959343731,
+      "maximum": 1.8294500440824777,
+      "below_one_second": 37,
+      "median_minor_faults": 28243.0,
+      "median_voluntary_switches": null,
+      "settings": null,
+      "native_stats": null,
+      "backend": null
+    },
+    "early_native_trial": {
+      "source": "logs/tail-native-default.json",
+      "count": 100,
+      "median": 0.8218411330599338,
+      "p95_nearest_rank": 0.9276197331491858,
+      "maximum": 1.423520159907639,
+      "below_one_second": 96,
+      "median_minor_faults": 20904.0,
+      "median_voluntary_switches": 762.5,
+      "settings": null,
+      "native_stats": null,
+      "backend": null
+    },
+    "norm_only_passive": {
+      "source": "logs/tail-native-passive.json",
+      "count": 100,
+      "median": 1.0252344553591684,
+      "p95_nearest_rank": 1.0864459788426757,
+      "maximum": 1.320875131059438,
+      "below_one_second": 3,
+      "median_minor_faults": 26631.5,
+      "median_voluntary_switches": 9853.5,
+      "settings": {
+        "torch_threads": 4,
+        "torch_interop_threads": 8,
+        "OMP_WAIT_POLICY": "PASSIVE",
+        "GOMP_SPINCOUNT": "0"
+      },
+      "native_stats": {
+        "native_calls": 4343
+      },
+      "backend": {
+        "parallel_info": "ATen/Parallel:\n\tat::get_num_threads() : 4\n\tat::get_num_interop_threads() : 8\nOpenMP 201511 (a.k.a. OpenMP 4.5)\n\tomp_get_max_threads() : 4\nIntel(R) MKL-DNN v3.11.2 (Git Hash 03c022d3ffdcee958cfacbe720048e725fdf644c)\nstd::thread::hardware_concurrency() : 8\nEnvironment variables:\n\tOMP_NUM_THREADS : 4\nATen parallel backend: OpenMP\n",
+        "openblas_get_num_threads": 4,
+        "openblas_get_parallel": 2,
+        "openblas_get_config": "OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY USE_OPENMP cortexa57 MAX_THREADS=128"
+      }
+    },
+    "norm_only_active": {
+      "source": "logs/tail-native-active.json",
+      "count": 100,
+      "median": 0.8722101374296471,
+      "p95_nearest_rank": 0.9376528109423816,
+      "maximum": 1.8907960141077638,
+      "below_one_second": 97,
+      "median_minor_faults": 26202.0,
+      "median_voluntary_switches": 219.0,
+      "settings": {
+        "torch_threads": 4,
+        "torch_interop_threads": 8,
+        "OMP_WAIT_POLICY": "ACTIVE",
+        "GOMP_SPINCOUNT": "3000000"
+      },
+      "native_stats": {
+        "native_calls": 4343
+      },
+      "backend": {
+        "parallel_info": "ATen/Parallel:\n\tat::get_num_threads() : 4\n\tat::get_num_interop_threads() : 8\nOpenMP 201511 (a.k.a. OpenMP 4.5)\n\tomp_get_max_threads() : 4\nIntel(R) MKL-DNN v3.11.2 (Git Hash 03c022d3ffdcee958cfacbe720048e725fdf644c)\nstd::thread::hardware_concurrency() : 8\nEnvironment variables:\n\tOMP_NUM_THREADS : 4\nATen parallel backend: OpenMP\n",
+        "openblas_get_num_threads": 4,
+        "openblas_get_parallel": 2,
+        "openblas_get_config": "OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY USE_OPENMP cortexa57 MAX_THREADS=128"
+      }
+    },
+    "final_four_cores": {
+      "source": "logs/tail-final.json",
+      "count": 100,
+      "median": 0.8239162045065314,
+      "p95_nearest_rank": 0.8382099510636181,
+      "maximum": 1.3968024670612067,
+      "below_one_second": 98,
+      "median_minor_faults": 20755.0,
+      "median_voluntary_switches": 733.5,
+      "settings": {
+        "torch_threads": 4,
+        "torch_interop_threads": 8,
+        "OMP_WAIT_POLICY": null,
+        "GOMP_SPINCOUNT": null
+      },
+      "native_stats": {
+        "native_calls": 4949,
+        "norm_calls": 4343,
+        "conv_calls": 606
+      },
+      "backend": {
+        "parallel_info": "ATen/Parallel:\n\tat::get_num_threads() : 4\n\tat::get_num_interop_threads() : 8\nOpenMP 201511 (a.k.a. OpenMP 4.5)\n\tomp_get_max_threads() : 4\nIntel(R) MKL-DNN v3.11.2 (Git Hash 03c022d3ffdcee958cfacbe720048e725fdf644c)\nstd::thread::hardware_concurrency() : 8\nEnvironment variables:\n\tOMP_NUM_THREADS : 4\nATen parallel backend: OpenMP\n",
+        "openblas_get_num_threads": 4,
+        "openblas_get_parallel": 2,
+        "openblas_get_config": "OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY USE_OPENMP cortexa57 MAX_THREADS=128"
+      }
+    },
+    "reserved_three_cores": {
+      "source": "logs/tail-reserved.json",
+      "count": 100,
+      "median": 0.8654061779379845,
+      "p95_nearest_rank": 0.8992954019922763,
+      "maximum": 0.9869460021145642,
+      "below_one_second": 100,
+      "median_minor_faults": 21737.5,
+      "median_voluntary_switches": 519.0,
+      "settings": {
+        "torch_threads": 3,
+        "torch_interop_threads": 8,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "OMP_THREAD_LIMIT": "3",
+        "OMP_WAIT_POLICY": null,
+        "GOMP_SPINCOUNT": null
+      },
+      "native_stats": {
+        "native_calls": 5292,
+        "norm_calls": 4644,
+        "conv_calls": 648
+      },
+      "backend": {
+        "parallel_info": "ATen/Parallel:\n\tat::get_num_threads() : 3\n\tat::get_num_interop_threads() : 8\nOpenMP 201511 (a.k.a. OpenMP 4.5)\n\tomp_get_max_threads() : 3\nIntel(R) MKL-DNN v3.11.2 (Git Hash 03c022d3ffdcee958cfacbe720048e725fdf644c)\nstd::thread::hardware_concurrency() : 8\nEnvironment variables:\n\tOMP_NUM_THREADS : 3\nATen parallel backend: OpenMP\n",
+        "openblas_get_num_threads": 3,
+        "openblas_get_parallel": 2,
+        "openblas_get_config": "OpenBLAS 0.3.30 DYNAMIC_ARCH NO_AFFINITY USE_OPENMP cortexa57 MAX_THREADS=128"
+      }
+    }
+  },
+  "quality": {
+    "passed": true,
+    "cases": 7,
+    "questions": 14,
+    "choices_unchanged": true,
+    "max_delta_vs_original_rknn": 0.0036300673612312817,
+    "cpu_reference_cases": 5,
+    "max_delta_vs_historical_optimized_cpu": 0.0024895148224974295,
+    "source": "logs/tail-reserved.json",
+    "reference": "logs/validation-final.json"
+  },
+  "http": {
+    "verified_at_utc": "2026-10-17T10:28:40.761668+00:00",
+    "passed": true,
+    "health": {
+      "status": "ready",
+      "model": "vllm-sr/d3-edge",
+      "max_input_tokens": null,
+      "modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "authentication": false
+    },
+    "requests": [
+      {
+        "seconds": 0.819451166,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232839.374196,
+        "ended_at_unix": 1792232840.1936471
+      },
+      {
+        "seconds": 0.8208021669999999,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232840.194119,
+        "ended_at_unix": 1792232841.0149212
+      },
+      {
+        "seconds": 0.8267861250000004,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232841.015313,
+        "ended_at_unix": 1792232841.842099
+      },
+      {
+        "seconds": 0.8207980420000003,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232841.8425238,
+        "ended_at_unix": 1792232842.663322
+      },
+      {
+        "seconds": 0.8211113750000001,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232842.6638012,
+        "ended_at_unix": 1792232843.4849126
+      },
+      {
+        "seconds": 0.8220316250000002,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232843.4852328,
+        "ended_at_unix": 1792232844.3072646
+      },
+      {
+        "seconds": 0.8259310839999996,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232844.307724,
+        "ended_at_unix": 1792232845.133655
+      },
+      {
+        "seconds": 0.8202826249999999,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232845.134102,
+        "ended_at_unix": 1792232845.9543848
+      },
+      {
+        "seconds": 0.8168309579999997,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232845.9548101,
+        "ended_at_unix": 1792232846.771641
+      },
+      {
+        "seconds": 0.8170959169999996,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232846.7720802,
+        "ended_at_unix": 1792232847.5891762
+      },
+      {
+        "seconds": 0.8174301670000013,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232847.589545,
+        "ended_at_unix": 1792232848.4069753
+      },
+      {
+        "seconds": 0.8149882919999989,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232848.4071722,
+        "ended_at_unix": 1792232849.2221606
+      },
+      {
+        "seconds": 0.811274083999999,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232849.2225668,
+        "ended_at_unix": 1792232850.033841
+      },
+      {
+        "seconds": 0.8084447919999995,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232850.0343559,
+        "ended_at_unix": 1792232850.8428006
+      },
+      {
+        "seconds": 0.8104266249999998,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232850.843383,
+        "ended_at_unix": 1792232851.6538098
+      },
+      {
+        "seconds": 0.8007159169999998,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232851.654075,
+        "ended_at_unix": 1792232852.4547908
+      },
+      {
+        "seconds": 0.7999979589999988,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232852.454939,
+        "ended_at_unix": 1792232853.254937
+      },
+      {
+        "seconds": 0.8200460419999995,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232853.255266,
+        "ended_at_unix": 1792232854.075312
+      },
+      {
+        "seconds": 0.8260160410000008,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232854.075731,
+        "ended_at_unix": 1792232854.901747
+      },
+      {
+        "seconds": 0.8178726669999996,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232854.90219,
+        "ended_at_unix": 1792232855.7200627
+      },
+      {
+        "seconds": 0.8187782499999976,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232855.720395,
+        "ended_at_unix": 1792232856.5391734
+      },
+      {
+        "seconds": 0.8187278750000004,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232856.539506,
+        "ended_at_unix": 1792232857.358234
+      },
+      {
+        "seconds": 0.8182346659999986,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232857.358633,
+        "ended_at_unix": 1792232858.1768677
+      },
+      {
+        "seconds": 0.8222612499999968,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232858.1772952,
+        "ended_at_unix": 1792232858.9995565
+      },
+      {
+        "seconds": 0.8175141669999988,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232858.999935,
+        "ended_at_unix": 1792232859.817449
+      },
+      {
+        "seconds": 0.819852749999999,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232859.8177621,
+        "ended_at_unix": 1792232860.637615
+      },
+      {
+        "seconds": 0.821924666000001,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232860.63799,
+        "ended_at_unix": 1792232861.4599147
+      },
+      {
+        "seconds": 0.8213527920000026,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232861.460319,
+        "ended_at_unix": 1792232862.2816718
+      },
+      {
+        "seconds": 0.8236256249999983,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232862.282093,
+        "ended_at_unix": 1792232863.1057186
+      },
+      {
+        "seconds": 0.8204167090000034,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232863.106136,
+        "ended_at_unix": 1792232863.9265528
+      },
+      {
+        "seconds": 0.8236149580000003,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232863.926914,
+        "ended_at_unix": 1792232864.750529
+      },
+      {
+        "seconds": 0.8188214580000022,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232864.750746,
+        "ended_at_unix": 1792232865.5695674
+      },
+      {
+        "seconds": 0.8219979999999971,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232865.569932,
+        "ended_at_unix": 1792232866.3919299
+      },
+      {
+        "seconds": 0.8786438330000017,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232866.392374,
+        "ended_at_unix": 1792232867.2710178
+      },
+      {
+        "seconds": 0.8752580000000023,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232867.271467,
+        "ended_at_unix": 1792232868.146725
+      },
+      {
+        "seconds": 0.8167273339999994,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232868.1471128,
+        "ended_at_unix": 1792232868.9638402
+      },
+      {
+        "seconds": 0.8135834590000002,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232868.964237,
+        "ended_at_unix": 1792232869.7778203
+      },
+      {
+        "seconds": 0.8166764999999998,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232869.778246,
+        "ended_at_unix": 1792232870.5949225
+      },
+      {
+        "seconds": 0.8136057080000043,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232870.595362,
+        "ended_at_unix": 1792232871.4089677
+      },
+      {
+        "seconds": 0.8022667079999977,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232871.409203,
+        "ended_at_unix": 1792232872.2114697
+      },
+      {
+        "seconds": 0.8049595829999987,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232872.21185,
+        "ended_at_unix": 1792232873.0168095
+      },
+      {
+        "seconds": 0.8189880409999972,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232873.017231,
+        "ended_at_unix": 1792232873.836219
+      },
+      {
+        "seconds": 0.8067832089999953,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232873.8366961,
+        "ended_at_unix": 1792232874.6434793
+      },
+      {
+        "seconds": 0.8086417909999994,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232874.6439512,
+        "ended_at_unix": 1792232875.4525928
+      },
+      {
+        "seconds": 0.8109654590000019,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232875.453117,
+        "ended_at_unix": 1792232876.2640824
+      },
+      {
+        "seconds": 0.8120379160000013,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232876.264544,
+        "ended_at_unix": 1792232877.076582
+      },
+      {
+        "seconds": 0.803499875,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232877.077012,
+        "ended_at_unix": 1792232877.880512
+      },
+      {
+        "seconds": 0.8026310420000016,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232877.880949,
+        "ended_at_unix": 1792232878.6835802
+      },
+      {
+        "seconds": 0.8046301250000027,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232878.684008,
+        "ended_at_unix": 1792232879.488638
+      },
+      {
+        "seconds": 0.8057528329999997,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232879.489011,
+        "ended_at_unix": 1792232880.2947638
+      },
+      {
+        "seconds": 0.8041010420000063,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232880.295174,
+        "ended_at_unix": 1792232881.0992749
+      },
+      {
+        "seconds": 0.8050766659999979,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232881.0996869,
+        "ended_at_unix": 1792232881.9047635
+      },
+      {
+        "seconds": 0.8035613330000047,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232881.905195,
+        "ended_at_unix": 1792232882.7087564
+      },
+      {
+        "seconds": 0.8076034590000063,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232882.709184,
+        "ended_at_unix": 1792232883.5167873
+      },
+      {
+        "seconds": 0.8029767920000026,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232883.517231,
+        "ended_at_unix": 1792232884.3202078
+      },
+      {
+        "seconds": 0.8076201249999997,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232884.3206348,
+        "ended_at_unix": 1792232885.128255
+      },
+      {
+        "seconds": 0.8023565839999947,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232885.128682,
+        "ended_at_unix": 1792232885.9310384
+      },
+      {
+        "seconds": 0.806890334000002,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232885.9314728,
+        "ended_at_unix": 1792232886.738363
+      },
+      {
+        "seconds": 0.8011652499999968,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232886.738912,
+        "ended_at_unix": 1792232887.5400774
+      },
+      {
+        "seconds": 0.8129390000000001,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232887.54044,
+        "ended_at_unix": 1792232888.353379
+      },
+      {
+        "seconds": 0.8142432500000041,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232888.3537621,
+        "ended_at_unix": 1792232889.1680055
+      },
+      {
+        "seconds": 0.8153364580000044,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232889.168433,
+        "ended_at_unix": 1792232889.9837694
+      },
+      {
+        "seconds": 0.8144395839999987,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232889.9841778,
+        "ended_at_unix": 1792232890.7986174
+      },
+      {
+        "seconds": 0.7385705000000016,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232890.7990432,
+        "ended_at_unix": 1792232891.5376136
+      },
+      {
+        "seconds": 0.7408131660000024,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232891.537945,
+        "ended_at_unix": 1792232892.2787583
+      },
+      {
+        "seconds": 0.8087785410000023,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232892.2791529,
+        "ended_at_unix": 1792232893.0879314
+      },
+      {
+        "seconds": 0.8173964160000011,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232893.088362,
+        "ended_at_unix": 1792232893.9057584
+      },
+      {
+        "seconds": 0.8115918330000014,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232893.906246,
+        "ended_at_unix": 1792232894.7178378
+      },
+      {
+        "seconds": 0.8153209580000009,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232894.718399,
+        "ended_at_unix": 1792232895.53372
+      },
+      {
+        "seconds": 0.8188537500000024,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232895.534144,
+        "ended_at_unix": 1792232896.3529978
+      },
+      {
+        "seconds": 0.8143586250000041,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232896.353419,
+        "ended_at_unix": 1792232897.1677778
+      },
+      {
+        "seconds": 0.8180561670000017,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232897.1682088,
+        "ended_at_unix": 1792232897.986265
+      },
+      {
+        "seconds": 0.8113083340000031,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232897.986685,
+        "ended_at_unix": 1792232898.7979934
+      },
+      {
+        "seconds": 0.7731332920000042,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232898.798419,
+        "ended_at_unix": 1792232899.5715523
+      },
+      {
+        "seconds": 0.8215333750000013,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232899.5718882,
+        "ended_at_unix": 1792232900.3934216
+      },
+      {
+        "seconds": 0.8245434590000045,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232900.393606,
+        "ended_at_unix": 1792232901.2181494
+      },
+      {
+        "seconds": 0.8196031250000004,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232901.218535,
+        "ended_at_unix": 1792232902.0381382
+      },
+      {
+        "seconds": 0.811684624999998,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232902.038579,
+        "ended_at_unix": 1792232902.8502636
+      },
+      {
+        "seconds": 0.8081342079999985,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232902.850697,
+        "ended_at_unix": 1792232903.6588314
+      },
+      {
+        "seconds": 0.80788287499999,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232903.6592078,
+        "ended_at_unix": 1792232904.4670906
+      },
+      {
+        "seconds": 0.8123521659999966,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232904.4674408,
+        "ended_at_unix": 1792232905.279793
+      },
+      {
+        "seconds": 0.8147400000000005,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232905.2803378,
+        "ended_at_unix": 1792232906.0950778
+      },
+      {
+        "seconds": 0.8057595000000077,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232906.095531,
+        "ended_at_unix": 1792232906.9012904
+      },
+      {
+        "seconds": 0.8055584590000109,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232906.9017339,
+        "ended_at_unix": 1792232907.7072923
+      },
+      {
+        "seconds": 0.8021655830000043,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232907.7075782,
+        "ended_at_unix": 1792232908.5097437
+      },
+      {
+        "seconds": 0.8136379999999974,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232908.510106,
+        "ended_at_unix": 1792232909.323744
+      },
+      {
+        "seconds": 0.8102212920000085,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232909.324033,
+        "ended_at_unix": 1792232910.1342542
+      },
+      {
+        "seconds": 0.808421666000001,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232910.134443,
+        "ended_at_unix": 1792232910.9428647
+      },
+      {
+        "seconds": 0.808018374999989,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232910.94323,
+        "ended_at_unix": 1792232911.7512484
+      },
+      {
+        "seconds": 0.8159040419999997,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232911.7514691,
+        "ended_at_unix": 1792232912.5673733
+      },
+      {
+        "seconds": 0.8113046249999911,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232912.567672,
+        "ended_at_unix": 1792232913.3789766
+      },
+      {
+        "seconds": 0.8094074170000027,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232913.379391,
+        "ended_at_unix": 1792232914.1887984
+      },
+      {
+        "seconds": 0.8120496669999966,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232914.189204,
+        "ended_at_unix": 1792232915.0012536
+      },
+      {
+        "seconds": 0.8107984169999867,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232915.001703,
+        "ended_at_unix": 1792232915.8125014
+      },
+      {
+        "seconds": 0.8224899169999986,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232915.812938,
+        "ended_at_unix": 1792232916.635428
+      },
+      {
+        "seconds": 0.8137036250000023,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232916.635778,
+        "ended_at_unix": 1792232917.4494815
+      },
+      {
+        "seconds": 0.8415972909999994,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232917.449866,
+        "ended_at_unix": 1792232918.2914634
+      },
+      {
+        "seconds": 0.8330823749999894,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232918.291878,
+        "ended_at_unix": 1792232919.1249604
+      },
+      {
+        "seconds": 0.8184429589999951,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232919.1254342,
+        "ended_at_unix": 1792232919.9438772
+      },
+      {
+        "seconds": 0.8143933749999945,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232919.944314,
+        "ended_at_unix": 1792232920.7587073
+      }
+    ],
+    "count": 100,
+    "median": 0.8143009375000041,
+    "mean": 0.8134503012900001,
+    "p95_nearest_rank": 0.8260160410000008,
+    "min": 0.7385705000000016,
+    "max": 0.8786438330000017,
+    "below_one_second": 100,
+    "invalid_request_422": true,
+    "scope": "Warm single question, 115 tokens, concurrency 1; 100 LAN HTTP calls, no request/result memoization, excludes model startup."
+  },
+  "production": {
+    "original_response_exact": true,
+    "health_ready": true,
+    "same_container_id": true,
+    "same_started_at": true,
+    "state": {
+      "containers": [
+        {
+          "name": "/decision3-edge-matmul",
+          "id": "19a30c8727fbc08008fe956fb8d5c6ce78988459e0f831084cfaa85390a1c93f",
+          "status": "running",
+          "started_at": "2026-10-17T08:58:14.937096803Z",
+          "restart": "no",
+          "health": "healthy"
+        },
+        {
+          "name": "/decision3-edge",
+          "id": "a1157559fc1826a981e6d57bed50828315b4f69e37620c40451761e50cbf5962",
+          "status": "exited",
+          "started_at": "2026-10-13T07:52:23.520597674Z",
+          "restart": "no",
+          "health": "unhealthy"
+        }
+      ],
+      "remaining_experiments": [],
+      "port_8901_closed": true
+    },
+    "response_after": {
+      "/health": {
+        "status": "ready",
+        "model": "vllm-sr/d3-edge",
+        "max_input_tokens": null,
+        "modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "authentication": false
+      },
+      "/v1/systemone": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991779995411796,
+              "math": 0.0006839706378896585,
+              "chat": 0.00013802982093074769
+            },
+            "confidence": 0.993598307003921
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    }
+  },
+  "operator_verification": {
+    "passed": true,
+    "principal_cases": 164,
+    "source": "logs/validation-final-run.log"
+  },
+  "source_sha256": {
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875"
+  },
+  "exploratory_control_note": "The early ACTIVE/PASSIVE trials had a conservative conv fallback, so they are not equivalent controls of the final native-conv implementation. Final runs assert and record norm_calls and conv_calls separately. A PASSIVE wrapper exited 2 after completing all 100 samples because the launch script was overwritten while running; its measurements are retained as exploratory evidence. Subsequent launch-script updates used atomic rename.",
+  "serving_teardown_note": "The temporary HTTP serving sessions were explicitly stopped after all saved numerical checks and 100 HTTP requests passed. Their docker-run sessions exited 137 during teardown; this is not the status of the completed numerical/HTTP checks. No production container was stopped or restarted.",
+  "health_interference": {
+    "slow_requests": [
+      {
+        "request": 20,
+        "seconds": 1.2901856669999958,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232118.547101,
+        "ended_at_unix": 1792232119.8372867,
+        "overlapping_health_probes": [
+          {
+            "start": 1792232118.908321,
+            "end": 1792232120.02117,
+            "exit_code": 0
+          }
+        ],
+        "process_cpu_ticks": [
+          {
+            "pid": 148152,
+            "comm": "python",
+            "ticks": 344
+          },
+          {
+            "pid": 149559,
+            "comm": "python",
+            "ticks": 63
+          },
+          {
+            "pid": 149485,
+            "comm": "python3",
+            "ticks": 56
+          },
+          {
+            "pid": 847,
+            "comm": "containerd",
+            "ticks": 1
+          },
+          {
+            "pid": 1195,
+            "comm": "dockerd",
+            "ticks": 1
+          },
+          {
+            "pid": 144448,
+            "comm": "kworker/u16:0-devfreq_wq",
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "request": 58,
+        "seconds": 1.4004818330000006,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232149.774883,
+        "ended_at_unix": 1792232151.175365,
+        "overlapping_health_probes": [
+          {
+            "start": 1792232150.023251,
+            "end": 1792232151.129056,
+            "exit_code": 0
+          }
+        ],
+        "process_cpu_ticks": [
+          {
+            "pid": 148152,
+            "comm": "python",
+            "ticks": 372
+          },
+          {
+            "pid": 149617,
+            "comm": "python",
+            "ticks": 78
+          },
+          {
+            "pid": 149485,
+            "comm": "python3",
+            "ticks": 60
+          },
+          {
+            "pid": 1195,
+            "comm": "dockerd",
+            "ticks": 2
+          },
+          {
+            "pid": 847,
+            "comm": "containerd",
+            "ticks": 1
+          },
+          {
+            "pid": 105484,
+            "comm": "containerd-shim",
+            "ticks": 1
+          },
+          {
+            "pid": 14,
+            "comm": "rcu_sched",
+            "ticks": 1
+          }
+        ]
+      },
+      {
+        "request": 96,
+        "seconds": 1.3858424160000027,
+        "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+        "started_at_unix": 1792232180.859079,
+        "ended_at_unix": 1792232182.2449212,
+        "overlapping_health_probes": [
+          {
+            "start": 1792232181.132519,
+            "end": 1792232182.253118,
+            "exit_code": 0
+          }
+        ],
+        "process_cpu_ticks": [
+          {
+            "pid": 148152,
+            "comm": "python",
+            "ticks": 379
+          },
+          {
+            "pid": 149675,
+            "comm": "python",
+            "ticks": 79
+          },
+          {
+            "pid": 149485,
+            "comm": "python3",
+            "ticks": 62
+          },
+          {
+            "pid": 847,
+            "comm": "containerd",
+            "ticks": 2
+          },
+          {
+            "pid": 14,
+            "comm": "rcu_sched",
+            "ticks": 1
+          },
+          {
+            "pid": 1195,
+            "comm": "dockerd",
+            "ticks": 1
+          },
+          {
+            "pid": 136312,
+            "comm": "kworker/u16:2-events_unbound",
+            "ticks": 1
+          },
+          {
+            "pid": 131292,
+            "comm": "kworker/1:0-mm_percpu_wq",
+            "ticks": 1
+          }
+        ]
+      }
+    ],
+    "slow_count": 3,
+    "slow_overlapping_health": 3,
+    "production_health_windows": [
+      {
+        "start": 1792232056.652891,
+        "end": 1792232057.76305,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232087.765825,
+        "end": 1792232088.906006,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232118.908321,
+        "end": 1792232120.02117,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232150.023251,
+        "end": 1792232151.129056,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232181.132519,
+        "end": 1792232182.253118,
+        "exit_code": 0
+      }
+    ],
+    "caveat": "Temporal overlap is correlation. Production probes were not disabled or changed. Process monitor ran on A53 cores 0-3. HTTP uses Mac wall time; health/monitor use board wall time."
+  },
+  "health_under_three_threads": {
+    "slow_requests": [],
+    "slow_count": 0,
+    "slow_overlapping_health": 0,
+    "production_health_windows": [
+      {
+        "start": 1792232804.244591,
+        "end": 1792232805.420244,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232835.423097,
+        "end": 1792232836.642715,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232866.644127,
+        "end": 1792232867.838234,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232897.841407,
+        "end": 1792232898.939409,
+        "exit_code": 0
+      },
+      {
+        "start": 1792232928.941652,
+        "end": 1792232930.102498,
+        "exit_code": 0
+      }
+    ],
+    "http_source": "http-reserved.json",
+    "health_source": "production-health-reserved.json",
+    "health_probes_during_http": 2,
+    "caveat": "Temporal overlap is correlation. Production probes were not disabled or changed. No host process monitor was used for this run. HTTP uses Mac wall time; health/monitor use board wall time."
+  },
+  "health_client_cost": [
+    {
+      "client": "python",
+      "whole_docker_exec_seconds": 1.1777342739515007,
+      "inside_seconds": 0.916428416967392,
+      "process_user_seconds": 0.9216759999999999,
+      "process_system_seconds": 0.09283
+    },
+    {
+      "client": "curl",
+      "whole_docker_exec_seconds": 0.17884503514505923,
+      "request_seconds": 0.002237
+    },
+    {
+      "client": "python",
+      "whole_docker_exec_seconds": 1.0418994859792292,
+      "inside_seconds": 0.7876136528793722,
+      "process_user_seconds": 0.823355,
+      "process_system_seconds": 0.059323
+    },
+    {
+      "client": "curl",
+      "whole_docker_exec_seconds": 0.189187693875283,
+      "request_seconds": 0.002599
+    },
+    {
+      "client": "python",
+      "whole_docker_exec_seconds": 1.161691540852189,
+      "inside_seconds": 0.8762766169384122,
+      "process_user_seconds": 0.888061,
+      "process_system_seconds": 0.08746
+    },
+    {
+      "client": "curl",
+      "whole_docker_exec_seconds": 0.1882482550572604,
+      "request_seconds": 0.002932
+    }
+  ],
+  "selected_fresh_p95_under_one_second": true,
+  "selected_fresh_all_samples_under_one_second": true
+}

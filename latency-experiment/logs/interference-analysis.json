@@ -1,0 +1,187 @@
+{
+  "slow_requests": [
+    {
+      "request": 20,
+      "seconds": 1.2901856669999958,
+      "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+      "started_at_unix": 1792232118.547101,
+      "ended_at_unix": 1792232119.8372867,
+      "overlapping_health_probes": [
+        {
+          "start": 1792232118.908321,
+          "end": 1792232120.02117,
+          "exit_code": 0
+        }
+      ],
+      "process_cpu_ticks": [
+        {
+          "pid": 148152,
+          "comm": "python",
+          "ticks": 344
+        },
+        {
+          "pid": 149559,
+          "comm": "python",
+          "ticks": 63
+        },
+        {
+          "pid": 149485,
+          "comm": "python3",
+          "ticks": 56
+        },
+        {
+          "pid": 847,
+          "comm": "containerd",
+          "ticks": 1
+        },
+        {
+          "pid": 1195,
+          "comm": "dockerd",
+          "ticks": 1
+        },
+        {
+          "pid": 144448,
+          "comm": "kworker/u16:0-devfreq_wq",
+          "ticks": 1
+        }
+      ]
+    },
+    {
+      "request": 58,
+      "seconds": 1.4004818330000006,
+      "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+      "started_at_unix": 1792232149.774883,
+      "ended_at_unix": 1792232151.175365,
+      "overlapping_health_probes": [
+        {
+          "start": 1792232150.023251,
+          "end": 1792232151.129056,
+          "exit_code": 0
+        }
+      ],
+      "process_cpu_ticks": [
+        {
+          "pid": 148152,
+          "comm": "python",
+          "ticks": 372
+        },
+        {
+          "pid": 149617,
+          "comm": "python",
+          "ticks": 78
+        },
+        {
+          "pid": 149485,
+          "comm": "python3",
+          "ticks": 60
+        },
+        {
+          "pid": 1195,
+          "comm": "dockerd",
+          "ticks": 2
+        },
+        {
+          "pid": 847,
+          "comm": "containerd",
+          "ticks": 1
+        },
+        {
+          "pid": 105484,
+          "comm": "containerd-shim",
+          "ticks": 1
+        },
+        {
+          "pid": 14,
+          "comm": "rcu_sched",
+          "ticks": 1
+        }
+      ]
+    },
+    {
+      "request": 96,
+      "seconds": 1.3858424160000027,
+      "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+      "started_at_unix": 1792232180.859079,
+      "ended_at_unix": 1792232182.2449212,
+      "overlapping_health_probes": [
+        {
+          "start": 1792232181.132519,
+          "end": 1792232182.253118,
+          "exit_code": 0
+        }
+      ],
+      "process_cpu_ticks": [
+        {
+          "pid": 148152,
+          "comm": "python",
+          "ticks": 379
+        },
+        {
+          "pid": 149675,
+          "comm": "python",
+          "ticks": 79
+        },
+        {
+          "pid": 149485,
+          "comm": "python3",
+          "ticks": 62
+        },
+        {
+          "pid": 847,
+          "comm": "containerd",
+          "ticks": 2
+        },
+        {
+          "pid": 14,
+          "comm": "rcu_sched",
+          "ticks": 1
+        },
+        {
+          "pid": 1195,
+          "comm": "dockerd",
+          "ticks": 1
+        },
+        {
+          "pid": 136312,
+          "comm": "kworker/u16:2-events_unbound",
+          "ticks": 1
+        },
+        {
+          "pid": 131292,
+          "comm": "kworker/1:0-mm_percpu_wq",
+          "ticks": 1
+        }
+      ]
+    }
+  ],
+  "slow_count": 3,
+  "slow_overlapping_health": 3,
+  "production_health_windows": [
+    {
+      "start": 1792232056.652891,
+      "end": 1792232057.76305,
+      "exit_code": 0
+    },
+    {
+      "start": 1792232087.765825,
+      "end": 1792232088.906006,
+      "exit_code": 0
+    },
+    {
+      "start": 1792232118.908321,
+      "end": 1792232120.02117,
+      "exit_code": 0
+    },
+    {
+      "start": 1792232150.023251,
+      "end": 1792232151.129056,
+      "exit_code": 0
+    },
+    {
+      "start": 1792232181.132519,
+      "end": 1792232182.253118,
+      "exit_code": 0
+    }
+  ],
+  "caveat": "Temporal overlap is correlation. Production probes were not disabled or changed. Process monitor ran on A53 cores 0-3. HTTP uses Mac wall time; health/monitor use board wall time."
+}

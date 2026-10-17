@@ -1,0 +1,38 @@
+TEMPORARY_HTTP_READY
+REQUEST 1 0.717962
+REQUEST 2 0.715618
+REQUEST 3 0.714497
+REQUEST 4 0.714666
+REQUEST 5 0.714529
+REQUEST 6 0.715563
+REQUEST 7 0.712783
+REQUEST 8 0.716013
+REQUEST 9 0.712371
+REQUEST 10 0.712378
+REQUEST 11 1.120523
+REQUEST 12 0.985689
+REQUEST 13 0.769851
+Traceback (most recent call last):
+  File "/Users/laji/Downloads/decision3-edge-deployment/latency-experiment/verify_http.py", line 52, in <module>
+    response, elapsed = call('/v1/systemone',body)
+  File "/Users/laji/Downloads/decision3-edge-deployment/latency-experiment/verify_http.py", line 25, in call
+    with urllib.request.urlopen(request, timeout=60 if payload else 3) as reply:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1375, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 1350, in do_open
+    r = h.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 285, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response

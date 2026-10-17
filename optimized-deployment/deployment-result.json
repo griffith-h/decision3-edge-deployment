@@ -1,0 +1,186 @@
+{
+  "verified_at_utc": "2026-10-17T11:07:03.726288+00:00",
+  "passed": true,
+  "release": "2026-10-17-three-thread-v1",
+  "host": "192.168.1.164",
+  "port": 8900,
+  "release_directory": "/opt/decision3-edge-optimized-20261017-v1",
+  "image_id": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 4998,
+        "norm_calls": 4386,
+        "conv_calls": 612
+      }
+    }
+  },
+  "containers": [
+    {
+      "name": "decision3-edge-optimized",
+      "id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+      "image_id": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+      "running": true,
+      "health": "healthy",
+      "started_at": "2026-10-17T11:04:28.007796263Z",
+      "restart_policy": "unless-stopped",
+      "exit_code": 0,
+      "oom_killed": false
+    },
+    {
+      "name": "decision3-edge-matmul",
+      "id": "19a30c8727fbc08008fe956fb8d5c6ce78988459e0f831084cfaa85390a1c93f",
+      "image_id": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+      "running": false,
+      "health": "unhealthy",
+      "started_at": "2026-10-17T11:03:45.569234493Z",
+      "restart_policy": "no",
+      "exit_code": 143,
+      "oom_killed": false
+    },
+    {
+      "name": "decision3-edge",
+      "id": "a1157559fc1826a981e6d57bed50828315b4f69e37620c40451761e50cbf5962",
+      "image_id": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+      "running": false,
+      "health": "unhealthy",
+      "started_at": "2026-10-13T07:52:23.520597674Z",
+      "restart_policy": "no",
+      "exit_code": 143,
+      "oom_killed": false
+    }
+  ],
+  "source_sha256": {
+    "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+    "run.sh": "255b024c192743418dc99ddfe247fdcd4f0287b10c5496266885e73dbe55150c",
+    "rollback.sh": "52d9f6acda6355bc9e52bd3c8a8610c522c22f2b6ad4e17f38ad192db0ae5f67",
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf",
+    "libd3_native_norm.so": "80813bfc1c7f0b5763af536815da9691e47680a460c391de46c16166678b0592",
+    "base/cpu_optimized_server.py": "060e45263bdd12955d62cdc812a592e37ae62d070a12f62dc1b4f43262fc72ab",
+    "base/rknn_linear.py": "2cc72b3a1ba7bd440e4a4b1d3fc612bdb181ce9a67853cf7493ca25e9098c0c1",
+    "base/libmatmul_bridge.so": "ab9437ebb49e6dfeac6a6de76c2468744a1de9b25fb97e6e8663befe92f79f41",
+    "base/sdk/librknnrt.so": "4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0"
+  },
+  "original_source_sha256_output": "08f5184534f7a450c34b7e08ac7e0ee24872b4b41b8cd16abe127a0b65bfba1c  /opt/decision3-edge-matmul/npu_server.py\n060e45263bdd12955d62cdc812a592e37ae62d070a12f62dc1b4f43262fc72ab  /opt/decision3-edge-matmul/cpu_optimized_server.py\n2cc72b3a1ba7bd440e4a4b1d3fc612bdb181ce9a67853cf7493ca25e9098c0c1  /opt/decision3-edge-matmul/rknn_linear.py\nab9437ebb49e6dfeac6a6de76c2468744a1de9b25fb97e6e8663befe92f79f41  /opt/decision3-edge-matmul/libmatmul_bridge.so\n4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0  /opt/decision3-edge-matmul/sdk/librknnrt.so\n",
+  "original_container_id_config_and_source_preserved": true,
+  "actual_rollback_and_reactivation_passed": true,
+  "staging_8901_closed": true,
+  "healthcheck": {
+    "Test": [
+      "CMD-SHELL",
+      "curl --fail --silent --show-error --max-time 5 --output /dev/null http://127.0.0.1:8900/health"
+    ],
+    "Interval": 30000000000,
+    "Timeout": 10000000000,
+    "StartPeriod": 180000000000
+  },
+  "environment": [
+    "OMP_NUM_THREADS=3",
+    "OMP_THREAD_LIMIT=3",
+    "OPENBLAS_NUM_THREADS=3",
+    "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "LANG=C.UTF-8",
+    "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+    "PYTHON_VERSION=3.12.15",
+    "PYTHON_SHA256=c2c4321961fab0fb999d66e0cecf521c2ab3994c7992873ea99e306c1094fd5a",
+    "PIP_NO_CACHE_DIR=1",
+    "PIP_DISABLE_PIP_VERSION_CHECK=1",
+    "PIP_ROOT_USER_ACTION=ignore",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONUNBUFFERED=1",
+    "USER=vllm-sr",
+    "VLLM_SRUN_CACHE_DIR=/app/models/model-runtime",
+    "TRITON_CACHE_DIR=/app/models/triton",
+    "MIOPEN_USER_DB_PATH=/app/models/miopen",
+    "MIOPEN_CUSTOM_CACHE_DIR=/app/models/miopen",
+    "HF_HUB_OFFLINE=1",
+    "TRANSFORMERS_OFFLINE=1"
+  ],
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime",
+      "Destination": "/models",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "volume",
+      "Name": "cc8ab408a3757dc3eb77a756587e2209478fb90f304123984cc68fe195b981bb",
+      "Source": "/var/lib/docker/volumes/cc8ab408a3757dc3eb77a756587e2209478fb90f304123984cc68fe195b981bb/_data",
+      "Destination": "/app/models",
+      "Driver": "local",
+      "Mode": "",
+      "RW": true,
+      "Propagation": ""
+    },
+    {
+      "Type": "bind",
+      "Source": "/opt/decision3-edge-optimized-20261017-v1",
+      "Destination": "/work",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/opt/decision3-edge-optimized-20261017-v1/base",
+      "Destination": "/base",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ],
+  "http_summary": {
+    "verified_at_utc": "2026-10-17T11:06:50.288280+00:00",
+    "passed": true,
+    "base_url": "http://192.168.1.164:8900",
+    "count": 100,
+    "median": 0.8592127289999993,
+    "mean": 0.8571355303800006,
+    "p95_nearest_rank": 0.8703417500000015,
+    "min": 0.7828745420000001,
+    "max": 0.8758772079999986,
+    "below_one_second": 100,
+    "invalid_request_422": true,
+    "scope": "Warm single question, 115 tokens, concurrency 1; 100 LAN HTTP calls, no request/result memoization, excludes model startup."
+  },
+  "verification_commands": [
+    "python3 -m py_compile optimized-deployment/*.py latency-experiment/verify_http.py",
+    "bash -n optimized-deployment/run.sh optimized-deployment/rollback.sh",
+    "python3 optimized-deployment/test_rollback.py",
+    "cc -Wall -Wextra -O3 -fPIC -shared -fopenmp -ffp-contract=off native_norm.c -o libd3_native_norm.so -lm",
+    "python3 latency-experiment/verify_http.py --count 3 --output deployment-staging-http.json",
+    "python3 optimized-deployment/verify_cutover.py",
+    "python3 latency-experiment/verify_http.py --base http://192.168.1.164:8900 --count 100 --output deployed-production-http.json"
+  ],
+  "limits": [
+    "115 tokens, single question, concurrency 1, loaded and warmed model only",
+    "No new full task accuracy evaluation; selected 7-case computational regression reused with identical kernel hashes",
+    "Fresh-machine guide compatibility steps statically reviewed, not fully rerun on a blank machine",
+    "Finite latency samples do not establish a hard 1-second bound; 200ms not achieved"
+  ]
+}

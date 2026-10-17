@@ -1,0 +1,1532 @@
+[
+  {
+    "sample": 0,
+    "seconds": 1.0773666000459343,
+    "components": {
+      "run": 0.3464753953740001,
+      "causal_conv1d_fn": 0.08385868347249925,
+      "torch_chunk_gated_delta_rule": 0.38145097019150853,
+      "scaled_dot_product_attention": 0.03736390615813434
+    },
+    "operators": {
+      "aten.transpose.int": 0.00228042877279222,
+      "aten.to.dtype": 0.015075018396601081,
+      "aten.mul.Tensor": 0.03515055566094816,
+      "aten.sum.dim_IntList": 0.004455897491425276,
+      "aten.add.Tensor": 0.00422647618688643,
+      "aten.rsqrt.default": 0.00045583443716168404,
+      "aten.pad.default": 0.014781494624912739,
+      "aten.unsqueeze.default": 0.0014952071942389011,
+      "aten.reshape.default": 0.005808762274682522,
+      "aten.ones.default": 0.0006172908470034599,
+      "aten.triu.default": 0.0005987761542201042,
+      "aten.cumsum.default": 0.0004019979387521744,
+      "aten.sub.Tensor": 0.0052953611593693495,
+      "aten.masked_fill.Scalar": 0.0030409707687795162,
+      "aten.exp.default": 0.004039673833176494,
+      "aten.matmul.default": 0.16912680421955884,
+      "aten.linalg_solve_triangular.default": 0.025142200756818056,
+      "aten.slice.Tensor": 0.0011685118079185486,
+      "aten.select.int": 0.002613740274682641,
+      "aten.empty_like.default": 0.0004914070013910532,
+      "aten.copy_.default": 0.006232493091374636
+    },
+    "slow_operators": [],
+    "user_seconds": 2.7655809999999974,
+    "system_seconds": 0.2634539999999994,
+    "voluntary_switches": 1321,
+    "involuntary_switches": 19,
+    "minor_faults": 30345,
+    "choice": "code"
+  },
+  {
+    "sample": 1,
+    "seconds": 1.1604789039120078,
+    "components": {
+      "run": 0.3586566459853202,
+      "causal_conv1d_fn": 0.08257620385847986,
+      "torch_chunk_gated_delta_rule": 0.4303381622303277,
+      "scaled_dot_product_attention": 0.039339455077424645
+    },
+    "operators": {
+      "aten.transpose.int": 0.0024543623439967632,
+      "aten.to.dtype": 0.015241417335346341,
+      "aten.mul.Tensor": 0.03614942217245698,
+      "aten.sum.dim_IntList": 0.004701813217252493,
+      "aten.add.Tensor": 0.004369182977825403,
+      "aten.rsqrt.default": 0.0004807831719517708,
+      "aten.pad.default": 0.016125792870298028,
+      "aten.unsqueeze.default": 0.0016550845466554165,
+      "aten.reshape.default": 0.0059399346355348825,
+      "aten.ones.default": 0.0007351748645305634,
+      "aten.triu.default": 0.0015427612233906984,
+      "aten.cumsum.default": 0.0004693504888564348,
+      "aten.sub.Tensor": 0.006354932440444827,
+      "aten.masked_fill.Scalar": 0.004143386380746961,
+      "aten.exp.default": 0.005075186723843217,
+      "aten.matmul.default": 0.20867281034588814,
+      "aten.linalg_solve_triangular.default": 0.025436655385419726,
+      "aten.slice.Tensor": 0.001309162238612771,
+      "aten.select.int": 0.002824491821229458,
+      "aten.empty_like.default": 0.00041593192145228386,
+      "aten.copy_.default": 0.006075174082070589
+    },
+    "slow_operators": [
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.03865941590629518,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      }
+    ],
+    "user_seconds": 3.0085989999999967,
+    "system_seconds": 0.20727099999999954,
+    "voluntary_switches": 1828,
+    "involuntary_switches": 106,
+    "minor_faults": 31238,
+    "choice": "code"
+  },
+  {
+    "sample": 2,
+    "seconds": 1.0821003220044076,
+    "components": {
+      "run": 0.34799577202647924,
+      "causal_conv1d_fn": 0.08116860059089959,
+      "torch_chunk_gated_delta_rule": 0.38537110877223313,
+      "scaled_dot_product_attention": 0.03795525524765253
+    },
+    "operators": {
+      "aten.transpose.int": 0.0022952998988330364,
+      "aten.to.dtype": 0.015050338814035058,
+      "aten.mul.Tensor": 0.037558606592938304,
+      "aten.sum.dim_IntList": 0.004338177386671305,
+      "aten.add.Tensor": 0.005669902544468641,
+      "aten.rsqrt.default": 0.00045473012141883373,
+      "aten.pad.default": 0.014505093218758702,
+      "aten.unsqueeze.default": 0.0015094471164047718,
+      "aten.reshape.default": 0.00582198821939528,
+      "aten.ones.default": 0.0006286657880991697,
+      "aten.triu.default": 0.0006145737133920193,
+      "aten.cumsum.default": 0.00038323504850268364,
+      "aten.sub.Tensor": 0.0053981204982846975,
+      "aten.masked_fill.Scalar": 0.002873749937862158,
+      "aten.exp.default": 0.0039503914304077625,
+      "aten.matmul.default": 0.1720123856794089,
+      "aten.linalg_solve_triangular.default": 0.025983928004279733,
+      "aten.slice.Tensor": 0.0012459740974009037,
+      "aten.select.int": 0.0027324636466801167,
+      "aten.empty_like.default": 0.00042533385567367077,
+      "aten.copy_.default": 0.006653348915278912
+    },
+    "slow_operators": [],
+    "user_seconds": 2.7951849999999965,
+    "system_seconds": 0.2560430000000009,
+    "voluntary_switches": 1374,
+    "involuntary_switches": 24,
+    "minor_faults": 30507,
+    "choice": "code"
+  },
+  {
+    "sample": 3,
+    "seconds": 1.6449959229212254,
+    "components": {
+      "run": 0.41518437676131725,
+      "causal_conv1d_fn": 0.10447855317033827,
+      "torch_chunk_gated_delta_rule": 0.7975670248270035,
+      "scaled_dot_product_attention": 0.03711287584155798
+    },
+    "operators": {
+      "aten.transpose.int": 0.0026796197053045034,
+      "aten.to.dtype": 0.02234854595735669,
+      "aten.mul.Tensor": 0.05184072908014059,
+      "aten.sum.dim_IntList": 0.008932289900258183,
+      "aten.add.Tensor": 0.005897212540730834,
+      "aten.rsqrt.default": 0.0005336839240044355,
+      "aten.pad.default": 0.020573967834934592,
+      "aten.unsqueeze.default": 0.0018962572794407606,
+      "aten.reshape.default": 0.007196401711553335,
+      "aten.ones.default": 0.000735775101929903,
+      "aten.triu.default": 0.001578453229740262,
+      "aten.cumsum.default": 0.0005162777379155159,
+      "aten.sub.Tensor": 0.008046641014516354,
+      "aten.masked_fill.Scalar": 0.005748504074290395,
+      "aten.exp.default": 0.0050329361110925674,
+      "aten.matmul.default": 0.45116170425899327,
+      "aten.linalg_solve_triangular.default": 0.1034718630835414,
+      "aten.slice.Tensor": 0.0014031867031008005,
+      "aten.select.int": 0.003150796750560403,
+      "aten.empty_like.default": 0.00046577583998441696,
+      "aten.copy_.default": 0.008513019420206547
+    },
+    "slow_operators": [
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.019412922905758023,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.02740445709787309,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.04773666406981647,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.045118752866983414,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.linalg_solve_triangular.default",
+        "seconds": 0.023260900052264333,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.02236001892015338,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            128,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.026017287047579885,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.04223534092307091,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.linalg_solve_triangular.default",
+        "seconds": 0.02372036804445088,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.02308601886034012,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            64,
+            128
+          ]
+        ]
+      }
+    ],
+    "user_seconds": 3.9236660000000043,
+    "system_seconds": 0.2936379999999996,
+    "voluntary_switches": 4847,
+    "involuntary_switches": 478,
+    "minor_faults": 33059,
+    "choice": "code"
+  },
+  {
+    "sample": 4,
+    "seconds": 1.0672183919232339,
+    "components": {
+      "run": 0.33862747717648745,
+      "causal_conv1d_fn": 0.08115510479547083,
+      "torch_chunk_gated_delta_rule": 0.387865288881585,
+      "scaled_dot_product_attention": 0.03859550366178155
+    },
+    "operators": {
+      "aten.transpose.int": 0.002472564810886979,
+      "aten.to.dtype": 0.015514991246163845,
+      "aten.mul.Tensor": 0.03413994167931378,
+      "aten.sum.dim_IntList": 0.004561490844935179,
+      "aten.add.Tensor": 0.004635046934708953,
+      "aten.rsqrt.default": 0.0005179322324693203,
+      "aten.pad.default": 0.015109155559912324,
+      "aten.unsqueeze.default": 0.001536788186058402,
+      "aten.reshape.default": 0.006564403884112835,
+      "aten.ones.default": 0.0006543351337313652,
+      "aten.triu.default": 0.0006379398982971907,
+      "aten.cumsum.default": 0.00038899481296539307,
+      "aten.sub.Tensor": 0.005197601392865181,
+      "aten.masked_fill.Scalar": 0.0027217359747737646,
+      "aten.exp.default": 0.00414953613653779,
+      "aten.matmul.default": 0.1749032000079751,
+      "aten.linalg_solve_triangular.default": 0.026180190965533257,
+      "aten.slice.Tensor": 0.001260104589164257,
+      "aten.select.int": 0.0028352115768939257,
+      "aten.empty_like.default": 0.0004432694986462593,
+      "aten.copy_.default": 0.005905505269765854
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8173689999999993,
+    "system_seconds": 0.21291299999999858,
+    "voluntary_switches": 1360,
+    "involuntary_switches": 14,
+    "minor_faults": 28401,
+    "choice": "code"
+  },
+  {
+    "sample": 5,
+    "seconds": 1.0831263838335872,
+    "components": {
+      "run": 0.34377008699811995,
+      "causal_conv1d_fn": 0.0825820560567081,
+      "torch_chunk_gated_delta_rule": 0.39500924199819565,
+      "scaled_dot_product_attention": 0.03958664322271943
+    },
+    "operators": {
+      "aten.transpose.int": 0.002549469005316496,
+      "aten.to.dtype": 0.015615881886333227,
+      "aten.mul.Tensor": 0.03527701157145202,
+      "aten.sum.dim_IntList": 0.004759732633829117,
+      "aten.add.Tensor": 0.004730222979560494,
+      "aten.rsqrt.default": 0.00046041817404329777,
+      "aten.pad.default": 0.015707114478573203,
+      "aten.unsqueeze.default": 0.0016304554883390665,
+      "aten.reshape.default": 0.00663555646315217,
+      "aten.ones.default": 0.0006612353026866913,
+      "aten.triu.default": 0.0006979783065617085,
+      "aten.cumsum.default": 0.000399937154725194,
+      "aten.sub.Tensor": 0.0055918286088854074,
+      "aten.masked_fill.Scalar": 0.0027724746614694595,
+      "aten.exp.default": 0.004241648130118847,
+      "aten.matmul.default": 0.17718873638659716,
+      "aten.linalg_solve_triangular.default": 0.026765504386276007,
+      "aten.slice.Tensor": 0.0013629430904984474,
+      "aten.select.int": 0.0029340076725929976,
+      "aten.empty_like.default": 0.0004168665036559105,
+      "aten.copy_.default": 0.005377845140174031
+    },
+    "slow_operators": [],
+    "user_seconds": 2.9109300000000005,
+    "system_seconds": 0.14930400000000077,
+    "voluntary_switches": 1320,
+    "involuntary_switches": 14,
+    "minor_faults": 29360,
+    "choice": "code"
+  },
+  {
+    "sample": 6,
+    "seconds": 1.0241377840284258,
+    "components": {
+      "run": 0.3216509707272053,
+      "causal_conv1d_fn": 0.07819448411464691,
+      "torch_chunk_gated_delta_rule": 0.37542129401117563,
+      "scaled_dot_product_attention": 0.0387299326248467
+    },
+    "operators": {
+      "aten.transpose.int": 0.002292854245752096,
+      "aten.to.dtype": 0.014168678550049663,
+      "aten.mul.Tensor": 0.03198162489570677,
+      "aten.sum.dim_IntList": 0.00413305894471705,
+      "aten.add.Tensor": 0.004167824750766158,
+      "aten.rsqrt.default": 0.0004539338406175375,
+      "aten.pad.default": 0.014207718195393682,
+      "aten.unsqueeze.default": 0.0015270281583070755,
+      "aten.reshape.default": 0.00612333370372653,
+      "aten.ones.default": 0.0006214820314198732,
+      "aten.triu.default": 0.0007252730429172516,
+      "aten.cumsum.default": 0.0003735637292265892,
+      "aten.sub.Tensor": 0.005317864008247852,
+      "aten.masked_fill.Scalar": 0.0026520132087171078,
+      "aten.exp.default": 0.0040301179978996515,
+      "aten.matmul.default": 0.1720002859365195,
+      "aten.linalg_solve_triangular.default": 0.026652437169104815,
+      "aten.slice.Tensor": 0.0011989765334874392,
+      "aten.select.int": 0.0025988274719566107,
+      "aten.empty_like.default": 0.00039576832205057144,
+      "aten.copy_.default": 0.005060496274381876
+    },
+    "slow_operators": [],
+    "user_seconds": 2.7248909999999995,
+    "system_seconds": 0.20759600000000056,
+    "voluntary_switches": 1245,
+    "involuntary_switches": 15,
+    "minor_faults": 28578,
+    "choice": "code"
+  },
+  {
+    "sample": 7,
+    "seconds": 1.0850182878784835,
+    "components": {
+      "run": 0.3434235241729766,
+      "causal_conv1d_fn": 0.08240445260889828,
+      "torch_chunk_gated_delta_rule": 0.3964109290391207,
+      "scaled_dot_product_attention": 0.038679965073242784
+    },
+    "operators": {
+      "aten.transpose.int": 0.0025419804733246565,
+      "aten.to.dtype": 0.015491132391616702,
+      "aten.mul.Tensor": 0.03529926296323538,
+      "aten.sum.dim_IntList": 0.0046903276816010475,
+      "aten.add.Tensor": 0.004704989027231932,
+      "aten.rsqrt.default": 0.00046375696547329426,
+      "aten.pad.default": 0.015274112112820148,
+      "aten.unsqueeze.default": 0.0015846062451601028,
+      "aten.reshape.default": 0.006725826300680637,
+      "aten.ones.default": 0.0006604900117963552,
+      "aten.triu.default": 0.0007123053073883057,
+      "aten.cumsum.default": 0.00040672975592315197,
+      "aten.sub.Tensor": 0.005547131644561887,
+      "aten.masked_fill.Scalar": 0.0028443424962460995,
+      "aten.exp.default": 0.004185634898021817,
+      "aten.matmul.default": 0.17818106012418866,
+      "aten.linalg_solve_triangular.default": 0.027426034910604358,
+      "aten.slice.Tensor": 0.0013004415668547153,
+      "aten.select.int": 0.0030102706514298916,
+      "aten.empty_like.default": 0.0004291150253266096,
+      "aten.copy_.default": 0.005762111861258745
+    },
+    "slow_operators": [],
+    "user_seconds": 2.840227999999996,
+    "system_seconds": 0.22763100000000058,
+    "voluntary_switches": 1376,
+    "involuntary_switches": 16,
+    "minor_faults": 29205,
+    "choice": "code"
+  },
+  {
+    "sample": 8,
+    "seconds": 1.0794063480570912,
+    "components": {
+      "run": 0.3401061606127769,
+      "causal_conv1d_fn": 0.08240321301855147,
+      "torch_chunk_gated_delta_rule": 0.39386827289126813,
+      "scaled_dot_product_attention": 0.03718563495203853
+    },
+    "operators": {
+      "aten.transpose.int": 0.002435649512335658,
+      "aten.to.dtype": 0.01520574907772243,
+      "aten.mul.Tensor": 0.035390801494941115,
+      "aten.sum.dim_IntList": 0.004666405031457543,
+      "aten.add.Tensor": 0.004568495787680149,
+      "aten.rsqrt.default": 0.00047745881602168083,
+      "aten.pad.default": 0.015366114908829331,
+      "aten.unsqueeze.default": 0.0015739686787128448,
+      "aten.reshape.default": 0.006360233994200826,
+      "aten.ones.default": 0.0007133700419217348,
+      "aten.triu.default": 0.0007043853402137756,
+      "aten.cumsum.default": 0.00039285304956138134,
+      "aten.sub.Tensor": 0.0060118024703115225,
+      "aten.masked_fill.Scalar": 0.0029452068265527487,
+      "aten.exp.default": 0.004097481025382876,
+      "aten.matmul.default": 0.17715195938944817,
+      "aten.linalg_solve_triangular.default": 0.0267752087675035,
+      "aten.slice.Tensor": 0.0013369268272072077,
+      "aten.select.int": 0.002923179417848587,
+      "aten.empty_like.default": 0.0004362044855952263,
+      "aten.copy_.default": 0.005840972298756242
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8834069999999983,
+    "system_seconds": 0.17335399999999979,
+    "voluntary_switches": 1326,
+    "involuntary_switches": 12,
+    "minor_faults": 31822,
+    "choice": "code"
+  },
+  {
+    "sample": 9,
+    "seconds": 0.9781556220259517,
+    "components": {
+      "run": 0.3049733671359718,
+      "causal_conv1d_fn": 0.07523635821416974,
+      "torch_chunk_gated_delta_rule": 0.3602756387554109,
+      "scaled_dot_product_attention": 0.03540465934202075
+    },
+    "operators": {
+      "aten.transpose.int": 0.002109383000060916,
+      "aten.to.dtype": 0.013318998971953988,
+      "aten.mul.Tensor": 0.029743280028924346,
+      "aten.sum.dim_IntList": 0.003778450656682253,
+      "aten.add.Tensor": 0.0038582056295126677,
+      "aten.rsqrt.default": 0.00045369844883680344,
+      "aten.pad.default": 0.012890596874058247,
+      "aten.unsqueeze.default": 0.0014661068562418222,
+      "aten.reshape.default": 0.005781563697382808,
+      "aten.ones.default": 0.0005963202565908432,
+      "aten.triu.default": 0.0006948499940335751,
+      "aten.cumsum.default": 0.00037390878424048424,
+      "aten.sub.Tensor": 0.004914159886538982,
+      "aten.masked_fill.Scalar": 0.0026518828235566616,
+      "aten.exp.default": 0.0038193005602806807,
+      "aten.matmul.default": 0.16646898188628256,
+      "aten.linalg_solve_triangular.default": 0.02528878441080451,
+      "aten.slice.Tensor": 0.0010884050279855728,
+      "aten.select.int": 0.0024200226180255413,
+      "aten.empty_like.default": 0.00043407781049609184,
+      "aten.copy_.default": 0.006043498869985342
+    },
+    "slow_operators": [],
+    "user_seconds": 2.6274960000000007,
+    "system_seconds": 0.19894899999999893,
+    "voluntary_switches": 1163,
+    "involuntary_switches": 14,
+    "minor_faults": 29201,
+    "choice": "code"
+  },
+  {
+    "sample": 10,
+    "seconds": 1.080402706982568,
+    "components": {
+      "run": 0.3432355022523552,
+      "causal_conv1d_fn": 0.08123895898461342,
+      "torch_chunk_gated_delta_rule": 0.38910771906375885,
+      "scaled_dot_product_attention": 0.03796984115615487
+    },
+    "operators": {
+      "aten.transpose.int": 0.00252392515540123,
+      "aten.to.dtype": 0.01502479542978108,
+      "aten.mul.Tensor": 0.034532831981778145,
+      "aten.sum.dim_IntList": 0.004586206749081612,
+      "aten.add.Tensor": 0.0044141842518001795,
+      "aten.rsqrt.default": 0.00047349557280540466,
+      "aten.pad.default": 0.015053644077852368,
+      "aten.unsqueeze.default": 0.0015994426794350147,
+      "aten.reshape.default": 0.006212218897417188,
+      "aten.ones.default": 0.0006431376095861197,
+      "aten.triu.default": 0.0007575822528451681,
+      "aten.cumsum.default": 0.0004073665477335453,
+      "aten.sub.Tensor": 0.005505761597305536,
+      "aten.masked_fill.Scalar": 0.002920640166848898,
+      "aten.exp.default": 0.0040899841114878654,
+      "aten.matmul.default": 0.17433035280555487,
+      "aten.linalg_solve_triangular.default": 0.02645685221068561,
+      "aten.slice.Tensor": 0.0013087636325508356,
+      "aten.select.int": 0.0029695758130401373,
+      "aten.empty_like.default": 0.0004984261468052864,
+      "aten.copy_.default": 0.0065060637425631285
+    },
+    "slow_operators": [],
+    "user_seconds": 2.872098000000001,
+    "system_seconds": 0.1831700000000005,
+    "voluntary_switches": 1375,
+    "involuntary_switches": 11,
+    "minor_faults": 29507,
+    "choice": "code"
+  },
+  {
+    "sample": 11,
+    "seconds": 1.0891251990105957,
+    "components": {
+      "run": 0.34350236179307103,
+      "causal_conv1d_fn": 0.08242736081592739,
+      "torch_chunk_gated_delta_rule": 0.3947244300507009,
+      "scaled_dot_product_attention": 0.03802766534499824
+    },
+    "operators": {
+      "aten.transpose.int": 0.002525970572605729,
+      "aten.to.dtype": 0.015425593825057149,
+      "aten.mul.Tensor": 0.03593754372559488,
+      "aten.sum.dim_IntList": 0.004731485387310386,
+      "aten.add.Tensor": 0.004595953738316894,
+      "aten.rsqrt.default": 0.0004765510093420744,
+      "aten.pad.default": 0.015426513506099582,
+      "aten.unsqueeze.default": 0.001563769532367587,
+      "aten.reshape.default": 0.0064849876798689365,
+      "aten.ones.default": 0.0006598851177841425,
+      "aten.triu.default": 0.0007790799718350172,
+      "aten.cumsum.default": 0.0004006684757769108,
+      "aten.sub.Tensor": 0.005766766145825386,
+      "aten.masked_fill.Scalar": 0.0029553642962127924,
+      "aten.exp.default": 0.00413182913325727,
+      "aten.matmul.default": 0.17628626874648035,
+      "aten.linalg_solve_triangular.default": 0.026650208048522472,
+      "aten.slice.Tensor": 0.0012472202070057392,
+      "aten.select.int": 0.0029342342168092728,
+      "aten.empty_like.default": 0.0004706396721303463,
+      "aten.copy_.default": 0.006384987849742174
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8417869999999965,
+    "system_seconds": 0.237858000000001,
+    "voluntary_switches": 1384,
+    "involuntary_switches": 13,
+    "minor_faults": 30733,
+    "choice": "code"
+  },
+  {
+    "sample": 12,
+    "seconds": 1.0645933419000357,
+    "components": {
+      "run": 0.33704258245415986,
+      "causal_conv1d_fn": 0.08198882988654077,
+      "torch_chunk_gated_delta_rule": 0.3884197960142046,
+      "scaled_dot_product_attention": 0.03856403613463044
+    },
+    "operators": {
+      "aten.transpose.int": 0.0023577152751386166,
+      "aten.to.dtype": 0.015078547410666943,
+      "aten.mul.Tensor": 0.034910636488348246,
+      "aten.sum.dim_IntList": 0.0045952764339745045,
+      "aten.add.Tensor": 0.004477042006328702,
+      "aten.rsqrt.default": 0.000458018621429801,
+      "aten.pad.default": 0.015445442404597998,
+      "aten.unsqueeze.default": 0.0015679884236305952,
+      "aten.reshape.default": 0.006375316064804792,
+      "aten.ones.default": 0.000665048835799098,
+      "aten.triu.default": 0.0007336200214922428,
+      "aten.cumsum.default": 0.0003876849077641964,
+      "aten.sub.Tensor": 0.0052428459748625755,
+      "aten.masked_fill.Scalar": 0.0027492560911923647,
+      "aten.exp.default": 0.004094224656000733,
+      "aten.matmul.default": 0.17546554538421333,
+      "aten.linalg_solve_triangular.default": 0.0258588008582592,
+      "aten.slice.Tensor": 0.0012400003615766764,
+      "aten.select.int": 0.002742077922448516,
+      "aten.empty_like.default": 0.00044395518489181995,
+      "aten.copy_.default": 0.006018633954226971
+    },
+    "slow_operators": [],
+    "user_seconds": 2.864599999999996,
+    "system_seconds": 0.1540379999999999,
+    "voluntary_switches": 1274,
+    "involuntary_switches": 11,
+    "minor_faults": 29032,
+    "choice": "code"
+  },
+  {
+    "sample": 13,
+    "seconds": 1.0161499069072306,
+    "components": {
+      "run": 0.32505251630209386,
+      "causal_conv1d_fn": 0.07816653000190854,
+      "torch_chunk_gated_delta_rule": 0.3683380044531077,
+      "scaled_dot_product_attention": 0.038403769955039024
+    },
+    "operators": {
+      "aten.transpose.int": 0.0022420992609113455,
+      "aten.to.dtype": 0.013783507281914353,
+      "aten.mul.Tensor": 0.031297864858061075,
+      "aten.sum.dim_IntList": 0.004016312770545483,
+      "aten.add.Tensor": 0.004018450854346156,
+      "aten.rsqrt.default": 0.00045252684503793716,
+      "aten.pad.default": 0.01446824986487627,
+      "aten.unsqueeze.default": 0.001515563577413559,
+      "aten.reshape.default": 0.0057513527572155,
+      "aten.ones.default": 0.0006122880149632692,
+      "aten.triu.default": 0.0006081608589738607,
+      "aten.cumsum.default": 0.00037739984691143036,
+      "aten.sub.Tensor": 0.004867060808464885,
+      "aten.masked_fill.Scalar": 0.0026638107374310493,
+      "aten.exp.default": 0.003872348228469491,
+      "aten.matmul.default": 0.1707311903592199,
+      "aten.linalg_solve_triangular.default": 0.02497016917914152,
+      "aten.slice.Tensor": 0.0011347222607582808,
+      "aten.select.int": 0.002498582936823368,
+      "aten.empty_like.default": 0.00041434215381741524,
+      "aten.copy_.default": 0.005520629929378629
+    },
+    "slow_operators": [],
+    "user_seconds": 2.752266000000006,
+    "system_seconds": 0.14747799999999955,
+    "voluntary_switches": 1198,
+    "involuntary_switches": 10,
+    "minor_faults": 27964,
+    "choice": "code"
+  },
+  {
+    "sample": 14,
+    "seconds": 1.0455433460883796,
+    "components": {
+      "run": 0.32950106100179255,
+      "causal_conv1d_fn": 0.07933881017379463,
+      "torch_chunk_gated_delta_rule": 0.38245148095302284,
+      "scaled_dot_product_attention": 0.03847708157263696
+    },
+    "operators": {
+      "aten.transpose.int": 0.002347306115552783,
+      "aten.to.dtype": 0.014671313110738993,
+      "aten.mul.Tensor": 0.033037479035556316,
+      "aten.sum.dim_IntList": 0.004280787892639637,
+      "aten.add.Tensor": 0.004447640851140022,
+      "aten.rsqrt.default": 0.0004521484952419996,
+      "aten.pad.default": 0.014382707653567195,
+      "aten.unsqueeze.default": 0.0015341341495513916,
+      "aten.reshape.default": 0.006580795859917998,
+      "aten.ones.default": 0.0006318008527159691,
+      "aten.triu.default": 0.0007277829572558403,
+      "aten.cumsum.default": 0.0003907738719135523,
+      "aten.sub.Tensor": 0.00492524541914463,
+      "aten.masked_fill.Scalar": 0.0026315413415431976,
+      "aten.exp.default": 0.0039844627026468515,
+      "aten.matmul.default": 0.17555371019989252,
+      "aten.linalg_solve_triangular.default": 0.0259756026789546,
+      "aten.slice.Tensor": 0.0013023889623582363,
+      "aten.select.int": 0.0027899215929210186,
+      "aten.empty_like.default": 0.0004294896498322487,
+      "aten.copy_.default": 0.005251025082543492
+    },
+    "slow_operators": [],
+    "user_seconds": 2.7948889999999977,
+    "system_seconds": 0.18780399999999986,
+    "voluntary_switches": 1300,
+    "involuntary_switches": 9,
+    "minor_faults": 28437,
+    "choice": "code"
+  },
+  {
+    "sample": 15,
+    "seconds": 1.8446542359888554,
+    "components": {
+      "run": 0.3844021486584097,
+      "causal_conv1d_fn": 0.08947637816891074,
+      "torch_chunk_gated_delta_rule": 1.0680060486774892,
+      "scaled_dot_product_attention": 0.040637019788846374
+    },
+    "operators": {
+      "aten.transpose.int": 0.0024835786316543818,
+      "aten.to.dtype": 0.018084425246343017,
+      "aten.mul.Tensor": 0.04086496704258025,
+      "aten.sum.dim_IntList": 0.005300321616232395,
+      "aten.add.Tensor": 0.005031918874010444,
+      "aten.rsqrt.default": 0.0005109442863613367,
+      "aten.pad.default": 0.018643468618392944,
+      "aten.unsqueeze.default": 0.001636339584365487,
+      "aten.reshape.default": 0.007531811250373721,
+      "aten.ones.default": 0.0006779166869819164,
+      "aten.triu.default": 0.0013209548778831959,
+      "aten.cumsum.default": 0.0004227359313517809,
+      "aten.sub.Tensor": 0.007487025111913681,
+      "aten.masked_fill.Scalar": 0.004234283929690719,
+      "aten.exp.default": 0.005148703930899501,
+      "aten.matmul.default": 0.7971306466497481,
+      "aten.linalg_solve_triangular.default": 0.05902283592149615,
+      "aten.slice.Tensor": 0.0013003586791455746,
+      "aten.select.int": 0.0031907844822853804,
+      "aten.empty_like.default": 0.00044005271047353745,
+      "aten.copy_.default": 0.006775127025321126
+    },
+    "slow_operators": [
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.05370267294347286,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.049583627143874764,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            2,
+            128,
+            64
+          ]
+        ]
+      },
+      {
+        "operator": "aten.linalg_solve_triangular.default",
+        "seconds": 0.024064177880063653,
+        "shapes": [
+          [
+            1,
+            16,
+            2,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            2,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.02524206112138927,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            64
+          ],
+          [
+            1,
+            16,
+            64,
+            128
+          ]
+        ]
+      },
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.49682880099862814,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            128,
+            128
+          ]
+        ]
+      }
+    ],
+    "user_seconds": 4.802571999999998,
+    "system_seconds": 0.22740899999999975,
+    "voluntary_switches": 3072,
+    "involuntary_switches": 438,
+    "minor_faults": 30968,
+    "choice": "code"
+  },
+  {
+    "sample": 16,
+    "seconds": 1.0455528351012617,
+    "components": {
+      "run": 0.3313696056138724,
+      "causal_conv1d_fn": 0.07920308480970562,
+      "torch_chunk_gated_delta_rule": 0.3794078091159463,
+      "scaled_dot_product_attention": 0.03936472465284169
+    },
+    "operators": {
+      "aten.transpose.int": 0.002374090254306793,
+      "aten.to.dtype": 0.014531231950968504,
+      "aten.mul.Tensor": 0.03237887658178806,
+      "aten.sum.dim_IntList": 0.004334933357313275,
+      "aten.add.Tensor": 0.004251672187820077,
+      "aten.rsqrt.default": 0.0004440180491656065,
+      "aten.pad.default": 0.014371422119438648,
+      "aten.unsqueeze.default": 0.0015333283226937056,
+      "aten.reshape.default": 0.0061179352924227715,
+      "aten.ones.default": 0.000636260025203228,
+      "aten.triu.default": 0.0006646544206887484,
+      "aten.cumsum.default": 0.00040946202352643013,
+      "aten.sub.Tensor": 0.004893103847280145,
+      "aten.masked_fill.Scalar": 0.0026560439728200436,
+      "aten.exp.default": 0.004054501885548234,
+      "aten.matmul.default": 0.17420529713854194,
+      "aten.linalg_solve_triangular.default": 0.026444729883223772,
+      "aten.slice.Tensor": 0.0013090756256133318,
+      "aten.select.int": 0.002746573882177472,
+      "aten.empty_like.default": 0.00044544111005961895,
+      "aten.copy_.default": 0.005339943105354905
+    },
+    "slow_operators": [],
+    "user_seconds": 2.818635999999998,
+    "system_seconds": 0.16428499999999957,
+    "voluntary_switches": 1299,
+    "involuntary_switches": 12,
+    "minor_faults": 26990,
+    "choice": "code"
+  },
+  {
+    "sample": 17,
+    "seconds": 1.0827773821074516,
+    "components": {
+      "run": 0.3493416076526046,
+      "causal_conv1d_fn": 0.08262960612773895,
+      "torch_chunk_gated_delta_rule": 0.3882773518562317,
+      "scaled_dot_product_attention": 0.03820748580619693
+    },
+    "operators": {
+      "aten.transpose.int": 0.0023205445613712072,
+      "aten.to.dtype": 0.014950295211747289,
+      "aten.mul.Tensor": 0.03555990685708821,
+      "aten.sum.dim_IntList": 0.004556459141895175,
+      "aten.add.Tensor": 0.004525939468294382,
+      "aten.rsqrt.default": 0.00048455107025802135,
+      "aten.pad.default": 0.015816281316801906,
+      "aten.unsqueeze.default": 0.0015378727111965418,
+      "aten.reshape.default": 0.007064175792038441,
+      "aten.ones.default": 0.0006368090398609638,
+      "aten.triu.default": 0.000684018712490797,
+      "aten.cumsum.default": 0.00038580060936510563,
+      "aten.sub.Tensor": 0.005380393238738179,
+      "aten.masked_fill.Scalar": 0.002774190856143832,
+      "aten.exp.default": 0.004179942887276411,
+      "aten.matmul.default": 0.17449313937686384,
+      "aten.linalg_solve_triangular.default": 0.027095103403553367,
+      "aten.slice.Tensor": 0.0012015087995678186,
+      "aten.select.int": 0.002668268047273159,
+      "aten.empty_like.default": 0.00036597601138055325,
+      "aten.copy_.default": 0.005203440552577376
+    },
+    "slow_operators": [],
+    "user_seconds": 2.9493250000000018,
+    "system_seconds": 0.10432300000000083,
+    "voluntary_switches": 1288,
+    "involuntary_switches": 19,
+    "minor_faults": 31254,
+    "choice": "code"
+  },
+  {
+    "sample": 18,
+    "seconds": 1.0080456589348614,
+    "components": {
+      "run": 0.316896433243528,
+      "causal_conv1d_fn": 0.0783723162021488,
+      "torch_chunk_gated_delta_rule": 0.366491072345525,
+      "scaled_dot_product_attention": 0.03682254394516349
+    },
+    "operators": {
+      "aten.transpose.int": 0.0022470068652182817,
+      "aten.to.dtype": 0.014538101851940155,
+      "aten.mul.Tensor": 0.03156645502895117,
+      "aten.sum.dim_IntList": 0.004017320927232504,
+      "aten.add.Tensor": 0.003927938872948289,
+      "aten.rsqrt.default": 0.0004695397801697254,
+      "aten.pad.default": 0.013918161857873201,
+      "aten.unsqueeze.default": 0.0014608032070100307,
+      "aten.reshape.default": 0.006095422664657235,
+      "aten.ones.default": 0.0006314271595329046,
+      "aten.triu.default": 0.0006435122340917587,
+      "aten.cumsum.default": 0.00037745176814496517,
+      "aten.sub.Tensor": 0.0049606370739638805,
+      "aten.masked_fill.Scalar": 0.0027289199642837048,
+      "aten.exp.default": 0.0039159380830824375,
+      "aten.matmul.default": 0.16658605937846005,
+      "aten.linalg_solve_triangular.default": 0.025668537942692637,
+      "aten.slice.Tensor": 0.0011278395541012287,
+      "aten.select.int": 0.0024670171551406384,
+      "aten.empty_like.default": 0.00041306111961603165,
+      "aten.copy_.default": 0.005837698467075825
+    },
+    "slow_operators": [],
+    "user_seconds": 2.6892449999999997,
+    "system_seconds": 0.20091099999999962,
+    "voluntary_switches": 1192,
+    "involuntary_switches": 15,
+    "minor_faults": 29785,
+    "choice": "code"
+  },
+  {
+    "sample": 19,
+    "seconds": 1.069214031798765,
+    "components": {
+      "run": 0.34346451074816287,
+      "causal_conv1d_fn": 0.08041479904204607,
+      "torch_chunk_gated_delta_rule": 0.382700591115281,
+      "scaled_dot_product_attention": 0.038563135312870145
+    },
+    "operators": {
+      "aten.transpose.int": 0.002331346971914172,
+      "aten.to.dtype": 0.01494657015427947,
+      "aten.mul.Tensor": 0.03335682558827102,
+      "aten.sum.dim_IntList": 0.004413488088175654,
+      "aten.add.Tensor": 0.0044261927250772715,
+      "aten.rsqrt.default": 0.00048547424376010895,
+      "aten.pad.default": 0.014672832796350121,
+      "aten.unsqueeze.default": 0.001514531672000885,
+      "aten.reshape.default": 0.006102194776758552,
+      "aten.ones.default": 0.0006652288138866425,
+      "aten.triu.default": 0.0006694807671010494,
+      "aten.cumsum.default": 0.0004014598671346903,
+      "aten.sub.Tensor": 0.005419723689556122,
+      "aten.masked_fill.Scalar": 0.002834418322890997,
+      "aten.exp.default": 0.003975595347583294,
+      "aten.matmul.default": 0.17381731048226357,
+      "aten.linalg_solve_triangular.default": 0.02587125706486404,
+      "aten.slice.Tensor": 0.001194188604131341,
+      "aten.select.int": 0.002745583886280656,
+      "aten.empty_like.default": 0.00046674907207489014,
+      "aten.copy_.default": 0.005948417820036411
+    },
+    "slow_operators": [],
+    "user_seconds": 2.822195999999991,
+    "system_seconds": 0.2054330000000011,
+    "voluntary_switches": 1299,
+    "involuntary_switches": 20,
+    "minor_faults": 30933,
+    "choice": "code"
+  },
+  {
+    "sample": 20,
+    "seconds": 1.0705514238215983,
+    "components": {
+      "run": 0.34749823343008757,
+      "causal_conv1d_fn": 0.0824101169127971,
+      "torch_chunk_gated_delta_rule": 0.37830762076191604,
+      "scaled_dot_product_attention": 0.03812360903248191
+    },
+    "operators": {
+      "aten.transpose.int": 0.002198244212195277,
+      "aten.to.dtype": 0.015109328785911202,
+      "aten.mul.Tensor": 0.03545903507620096,
+      "aten.sum.dim_IntList": 0.00434714206494391,
+      "aten.add.Tensor": 0.004243090283125639,
+      "aten.rsqrt.default": 0.0004523349925875664,
+      "aten.pad.default": 0.01483428617939353,
+      "aten.unsqueeze.default": 0.001518466044217348,
+      "aten.reshape.default": 0.0060725954826921225,
+      "aten.ones.default": 0.0006432062946259975,
+      "aten.triu.default": 0.0007362354081124067,
+      "aten.cumsum.default": 0.0003747108858078718,
+      "aten.sub.Tensor": 0.00517918705008924,
+      "aten.masked_fill.Scalar": 0.0028961205389350653,
+      "aten.exp.default": 0.003947235411033034,
+      "aten.matmul.default": 0.16909991158172488,
+      "aten.linalg_solve_triangular.default": 0.026159984059631824,
+      "aten.slice.Tensor": 0.0012290473096072674,
+      "aten.select.int": 0.002625273074954748,
+      "aten.empty_like.default": 0.00044703599996864796,
+      "aten.copy_.default": 0.006173630943521857
+    },
+    "slow_operators": [],
+    "user_seconds": 2.816423999999998,
+    "system_seconds": 0.20046799999999898,
+    "voluntary_switches": 1269,
+    "involuntary_switches": 7,
+    "minor_faults": 29084,
+    "choice": "code"
+  },
+  {
+    "sample": 21,
+    "seconds": 1.0337228109128773,
+    "components": {
+      "run": 0.32775147375650704,
+      "causal_conv1d_fn": 0.08096759580075741,
+      "torch_chunk_gated_delta_rule": 0.37448694836348295,
+      "scaled_dot_product_attention": 0.03672529989853501
+    },
+    "operators": {
+      "aten.transpose.int": 0.002189286518841982,
+      "aten.to.dtype": 0.014569988008588552,
+      "aten.mul.Tensor": 0.03386696078814566,
+      "aten.sum.dim_IntList": 0.004212958971038461,
+      "aten.add.Tensor": 0.004051310010254383,
+      "aten.rsqrt.default": 0.0004855284933000803,
+      "aten.pad.default": 0.014282694784924388,
+      "aten.unsqueeze.default": 0.0014822189696133137,
+      "aten.reshape.default": 0.006241557188332081,
+      "aten.ones.default": 0.0006540738977491856,
+      "aten.triu.default": 0.0006517602596431971,
+      "aten.cumsum.default": 0.00039094523526728153,
+      "aten.sub.Tensor": 0.005121222464367747,
+      "aten.masked_fill.Scalar": 0.0028950341511517763,
+      "aten.exp.default": 0.0038950766902416945,
+      "aten.matmul.default": 0.16926300269551575,
+      "aten.linalg_solve_triangular.default": 0.02620754693634808,
+      "aten.slice.Tensor": 0.0011487859301269054,
+      "aten.select.int": 0.002505549229681492,
+      "aten.empty_like.default": 0.0004798353184014559,
+      "aten.copy_.default": 0.006249494152143598
+    },
+    "slow_operators": [],
+    "user_seconds": 2.818805999999995,
+    "system_seconds": 0.12523200000000045,
+    "voluntary_switches": 1228,
+    "involuntary_switches": 11,
+    "minor_faults": 29410,
+    "choice": "code"
+  },
+  {
+    "sample": 22,
+    "seconds": 1.058189240982756,
+    "components": {
+      "run": 0.33698620134964585,
+      "causal_conv1d_fn": 0.07820826605893672,
+      "torch_chunk_gated_delta_rule": 0.3815752291120589,
+      "scaled_dot_product_attention": 0.03898726380430162
+    },
+    "operators": {
+      "aten.transpose.int": 0.0022671723272651434,
+      "aten.to.dtype": 0.013996244873851538,
+      "aten.mul.Tensor": 0.03374194959178567,
+      "aten.sum.dim_IntList": 0.0041318549774587154,
+      "aten.add.Tensor": 0.004496743204072118,
+      "aten.rsqrt.default": 0.0004437258467078209,
+      "aten.pad.default": 0.014630594523623586,
+      "aten.unsqueeze.default": 0.001517079072073102,
+      "aten.reshape.default": 0.006452433532103896,
+      "aten.ones.default": 0.000652258051559329,
+      "aten.triu.default": 0.0007343292236328125,
+      "aten.cumsum.default": 0.0003842990845441818,
+      "aten.sub.Tensor": 0.005071935011073947,
+      "aten.masked_fill.Scalar": 0.00302158878184855,
+      "aten.exp.default": 0.0039057584945112467,
+      "aten.matmul.default": 0.17486391472630203,
+      "aten.linalg_solve_triangular.default": 0.025771565036848187,
+      "aten.slice.Tensor": 0.0011506460141390562,
+      "aten.select.int": 0.002567470772191882,
+      "aten.empty_like.default": 0.0004697688855230808,
+      "aten.copy_.default": 0.006218199152499437
+    },
+    "slow_operators": [],
+    "user_seconds": 2.6972530000000035,
+    "system_seconds": 0.30902900000000066,
+    "voluntary_switches": 1293,
+    "involuntary_switches": 11,
+    "minor_faults": 34074,
+    "choice": "code"
+  },
+  {
+    "sample": 23,
+    "seconds": 1.0484292628243566,
+    "components": {
+      "run": 0.33599395328201354,
+      "causal_conv1d_fn": 0.08004237897694111,
+      "torch_chunk_gated_delta_rule": 0.3762060117442161,
+      "scaled_dot_product_attention": 0.03824228700250387
+    },
+    "operators": {
+      "aten.transpose.int": 0.002196589484810829,
+      "aten.to.dtype": 0.014712134376168251,
+      "aten.mul.Tensor": 0.033570811385288835,
+      "aten.sum.dim_IntList": 0.0043052262626588345,
+      "aten.add.Tensor": 0.004273048369213939,
+      "aten.rsqrt.default": 0.00044934870675206184,
+      "aten.pad.default": 0.014662771485745907,
+      "aten.unsqueeze.default": 0.0014999974519014359,
+      "aten.reshape.default": 0.0062892260029911995,
+      "aten.ones.default": 0.0006470629014074802,
+      "aten.triu.default": 0.0006698730867356062,
+      "aten.cumsum.default": 0.00038224179297685623,
+      "aten.sub.Tensor": 0.0055024148896336555,
+      "aten.masked_fill.Scalar": 0.00280071166343987,
+      "aten.exp.default": 0.003953891573473811,
+      "aten.matmul.default": 0.1702896635979414,
+      "aten.linalg_solve_triangular.default": 0.02524540387094021,
+      "aten.slice.Tensor": 0.0011569024063646793,
+      "aten.select.int": 0.0026374594308435917,
+      "aten.empty_like.default": 0.00045183789916336536,
+      "aten.copy_.default": 0.006100471829995513
+    },
+    "slow_operators": [],
+    "user_seconds": 2.736165999999997,
+    "system_seconds": 0.24016199999999976,
+    "voluntary_switches": 1236,
+    "involuntary_switches": 10,
+    "minor_faults": 30578,
+    "choice": "code"
+  },
+  {
+    "sample": 24,
+    "seconds": 1.0183820559177548,
+    "components": {
+      "run": 0.3219960769638419,
+      "causal_conv1d_fn": 0.07733918586745858,
+      "torch_chunk_gated_delta_rule": 0.36731226183474064,
+      "scaled_dot_product_attention": 0.03703144774772227
+    },
+    "operators": {
+      "aten.transpose.int": 0.0021896050311625004,
+      "aten.to.dtype": 0.013799272244796157,
+      "aten.mul.Tensor": 0.03158250544220209,
+      "aten.sum.dim_IntList": 0.004005602095276117,
+      "aten.add.Tensor": 0.003894943045452237,
+      "aten.rsqrt.default": 0.00044664437882602215,
+      "aten.pad.default": 0.013213894097134471,
+      "aten.unsqueeze.default": 0.0014811009168624878,
+      "aten.reshape.default": 0.005965729709714651,
+      "aten.ones.default": 0.0006088071968406439,
+      "aten.triu.default": 0.0006111972033977509,
+      "aten.cumsum.default": 0.0003788725007325411,
+      "aten.sub.Tensor": 0.005088247824460268,
+      "aten.masked_fill.Scalar": 0.0027534267865121365,
+      "aten.exp.default": 0.00385676440782845,
+      "aten.matmul.default": 0.1678905466105789,
+      "aten.linalg_solve_triangular.default": 0.02587339747697115,
+      "aten.slice.Tensor": 0.0011186094488948584,
+      "aten.select.int": 0.002559927524998784,
+      "aten.empty_like.default": 0.0004317255225032568,
+      "aten.copy_.default": 0.006112801376730204
+    },
+    "slow_operators": [],
+    "user_seconds": 2.6802530000000075,
+    "system_seconds": 0.23415699999999973,
+    "voluntary_switches": 1237,
+    "involuntary_switches": 10,
+    "minor_faults": 29685,
+    "choice": "code"
+  },
+  {
+    "sample": 25,
+    "seconds": 1.0920746789779514,
+    "components": {
+      "run": 0.344266310101375,
+      "causal_conv1d_fn": 0.08266802341677248,
+      "torch_chunk_gated_delta_rule": 0.3951299178879708,
+      "scaled_dot_product_attention": 0.038791102124378085
+    },
+    "operators": {
+      "aten.transpose.int": 0.0024632809218019247,
+      "aten.to.dtype": 0.015525168739259243,
+      "aten.mul.Tensor": 0.03586545982398093,
+      "aten.sum.dim_IntList": 0.004703229293227196,
+      "aten.add.Tensor": 0.0046138043981045485,
+      "aten.rsqrt.default": 0.00046040373854339123,
+      "aten.pad.default": 0.015192026039585471,
+      "aten.unsqueeze.default": 0.0015655930619686842,
+      "aten.reshape.default": 0.006535292835906148,
+      "aten.ones.default": 0.0006598890759050846,
+      "aten.triu.default": 0.0007822026964277029,
+      "aten.cumsum.default": 0.00041035725735127926,
+      "aten.sub.Tensor": 0.005736290477216244,
+      "aten.masked_fill.Scalar": 0.0028972518630325794,
+      "aten.exp.default": 0.004181538475677371,
+      "aten.matmul.default": 0.17659742524847388,
+      "aten.linalg_solve_triangular.default": 0.026429715799167752,
+      "aten.slice.Tensor": 0.0012721552047878504,
+      "aten.select.int": 0.0029804976657032967,
+      "aten.empty_like.default": 0.0004848879761993885,
+      "aten.copy_.default": 0.006368504837155342
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8931929999999966,
+    "system_seconds": 0.19220999999999933,
+    "voluntary_switches": 1387,
+    "involuntary_switches": 9,
+    "minor_faults": 31038,
+    "choice": "code"
+  },
+  {
+    "sample": 26,
+    "seconds": 1.1304616988636553,
+    "components": {
+      "run": 0.3500139571260661,
+      "causal_conv1d_fn": 0.08395453472621739,
+      "torch_chunk_gated_delta_rule": 0.42031469498761,
+      "scaled_dot_product_attention": 0.03844347572885454
+    },
+    "operators": {
+      "aten.transpose.int": 0.002504742471501231,
+      "aten.to.dtype": 0.015587705187499523,
+      "aten.mul.Tensor": 0.034670088440179825,
+      "aten.sum.dim_IntList": 0.004792195977643132,
+      "aten.add.Tensor": 0.00459537236019969,
+      "aten.rsqrt.default": 0.0006322457920759916,
+      "aten.pad.default": 0.01513591525144875,
+      "aten.unsqueeze.default": 0.0015618656761944294,
+      "aten.reshape.default": 0.006322063039988279,
+      "aten.ones.default": 0.0006634860765188932,
+      "aten.triu.default": 0.0005148351192474365,
+      "aten.cumsum.default": 0.0004220318514853716,
+      "aten.sub.Tensor": 0.005213405238464475,
+      "aten.masked_fill.Scalar": 0.002710800152271986,
+      "aten.exp.default": 0.004080214770510793,
+      "aten.matmul.default": 0.20133682945743203,
+      "aten.linalg_solve_triangular.default": 0.029201837023720145,
+      "aten.slice.Tensor": 0.0012457207776606083,
+      "aten.select.int": 0.0028648574370890856,
+      "aten.empty_like.default": 0.0004605043213814497,
+      "aten.copy_.default": 0.006957948906347156
+    },
+    "slow_operators": [
+      {
+        "operator": "aten.matmul.default",
+        "seconds": 0.017690124223008752,
+        "shapes": [
+          [
+            1,
+            16,
+            64,
+            128
+          ],
+          [
+            1,
+            16,
+            128,
+            128
+          ]
+        ]
+      }
+    ],
+    "user_seconds": 2.9278869999999984,
+    "system_seconds": 0.24479599999999913,
+    "voluntary_switches": 1531,
+    "involuntary_switches": 40,
+    "minor_faults": 30825,
+    "choice": "code"
+  },
+  {
+    "sample": 27,
+    "seconds": 1.1658122120425105,
+    "components": {
+      "run": 0.35757693951018155,
+      "causal_conv1d_fn": 0.08448954555206001,
+      "torch_chunk_gated_delta_rule": 0.4251970711629838,
+      "scaled_dot_product_attention": 0.03762003965675831
+    },
+    "operators": {
+      "aten.transpose.int": 0.0025831316597759724,
+      "aten.to.dtype": 0.017637801356613636,
+      "aten.mul.Tensor": 0.03844482032582164,
+      "aten.sum.dim_IntList": 0.004808824043720961,
+      "aten.add.Tensor": 0.004958367208018899,
+      "aten.rsqrt.default": 0.000540589913725853,
+      "aten.pad.default": 0.01566018909215927,
+      "aten.unsqueeze.default": 0.0016400953754782677,
+      "aten.reshape.default": 0.007182239321991801,
+      "aten.ones.default": 0.0006772009655833244,
+      "aten.triu.default": 0.0006481013260781765,
+      "aten.cumsum.default": 0.0003845752216875553,
+      "aten.sub.Tensor": 0.010383810615167022,
+      "aten.masked_fill.Scalar": 0.0029267047066241503,
+      "aten.exp.default": 0.0041960603557527065,
+      "aten.matmul.default": 0.1931531250011176,
+      "aten.linalg_solve_triangular.default": 0.027647636365145445,
+      "aten.slice.Tensor": 0.0012472127564251423,
+      "aten.select.int": 0.002732919529080391,
+      "aten.empty_like.default": 0.0004651709459722042,
+      "aten.copy_.default": 0.006767976563423872
+    },
+    "slow_operators": [],
+    "user_seconds": 2.958039999999997,
+    "system_seconds": 0.23503399999999885,
+    "voluntary_switches": 1863,
+    "involuntary_switches": 209,
+    "minor_faults": 32254,
+    "choice": "code"
+  },
+  {
+    "sample": 28,
+    "seconds": 1.0837545488029718,
+    "components": {
+      "run": 0.3458886416628957,
+      "causal_conv1d_fn": 0.08080243226140738,
+      "torch_chunk_gated_delta_rule": 0.38956351741217077,
+      "scaled_dot_product_attention": 0.03866789024323225
+    },
+    "operators": {
+      "aten.transpose.int": 0.0023520959075540304,
+      "aten.to.dtype": 0.015171252889558673,
+      "aten.mul.Tensor": 0.03479891852475703,
+      "aten.sum.dim_IntList": 0.004368936410173774,
+      "aten.add.Tensor": 0.0044794108252972364,
+      "aten.rsqrt.default": 0.0004534402396529913,
+      "aten.pad.default": 0.01456250948831439,
+      "aten.unsqueeze.default": 0.00156520982272923,
+      "aten.reshape.default": 0.006223196862265468,
+      "aten.ones.default": 0.0006596099119633436,
+      "aten.triu.default": 0.0011224914342164993,
+      "aten.cumsum.default": 0.0004323318134993315,
+      "aten.sub.Tensor": 0.005542043363675475,
+      "aten.masked_fill.Scalar": 0.002930128015577793,
+      "aten.exp.default": 0.004051106050610542,
+      "aten.matmul.default": 0.17514698510058224,
+      "aten.linalg_solve_triangular.default": 0.026013454655185342,
+      "aten.slice.Tensor": 0.0012504311744123697,
+      "aten.select.int": 0.0028058597818017006,
+      "aten.empty_like.default": 0.00048025394789874554,
+      "aten.copy_.default": 0.0068601444363594055
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8438040000000058,
+    "system_seconds": 0.20813099999999984,
+    "voluntary_switches": 1346,
+    "involuntary_switches": 29,
+    "minor_faults": 31446,
+    "choice": "code"
+  },
+  {
+    "sample": 29,
+    "seconds": 1.0880345141049474,
+    "components": {
+      "run": 0.34182203374803066,
+      "causal_conv1d_fn": 0.0822579690720886,
+      "torch_chunk_gated_delta_rule": 0.3965360480360687,
+      "scaled_dot_product_attention": 0.03754698811098933
+    },
+    "operators": {
+      "aten.transpose.int": 0.002516958164051175,
+      "aten.to.dtype": 0.01546779740601778,
+      "aten.mul.Tensor": 0.034962983103469014,
+      "aten.sum.dim_IntList": 0.004803064977750182,
+      "aten.add.Tensor": 0.004593946738168597,
+      "aten.rsqrt.default": 0.0004641306586563587,
+      "aten.pad.default": 0.014803315280005336,
+      "aten.unsqueeze.default": 0.0015998578164726496,
+      "aten.reshape.default": 0.006477318471297622,
+      "aten.ones.default": 0.0006548590026795864,
+      "aten.triu.default": 0.0006237437482923269,
+      "aten.cumsum.default": 0.0003959194291383028,
+      "aten.sub.Tensor": 0.005731497658416629,
+      "aten.masked_fill.Scalar": 0.002986339619383216,
+      "aten.exp.default": 0.00407577003352344,
+      "aten.matmul.default": 0.17713225493207574,
+      "aten.linalg_solve_triangular.default": 0.02735127368941903,
+      "aten.slice.Tensor": 0.0012640277855098248,
+      "aten.select.int": 0.002933449810370803,
+      "aten.empty_like.default": 0.00046436674892902374,
+      "aten.copy_.default": 0.00746654556132853
+    },
+    "slow_operators": [],
+    "user_seconds": 2.8567310000000106,
+    "system_seconds": 0.2275949999999991,
+    "voluntary_switches": 1389,
+    "involuntary_switches": 12,
+    "minor_faults": 31714,
+    "choice": "code"
+  }
+]

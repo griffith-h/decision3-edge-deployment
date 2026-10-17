@@ -1,0 +1,171 @@
+{
+  "created_at_utc": "2026-10-17T09:51:20.327280+00:00",
+  "conclusion": "Subsecond candidate demonstrated, but consistent subsecond latency not established in fresh-process retests; existing service retained.",
+  "model_structure_and_weights_changed": false,
+  "checkpoint_full_hash_verification": true,
+  "text_layers": 12,
+  "attention_mode": "noncausal_full_attention",
+  "reverse_engineering_performed": false,
+  "new_sdk_compilation_performed": false,
+  "profile_original_rknn_seconds": {
+    "prepare": 0.0016713179647922516,
+    "rmsnorm": 0.09559886204078794,
+    "run": 0.3306583557277918,
+    "causal_conv1d_fn": 1.2071504942141473,
+    "torch_chunk_gated_delta_rule": 0.3474561832845211,
+    "scaled_dot_product_attention": 0.15317742503248155,
+    "respond": 6.915396079421043e-05,
+    "total": 2.266873886110261,
+    "other": 0.13109209388494492
+  },
+  "non_npu_seconds": 1.9362155303824693,
+  "implementation_changes": [
+    "Equivalent CPU causal depthwise convolution with FP32 accumulation and original BF16 boundary before SiLU.",
+    "Keep causal chunk equations; omit zero-initial-state matrix multiplications, unused first-chunk read transform and unreturned final-state work.",
+    "FP32 SDPA only for Qwen3_5Attention text modules; preserve masks, output BF16 boundary and exact non-text/vision attention fallthrough."
+  ],
+  "quality": {
+    "paired_cases": 7,
+    "questions": 14,
+    "all_choices_match_original_rknn": true,
+    "max_probability_or_score_delta_vs_original_rknn": 0.0016890567801823853,
+    "historical_optimized_cpu_reference_cases": 5,
+    "max_delta_vs_historical_optimized_cpu": 0.0025556078310194352,
+    "tolerance": 0.01,
+    "confidence_excluded": true
+  },
+  "warm_http": {
+    "verified_at_utc": "2026-10-17T09:44:28.865784+00:00",
+    "passed": true,
+    "count": 20,
+    "median": 0.8857242289999974,
+    "mean": 0.8896248520000007,
+    "p95_nearest_rank": 0.915257957999998,
+    "min": 0.8720192500000081,
+    "max": 0.933149874999998,
+    "below_one_second": 20,
+    "invalid_request_422": true,
+    "scope": "Warm single question, 115 tokens, concurrency 1; 20 LAN HTTP calls, no request/result memoization, excludes model startup."
+  },
+  "fresh_single_warmup_default": {
+    "count": 40,
+    "median_seconds": 0.9887908134842291,
+    "p95_seconds_nearest_rank": 1.0186838959343731,
+    "min_seconds": 0.9300769749097526,
+    "max_seconds": 1.8294500440824777,
+    "under_one_second": 37,
+    "minor_faults_median": 28243.0,
+    "major_faults_total": 0,
+    "gc_event_seconds": 0.0010328050702810287,
+    "environment_overrides": {},
+    "evidence": "tail-default-allocator.json"
+  },
+  "allocator_control": {
+    "count": 40,
+    "median_seconds": 0.9899964401265606,
+    "p95_seconds_nearest_rank": 1.052425486035645,
+    "min_seconds": 0.8947384401690215,
+    "max_seconds": 1.8683981550857425,
+    "under_one_second": 36,
+    "minor_faults_median": 28509.5,
+    "major_faults_total": 0,
+    "gc_event_seconds": 0.0010612399782985449,
+    "environment_overrides": {
+      "MALLOC_MMAP_THRESHOLD_": "16777216",
+      "MALLOC_TRIM_THRESHOLD_": "33554432"
+    },
+    "evidence": "tail-tuned-allocator.json"
+  },
+  "blas_thread_control": {
+    "count": 40,
+    "median_seconds": 0.9910960586275905,
+    "p95_seconds_nearest_rank": 1.0427193529903889,
+    "min_seconds": 0.9077426029834896,
+    "max_seconds": 1.794349087169394,
+    "under_one_second": 34,
+    "minor_faults_median": 28195.5,
+    "major_faults_total": 0,
+    "gc_event_seconds": 0.0010620669927448034,
+    "environment_overrides": {
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "evidence": "tail-blas-one.json"
+  },
+  "stable_under_one_second_target_passed": false,
+  "limitations": [
+    "20 LAN HTTP calls after broad validation were all below 1s; fresh-process 40-call tests show occasional >1s and approximately 1.8s spikes. These populations must not be merged or selectively reported.",
+    "The cause of rare CPU-side spikes remains unresolved. GC callbacks did not account for the largest fresh-process spike; allocator settings and BLAS thread environment control did not establish a benefit.",
+    "Instrumented candidate profile had a 1.785s outlier, including 1.074s charged to scan. It is retained in raw evidence and not treated as a representative optimized component budget.",
+    "Three-question batches remain approximately 2.6-2.75s; image approximately 8.57s. No claim of universal subsecond inference, cold-start latency, concurrency SLA or task accuracy."
+  ],
+  "rejected_experiments": [
+    {
+      "change": "Global FP32 SDPA including vision attention",
+      "image_max_delta_vs_original_rknn": 0.018863484073932235,
+      "choices_unchanged": true,
+      "accepted": false
+    },
+    {
+      "change": "Full Kineto operator trace",
+      "status": "Aborted during expensive processing; function/module wall-clock timing retained."
+    }
+  ],
+  "verification_commands": [
+    "profile_latency.py --model <pinned checkpoint> (independent container; optional full operator trace aborted)",
+    "optimize_latency.py --model <pinned checkpoint> (isolated kernel variants)",
+    "validate_latency.py --model <pinned checkpoint> (40 convolution + 14 scan + 4 attention boundary checks; 7 model cases)",
+    "python3 latency-experiment/verify_http.py (20 warm LAN HTTP calls and invalid request 422)",
+    "check_tail.py --model <pinned checkpoint> (40 fresh-process calls each: default, malloc thresholds, OPENBLAS_NUM_THREADS=1)"
+  ],
+  "source_sha256": {
+    "test_causal_conv.py": "a77d9b067aeb770ddd7ad09d630e081c04b1d93f74a16d50716e03f819b62b51",
+    "check_tail.py": "8fe3b2343df679eff0c7efc167111d0c73f7c2d69f414b59b6cf0bf9dd41462e",
+    "verify_http.py": "702825ef22738c93e6edc6d2e8103a5b3265968d493c5b78ee18f931cfb23298",
+    "optimize_latency.py": "64c043d32aaf5de7f931435ef3755eeb69c06692253bb5c71c1a4ab7283226d1",
+    "test_scan.py": "673348005bcfda264c50aec3554f21ca14bd9319fc5ad6c53469f9871981907b",
+    "test_sdpa.py": "a7cc9674d1c1885cb54bcc96c8382095d6614a82ffc31d50cf07c9826b19705c",
+    "validate_latency.py": "6248bf5713451b3873822a0bb1134a27d0a461b85701fbf533455ae9f5397d88",
+    "profile_latency.py": "eb38e39644acfd54a2bc0ec2b1d3a67d019019d319027f8ae57d9da715f038ff",
+    "cpu_attention_optimized.py": "b5add7abe6f464ef13ced2257d09ff9e5e8e51cdc831a4630d7b0ddba74bdf0f"
+  },
+  "service_preservation": {
+    "verified_at_utc": "2026-10-17T09:51:06.070251+00:00",
+    "original_service_ready": true,
+    "response_exactly_unchanged": true,
+    "temporary_port_8901_closed": true,
+    "temporary_containers_remaining": false,
+    "health": {
+      "status": "ready",
+      "model": "vllm-sr/d3-edge",
+      "max_input_tokens": null,
+      "modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "authentication": false
+    },
+    "response": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991779995411796,
+            "math": 0.0006839706378896585,
+            "chat": 0.00013802982093074769
+          },
+          "confidence": 0.993598307003921
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "existing_service_container_id": "19a30c8727fbc08008fe956fb8d5c6ce78988459e0f831084cfaa85390a1c93f",
+  "existing_service_started_at_utc": "2026-10-17T08:58:14.937096803Z",
+  "temporary_http_service_removed": true
+}

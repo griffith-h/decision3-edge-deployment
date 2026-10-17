@@ -1,0 +1,34 @@
+PASS: 40 convolution cases, short-sequence padding, BF16/FP32, bias/SiLU, future-token invariance
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+PASS: 14 scan cases exact, chunk edges, future-token invariance, cached/state fallback, restoration
+PASS: FP32/BF16 SDPA, positional/keyword float/bool masks, visible future keys, hidden padding
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  39%|███▊      | 118/305 [00:00<00:00, 1168.22it/s]Loading weights:  77%|███████▋  | 235/305 [00:00<00:00, 1114.46it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1188.90it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff75c1a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff75bb9018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff778eef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff772af658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff772afbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff7822abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff76cb5cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff76c90c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff76ccb660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff76cb7538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff806338a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff82687744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff82687818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+PROFILE original_rknn {"prepare": 0.0017165509052574635, "rmsnorm": 0.0884637210983783, "run": 0.34748474578373134, "causal_conv1d_fn": 1.22645564051345, "torch_chunk_gated_delta_rule": 0.3555955479387194, "scaled_dot_product_attention": 0.1533111419994384, "respond": 6.78070355206728e-05, "total": 2.311035214923322, "other": 0.13794005964882672}
+VALIDATED chinese-0 {"seconds": [2.63432159088552, 2.756712689064443, 2.831205877009779], "median": 2.756712689064443, "max_delta_vs_original_rknn": 0.0016890567801823853, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.0009467970420310723, "choices_unchanged_vs_cpu": true}
+VALIDATED chinese-1 {"seconds": [2.6102881468832493, 3.693708415143192, 2.357920272042975], "median": 2.6102881468832493, "max_delta_vs_original_rknn": 7.381737238409958e-05, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.00016030256850867175, "choices_unchanged_vs_cpu": true}
+VALIDATED english {"seconds": [2.581060401862487, 2.6097210699226707, 2.516240255907178], "median": 2.581060401862487, "max_delta_vs_original_rknn": 0.0013735540905827903, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 0.0025556078310194352, "choices_unchanged_vs_cpu": true}
+VALIDATED single {"seconds": [0.874740500934422, 0.8793155220337212, 0.8798640030436218], "median": 0.8793155220337212, "max_delta_vs_original_rknn": 1.6309225648880599e-06, "choices_unchanged": true, "max_delta_vs_historical_optimized_cpu": 1.5743125799077347e-05, "choices_unchanged_vs_cpu": true}
+Traceback (most recent call last):
+  File "/work/validate_latency.py", line 134, in <module>
+    assert delta <= 0.01 and choices, (case['id'], delta, choices)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('image', 0.018863484073932235, True)

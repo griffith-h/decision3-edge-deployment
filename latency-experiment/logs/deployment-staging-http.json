@@ -1,0 +1,63 @@
+{
+  "verified_at_utc": "2026-10-17T11:02:29.070089+00:00",
+  "passed": true,
+  "base_url": "http://192.168.1.164:8901",
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 49,
+        "norm_calls": 43,
+        "conv_calls": 6
+      }
+    }
+  },
+  "requests": [
+    {
+      "seconds": 0.8581305830000001,
+      "max_delta_vs_historical_cpu": 4.766574115794633e-06,
+      "started_at_unix": 1792234946.5065029,
+      "ended_at_unix": 1792234947.3646336
+    },
+    {
+      "seconds": 0.8359022499999997,
+      "max_delta_vs_historical_cpu": 4.766574115794633e-06,
+      "started_at_unix": 1792234947.364831,
+      "ended_at_unix": 1792234948.2007332
+    },
+    {
+      "seconds": 0.8646724159999999,
+      "max_delta_vs_historical_cpu": 4.766574115794633e-06,
+      "started_at_unix": 1792234948.2010229,
+      "ended_at_unix": 1792234949.0656953
+    }
+  ],
+  "count": 3,
+  "median": 0.8581305830000001,
+  "mean": 0.8529017496666665,
+  "p95_nearest_rank": 0.8646724159999999,
+  "min": 0.8359022499999997,
+  "max": 0.8646724159999999,
+  "below_one_second": 3,
+  "invalid_request_422": true,
+  "scope": "Warm single question, 115 tokens, concurrency 1; 3 LAN HTTP calls, no request/result memoization, excludes model startup."
+}

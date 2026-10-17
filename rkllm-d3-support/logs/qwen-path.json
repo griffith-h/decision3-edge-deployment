@@ -1,0 +1,31 @@
+{
+  "return_code": 0,
+  "modelname": "CustomModel",
+  "modelpath": "/work/source-model",
+  "custom_config": {
+    "BLOCKNAME": "Qwen3_5DecoderLayer",
+    "TOKEN_EMBD": "embed_tokens",
+    "ATTN_NORM": "input_layernorm",
+    "ATTN_Q_NORM": "self_attn.q_norm",
+    "ATTN_Q": "self_attn.q_proj",
+    "ATTN_K_NORM": "self_attn.k_norm",
+    "ATTN_K": "self_attn.k_proj",
+    "ATTN_V": "self_attn.v_proj",
+    "ATTN_QKV": "",
+    "ATTN_KV": "",
+    "KV_CONTINUOUS": "true",
+    "ATTN_OUT": "self_attn.o_proj",
+    "ATTN_POST_NORM": "",
+    "FFN_NORM": "post_attention_layernorm",
+    "FFN_UP": "mlp.up_proj",
+    "FFN_GATE": "mlp.gate_proj",
+    "ACT_TYPE": "silu",
+    "FFN_DOWN": "mlp.down_proj",
+    "FFN_POST_NORM": "",
+    "OUTPUT_NORM": "norm",
+    "OUTPUT": "lm_head"
+  },
+  "state": "<run_state.load_model: 1>",
+  "v": "",
+  "loaded_class": "Qwen3_5ForCausalLM"
+}

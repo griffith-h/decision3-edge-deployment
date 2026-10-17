@@ -1,0 +1,989 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>d3-edge RK3576 从零安装与使用手册</title><link rel="icon" href="data:,"><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f3f6f4;color:#17343c;font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}main{max-width:1060px;margin:auto;padding:38px 24px}header,section{background:white;border:1px solid #dbe5e4;border-radius:14px;padding:30px;margin-bottom:24px;scroll-margin-top:18px}h1{font-size:34px;line-height:1.3;margin-top:10px}h2{font-size:25px;margin:0 0 18px}p{margin:0 0 16px}a{color:#087e78}nav{display:flex;flex-wrap:wrap;gap:12px 20px}.eyebrow,.note,footer{color:#60757a;font-size:13px}code{font:13px/1.7 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}pre{padding:18px;background:#183139;color:#e4f2ed;overflow:auto;border-radius:9px;white-space:pre}pre code{overflow-wrap:normal}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #dbe5e4}th{background:#eef4f1}details{margin:14px 0}summary{cursor:pointer;color:#087e78;overflow-wrap:anywhere}details pre{max-height:550px}button{background:#087e78;color:white;border:0;border-radius:8px;padding:12px 18px;font:inherit;cursor:pointer;margin-bottom:18px}.notice{border-left:4px solid #b57e35;background:#fbf2e4;padding:17px;font-size:14px}footer{text-align:center;padding:10px}@media(max-width:600px){main{padding:16px 12px}header,section{padding:22px 16px}h1{font-size:27px}h2{font-size:22px}body{font-size:15px}th,td{padding:8px;overflow-wrap:anywhere}button{max-width:100%;overflow-wrap:anywhere}}@media print{body{background:white}header,section{border:0;padding:10px}button,nav{display:none}pre{white-space:pre-wrap;overflow-wrap:anywhere}a{color:inherit}details:not([open]){display:none}}</style></head><body><main><header><p class="eyebrow">RK3576 / ARM64 LINUX / 2026-10-17</p><h1>在自己的 RK3576 上安装 d3-edge RKNN 加速服务</h1>
+<p>适用于与原测试机相同的 RK3576、16 GB 内存、Armbian / Debian 13。本文包含从零操作步骤和全部适配源码，不依赖原测试服务器的 IP、缓存目录或预制镜像。接收方在自己的机器上执行安装和验收。</p>
+<nav><a href="#result">方案与效果</a><a href="#prepare">环境准备</a><a href="#source">准备源码</a><a href="#install">构建与下载</a><a href="#start">启动</a><a href="#api">调用</a><a href="#verify">复现测试</a><a href="#trouble">排障</a><a href="#appendix">源码附录</a></nav></header>
+<section id="result"><h2>采用什么方案，能快多少</h2><p>使用 RKNN MatMul 将 78 个适合的文本线性层交给 NPU；非因果注意力、RoPE、因果 GatedDeltaNet 扫描、视觉塔和输出 readout 保留原实现。保留官方原始 12 层模型及权重，不额外裁剪，也不需要将整个模型转换为 RKNN 文件。</p>
+<table><thead><tr><th>2026-10-13 历史测试</th><th>结果</th></tr></thead><tbody><tr><td>短文本模型内成对基准</td><td>约 2.19–2.74 倍提速</td></tr><tr><td>小图片模型内基准</td><td>约 1.43 倍提速</td></tr><tr><td>单问题 HTTP 请求</td><td>6.686 秒 → 2.822 秒，约 2.37 倍</td></tr><tr><td>优化 CPU → RKNN 输出差异</td><td>5 个用例、12 个问题选项一致；概率 / score 最大绝对差 0.00283136，容差 0.01</td></tr></tbody></table>
+<p class="note">概率差 0.00283136 在来自概率时约为 0.283 个百分点，不代表任务准确率下降 0.283%。尚未做完整数据集准确率评测。模型内与 HTTP 计时分别比较；原始 CPU 到优化 CPU 是另一组基线。新机器速度以自行实测为准。</p><p>原生矩阵最多支持 512 行，行数 = batch × 补齐后的序列长度；超出时回退 CPU，不截断输入。长文本吞吐、视频性能和其他 RK 芯片没有本次基准结论。官方 RKLLM 1.3.1 本次路径未正确执行 d3 的非因果注意力，不作为本文安装路线。</p>
+<div class="notice"><strong>验证状态：</strong>适配核心源码沿用已经通过原板端测试的版本；本次交付只整理操作文档。本文从零构建路径未完整重跑，独立测试构建已按要求停止。接收方需要完成后文算子、边界和完整模型测试，再判断其机器是否通过。</div></section>
+<section id="prepare"><h2>1. 准备自己的 RK3576 系统</h2><p>使用带 RKNPU 内核驱动的板厂 / Armbian ARM64 镜像。原测试组合为 RK3576、驱动 0.9.8、RKNN Runtime 2.5.0，CPU 大核为 4–7。建议有 16 GB 内存，安装前至少预留 15 GB 磁盘空间。Docker 与 Python 包不会替代主机的 NPU 内核驱动。</p><pre><code>uname -m  # 应为 aarch64
+tr &quot;\0&quot; &quot; &quot; &lt;/proc/device-tree/compatible  # 应含 rk3576
+ls /dev/dri
+# debugfs 已挂载时可查看驱动版本
+sudo cat /sys/kernel/debug/rknpu/version
+free -h
+df -h .
+
+# Debian / Armbian 缺少 Docker 时安装
+sudo apt-get update
+sudo apt-get install -y docker.io python3 ca-certificates
+sudo systemctl enable --now docker
+sudo docker info</code></pre><p>首次构建需要访问 ghcr.io、PyTorch 官方下载站、PyPI、Debian 软件源和 raw.githubusercontent.com；模型下载需要 Hugging Face。网络失败时保留固定版本，修复网络后重试对应步骤。本文不安装或更换主机内核、NPU 驱动。</p></section>
+<section id="source"><h2>2. 从本文准备完整源码</h2><p>本文是唯一需要转交的文件。下面按钮只将文末公开展示的源码保存为一个本地 Python 脚本；运行它仅创建源码文件，不安装软件、不联网、不启动服务。可以先阅读脚本，也可以逐个复制附录中的文件。</p><button id="download-init">保存源码初始化脚本 prepare_d3_sources.py</button>
+<p>把该脚本复制到自己的 RK 机器，在一个可写目录中执行：</p><pre><code>python3 prepare_d3_sources.py
+cd d3-edge-rknn
+export D3_HOME=&quot;$(pwd)&quot;
+mkdir -p &quot;$D3_HOME/data/models&quot; &quot;$D3_HOME/checks&quot;</code></pre><p>初始化脚本拒绝覆盖已有 <code>d3-edge-rknn/</code>。之后各步均在这个目录运行；重新登录终端后先 cd 回来，再执行 <code>export D3_HOME="$(pwd)"</code>。全部源代码都在本文附录，按钮不从外部网站下载适配代码。</p>
+<table><tr><th>文件</th><th>用途</th></tr><tr><td>Dockerfile、requirements.lock</td><td>从固定公开基础镜像构建运行环境，固定已测 Python 依赖版本</td></tr><tr><td>tools/fetch_sdk.py、sdk-manifest.json</td><td>下载官方固定提交的 Runtime / 头文件并检查 SHA256</td></tr><tr><td>tools/download_model.py</td><td>下载固定模型版本并验证完整文件清单</td></tr><tr><td>app/matmul_bridge.cpp、rknn_linear.py</td><td>RKNN 原生矩阵桥接和文本线性层适配</td></tr><tr><td>app/cpu_optimized_server.py、npu_server.py、request.json</td><td>CPU 算子优化、串行模型服务和预热 / 调用请求</td></tr><tr><td>app/benchmark.py、micro_test.py、boundary_test.py 及样本 JSON</td><td>模型、算子和边界复现测试</td></tr></table></section>
+<section id="install"><h2>3. 在自己的机器构建镜像、下载模型</h2><p>构建命令不会使用原测试机上的私有镜像。基础镜像固定为公开的 <code>ghcr.io/vllm-project/semantic-router/vllm-sr@sha256:efc356587252c28b8d972d5d27b381df0626ccdc53597f3fccff7ae454041178</code>，之后替换为可在该 ARM CPU 上运行的 Torch 2.12.0+cpu，安装 Torchvision 0.27.0+cpu、Transformers 5.17.0 及锁定的依赖。</p><pre><code>sudo docker build --platform linux/arm64 -t d3-edge-rknn:1.0 .
+
+# 下载模型是独立的联网步骤，覆盖镜像的离线环境变量
+sudo docker run --rm \
+  -e HF_HUB_OFFLINE=0 -e TRANSFORMERS_OFFLINE=0 \
+  --mount &quot;type=bind,source=$D3_HOME/data/models,target=/models&quot; \
+  --mount &quot;type=bind,source=$D3_HOME/tools,target=/setup,readonly&quot; \
+  d3-edge-rknn:1.0 /setup/download_model.py</code></pre><p>模型固定为 <code>vllm-sr/d3-edge@20c745653400d191ecacd99c4eafc0c5900dc15e</code>，下载到本机 <code>data/models/d3-edge/</code>。脚本执行 <code>verify_package(..., mode="full")</code>，服务启动时也执行完整文件哈希验证。SDK 固定提交为 <code>2c723177a94fac65cbc036d722907ddbc91980cf</code>；Dockerfile 在容器内部编译 C++ 桥接库，宿主机不需要安装 g++ 或 PyTorch。</p>
+<p>本步骤需要等待实际命令成功；镜像构建成功、模型下载成功和 NPU 推理正确是三个不同的验收点。不要跳过下一步真实算子测试。</p></section>
+<section id="checks"><h2>4. 先验证 NPU 算子和回退边界</h2><p>在服务启动前运行。每次结果写入新的本机目录：</p><pre><code>export CHECK_DIR=&quot;$D3_HOME/checks/$(date +%Y%m%d-%H%M%S)&quot;
+mkdir -p &quot;$CHECK_DIR&quot;
+sudo docker run --rm --init --cpuset-cpus 4-7 \
+  --memory 8g --memory-swap 8g --device /dev/dri \
+  --mount &quot;type=bind,source=$CHECK_DIR,target=/work/logs&quot; \
+  d3-edge-rknn:1.0 -c &#x27;import subprocess,sys; [subprocess.run([sys.executable,p],check=True) for p in (&quot;/work/micro_test.py&quot;,&quot;/work/boundary_test.py&quot;)]&#x27;</code></pre><p>需要命令以 0 退出，且 <code>boundary-test.json</code> 的 <code>passed=true</code>。覆盖 16 个矩阵尺寸、动态切换、127/128/129/256/257/512/513 行边界、超限与非 BF16 的精确 CPU 回退，以及释放资源后恢复 CPU forward。失败时保留日志，先核对 Runtime 与主机驱动，不要仅凭 NPU 有负载就宣布可用。</p></section>
+<section id="start"><h2>5. 启动 RKNN 服务</h2><p>下面使用本机 8900 端口，绑定各网卡；接收方自行选择空闲端口及容器名。容器内端口固定为 8900。<code>unless-stopped</code> 会在主机 / Docker 重启后恢复服务，手动 stop 后保持停止。默认不设置 API Key。</p><pre><code>sudo docker run -d --name d3-edge-rknn --init \
+  --restart unless-stopped --cpuset-cpus 4-7 \
+  --memory 8g --memory-swap 8g --device /dev/dri \
+  -p 0.0.0.0:8900:8900 \
+  --mount &quot;type=bind,source=$D3_HOME/data/models,target=/models,readonly&quot; \
+  --log-opt max-size=10m --log-opt max-file=3 \
+  --health-cmd &#x27;python -c &quot;import urllib.request; urllib.request.urlopen(\&quot;http://127.0.0.1:8900/health\&quot;,timeout=5).read()&quot;&#x27; \
+  --health-interval 30s --health-timeout 10s --health-start-period 180s \
+  d3-edge-rknn:1.0
+
+sudo docker logs --tail 80 d3-edge-rknn
+curl --fail --max-time 10 http://127.0.0.1:8900/health</code></pre><p>加载完成后日志应包含 <code>78 text Linear layers</code>、<code>78 cached NPU handles</code> 和服务 ready；健康接口返回 <code>status="ready"</code>。初次模型加载、文件哈希校验和 NPU 权重缓存需要时间；尚未就绪时等待后重试。运行时从本地目录离线加载，不依赖原测试服务器。</p><p>如需鉴权，在创建容器时自行增加 <code>-e DECISION_API_KEY=自己的密钥</code>；后续受保护接口请求增加 <code>Authorization: Bearer 密钥</code>。健康接口保持可探测。不要将实际密钥填入要转交的文档。</p></section>
+<section id="api"><h2>6. 在局域网调用</h2><p>在调用方电脑上执行。将 RK_IP 改成接收方 RK 机器自己的 IP；如果修改了映射端口，也同步修改请求地址。</p><pre><code>RK_IP=192.168.1.100  # 示例地址，替换为对方 RK 机器的实际 IP
+curl --fail --max-time 10 &quot;http://${RK_IP}:8900/health&quot;
+curl --fail --max-time 120 &quot;http://${RK_IP}:8900/v1/systemone&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  --data-binary @- &lt;&lt;&#x27;JSON&#x27;
+{
+  &quot;model&quot;: &quot;vllm-sr/d3-edge&quot;,
+  &quot;state&quot;: &quot;请写一个 Python 函数，合并两个有序列表。&quot;,
+  &quot;questions&quot;: {
+    &quot;kind&quot;: {
+      &quot;type&quot;: &quot;choice&quot;,
+      &quot;instructions&quot;: &quot;这个请求属于哪类任务？&quot;,
+      &quot;criteria&quot;: {&quot;code&quot;: &quot;编程任务&quot;, &quot;math&quot;: &quot;数学问题&quot;, &quot;chat&quot;: &quot;日常聊天&quot;}
+    }
+  }
+}
+JSON</code></pre><p>返回 <code>answers.kind.choice</code> 及各选项概率。这个请求应选择 <code>code</code>；原测试机 code 概率约 99.92%。这是对输入任务分类，响应不会生成 Python 函数正文。接口保持原 d3 请求格式：<code>state</code> 是待判定内容，<code>questions</code> 定义问题与候选项。</p></section>
+<section id="verify"><h2>7. 在自己的机器复现整体速度与输出差异</h2><p>为避免与在线服务争用资源，先停自己的服务，确保其他重任务空闲。以下测试不会修改模型，只在新目录写入结果。测试失败时先查看日志，再决定是否恢复服务。</p><pre><code>sudo docker stop d3-edge-rknn
+export BENCH_DIR=&quot;$D3_HOME/checks/model-$(date +%Y%m%d-%H%M%S)&quot;
+mkdir -p &quot;$BENCH_DIR&quot;
+sudo docker run --rm --init --cpuset-cpus 4-7 \
+  --memory 8g --memory-swap 8g --device /dev/dri \
+  --mount &quot;type=bind,source=$D3_HOME/data/models,target=/models,readonly&quot; \
+  --mount &quot;type=bind,source=$BENCH_DIR,target=/work/logs&quot; \
+  d3-edge-rknn:1.0 /work/benchmark.py \
+  --model /models/d3-edge --selection all --repeats 3
+
+# 检查 $BENCH_DIR/benchmark-all.json 后恢复服务
+sudo docker start d3-edge-rknn
+# 等加载完成，再检查 /health 和实际调用</code></pre><p>基准在同一进程、4 个大核及 4 个 Torch 线程下，分别运行优化 CPU 和 RKNN。每个用例 / 后端先预热一次，再计时三次取中位数，覆盖 5 个用例、12 个问题，输入在附录的固定样本 JSON 中。</p>
+<table><tr><th>字段 / 指标</th><th>验收含义</th></tr><tr><td>顶层 passed</td><td>必须为 true；执行失败或 false 均不能视为通过</td></tr><tr><td>cases.*.npu.choices_unchanged</td><td>分类选项必须与同轮优化 CPU 一致</td></tr><tr><td>max_probability_or_score_delta</td><td>同名概率 / score 取最大绝对差，排除派生 confidence、legend；要求 ≤0.01</td></tr><tr><td>speedup</td><td>CPU 三次中位数 ÷ RKNN 三次中位数；不包含 HTTP、模型加载和首次缓存建立</td></tr><tr><td>cpu_fallback_calls</td><td>记录回退次数；大输入回退 CPU 属于预期边界</td></tr></table>
+<p>注意输出差异针对优化 CPU 基线，不是原始 BF16 CPU。模型内提速不能直接当作 HTTP 提速；若要测 HTTP，需要对相同输入、预热和负载条件下的 CPU / RKNN 接口分别计时。新机结果不必与历史数字逐位相同，但选项和差值必须通过验收。</p></section>
+<section id="ops"><h2>8. 日常维护与配置变更</h2><pre><code>sudo docker ps --filter name=d3-edge-rknn
+sudo docker logs --tail 80 d3-edge-rknn
+sudo docker stop d3-edge-rknn
+sudo docker start d3-edge-rknn
+
+# 改端口、挂载、密钥或换新镜像时，重建自己的容器
+sudo docker stop d3-edge-rknn
+sudo docker rm d3-edge-rknn
+# 重新执行第 5 步 docker run，按需修改参数</code></pre><p>删除容器不会删除绑定在本机 <code>data/models/</code> 的模型；卸载时先停止、删除自己的容器，再按需删除镜像和工作目录。不要执行全局 docker 清理命令，以免影响其他业务。</p></section>
+<section id="trouble"><h2>9. 常见故障</h2><table><tr><th>现象</th><th>检查与处理</th></tr><tr><td>缺少 /dev/dri 或 rknn_* 报错</td><td>核对 RK3576、64 位系统、板厂 NPU 驱动；基线为驱动 0.9.8 + Runtime 2.5.0。先通过真实算子测试。容器不会补齐主机内核驱动。</td></tr><tr><td>Docker 权限错误</td><td>使用本文 sudo docker 命令，确认 Docker 服务已启动。</td></tr><tr><td>镜像 / wheel / SDK 下载失败</td><td>查看失败域名，检查 DNS / 代理和磁盘后重跑构建。不要任意替换为最新版依赖或跳过哈希。</td></tr><tr><td>模型下载失败</td><td>修复网络后重跑独立下载步骤，保留 data 目录。可自行配置可信 HF_ENDPOINT，但应保持相同模型版本和文件哈希校验。</td></tr><tr><td>端口占用或容器重名</td><td>改用空闲宿主端口或容器名；-p 的右侧仍为容器 8900。同步修改调用和维护命令。</td></tr><tr><td>健康接口未就绪</td><td>检查 docker logs、磁盘和内存；等模型加载 / NPU 缓存完成。容器 running 不等于模型 ready。</td></tr><tr><td>启动后退出或频繁重启</td><td>检查 OOM、模型哈希不符、驱动报错。先 docker stop，再排查；保留日志。</td></tr><tr><td>速度与历史差距大</td><td>核对大核 4–7、温度降频、后台负载和输入长度。超过 512 矩阵行会回退 CPU；不要拿矩阵微基准倍数代替完整请求倍数。</td></tr><tr><td>选项不一致或概率差超标</td><td>视为验证失败，保留 benchmark-all.json；核对模型版本、依赖及 SDK / 驱动组合后再分析。</td></tr></table></section>
+<section id="appendix"><h2>附录：完整适配源码与固定测试样本</h2><p>这些文件全部内置在本 HTML。可以逐个展开复制；也可保存上方初始化脚本，运行后生成完全相同的目录。初始化不会下载模型或 SDK，实际安装由接收方按前文执行。</p><details><summary>prepare_d3_sources.py（完整初始化脚本）</summary><pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+&quot;&quot;&quot;Save the source appendix from the handoff document into a new directory.&quot;&quot;&quot;
+import json
+from pathlib import Path
+files = json.loads(&#x27;{&quot;Dockerfile&quot;: &quot;FROM ghcr.io/vllm-project/semantic-router/vllm-sr@sha256:efc356587252c28b8d972d5d27b381df0626ccdc53597f3fccff7ae454041178\\n\\n# PyTorch 2.10 ARM64 wheels crash on Cortex-A53/A72 at import (upstream #174344).\\n# Install the fixed official CPU wheel and preserve the rest of the router image.\\nRUN python -m pip install --no-cache-dir --no-deps --force-reinstall \\\\\\n    \&#x27;https://download-r2.pytorch.org/whl/cpu/torch-2.12.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=ce2ddb880b0813fcc91a737f08fdd973a8115a74c64ccb34e9c09a7964b4d448\&#x27; \\\\\\n    &amp;&amp; python -c \&#x27;import torch; assert torch.__version__ == \\&quot;2.12.0+cpu\\&quot;; x = torch.ones(8, 8, dtype=torch.bfloat16); assert (x @ x).shape == (8, 8); print(\\&quot;ARMv8 PyTorch and BF16 matmul OK\\&quot;)\&#x27;\\n\\n\\n# Serve through the HTTP implementation shipped with the pinned model package.\\n# CPU inference uses PyTorch reference kernels; do not install GPU-only FLA.\\nRUN python -m pip install --no-cache-dir \\\\\\n    transformers==5.17.0 accelerate==1.10.1 \\\\\\n    \&#x27;https://download-r2.pytorch.org/whl/cpu/torchvision-0.27.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=1b06f42d48b62098114923d8a3fe9fa864182715db06584a515155db0aa8eb30\&#x27; \\\\\\n    &amp;&amp; python -c \&#x27;import torch, torchvision, transformers; assert torch.__version__ == \\&quot;2.12.0+cpu\\&quot;; assert transformers.__version__ == \\&quot;5.17.0\\&quot;; print(torch.__version__, torchvision.__version__, transformers.__version__)\&#x27;\\n\\nENV OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1\\nENTRYPOINT [\\&quot;python\\&quot;, \\&quot;-u\\&quot;]\\n\\nRUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends g++ ca-certificates &amp;&amp; rm -rf /var/lib/apt/lists/*\\nCOPY requirements.lock /tmp/requirements.lock\\nRUN python -m pip install --no-cache-dir --no-deps -r /tmp/requirements.lock &amp;&amp; python -m pip check\\nWORKDIR /work\\nCOPY tools/fetch_sdk.py sdk-manifest.json /tmp/sdk-fetch/\\nRUN python /tmp/sdk-fetch/fetch_sdk.py /work/sdk /tmp/sdk-fetch/sdk-manifest.json\\nCOPY app/ /work/\\nRUN g++ -O2 -std=c++17 -shared -fPIC -I sdk matmul_bridge.cpp -L sdk -lrknnrt -Wl,-rpath,\&#x27;$ORIGIN/sdk\&#x27; -o libmatmul_bridge.so\\nCMD [\\&quot;/work/npu_server.py\\&quot;, \\&quot;--model\\&quot;, \\&quot;/models/d3-edge\\&quot;, \\&quot;--host\\&quot;, \\&quot;0.0.0.0\\&quot;, \\&quot;--port\\&quot;, \\&quot;8900\\&quot;]\\n&quot;, &quot;requirements.lock&quot;: &quot;accelerate==1.10.1\\nannotated-doc==0.0.5\\nanyio==4.15.1\\ncertifi==2026.7.22\\nclick==8.5.0\\nfilelock==4.0.12\\nfsspec==2026.9.0\\nh11==0.16.0\\nhf-xet==1.6.0\\nhttpcore==1.0.9\\nhttptools==0.8.0\\nhttpx==0.28.1\\nhuggingface_hub==1.33.0\\nidna==3.20\\nJinja2==3.1.6\\nmarkdown-it-py==4.2.0\\nMarkupSafe==3.0.3\\nmdurl==0.1.2\\nmpmath==1.3.0\\nnetworkx==3.6.1\\nnumpy==2.5.3\\nopencv-python-headless==5.0.0.93\\npackaging==26.3\\npillow==12.3.0\\nprometheus_client==0.26.0\\npsutil==7.2.2\\nPygments==2.21.0\\nPyYAML==6.0.3\\nregex==2026.9.29\\nrich==15.0.0\\nsafetensors==0.8.0\\nshellingham==1.5.4\\nstarlette==1.7.0\\nsympy==1.14.0\\ntokenizers==0.23.2\\ntqdm==4.70.1\\ntransformers==5.17.0\\ntyper==0.27.3\\ntyping_extensions==4.16.0\\nuvicorn==0.54.0\\nuvloop==0.23.0\\n&quot;, &quot;sdk-manifest.json&quot;: &quot;{\\n  \\&quot;repository\\&quot;: \\&quot;https://github.com/airockchip/rknn-toolkit2\\&quot;,\\n  \\&quot;commit\\&quot;: \\&quot;2c723177a94fac65cbc036d722907ddbc91980cf\\&quot;,\\n  \\&quot;files\\&quot;: {\\n    \\&quot;dynamic_demo.cpp\\&quot;: {\\n      \\&quot;bytes\\&quot;: 45867,\\n      \\&quot;sha256\\&quot;: \\&quot;c4716e586978a03d04e0d7f8c6464087e575dd2544607261e5e52f3cf0b437a4\\&quot;\\n    },\\n    \\&quot;rknn_matmul_api.h\\&quot;: {\\n      \\&quot;bytes\\&quot;: 18598,\\n      \\&quot;sha256\\&quot;: \\&quot;aaadd9a7118de30a06b222996b6731db77095d00f5931a7a98c83a67f14a4d42\\&quot;\\n    },\\n    \\&quot;librknnrt.so\\&quot;: {\\n      \\&quot;bytes\\&quot;: 8189368,\\n      \\&quot;sha256\\&quot;: \\&quot;4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0\\&quot;\\n    },\\n    \\&quot;demo.cpp\\&quot;: {\\n      \\&quot;bytes\\&quot;: 43338,\\n      \\&quot;sha256\\&quot;: \\&quot;739638f200f35c885c8e141091fe0700dba4f4aecfd4d03dfc36191001f40696\\&quot;\\n    },\\n    \\&quot;rknn_api.h\\&quot;: {\\n      \\&quot;bytes\\&quot;: 36524,\\n      \\&quot;sha256\\&quot;: \\&quot;2d4160cd868efd7b83a72587e411c16d6972da5876e067bd73665cea778ce666\\&quot;\\n    }\\n  }\\n}\\n&quot;, &quot;tools/fetch_sdk.py&quot;: &quot;\\&quot;\\&quot;\\&quot;Fetch unmodified SDK files from the pinned official repository; verify hashes.\\&quot;\\&quot;\\&quot;\\nimport hashlib\\nimport json\\nimport sys\\nimport time\\nimport urllib.request\\nfrom pathlib import Path\\n\\ndestination, manifest_path = map(Path, sys.argv[1:])\\nmanifest = json.loads(manifest_path.read_text())\\nbase = f\\&quot;https://raw.githubusercontent.com/airockchip/rknn-toolkit2/{manifest[\&#x27;commit\&#x27;]}/\\&quot;\\npaths = {\\n    \&#x27;librknnrt.so\&#x27;: \&#x27;rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so\&#x27;,\\n    \&#x27;rknn_api.h\&#x27;: \&#x27;rknpu2/runtime/Linux/librknn_api/include/rknn_api.h\&#x27;,\\n    \&#x27;rknn_matmul_api.h\&#x27;: \&#x27;rknpu2/runtime/Linux/librknn_api/include/rknn_matmul_api.h\&#x27;,\\n    \&#x27;LICENSE\&#x27;: \&#x27;LICENSE\&#x27;,\\n}\\ndestination.mkdir(parents=True, exist_ok=True)\\nfor name, path in paths.items():\\n    for attempt in range(3):\\n        try:\\n            with urllib.request.urlopen(base + path, timeout=120) as response:\\n                data = response.read()\\n            break\\n        except OSError:\\n            if attempt == 2:\\n                raise\\n            time.sleep(2)\\n    if name in manifest[\&#x27;files\&#x27;]:\\n        assert hashlib.sha256(data).hexdigest() == manifest[\&#x27;files\&#x27;][name][\&#x27;sha256\&#x27;], name\\n    (destination / name).write_bytes(data)\\n    print(f\&#x27;Verified/downloaded official SDK: {name}\&#x27;, flush=True)\\n&quot;, &quot;tools/download_model.py&quot;: &quot;\\&quot;\\&quot;\\&quot;Network-enabled setup step. Inference containers stay offline.\\&quot;\\&quot;\\&quot;\\nfrom pathlib import Path\\nfrom huggingface_hub import snapshot_download\\n\\nREVISION = \&#x27;20c745653400d191ecacd99c4eafc0c5900dc15e\&#x27;\\npath = Path(snapshot_download(\&#x27;vllm-sr/d3-edge\&#x27;, revision=REVISION, local_dir=\&#x27;/models/d3-edge\&#x27;))\\nimport sys\\nsys.path.insert(0, str(path))\\nfrom d3_runtime import verify_package\\nverify_package(path, mode=\&#x27;full\&#x27;)\\nprint(f\&#x27;Pinned d3-edge downloaded and fully verified: {REVISION}\&#x27;)\\n&quot;, &quot;app/matmul_bridge.cpp&quot;: &quot;#include &lt;algorithm&gt;\\n#include &lt;cstdint&gt;\\n#include &lt;cstdio&gt;\\n#include &lt;cstring&gt;\\n#include &lt;memory&gt;\\n#include &lt;string&gt;\\n#include &lt;vector&gt;\\n#include \\&quot;rknn_matmul_api.h\\&quot;\\n\\n// Experimental, synchronous, single-owner handle. Callers must serialize calls.\\nstatic thread_local std::string last_error;\\nstruct Matrix {\\n  rknn_matmul_ctx ctx = 0;\\n  rknn_tensor_mem *a = nullptr, *b = nullptr, *c = nullptr;\\n  int k, n, selected = -1;\\n  std::vector&lt;rknn_matmul_shape&gt; shapes;\\n  std::vector&lt;rknn_matmul_io_attr&gt; attrs;\\n  ~Matrix() {\\n    if (a) rknn_destroy_mem(ctx, a);\\n    if (b) rknn_destroy_mem(ctx, b);\\n    if (c) rknn_destroy_mem(ctx, c);\\n    if (ctx) rknn_matmul_destroy(ctx);\\n  }\\n};\\nstatic bool check(int code, const char* operation) {\\n  if (code == 0) return true;\\n  last_error = std::string(operation) + \\&quot; returned \\&quot; + std::to_string(code);\\n  return false;\\n}\\nextern \\&quot;C\\&quot; const char* mm_error() { return last_error.c_str(); }\\nextern \\&quot;C\\&quot; void* mm_create(int k, int n, const void* half_kn) {\\n  last_error.clear();\\n  if (k &lt;= 0 || k &gt; 10240 || k % 16 || n &lt;= 0 || n % 8 || !half_kn) {\\n    last_error = \\&quot;Unsupported K/N alignment or missing weights\\&quot;; return nullptr;\\n  }\\n  auto p = std::make_unique&lt;Matrix&gt;();\\n  p-&gt;k = k; p-&gt;n = n;\\n  for (int m : {128, 256, 512}) p-&gt;shapes.push_back({m,k,n});\\n  p-&gt;attrs.resize(p-&gt;shapes.size());\\n  rknn_matmul_info info{};\\n  info.M=512; info.K=k; info.N=n;\\n  info.type=RKNN_FLOAT16_MM_FLOAT16_TO_FLOAT32;\\n  info.B_layout=RKNN_MM_LAYOUT_NATIVE;\\n  info.AC_layout=RKNN_MM_LAYOUT_NORM;\\n  if (!check(rknn_matmul_create_dynamic_shape(&amp;p-&gt;ctx, &amp;info,\\n      p-&gt;shapes.size(), p-&gt;shapes.data(), p-&gt;attrs.data()), \\&quot;create_dynamic\\&quot;)) return nullptr;\\n  // RK3576 matmul rejects combined core mask 3; use the supported auto mode.\\n  if (!check(rknn_matmul_set_core_mask(p-&gt;ctx, RKNN_NPU_CORE_AUTO), \\&quot;set_cores\\&quot;)) return nullptr;\\n  uint32_t as=0, bs=0, cs=0;\\n  for (auto&amp; attr : p-&gt;attrs) {\\n    as=std::max(as,attr.A.size); bs=std::max(bs,attr.B.size); cs=std::max(cs,attr.C.size);\\n  }\\n  p-&gt;a=rknn_create_mem(p-&gt;ctx,as); p-&gt;b=rknn_create_mem(p-&gt;ctx,bs); p-&gt;c=rknn_create_mem(p-&gt;ctx,cs);\\n  if (!p-&gt;a || !p-&gt;b || !p-&gt;c) { last_error=\\&quot;rknn_create_mem failed\\&quot;; return nullptr; }\\n  if (!check(rknn_B_normal_layout_to_native_layout(const_cast&lt;void*&gt;(half_kn),p-&gt;b-&gt;virt_addr,k,n,&amp;info), \\&quot;pack_B\\&quot;)) return nullptr;\\n  if (!check(rknn_matmul_set_dynamic_shape(p-&gt;ctx,&amp;p-&gt;shapes[0]),\\&quot;initial_shape\\&quot;)) return nullptr;\\n  if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;b,&amp;p-&gt;attrs[0].B),\\&quot;bind_B\\&quot;)) return nullptr;\\n  std::memset(p-&gt;a-&gt;virt_addr,0,as);\\n  return p.release();\\n}\\nextern \\&quot;C\\&quot; int mm_run(void* handle, int rows, const void* half_mk, float* out_mn) {\\n  auto* p=static_cast&lt;Matrix*&gt;(handle);\\n  if (!p || rows&lt;=0 || rows&gt;512 || !half_mk || !out_mn) { last_error=\\&quot;Invalid run argument\\&quot;; return -1; }\\n  int index=rows&lt;=128 ? 0 : rows&lt;=256 ? 1 : 2;\\n  if (p-&gt;selected!=index) {\\n    if (!check(rknn_matmul_set_dynamic_shape(p-&gt;ctx,&amp;p-&gt;shapes[index]),\\&quot;set_shape\\&quot;)) return -1;\\n    if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;a,&amp;p-&gt;attrs[index].A),\\&quot;bind_A\\&quot;)) return -1;\\n    if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;c,&amp;p-&gt;attrs[index].C),\\&quot;bind_C\\&quot;)) return -1;\\n    p-&gt;selected=index;\\n  }\\n  size_t bytes=size_t(rows)*p-&gt;k*2;\\n  std::memcpy(p-&gt;a-&gt;virt_addr,half_mk,bytes);\\n  std::memset(static_cast&lt;char*&gt;(p-&gt;a-&gt;virt_addr)+bytes,0,size_t(p-&gt;shapes[index].M-rows)*p-&gt;k*2);\\n  if (!check(rknn_matmul_run(p-&gt;ctx),\\&quot;run\\&quot;)) return -1;\\n  std::memcpy(out_mn,p-&gt;c-&gt;virt_addr,size_t(rows)*p-&gt;n*sizeof(float));\\n  return 0;\\n}\\nextern \\&quot;C\\&quot; void mm_destroy(void* handle) { delete static_cast&lt;Matrix*&gt;(handle); }\\n&quot;, &quot;app/rknn_linear.py&quot;: &quot;\\&quot;\\&quot;\\&quot;Experimental FP16 RKNN Linear adapter; original attention stays in PyTorch.\\&quot;\\&quot;\\&quot;\\nimport ctypes\\nimport time\\nfrom pathlib import Path\\nfrom types import MethodType\\nimport torch\\n\\n\\nclass Engine:\\n    def __init__(self):\\n        self.lib = ctypes.CDLL(str(Path(__file__).with_name(\&#x27;libmatmul_bridge.so\&#x27;)))\\n        self.lib.mm_error.restype = ctypes.c_char_p\\n        self.lib.mm_create.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p]\\n        self.lib.mm_create.restype = ctypes.c_void_p\\n        self.lib.mm_run.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]\\n        self.lib.mm_run.restype = ctypes.c_int\\n        self.lib.mm_destroy.argtypes = [ctypes.c_void_p]\\n        self.handles = []\\n        self.calls = self.cpu_fallbacks = 0\\n        self.seconds = self.create_seconds = 0.0\\n\\n    def error(self):\\n        return RuntimeError(self.lib.mm_error().decode())\\n\\n    def create(self, weight):\\n        # PyTorch weight [N,K] -&gt; official normal B layout [K,N], then native-pack once.\\n        start = time.perf_counter()\\n        half = weight.detach().to(torch.float16).t().contiguous()\\n        if not torch.isfinite(half).all():\\n            raise ValueError(\&#x27;FP16 weight overflow\&#x27;)\\n        handle = self.lib.mm_create(weight.shape[1], weight.shape[0], half.data_ptr())\\n        if not handle:\\n            raise self.error()\\n        self.handles.append(handle)\\n        self.create_seconds += time.perf_counter() - start\\n        return handle\\n\\n    def run(self, handle, inputs, out_features):\\n        start = time.perf_counter()\\n        flat = inputs.reshape(-1, inputs.shape[-1]).to(torch.float16).contiguous()\\n        if not torch.isfinite(flat).all():\\n            raise ValueError(\&#x27;FP16 activation overflow\&#x27;)\\n        output = torch.empty((flat.shape[0], out_features), dtype=torch.float32)\\n        if self.lib.mm_run(handle, flat.shape[0], flat.data_ptr(), output.data_ptr()):\\n            raise self.error()\\n        self.calls += 1\\n        self.seconds += time.perf_counter() - start\\n        return output.reshape(*inputs.shape[:-1], out_features)\\n\\n    def close(self):\\n        for handle in self.handles:\\n            self.lib.mm_destroy(handle)\\n        self.handles.clear()\\n\\n\\ndef install(model, engine, selection=\&#x27;all\&#x27;):\\n    \\&quot;\\&quot;\\&quot;Replace only CPU BF16 text Linear.forward, after existing CPU optimization.\\n\\n    Unsupported large requests use the saved CPU forward. No runtime error is\\n    silently hidden. Handles/weights live for the whole benchmark, not each call.\\n    \\&quot;\\&quot;\\&quot;\\n    chosen = []\\n    for name, module in model.backbone.named_modules():\\n        if \&#x27;language_model.layers.\&#x27; not in name or not isinstance(module, torch.nn.Linear):\\n            continue\\n        if selection == \&#x27;mlp\&#x27; and \&#x27;.mlp.\&#x27; not in name:\\n            continue\\n        k, n = module.in_features, module.out_features\\n        if k &gt; 10240 or k % 16 or n % 8 or k * n &lt; 262144:\\n            continue\\n        module._rknn_cpu_forward = module.forward\\n        module._rknn_handle = None\\n        def forward(self, inputs):\\n            rows = inputs.numel() // inputs.shape[-1]\\n            if inputs.device.type != \&#x27;cpu\&#x27; or inputs.dtype != torch.bfloat16 or rows &gt; 512:\\n                engine.cpu_fallbacks += 1\\n                return self._rknn_cpu_forward(inputs)\\n            if self._rknn_handle is None:\\n                self._rknn_handle = engine.create(self.weight)\\n            output = engine.run(self._rknn_handle, inputs, self.out_features)\\n            if self.bias is not None:\\n                output += self.bias.float()\\n            return output.to(inputs.dtype)\\n        module.forward = MethodType(forward, module)\\n        chosen.append({\&#x27;name\&#x27;: name, \&#x27;K\&#x27;: k, \&#x27;N\&#x27;: n})\\n    return chosen\\n\\n\\ndef uninstall(model):\\n    # Restore CPU forwards before freeing NPU buffers, so retained model objects\\n    # cannot reference released native handles.\\n    for module in model.backbone.modules():\\n        if hasattr(module, \&#x27;_rknn_cpu_forward\&#x27;):\\n            module.forward = module._rknn_cpu_forward\\n            del module._rknn_cpu_forward\\n            del module._rknn_handle\\n&quot;, &quot;app/cpu_optimized_server.py&quot;: &quot;#!/usr/bin/env python3\\n\\&quot;\\&quot;\\&quot;Serve pinned d3 with faster ARM CPU Linear/Conv kernels.\\n\\nKeep BF16 checkpoint tensors and activation boundaries. Compute Linear and\\nConv operations in FP32 using cached FP32 weights, then round outputs to the\\noriginal activation dtype. Probability parity must be measured before use.\\n\\&quot;\\&quot;\\&quot;\\nimport argparse\\nimport os\\nimport sys\\nfrom pathlib import Path\\nfrom types import MethodType\\n\\nimport torch\\nimport torch.nn.functional as functional\\n\\n\\ndef linear_forward(self, inputs):\\n    return functional.linear(inputs.float(), self._cpu_fp32_weight,\\n                             self._cpu_fp32_bias).to(inputs.dtype)\\n\\n\\ndef conv_forward(self, inputs):\\n    return self._conv_forward(inputs.float(), self._cpu_fp32_weight,\\n                             self._cpu_fp32_bias).to(inputs.dtype)\\n\\n\\ndef optimize(model):\\n    count = 0\\n    cache_bytes = 0\\n    for module in model.backbone.modules():\\n        if not isinstance(module, (torch.nn.Linear, torch.nn.Conv1d,\\n                                   torch.nn.Conv2d, torch.nn.Conv3d)):\\n            continue\\n        if module.weight.device.type != \\&quot;cpu\\&quot; or module.weight.dtype != torch.bfloat16:\\n            continue\\n        weight = module.weight.detach().float()\\n        bias = None if module.bias is None else module.bias.detach().float()\\n        module.register_buffer(\\&quot;_cpu_fp32_weight\\&quot;, weight, persistent=False)\\n        module.register_buffer(\\&quot;_cpu_fp32_bias\\&quot;, bias, persistent=False)\\n        function = linear_forward if isinstance(module, torch.nn.Linear) else conv_forward\\n        module.forward = MethodType(function, module)\\n        count += 1\\n        cache_bytes += weight.numel() * weight.element_size()\\n        if bias is not None:\\n            cache_bytes += bias.numel() * bias.element_size()\\n    return count, cache_bytes\\n\\n\\ndef main():\\n    parser = argparse.ArgumentParser()\\n    parser.add_argument(\\&quot;--model\\&quot;, required=True, type=Path)\\n    parser.add_argument(\\&quot;--host\\&quot;, default=\\&quot;0.0.0.0\\&quot;)\\n    parser.add_argument(\\&quot;--port\\&quot;, type=int, default=8899)\\n    args = parser.parse_args()\\n    sys.path.insert(0, str(args.model))\\n    from d3_runtime import D3\\n    from d3_server import serve\\n    model = D3.from_pretrained(args.model, device=\\&quot;cpu\\&quot;, verify=\\&quot;full\\&quot;)\\n    model.model_name = \\&quot;vllm-sr/d3-edge\\&quot;\\n    count, size = optimize(model)\\n    print(f\\&quot;Optimized {count} CPU layers; cached FP32 weights: {size / 2**20:.1f} MiB\\&quot;, flush=True)\\n    server = serve(model, args.host, args.port,\\n                   api_key=os.environ.get(\\&quot;DECISION_API_KEY\\&quot;) or None)\\n    print(f\\&quot;d3 CPU optimized server ready on {args.host}:{args.port}\\&quot;, flush=True)\\n    try:\\n        server.serve_forever()\\n    finally:\\n        server.server_close()\\n\\n\\nif __name__ == \\&quot;__main__\\&quot;:\\n    main()\\n&quot;, &quot;app/npu_server.py&quot;: &quot;#!/usr/bin/env python3\\n\\&quot;\\&quot;\\&quot;Separate experimental endpoint; reuse the official serialized D3 HTTP server.\\&quot;\\&quot;\\&quot;\\nimport argparse\\nfrom concurrent.futures import Future\\nimport json\\nimport os\\nimport queue\\nimport sys\\nimport threading\\nfrom pathlib import Path\\nimport torch\\nfrom cpu_optimized_server import optimize\\nfrom rknn_linear import Engine, install, uninstall\\n\\nparser=argparse.ArgumentParser()\\nparser.add_argument(\&#x27;--model\&#x27;,required=True,type=Path)\\nparser.add_argument(\&#x27;--host\&#x27;,default=\&#x27;0.0.0.0\&#x27;)\\nparser.add_argument(\&#x27;--port\&#x27;,type=int,default=8900)\\nargs=parser.parse_args()\\nsys.path.insert(0,str(args.model))\\nfrom d3_runtime import D3, PromptEncoder\\nfrom d3_server import serve\\ntorch.set_num_threads(4)\\nmodel=D3.from_pretrained(args.model,device=\&#x27;cpu\&#x27;,verify=\&#x27;full\&#x27;)\\nmodel.model_name=\&#x27;vllm-sr/d3-edge\&#x27;\\nassert model.attention_mode==\&#x27;noncausal_full_attention\&#x27; and isinstance(model.encoder,PromptEncoder)\\noptimize(model)\\nengine=Engine()\\nserver=None\\nrequests=queue.Queue()\\nhttp_thread=None\\nactive=None\\ntry:\\n    selected=install(model,engine)\\n    body=json.loads(Path(\&#x27;/work/request.json\&#x27;).read_text())\\n    model.system_one(state=body[\&#x27;state\&#x27;],questions=body[\&#x27;questions\&#x27;])\\n    print(f\&#x27;RKNN warmup complete: {len(selected)} text Linear layers, {len(engine.handles)} cached NPU handles; original noncausal PromptEncoder\&#x27;,flush=True)\\n    # Decider.turn in the official server serializes model.run across requests.\\n    server=serve(model,args.host,args.port,api_key=os.environ.get(\&#x27;DECISION_API_KEY\&#x27;) or None)\\n    original_answer=server.decider.answer\\n    # The board measured significantly faster inference on the initialization\\n    # thread than Python auxiliary threads. HTTP keeps its original handlers;\\n    # model calls execute serially on this main thread and reuse native buffers.\\n    def queued_answer(body):\\n        future=Future()\\n        requests.put((body,future))\\n        return future.result()\\n    server.decider.answer=queued_answer\\n    print(f\&#x27;Experimental CPU+RKNN service ready on {args.host}:{args.port}\&#x27;,flush=True)\\n    http_thread=threading.Thread(target=server.serve_forever,name=\&#x27;d3-http\&#x27;,daemon=True)\\n    http_thread.start()\\n    while True:\\n        body,active=requests.get()\\n        try:\\n            active.set_result(original_answer(body))\\n        except Exception as exc:\\n            active.set_exception(exc)\\n        finally:\\n            requests.task_done()\\n        active=None\\nfinally:\\n    if server:\\n        if http_thread: server.shutdown()\\n        server.server_close()\\n    if active is not None and not active.done():\\n        active.set_exception(RuntimeError(\&#x27;Service is stopping\&#x27;))\\n    while not requests.empty():\\n        _,pending=requests.get_nowait()\\n        pending.set_exception(RuntimeError(\&#x27;Service is stopping\&#x27;))\\n    uninstall(model)\\n    engine.close()\\n&quot;, &quot;app/request.json&quot;: &quot;{\\n  \\&quot;model\\&quot;: \\&quot;vllm-sr/d3-edge\\&quot;,\\n  \\&quot;state\\&quot;: \\&quot;请写一个 Python 函数，合并两个有序列表。\\&quot;,\\n  \\&quot;questions\\&quot;: {\\n    \\&quot;kind\\&quot;: {\\n      \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n      \\&quot;instructions\\&quot;: \\&quot;这个请求属于哪类任务？\\&quot;,\\n      \\&quot;criteria\\&quot;: {\\&quot;code\\&quot;: \\&quot;编程任务\\&quot;, \\&quot;math\\&quot;: \\&quot;数学问题\\&quot;, \\&quot;chat\\&quot;: \\&quot;日常聊天\\&quot;}\\n    }\\n  }\\n}\\n&quot;, &quot;app/benchmark.py&quot;: &quot;\\&quot;\\&quot;\\&quot;Paired model test with unchanged D3 PromptEncoder and optimized CPU baseline.\\&quot;\\&quot;\\&quot;\\nimport argparse\\nimport hashlib\\nimport inspect\\nimport json\\nimport statistics\\nimport sys\\nimport time\\nfrom pathlib import Path\\nimport torch\\nfrom rknn_linear import Engine, install, uninstall\\nfrom cpu_optimized_server import optimize\\n\\nparser=argparse.ArgumentParser()\\nparser.add_argument(\&#x27;--model\&#x27;,required=True)\\nparser.add_argument(\&#x27;--repeats\&#x27;,type=int,default=3)\\nparser.add_argument(\&#x27;--selection\&#x27;,choices=[\&#x27;all\&#x27;,\&#x27;mlp\&#x27;],default=\&#x27;all\&#x27;)\\nargs=parser.parse_args()\\nroot=Path(\&#x27;/work\&#x27;)\\nsys.path.insert(0,args.model)\\nfrom d3_runtime import D3, PromptEncoder\\ntorch.set_num_threads(4)\\nmodel=D3.from_pretrained(args.model,device=\&#x27;cpu\&#x27;,verify=\&#x27;full\&#x27;)\\nmodel.model_name=\&#x27;vllm-sr/d3-edge\&#x27;\\nassert model.attention_mode==\&#x27;noncausal_full_attention\&#x27;\\nassert isinstance(model.encoder,PromptEncoder)\\noptimized,size=optimize(model)\\ncases=json.loads((root/\&#x27;request-cases.json\&#x27;).read_text())\\nsingle=next(x for x in cases if x[\&#x27;id\&#x27;]==\&#x27;single\&#x27;)\\ncases=[single]+[x for x in cases if x[\&#x27;id\&#x27;]!=\&#x27;single\&#x27;]\\nimage=json.loads((root/\&#x27;golden-reference.json\&#x27;).read_text())[\&#x27;image\&#x27;]\\nimage[\&#x27;state\&#x27;]=\&#x27;Describe the attached image.\&#x27;\\ncases.append({\&#x27;id\&#x27;:\&#x27;image\&#x27;,**image})\\nreport={\&#x27;attention_mode\&#x27;:model.attention_mode,\&#x27;prompt_encoder_sha256\&#x27;:hashlib.sha256(inspect.getsource(PromptEncoder).encode()).hexdigest(),\\n        \&#x27;torch\&#x27;:torch.__version__,\&#x27;threads\&#x27;:torch.get_num_threads(),\&#x27;batch_size\&#x27;:model.batch_size,\\n        \&#x27;cpu_optimized_modules\&#x27;:optimized,\&#x27;selection\&#x27;:args.selection,\&#x27;repeats\&#x27;:args.repeats,\&#x27;cases\&#x27;:{},\&#x27;passed\&#x27;:False}\\ndestination=root/\&#x27;logs\&#x27;/f\&#x27;benchmark-{args.selection}.json\&#x27;\\ndef save():\\n    destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+\&#x27;\\\\n\&#x27;)\\ndef invoke(case):\\n    return model.system_one(**{k:case[k] for k in [\&#x27;state\&#x27;,\&#x27;questions\&#x27;,\&#x27;images\&#x27;,\&#x27;videos\&#x27;] if k in case})\\ndef numbers(value,path=\&#x27;\&#x27;):\\n    result={}\\n    if isinstance(value,dict):\\n        for key,child in value.items():\\n            if key not in (\&#x27;confidence\&#x27;,\&#x27;legend\&#x27;):\\n                result.update(numbers(child,path+\&#x27;/\&#x27;+key))\\n    elif isinstance(value,(int,float)):\\n        result[path]=value\\n    return result\\n\\nprofile={}\\noriginal=[]\\nfor name,module in model.backbone.named_modules():\\n    if isinstance(module,(torch.nn.Linear,torch.nn.Conv1d,torch.nn.Conv2d,torch.nn.Conv3d)):\\n        forward=module.forward\\n        def timed(inputs,*positional,_forward=forward,_name=name,**keywords):\\n            start=time.perf_counter(); out=_forward(inputs,*positional,**keywords)\\n            p=profile.setdefault(_name,{\&#x27;seconds\&#x27;:0,\&#x27;calls\&#x27;:0,\&#x27;shape\&#x27;:list(inputs.shape)})\\n            p[\&#x27;seconds\&#x27;]+=time.perf_counter()-start; p[\&#x27;calls\&#x27;]+=1\\n            return out\\n        original.append((module,forward)); module.forward=timed\\nstart=time.perf_counter(); invoke(single); elapsed=time.perf_counter()-start\\nfor module,forward in original:\\n    module.forward=forward\\nreport[\&#x27;cpu_profile\&#x27;]={\&#x27;total_seconds\&#x27;:elapsed,\&#x27;linear_conv_seconds\&#x27;:sum(p[\&#x27;seconds\&#x27;] for p in profile.values()),\&#x27;modules\&#x27;:profile}\\nsave()\\nprint(\&#x27;CPU_PROFILE\&#x27;,json.dumps({k:v for k,v in report[\&#x27;cpu_profile\&#x27;].items() if k!=\&#x27;modules\&#x27;}),flush=True)\\nengine=None\\ntry:\\n    for mode in [\&#x27;cpu\&#x27;,\&#x27;npu\&#x27;]:\\n        if mode==\&#x27;npu\&#x27;:\\n            engine=Engine()\\n            report[\&#x27;offloaded_modules\&#x27;]=install(model,engine,args.selection)\\n            print(\&#x27;OFFLOAD\&#x27;,len(report[\&#x27;offloaded_modules\&#x27;]),flush=True)\\n        for case in cases:\\n            # Warm up this shape; first NPU request includes persistent weight/context setup.\\n            start=time.perf_counter(); warm=invoke(case); warm_seconds=time.perf_counter()-start\\n            timings=[]\\n            before_calls=engine.calls if engine else 0\\n            before_time=engine.seconds if engine else 0\\n            before_fallback=engine.cpu_fallbacks if engine else 0\\n            for _ in range(args.repeats):\\n                start=time.perf_counter(); response=invoke(case); timings.append(time.perf_counter()-start)\\n                assert response==warm, \&#x27;Repeated response changed within the same backend\&#x27;\\n            record={\&#x27;warmup_seconds\&#x27;:warm_seconds,\&#x27;seconds\&#x27;:timings,\&#x27;median_seconds\&#x27;:statistics.median(timings),\&#x27;response\&#x27;:response}\\n            if mode==\&#x27;npu\&#x27;:\\n                record.update(npu_calls=engine.calls-before_calls,npu_adapter_seconds=engine.seconds-before_time,\\n                              cpu_fallback_calls=engine.cpu_fallbacks-before_fallback)\\n                baseline=report[\&#x27;cases\&#x27;][case[\&#x27;id\&#x27;]][\&#x27;cpu\&#x27;]\\n                a=numbers(response[\&#x27;answers\&#x27;]); b=numbers(baseline[\&#x27;response\&#x27;][\&#x27;answers\&#x27;])\\n                assert set(a)==set(b)\\n                delta=max(abs(a[key]-b[key]) for key in a)\\n                matches=all(v.get(\&#x27;choice\&#x27;)==baseline[\&#x27;response\&#x27;][\&#x27;answers\&#x27;][key].get(\&#x27;choice\&#x27;) for key,v in response[\&#x27;answers\&#x27;].items())\\n                record.update(max_probability_or_score_delta=delta,choices_unchanged=matches,\\n                              speedup=baseline[\&#x27;median_seconds\&#x27;]/record[\&#x27;median_seconds\&#x27;],parity_passed=delta&lt;=0.01 and matches)\\n                assert model.attention_mode==\&#x27;noncausal_full_attention\&#x27; and isinstance(model.encoder,PromptEncoder)\\n            report[\&#x27;cases\&#x27;].setdefault(case[\&#x27;id\&#x27;],{})[mode]=record\\n            save()\\n            print(\&#x27;CASE\&#x27;,mode,case[\&#x27;id\&#x27;],json.dumps({k:v for k,v in record.items() if k!=\&#x27;response\&#x27;}),flush=True)\\n    report[\&#x27;passed\&#x27;]=all(c[\&#x27;npu\&#x27;][\&#x27;parity_passed\&#x27;] for c in report[\&#x27;cases\&#x27;].values())\\n    report[\&#x27;setup_seconds\&#x27;]=engine.create_seconds\\n    report[\&#x27;npu_handles\&#x27;]=len(engine.handles)\\n    save()\\n    assert report[\&#x27;passed\&#x27;], \&#x27;CPU/NPU probability parity failed; do not promote\&#x27;\\n    print(\&#x27;PASS: same choices; numeric delta &lt;= 0.01; original attention code unchanged.\&#x27;,flush=True)\\nfinally:\\n    if engine:\\n        uninstall(model)\\n        engine.close()\\n&quot;, &quot;app/micro_test.py&quot;: &quot;import json\\nimport time\\nfrom pathlib import Path\\nimport torch\\nfrom rknn_linear import Engine\\n\\ntorch.set_num_threads(4)\\ntorch.manual_seed(7)\\nengine = Engine()\\nresults = []\\ntry:\\n    for k,n in [(1024,3072),(3072,1024),(1024,2048),(128,64)]:\\n        # BF16 model values are exactly representable in FP16 within its exponent range.\\n        w = (torch.randn(n,k) * 0.02).bfloat16().float()\\n        handle = engine.create(w)\\n        for m in [115,129,97,381]:\\n            x = torch.randn(m,k).bfloat16()\\n            ref = torch.nn.functional.linear(x.float(),w)\\n            y = engine.run(handle,x,n)\\n            delta = y-ref\\n            assert torch.isfinite(y).all()\\n            relative = delta.norm().item()/ref.norm().item()\\n            assert relative &lt; 0.005, (m,k,n,relative)\\n            cpu=[]; npu=[]\\n            for _ in range(5):\\n                t=time.perf_counter(); torch.nn.functional.linear(x.float(),w); cpu.append(time.perf_counter()-t)\\n                t=time.perf_counter(); engine.run(handle,x,n); npu.append(time.perf_counter()-t)\\n            r={\&#x27;M\&#x27;:m,\&#x27;K\&#x27;:k,\&#x27;N\&#x27;:n,\&#x27;max_absolute_delta\&#x27;:delta.abs().max().item(),\&#x27;relative_l2_delta\&#x27;:relative,\\n               \&#x27;cpu_seconds_median\&#x27;:sorted(cpu)[2],\&#x27;npu_seconds_median\&#x27;:sorted(npu)[2]}\\n            r[\&#x27;speedup\&#x27;]=r[\&#x27;cpu_seconds_median\&#x27;]/r[\&#x27;npu_seconds_median\&#x27;]\\n            results.append(r); print(json.dumps(r),flush=True)\\n    Path(\&#x27;/work/logs/micro-test.json\&#x27;).write_text(json.dumps(results,indent=2)+\&#x27;\\\\n\&#x27;)\\nfinally:\\n    engine.close()\\n&quot;, &quot;app/boundary_test.py&quot;: &quot;\\&quot;\\&quot;\\&quot;Focused checks for real native buffers, dynamic shape switches and CPU fallback.\\&quot;\\&quot;\\&quot;\\nimport json\\nfrom pathlib import Path\\nfrom types import SimpleNamespace\\nimport torch\\nfrom cpu_optimized_server import optimize\\nfrom rknn_linear import Engine, install, uninstall\\n\\ntorch.set_num_threads(4)\\ntorch.manual_seed(9)\\nbackbone=torch.nn.Module()\\nbackbone.language_model=torch.nn.Module()\\nbackbone.language_model.layers=torch.nn.ModuleList([torch.nn.Module()])\\nlayer=torch.nn.Linear(1024,512,bias=True).bfloat16().eval().requires_grad_(False)\\nbackbone.language_model.layers[0].proj=layer\\nmodel=SimpleNamespace(backbone=backbone)\\noptimize(model)\\ncpu_forward=layer.forward\\nengine=Engine()\\nresult={}\\ntry:\\n    assert len(install(model,engine))==1\\n    for rows in [127,128,129,256,257,512,513]:\\n        x=torch.randn(1,rows,1024).bfloat16()\\n        reference=cpu_forward(x)\\n        before=engine.calls\\n        output=layer(x)\\n        assert torch.isfinite(output).all()\\n        if rows==513:\\n            assert torch.equal(output,reference)\\n            assert engine.calls==before and engine.cpu_fallbacks==1\\n        else:\\n            assert engine.calls==before+1\\n            assert (output.float()-reference.float()).norm()/reference.float().norm()&lt;0.001\\n        result[str(rows)]={\&#x27;npu_used\&#x27;:engine.calls&gt;before,\&#x27;max_absolute_delta\&#x27;:(output.float()-reference.float()).abs().max().item()}\\n    x=torch.randn(1,17,1024,dtype=torch.float32)\\n    assert torch.equal(layer(x),cpu_forward(x))\\n    assert engine.cpu_fallbacks==2\\n    try:\\n        engine.lib.mm_create(7,8,x.data_ptr())\\n        assert \&#x27;alignment\&#x27; in engine.lib.mm_error().decode()\\n        bad=torch.randn(513,1024).half()\\n        engine.run(layer._rknn_handle,bad,512)\\n        raise AssertionError(\&#x27;Native oversized request accepted\&#x27;)\\n    except RuntimeError as exc:\\n        assert \&#x27;Invalid run argument\&#x27; in str(exc)\\n    uninstall(model)\\n    engine.close()\\n    assert torch.equal(layer(x),cpu_forward(x))\\n    result.update(non_bf16_cpu_fallback=True,native_oversize_rejected=True,cpu_forward_restored_after_release=True,passed=True)\\n    Path(\&#x27;/work/logs/boundary-test.json\&#x27;).write_text(json.dumps(result,indent=2)+\&#x27;\\\\n\&#x27;)\\n    print(json.dumps(result,indent=2))\\nfinally:\\n    uninstall(model)\\n    engine.close()\\n&quot;, &quot;app/request-cases.json&quot;: &quot;[\\n  {\\n    \\&quot;id\\&quot;: \\&quot;chinese-0\\&quot;,\\n    \\&quot;state\\&quot;: \\&quot;请写一个 Python 函数，把两个有序列表合并成一个有序列表。\\&quot;,\\n    \\&quot;questions\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求属于哪类任务？\\&quot;,\\n        \\&quot;criteria\\&quot;: {\\n          \\&quot;code\\&quot;: \\&quot;编写、解释或修复程序\\&quot;,\\n          \\&quot;math\\&quot;: \\&quot;数学计算或证明\\&quot;,\\n          \\&quot;chat\\&quot;: \\&quot;日常聊天和生活话题\\&quot;\\n        }\\n      },\\n      \\&quot;programming\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求是否要求编写程序？\\&quot;\\n      },\\n      \\&quot;complexity\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求的复杂程度是多少？\\&quot;,\\n        \\&quot;criteria\\&quot;: [\\n          \\&quot;简单\\&quot;,\\n          \\&quot;中等\\&quot;,\\n          \\&quot;复杂\\&quot;\\n        ]\\n      }\\n    },\\n    \\&quot;baseline\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;choice\\&quot;: \\&quot;code\\&quot;,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;code\\&quot;: 0.9992407534465768,\\n          \\&quot;math\\&quot;: 0.0005031534224754242,\\n          \\&quot;chat\\&quot;: 0.00025609313094778077\\n        },\\n        \\&quot;confidence\\&quot;: 0.9939031290513372\\n      },\\n      \\&quot;programming\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;noul\\&quot;: 0.8701225052792207\\n      },\\n      \\&quot;complexity\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;score\\&quot;: 0.1014327779124191,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;0\\&quot;: 0.914882283616913,\\n          \\&quot;1\\&quot;: 0.06880265485375493,\\n          \\&quot;2\\&quot;: 0.016315061529332084\\n        },\\n        \\&quot;confidence\\&quot;: 0.6971758227789213,\\n        \\&quot;legend\\&quot;: {\\n          \\&quot;0\\&quot;: \\&quot;简单\\&quot;,\\n          \\&quot;1\\&quot;: \\&quot;中等\\&quot;,\\n          \\&quot;2\\&quot;: \\&quot;复杂\\&quot;\\n        }\\n      }\\n    }\\n  },\\n  {\\n    \\&quot;id\\&quot;: \\&quot;chinese-1\\&quot;,\\n    \\&quot;state\\&quot;: \\&quot;你好，今天心情怎么样？\\&quot;,\\n    \\&quot;questions\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求属于哪类任务？\\&quot;,\\n        \\&quot;criteria\\&quot;: {\\n          \\&quot;code\\&quot;: \\&quot;编写、解释或修复程序\\&quot;,\\n          \\&quot;math\\&quot;: \\&quot;数学计算或证明\\&quot;,\\n          \\&quot;chat\\&quot;: \\&quot;日常聊天和生活话题\\&quot;\\n        }\\n      },\\n      \\&quot;programming\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求是否要求编写程序？\\&quot;\\n      },\\n      \\&quot;complexity\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求的复杂程度是多少？\\&quot;,\\n        \\&quot;criteria\\&quot;: [\\n          \\&quot;简单\\&quot;,\\n          \\&quot;中等\\&quot;,\\n          \\&quot;复杂\\&quot;\\n        ]\\n      }\\n    },\\n    \\&quot;baseline\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;choice\\&quot;: \\&quot;chat\\&quot;,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;code\\&quot;: 0.0007201397436318482,\\n          \\&quot;math\\&quot;: 0.00036008721769970325,\\n          \\&quot;chat\\&quot;: 0.9989197730386684\\n        },\\n        \\&quot;confidence\\&quot;: 0.991675122971715\\n      },\\n      \\&quot;programming\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;noul\\&quot;: 0.0002551515976465532\\n      },\\n      \\&quot;complexity\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;score\\&quot;: 0.019110443444288625,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;0\\&quot;: 0.9835840059958996,\\n          \\&quot;1\\&quot;: 0.013721544563912261,\\n          \\&quot;2\\&quot;: 0.0026944494401881826\\n        },\\n        \\&quot;confidence\\&quot;: 0.9171034390906018,\\n        \\&quot;legend\\&quot;: {\\n          \\&quot;0\\&quot;: \\&quot;简单\\&quot;,\\n          \\&quot;1\\&quot;: \\&quot;中等\\&quot;,\\n          \\&quot;2\\&quot;: \\&quot;复杂\\&quot;\\n        }\\n      }\\n    }\\n  },\\n  {\\n    \\&quot;id\\&quot;: \\&quot;english\\&quot;,\\n    \\&quot;state\\&quot;: \\&quot;Write a Python function that merges two sorted lists and explain its running time.\\&quot;,\\n    \\&quot;questions\\&quot;: {\\n      \\&quot;domain\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;Which domain does this request belong to?\\&quot;,\\n        \\&quot;criteria\\&quot;: {\\n          \\&quot;code\\&quot;: \\&quot;Programming\\&quot;,\\n          \\&quot;math\\&quot;: \\&quot;Mathematics\\&quot;,\\n          \\&quot;other\\&quot;: \\&quot;Anything else\\&quot;\\n        }\\n      },\\n      \\&quot;reasoning\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;Does answering this request need multi-step reasoning?\\&quot;\\n      },\\n      \\&quot;difficulty\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;How difficult is this request?\\&quot;,\\n        \\&quot;criteria\\&quot;: [\\n          \\&quot;Trivial\\&quot;,\\n          \\&quot;Moderate\\&quot;,\\n          \\&quot;Hard\\&quot;\\n        ]\\n      }\\n    },\\n    \\&quot;baseline\\&quot;: {\\n      \\&quot;domain\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;choice\\&quot;: \\&quot;code\\&quot;,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;code\\&quot;: 0.9059022938497119,\\n          \\&quot;math\\&quot;: 0.00010158083329922285,\\n          \\&quot;other\\&quot;: 0.09399612531698893\\n        },\\n        \\&quot;confidence\\&quot;: 0.7153566085339282\\n      },\\n      \\&quot;reasoning\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;noul\\&quot;,\\n        \\&quot;noul\\&quot;: 0.0630309302518049\\n      },\\n      \\&quot;difficulty\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;score\\&quot;,\\n        \\&quot;score\\&quot;: 0.19148818189477718,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;0\\&quot;: 0.8434359933051915,\\n          \\&quot;1\\&quot;: 0.12163983149483988,\\n          \\&quot;2\\&quot;: 0.03492417519996865\\n        },\\n        \\&quot;confidence\\&quot;: 0.5293824489640959,\\n        \\&quot;legend\\&quot;: {\\n          \\&quot;0\\&quot;: \\&quot;Trivial\\&quot;,\\n          \\&quot;1\\&quot;: \\&quot;Moderate\\&quot;,\\n          \\&quot;2\\&quot;: \\&quot;Hard\\&quot;\\n        }\\n      }\\n    }\\n  },\\n  {\\n    \\&quot;id\\&quot;: \\&quot;single\\&quot;,\\n    \\&quot;state\\&quot;: \\&quot;请写一个 Python 函数，合并两个有序列表。\\&quot;,\\n    \\&quot;questions\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;instructions\\&quot;: \\&quot;这个请求属于哪类任务？\\&quot;,\\n        \\&quot;criteria\\&quot;: {\\n          \\&quot;code\\&quot;: \\&quot;编程任务\\&quot;,\\n          \\&quot;math\\&quot;: \\&quot;数学问题\\&quot;,\\n          \\&quot;chat\\&quot;: \\&quot;日常聊天\\&quot;\\n        }\\n      }\\n    },\\n    \\&quot;baseline\\&quot;: {\\n      \\&quot;kind\\&quot;: {\\n        \\&quot;type\\&quot;: \\&quot;choice\\&quot;,\\n        \\&quot;choice\\&quot;: \\&quot;code\\&quot;,\\n        \\&quot;probabilities\\&quot;: {\\n          \\&quot;code\\&quot;: 0.9991648123435318,\\n          \\&quot;math\\&quot;: 0.0006982751935839212,\\n          \\&quot;chat\\&quot;: 0.0001369124628842124\\n        },\\n        \\&quot;confidence\\&quot;: 0.993512607365437\\n      }\\n    }\\n  }\\n]\\n&quot;, &quot;app/golden-reference.json&quot;: &quot;{\\&quot;text\\&quot;: {\\&quot;state\\&quot;: \\&quot;Write a Python function that merges two sorted lists and explain its running time.\\&quot;, \\&quot;questions\\&quot;: {\\&quot;domain\\&quot;: {\\&quot;type\\&quot;: \\&quot;choice\\&quot;, \\&quot;instructions\\&quot;: \\&quot;Which domain does this request belong to?\\&quot;, \\&quot;criteria\\&quot;: {\\&quot;code\\&quot;: \\&quot;Programming\\&quot;, \\&quot;math\\&quot;: \\&quot;Mathematics\\&quot;, \\&quot;other\\&quot;: \\&quot;Anything else\\&quot;}}, \\&quot;reasoning\\&quot;: {\\&quot;type\\&quot;: \\&quot;noul\\&quot;, \\&quot;instructions\\&quot;: \\&quot;Does answering this request need multi-step reasoning?\\&quot;}, \\&quot;difficulty\\&quot;: {\\&quot;type\\&quot;: \\&quot;score\\&quot;, \\&quot;instructions\\&quot;: \\&quot;How difficult is this request?\\&quot;, \\&quot;criteria\\&quot;: [\\&quot;Trivial\\&quot;, \\&quot;Moderate\\&quot;, \\&quot;Hard\\&quot;]}}}, \\&quot;image\\&quot;: {\\&quot;state\\&quot;: \\&quot;Write a Python function that merges two sorted lists and explain its running time.\\&quot;, \\&quot;questions\\&quot;: {\\&quot;image_colour\\&quot;: {\\&quot;type\\&quot;: \\&quot;choice\\&quot;, \\&quot;instructions\\&quot;: \\&quot;Which colour dominates the image?\\&quot;, \\&quot;criteria\\&quot;: {\\&quot;red\\&quot;: \\&quot;Red\\&quot;, \\&quot;green\\&quot;: \\&quot;Green\\&quot;, \\&quot;blue\\&quot;: \\&quot;Blue\\&quot;, \\&quot;other\\&quot;: \\&quot;Anything else\\&quot;}}, \\&quot;image_photo\\&quot;: {\\&quot;type\\&quot;: \\&quot;noul\\&quot;, \\&quot;instructions\\&quot;: \\&quot;Is the image a photograph?\\&quot;}}, \\&quot;images\\&quot;: [\\&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg==\\&quot;]}, \\&quot;reference\\&quot;: {\\&quot;answers\\&quot;: {\\&quot;cpu\\&quot;: {\\&quot;difficulty\\&quot;: {\\&quot;confidence\\&quot;: 0.5289285314008614, \\&quot;legend\\&quot;: {\\&quot;0\\&quot;: \\&quot;Trivial\\&quot;, \\&quot;1\\&quot;: \\&quot;Moderate\\&quot;, \\&quot;2\\&quot;: \\&quot;Hard\\&quot;}, \\&quot;probabilities\\&quot;: {\\&quot;0\\&quot;: 0.8432784237578218, \\&quot;1\\&quot;: 0.12164200323898351, \\&quot;2\\&quot;: 0.035079573003194725}, \\&quot;score\\&quot;: 0.19180114924537295, \\&quot;type\\&quot;: \\&quot;score\\&quot;}, \\&quot;domain\\&quot;: {\\&quot;choice\\&quot;: \\&quot;code\\&quot;, \\&quot;confidence\\&quot;: 0.7191210067989227, \\&quot;probabilities\\&quot;: {\\&quot;code\\&quot;: 0.9077280006989817, \\&quot;math\\&quot;: 0.000104602467732264, \\&quot;other\\&quot;: 0.09216739683328601}, \\&quot;type\\&quot;: \\&quot;choice\\&quot;}, \\&quot;image_colour\\&quot;: {\\&quot;choice\\&quot;: \\&quot;other\\&quot;, \\&quot;confidence\\&quot;: 0.4202600410747662, \\&quot;probabilities\\&quot;: {\\&quot;blue\\&quot;: 0.012493534525591432, \\&quot;green\\&quot;: 0.33148042725877724, \\&quot;other\\&quot;: 0.6309736629601952, \\&quot;red\\&quot;: 0.02505237525543618}, \\&quot;type\\&quot;: \\&quot;choice\\&quot;}, \\&quot;image_photo\\&quot;: {\\&quot;noul\\&quot;: 0.028102190139954988, \\&quot;type\\&quot;: \\&quot;noul\\&quot;}, \\&quot;reasoning\\&quot;: {\\&quot;noul\\&quot;: 0.061222668965245294, \\&quot;type\\&quot;: \\&quot;noul\\&quot;}}, \\&quot;rocm\\&quot;: {\\&quot;difficulty\\&quot;: {\\&quot;confidence\\&quot;: 0.5227515959553738, \\&quot;legend\\&quot;: {\\&quot;0\\&quot;: \\&quot;Trivial\\&quot;, \\&quot;1\\&quot;: \\&quot;Moderate\\&quot;, \\&quot;2\\&quot;: \\&quot;Hard\\&quot;}, \\&quot;probabilities\\&quot;: {\\&quot;0\\&quot;: 0.8396536299508877, \\&quot;1\\&quot;: 0.12540091854484942, \\&quot;2\\&quot;: 0.034945451504262946}, \\&quot;score\\&quot;: 0.19529182155337532, \\&quot;type\\&quot;: \\&quot;score\\&quot;}, \\&quot;domain\\&quot;: {\\&quot;choice\\&quot;: \\&quot;code\\&quot;, \\&quot;confidence\\&quot;: 0.7147529744610905, \\&quot;probabilities\\&quot;: {\\&quot;code\\&quot;: 0.9056074417805747, \\&quot;math\\&quot;: 0.00010094160537437953, \\&quot;other\\&quot;: 0.09429161661405087}, \\&quot;type\\&quot;: \\&quot;choice\\&quot;}, \\&quot;image_colour\\&quot;: {\\&quot;choice\\&quot;: \\&quot;other\\&quot;, \\&quot;confidence\\&quot;: 0.43082307724658053, \\&quot;probabilities\\&quot;: {\\&quot;blue\\&quot;: 0.011831863595972134, \\&quot;green\\&quot;: 0.320919031784289, \\&quot;other\\&quot;: 0.6437116759427837, \\&quot;red\\&quot;: 0.023537428676955133}, \\&quot;type\\&quot;: \\&quot;choice\\&quot;}, \\&quot;image_photo\\&quot;: {\\&quot;noul\\&quot;: 0.028243631966222284, \\&quot;type\\&quot;: \\&quot;noul\\&quot;}, \\&quot;reasoning\\&quot;: {\\&quot;noul\\&quot;: 0.06407417958809034, \\&quot;type\\&quot;: \\&quot;noul\\&quot;}}}, \\&quot;revision\\&quot;: \\&quot;18d61df78684675463af9ae732872478845c5a79\\&quot;}}\\n&quot;, &quot;.dockerignore&quot;: &quot;data/\\nchecks/\\n__pycache__/\\n*.tar\\n*.tar.gz\\n&quot;}&#x27;)
+root = Path(&#x27;d3-edge-rknn&#x27;)
+if root.exists():
+    raise SystemExit(&#x27;d3-edge-rknn already exists; choose an empty parent directory&#x27;)
+root.mkdir()
+for name, content in files.items():
+    target = root / name
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(content, encoding=&#x27;utf-8&#x27;)
+print(&#x27;Source files saved to&#x27;, root.resolve())
+</code></pre></details><details><summary>Dockerfile</summary><pre><code>FROM ghcr.io/vllm-project/semantic-router/vllm-sr@sha256:efc356587252c28b8d972d5d27b381df0626ccdc53597f3fccff7ae454041178
+
+# PyTorch 2.10 ARM64 wheels crash on Cortex-A53/A72 at import (upstream #174344).
+# Install the fixed official CPU wheel and preserve the rest of the router image.
+RUN python -m pip install --no-cache-dir --no-deps --force-reinstall \
+    &#x27;https://download-r2.pytorch.org/whl/cpu/torch-2.12.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=ce2ddb880b0813fcc91a737f08fdd973a8115a74c64ccb34e9c09a7964b4d448&#x27; \
+    &amp;&amp; python -c &#x27;import torch; assert torch.__version__ == &quot;2.12.0+cpu&quot;; x = torch.ones(8, 8, dtype=torch.bfloat16); assert (x @ x).shape == (8, 8); print(&quot;ARMv8 PyTorch and BF16 matmul OK&quot;)&#x27;
+
+
+# Serve through the HTTP implementation shipped with the pinned model package.
+# CPU inference uses PyTorch reference kernels; do not install GPU-only FLA.
+RUN python -m pip install --no-cache-dir \
+    transformers==5.17.0 accelerate==1.10.1 \
+    &#x27;https://download-r2.pytorch.org/whl/cpu/torchvision-0.27.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=1b06f42d48b62098114923d8a3fe9fa864182715db06584a515155db0aa8eb30&#x27; \
+    &amp;&amp; python -c &#x27;import torch, torchvision, transformers; assert torch.__version__ == &quot;2.12.0+cpu&quot;; assert transformers.__version__ == &quot;5.17.0&quot;; print(torch.__version__, torchvision.__version__, transformers.__version__)&#x27;
+
+ENV OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+ENTRYPOINT [&quot;python&quot;, &quot;-u&quot;]
+
+RUN apt-get update &amp;&amp; apt-get install -y --no-install-recommends g++ ca-certificates &amp;&amp; rm -rf /var/lib/apt/lists/*
+COPY requirements.lock /tmp/requirements.lock
+RUN python -m pip install --no-cache-dir --no-deps -r /tmp/requirements.lock &amp;&amp; python -m pip check
+WORKDIR /work
+COPY tools/fetch_sdk.py sdk-manifest.json /tmp/sdk-fetch/
+RUN python /tmp/sdk-fetch/fetch_sdk.py /work/sdk /tmp/sdk-fetch/sdk-manifest.json
+COPY app/ /work/
+RUN g++ -O2 -std=c++17 -shared -fPIC -I sdk matmul_bridge.cpp -L sdk -lrknnrt -Wl,-rpath,&#x27;$ORIGIN/sdk&#x27; -o libmatmul_bridge.so
+CMD [&quot;/work/npu_server.py&quot;, &quot;--model&quot;, &quot;/models/d3-edge&quot;, &quot;--host&quot;, &quot;0.0.0.0&quot;, &quot;--port&quot;, &quot;8900&quot;]
+</code></pre></details><details><summary>requirements.lock</summary><pre><code>accelerate==1.10.1
+annotated-doc==0.0.5
+anyio==4.15.1
+certifi==2026.7.22
+click==8.5.0
+filelock==4.0.12
+fsspec==2026.9.0
+h11==0.16.0
+hf-xet==1.6.0
+httpcore==1.0.9
+httptools==0.8.0
+httpx==0.28.1
+huggingface_hub==1.33.0
+idna==3.20
+Jinja2==3.1.6
+markdown-it-py==4.2.0
+MarkupSafe==3.0.3
+mdurl==0.1.2
+mpmath==1.3.0
+networkx==3.6.1
+numpy==2.5.3
+opencv-python-headless==5.0.0.93
+packaging==26.3
+pillow==12.3.0
+prometheus_client==0.26.0
+psutil==7.2.2
+Pygments==2.21.0
+PyYAML==6.0.3
+regex==2026.9.29
+rich==15.0.0
+safetensors==0.8.0
+shellingham==1.5.4
+starlette==1.7.0
+sympy==1.14.0
+tokenizers==0.23.2
+tqdm==4.70.1
+transformers==5.17.0
+typer==0.27.3
+typing_extensions==4.16.0
+uvicorn==0.54.0
+uvloop==0.23.0
+</code></pre></details><details><summary>sdk-manifest.json</summary><pre><code>{
+  &quot;repository&quot;: &quot;https://github.com/airockchip/rknn-toolkit2&quot;,
+  &quot;commit&quot;: &quot;2c723177a94fac65cbc036d722907ddbc91980cf&quot;,
+  &quot;files&quot;: {
+    &quot;dynamic_demo.cpp&quot;: {
+      &quot;bytes&quot;: 45867,
+      &quot;sha256&quot;: &quot;c4716e586978a03d04e0d7f8c6464087e575dd2544607261e5e52f3cf0b437a4&quot;
+    },
+    &quot;rknn_matmul_api.h&quot;: {
+      &quot;bytes&quot;: 18598,
+      &quot;sha256&quot;: &quot;aaadd9a7118de30a06b222996b6731db77095d00f5931a7a98c83a67f14a4d42&quot;
+    },
+    &quot;librknnrt.so&quot;: {
+      &quot;bytes&quot;: 8189368,
+      &quot;sha256&quot;: &quot;4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0&quot;
+    },
+    &quot;demo.cpp&quot;: {
+      &quot;bytes&quot;: 43338,
+      &quot;sha256&quot;: &quot;739638f200f35c885c8e141091fe0700dba4f4aecfd4d03dfc36191001f40696&quot;
+    },
+    &quot;rknn_api.h&quot;: {
+      &quot;bytes&quot;: 36524,
+      &quot;sha256&quot;: &quot;2d4160cd868efd7b83a72587e411c16d6972da5876e067bd73665cea778ce666&quot;
+    }
+  }
+}
+</code></pre></details><details><summary>tools/fetch_sdk.py</summary><pre><code>&quot;&quot;&quot;Fetch unmodified SDK files from the pinned official repository; verify hashes.&quot;&quot;&quot;
+import hashlib
+import json
+import sys
+import time
+import urllib.request
+from pathlib import Path
+
+destination, manifest_path = map(Path, sys.argv[1:])
+manifest = json.loads(manifest_path.read_text())
+base = f&quot;https://raw.githubusercontent.com/airockchip/rknn-toolkit2/{manifest[&#x27;commit&#x27;]}/&quot;
+paths = {
+    &#x27;librknnrt.so&#x27;: &#x27;rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so&#x27;,
+    &#x27;rknn_api.h&#x27;: &#x27;rknpu2/runtime/Linux/librknn_api/include/rknn_api.h&#x27;,
+    &#x27;rknn_matmul_api.h&#x27;: &#x27;rknpu2/runtime/Linux/librknn_api/include/rknn_matmul_api.h&#x27;,
+    &#x27;LICENSE&#x27;: &#x27;LICENSE&#x27;,
+}
+destination.mkdir(parents=True, exist_ok=True)
+for name, path in paths.items():
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(base + path, timeout=120) as response:
+                data = response.read()
+            break
+        except OSError:
+            if attempt == 2:
+                raise
+            time.sleep(2)
+    if name in manifest[&#x27;files&#x27;]:
+        assert hashlib.sha256(data).hexdigest() == manifest[&#x27;files&#x27;][name][&#x27;sha256&#x27;], name
+    (destination / name).write_bytes(data)
+    print(f&#x27;Verified/downloaded official SDK: {name}&#x27;, flush=True)
+</code></pre></details><details><summary>tools/download_model.py</summary><pre><code>&quot;&quot;&quot;Network-enabled setup step. Inference containers stay offline.&quot;&quot;&quot;
+from pathlib import Path
+from huggingface_hub import snapshot_download
+
+REVISION = &#x27;20c745653400d191ecacd99c4eafc0c5900dc15e&#x27;
+path = Path(snapshot_download(&#x27;vllm-sr/d3-edge&#x27;, revision=REVISION, local_dir=&#x27;/models/d3-edge&#x27;))
+import sys
+sys.path.insert(0, str(path))
+from d3_runtime import verify_package
+verify_package(path, mode=&#x27;full&#x27;)
+print(f&#x27;Pinned d3-edge downloaded and fully verified: {REVISION}&#x27;)
+</code></pre></details><details><summary>app/matmul_bridge.cpp</summary><pre><code>#include &lt;algorithm&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;memory&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &quot;rknn_matmul_api.h&quot;
+
+// Experimental, synchronous, single-owner handle. Callers must serialize calls.
+static thread_local std::string last_error;
+struct Matrix {
+  rknn_matmul_ctx ctx = 0;
+  rknn_tensor_mem *a = nullptr, *b = nullptr, *c = nullptr;
+  int k, n, selected = -1;
+  std::vector&lt;rknn_matmul_shape&gt; shapes;
+  std::vector&lt;rknn_matmul_io_attr&gt; attrs;
+  ~Matrix() {
+    if (a) rknn_destroy_mem(ctx, a);
+    if (b) rknn_destroy_mem(ctx, b);
+    if (c) rknn_destroy_mem(ctx, c);
+    if (ctx) rknn_matmul_destroy(ctx);
+  }
+};
+static bool check(int code, const char* operation) {
+  if (code == 0) return true;
+  last_error = std::string(operation) + &quot; returned &quot; + std::to_string(code);
+  return false;
+}
+extern &quot;C&quot; const char* mm_error() { return last_error.c_str(); }
+extern &quot;C&quot; void* mm_create(int k, int n, const void* half_kn) {
+  last_error.clear();
+  if (k &lt;= 0 || k &gt; 10240 || k % 16 || n &lt;= 0 || n % 8 || !half_kn) {
+    last_error = &quot;Unsupported K/N alignment or missing weights&quot;; return nullptr;
+  }
+  auto p = std::make_unique&lt;Matrix&gt;();
+  p-&gt;k = k; p-&gt;n = n;
+  for (int m : {128, 256, 512}) p-&gt;shapes.push_back({m,k,n});
+  p-&gt;attrs.resize(p-&gt;shapes.size());
+  rknn_matmul_info info{};
+  info.M=512; info.K=k; info.N=n;
+  info.type=RKNN_FLOAT16_MM_FLOAT16_TO_FLOAT32;
+  info.B_layout=RKNN_MM_LAYOUT_NATIVE;
+  info.AC_layout=RKNN_MM_LAYOUT_NORM;
+  if (!check(rknn_matmul_create_dynamic_shape(&amp;p-&gt;ctx, &amp;info,
+      p-&gt;shapes.size(), p-&gt;shapes.data(), p-&gt;attrs.data()), &quot;create_dynamic&quot;)) return nullptr;
+  // RK3576 matmul rejects combined core mask 3; use the supported auto mode.
+  if (!check(rknn_matmul_set_core_mask(p-&gt;ctx, RKNN_NPU_CORE_AUTO), &quot;set_cores&quot;)) return nullptr;
+  uint32_t as=0, bs=0, cs=0;
+  for (auto&amp; attr : p-&gt;attrs) {
+    as=std::max(as,attr.A.size); bs=std::max(bs,attr.B.size); cs=std::max(cs,attr.C.size);
+  }
+  p-&gt;a=rknn_create_mem(p-&gt;ctx,as); p-&gt;b=rknn_create_mem(p-&gt;ctx,bs); p-&gt;c=rknn_create_mem(p-&gt;ctx,cs);
+  if (!p-&gt;a || !p-&gt;b || !p-&gt;c) { last_error=&quot;rknn_create_mem failed&quot;; return nullptr; }
+  if (!check(rknn_B_normal_layout_to_native_layout(const_cast&lt;void*&gt;(half_kn),p-&gt;b-&gt;virt_addr,k,n,&amp;info), &quot;pack_B&quot;)) return nullptr;
+  if (!check(rknn_matmul_set_dynamic_shape(p-&gt;ctx,&amp;p-&gt;shapes[0]),&quot;initial_shape&quot;)) return nullptr;
+  if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;b,&amp;p-&gt;attrs[0].B),&quot;bind_B&quot;)) return nullptr;
+  std::memset(p-&gt;a-&gt;virt_addr,0,as);
+  return p.release();
+}
+extern &quot;C&quot; int mm_run(void* handle, int rows, const void* half_mk, float* out_mn) {
+  auto* p=static_cast&lt;Matrix*&gt;(handle);
+  if (!p || rows&lt;=0 || rows&gt;512 || !half_mk || !out_mn) { last_error=&quot;Invalid run argument&quot;; return -1; }
+  int index=rows&lt;=128 ? 0 : rows&lt;=256 ? 1 : 2;
+  if (p-&gt;selected!=index) {
+    if (!check(rknn_matmul_set_dynamic_shape(p-&gt;ctx,&amp;p-&gt;shapes[index]),&quot;set_shape&quot;)) return -1;
+    if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;a,&amp;p-&gt;attrs[index].A),&quot;bind_A&quot;)) return -1;
+    if (!check(rknn_matmul_set_io_mem(p-&gt;ctx,p-&gt;c,&amp;p-&gt;attrs[index].C),&quot;bind_C&quot;)) return -1;
+    p-&gt;selected=index;
+  }
+  size_t bytes=size_t(rows)*p-&gt;k*2;
+  std::memcpy(p-&gt;a-&gt;virt_addr,half_mk,bytes);
+  std::memset(static_cast&lt;char*&gt;(p-&gt;a-&gt;virt_addr)+bytes,0,size_t(p-&gt;shapes[index].M-rows)*p-&gt;k*2);
+  if (!check(rknn_matmul_run(p-&gt;ctx),&quot;run&quot;)) return -1;
+  std::memcpy(out_mn,p-&gt;c-&gt;virt_addr,size_t(rows)*p-&gt;n*sizeof(float));
+  return 0;
+}
+extern &quot;C&quot; void mm_destroy(void* handle) { delete static_cast&lt;Matrix*&gt;(handle); }
+</code></pre></details><details><summary>app/rknn_linear.py</summary><pre><code>&quot;&quot;&quot;Experimental FP16 RKNN Linear adapter; original attention stays in PyTorch.&quot;&quot;&quot;
+import ctypes
+import time
+from pathlib import Path
+from types import MethodType
+import torch
+
+
+class Engine:
+    def __init__(self):
+        self.lib = ctypes.CDLL(str(Path(__file__).with_name(&#x27;libmatmul_bridge.so&#x27;)))
+        self.lib.mm_error.restype = ctypes.c_char_p
+        self.lib.mm_create.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p]
+        self.lib.mm_create.restype = ctypes.c_void_p
+        self.lib.mm_run.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]
+        self.lib.mm_run.restype = ctypes.c_int
+        self.lib.mm_destroy.argtypes = [ctypes.c_void_p]
+        self.handles = []
+        self.calls = self.cpu_fallbacks = 0
+        self.seconds = self.create_seconds = 0.0
+
+    def error(self):
+        return RuntimeError(self.lib.mm_error().decode())
+
+    def create(self, weight):
+        # PyTorch weight [N,K] -&gt; official normal B layout [K,N], then native-pack once.
+        start = time.perf_counter()
+        half = weight.detach().to(torch.float16).t().contiguous()
+        if not torch.isfinite(half).all():
+            raise ValueError(&#x27;FP16 weight overflow&#x27;)
+        handle = self.lib.mm_create(weight.shape[1], weight.shape[0], half.data_ptr())
+        if not handle:
+            raise self.error()
+        self.handles.append(handle)
+        self.create_seconds += time.perf_counter() - start
+        return handle
+
+    def run(self, handle, inputs, out_features):
+        start = time.perf_counter()
+        flat = inputs.reshape(-1, inputs.shape[-1]).to(torch.float16).contiguous()
+        if not torch.isfinite(flat).all():
+            raise ValueError(&#x27;FP16 activation overflow&#x27;)
+        output = torch.empty((flat.shape[0], out_features), dtype=torch.float32)
+        if self.lib.mm_run(handle, flat.shape[0], flat.data_ptr(), output.data_ptr()):
+            raise self.error()
+        self.calls += 1
+        self.seconds += time.perf_counter() - start
+        return output.reshape(*inputs.shape[:-1], out_features)
+
+    def close(self):
+        for handle in self.handles:
+            self.lib.mm_destroy(handle)
+        self.handles.clear()
+
+
+def install(model, engine, selection=&#x27;all&#x27;):
+    &quot;&quot;&quot;Replace only CPU BF16 text Linear.forward, after existing CPU optimization.
+
+    Unsupported large requests use the saved CPU forward. No runtime error is
+    silently hidden. Handles/weights live for the whole benchmark, not each call.
+    &quot;&quot;&quot;
+    chosen = []
+    for name, module in model.backbone.named_modules():
+        if &#x27;language_model.layers.&#x27; not in name or not isinstance(module, torch.nn.Linear):
+            continue
+        if selection == &#x27;mlp&#x27; and &#x27;.mlp.&#x27; not in name:
+            continue
+        k, n = module.in_features, module.out_features
+        if k &gt; 10240 or k % 16 or n % 8 or k * n &lt; 262144:
+            continue
+        module._rknn_cpu_forward = module.forward
+        module._rknn_handle = None
+        def forward(self, inputs):
+            rows = inputs.numel() // inputs.shape[-1]
+            if inputs.device.type != &#x27;cpu&#x27; or inputs.dtype != torch.bfloat16 or rows &gt; 512:
+                engine.cpu_fallbacks += 1
+                return self._rknn_cpu_forward(inputs)
+            if self._rknn_handle is None:
+                self._rknn_handle = engine.create(self.weight)
+            output = engine.run(self._rknn_handle, inputs, self.out_features)
+            if self.bias is not None:
+                output += self.bias.float()
+            return output.to(inputs.dtype)
+        module.forward = MethodType(forward, module)
+        chosen.append({&#x27;name&#x27;: name, &#x27;K&#x27;: k, &#x27;N&#x27;: n})
+    return chosen
+
+
+def uninstall(model):
+    # Restore CPU forwards before freeing NPU buffers, so retained model objects
+    # cannot reference released native handles.
+    for module in model.backbone.modules():
+        if hasattr(module, &#x27;_rknn_cpu_forward&#x27;):
+            module.forward = module._rknn_cpu_forward
+            del module._rknn_cpu_forward
+            del module._rknn_handle
+</code></pre></details><details><summary>app/cpu_optimized_server.py</summary><pre><code>#!/usr/bin/env python3
+&quot;&quot;&quot;Serve pinned d3 with faster ARM CPU Linear/Conv kernels.
+
+Keep BF16 checkpoint tensors and activation boundaries. Compute Linear and
+Conv operations in FP32 using cached FP32 weights, then round outputs to the
+original activation dtype. Probability parity must be measured before use.
+&quot;&quot;&quot;
+import argparse
+import os
+import sys
+from pathlib import Path
+from types import MethodType
+
+import torch
+import torch.nn.functional as functional
+
+
+def linear_forward(self, inputs):
+    return functional.linear(inputs.float(), self._cpu_fp32_weight,
+                             self._cpu_fp32_bias).to(inputs.dtype)
+
+
+def conv_forward(self, inputs):
+    return self._conv_forward(inputs.float(), self._cpu_fp32_weight,
+                             self._cpu_fp32_bias).to(inputs.dtype)
+
+
+def optimize(model):
+    count = 0
+    cache_bytes = 0
+    for module in model.backbone.modules():
+        if not isinstance(module, (torch.nn.Linear, torch.nn.Conv1d,
+                                   torch.nn.Conv2d, torch.nn.Conv3d)):
+            continue
+        if module.weight.device.type != &quot;cpu&quot; or module.weight.dtype != torch.bfloat16:
+            continue
+        weight = module.weight.detach().float()
+        bias = None if module.bias is None else module.bias.detach().float()
+        module.register_buffer(&quot;_cpu_fp32_weight&quot;, weight, persistent=False)
+        module.register_buffer(&quot;_cpu_fp32_bias&quot;, bias, persistent=False)
+        function = linear_forward if isinstance(module, torch.nn.Linear) else conv_forward
+        module.forward = MethodType(function, module)
+        count += 1
+        cache_bytes += weight.numel() * weight.element_size()
+        if bias is not None:
+            cache_bytes += bias.numel() * bias.element_size()
+    return count, cache_bytes
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&quot;--model&quot;, required=True, type=Path)
+    parser.add_argument(&quot;--host&quot;, default=&quot;0.0.0.0&quot;)
+    parser.add_argument(&quot;--port&quot;, type=int, default=8899)
+    args = parser.parse_args()
+    sys.path.insert(0, str(args.model))
+    from d3_runtime import D3
+    from d3_server import serve
+    model = D3.from_pretrained(args.model, device=&quot;cpu&quot;, verify=&quot;full&quot;)
+    model.model_name = &quot;vllm-sr/d3-edge&quot;
+    count, size = optimize(model)
+    print(f&quot;Optimized {count} CPU layers; cached FP32 weights: {size / 2**20:.1f} MiB&quot;, flush=True)
+    server = serve(model, args.host, args.port,
+                   api_key=os.environ.get(&quot;DECISION_API_KEY&quot;) or None)
+    print(f&quot;d3 CPU optimized server ready on {args.host}:{args.port}&quot;, flush=True)
+    try:
+        server.serve_forever()
+    finally:
+        server.server_close()
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></details><details><summary>app/npu_server.py</summary><pre><code>#!/usr/bin/env python3
+&quot;&quot;&quot;Separate experimental endpoint; reuse the official serialized D3 HTTP server.&quot;&quot;&quot;
+import argparse
+from concurrent.futures import Future
+import json
+import os
+import queue
+import sys
+import threading
+from pathlib import Path
+import torch
+from cpu_optimized_server import optimize
+from rknn_linear import Engine, install, uninstall
+
+parser=argparse.ArgumentParser()
+parser.add_argument(&#x27;--model&#x27;,required=True,type=Path)
+parser.add_argument(&#x27;--host&#x27;,default=&#x27;0.0.0.0&#x27;)
+parser.add_argument(&#x27;--port&#x27;,type=int,default=8900)
+args=parser.parse_args()
+sys.path.insert(0,str(args.model))
+from d3_runtime import D3, PromptEncoder
+from d3_server import serve
+torch.set_num_threads(4)
+model=D3.from_pretrained(args.model,device=&#x27;cpu&#x27;,verify=&#x27;full&#x27;)
+model.model_name=&#x27;vllm-sr/d3-edge&#x27;
+assert model.attention_mode==&#x27;noncausal_full_attention&#x27; and isinstance(model.encoder,PromptEncoder)
+optimize(model)
+engine=Engine()
+server=None
+requests=queue.Queue()
+http_thread=None
+active=None
+try:
+    selected=install(model,engine)
+    body=json.loads(Path(&#x27;/work/request.json&#x27;).read_text())
+    model.system_one(state=body[&#x27;state&#x27;],questions=body[&#x27;questions&#x27;])
+    print(f&#x27;RKNN warmup complete: {len(selected)} text Linear layers, {len(engine.handles)} cached NPU handles; original noncausal PromptEncoder&#x27;,flush=True)
+    # Decider.turn in the official server serializes model.run across requests.
+    server=serve(model,args.host,args.port,api_key=os.environ.get(&#x27;DECISION_API_KEY&#x27;) or None)
+    original_answer=server.decider.answer
+    # The board measured significantly faster inference on the initialization
+    # thread than Python auxiliary threads. HTTP keeps its original handlers;
+    # model calls execute serially on this main thread and reuse native buffers.
+    def queued_answer(body):
+        future=Future()
+        requests.put((body,future))
+        return future.result()
+    server.decider.answer=queued_answer
+    print(f&#x27;Experimental CPU+RKNN service ready on {args.host}:{args.port}&#x27;,flush=True)
+    http_thread=threading.Thread(target=server.serve_forever,name=&#x27;d3-http&#x27;,daemon=True)
+    http_thread.start()
+    while True:
+        body,active=requests.get()
+        try:
+            active.set_result(original_answer(body))
+        except Exception as exc:
+            active.set_exception(exc)
+        finally:
+            requests.task_done()
+        active=None
+finally:
+    if server:
+        if http_thread: server.shutdown()
+        server.server_close()
+    if active is not None and not active.done():
+        active.set_exception(RuntimeError(&#x27;Service is stopping&#x27;))
+    while not requests.empty():
+        _,pending=requests.get_nowait()
+        pending.set_exception(RuntimeError(&#x27;Service is stopping&#x27;))
+    uninstall(model)
+    engine.close()
+</code></pre></details><details><summary>app/request.json</summary><pre><code>{
+  &quot;model&quot;: &quot;vllm-sr/d3-edge&quot;,
+  &quot;state&quot;: &quot;请写一个 Python 函数，合并两个有序列表。&quot;,
+  &quot;questions&quot;: {
+    &quot;kind&quot;: {
+      &quot;type&quot;: &quot;choice&quot;,
+      &quot;instructions&quot;: &quot;这个请求属于哪类任务？&quot;,
+      &quot;criteria&quot;: {&quot;code&quot;: &quot;编程任务&quot;, &quot;math&quot;: &quot;数学问题&quot;, &quot;chat&quot;: &quot;日常聊天&quot;}
+    }
+  }
+}
+</code></pre></details><details><summary>app/benchmark.py</summary><pre><code>&quot;&quot;&quot;Paired model test with unchanged D3 PromptEncoder and optimized CPU baseline.&quot;&quot;&quot;
+import argparse
+import hashlib
+import inspect
+import json
+import statistics
+import sys
+import time
+from pathlib import Path
+import torch
+from rknn_linear import Engine, install, uninstall
+from cpu_optimized_server import optimize
+
+parser=argparse.ArgumentParser()
+parser.add_argument(&#x27;--model&#x27;,required=True)
+parser.add_argument(&#x27;--repeats&#x27;,type=int,default=3)
+parser.add_argument(&#x27;--selection&#x27;,choices=[&#x27;all&#x27;,&#x27;mlp&#x27;],default=&#x27;all&#x27;)
+args=parser.parse_args()
+root=Path(&#x27;/work&#x27;)
+sys.path.insert(0,args.model)
+from d3_runtime import D3, PromptEncoder
+torch.set_num_threads(4)
+model=D3.from_pretrained(args.model,device=&#x27;cpu&#x27;,verify=&#x27;full&#x27;)
+model.model_name=&#x27;vllm-sr/d3-edge&#x27;
+assert model.attention_mode==&#x27;noncausal_full_attention&#x27;
+assert isinstance(model.encoder,PromptEncoder)
+optimized,size=optimize(model)
+cases=json.loads((root/&#x27;request-cases.json&#x27;).read_text())
+single=next(x for x in cases if x[&#x27;id&#x27;]==&#x27;single&#x27;)
+cases=[single]+[x for x in cases if x[&#x27;id&#x27;]!=&#x27;single&#x27;]
+image=json.loads((root/&#x27;golden-reference.json&#x27;).read_text())[&#x27;image&#x27;]
+image[&#x27;state&#x27;]=&#x27;Describe the attached image.&#x27;
+cases.append({&#x27;id&#x27;:&#x27;image&#x27;,**image})
+report={&#x27;attention_mode&#x27;:model.attention_mode,&#x27;prompt_encoder_sha256&#x27;:hashlib.sha256(inspect.getsource(PromptEncoder).encode()).hexdigest(),
+        &#x27;torch&#x27;:torch.__version__,&#x27;threads&#x27;:torch.get_num_threads(),&#x27;batch_size&#x27;:model.batch_size,
+        &#x27;cpu_optimized_modules&#x27;:optimized,&#x27;selection&#x27;:args.selection,&#x27;repeats&#x27;:args.repeats,&#x27;cases&#x27;:{},&#x27;passed&#x27;:False}
+destination=root/&#x27;logs&#x27;/f&#x27;benchmark-{args.selection}.json&#x27;
+def save():
+    destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+&#x27;\n&#x27;)
+def invoke(case):
+    return model.system_one(**{k:case[k] for k in [&#x27;state&#x27;,&#x27;questions&#x27;,&#x27;images&#x27;,&#x27;videos&#x27;] if k in case})
+def numbers(value,path=&#x27;&#x27;):
+    result={}
+    if isinstance(value,dict):
+        for key,child in value.items():
+            if key not in (&#x27;confidence&#x27;,&#x27;legend&#x27;):
+                result.update(numbers(child,path+&#x27;/&#x27;+key))
+    elif isinstance(value,(int,float)):
+        result[path]=value
+    return result
+
+profile={}
+original=[]
+for name,module in model.backbone.named_modules():
+    if isinstance(module,(torch.nn.Linear,torch.nn.Conv1d,torch.nn.Conv2d,torch.nn.Conv3d)):
+        forward=module.forward
+        def timed(inputs,*positional,_forward=forward,_name=name,**keywords):
+            start=time.perf_counter(); out=_forward(inputs,*positional,**keywords)
+            p=profile.setdefault(_name,{&#x27;seconds&#x27;:0,&#x27;calls&#x27;:0,&#x27;shape&#x27;:list(inputs.shape)})
+            p[&#x27;seconds&#x27;]+=time.perf_counter()-start; p[&#x27;calls&#x27;]+=1
+            return out
+        original.append((module,forward)); module.forward=timed
+start=time.perf_counter(); invoke(single); elapsed=time.perf_counter()-start
+for module,forward in original:
+    module.forward=forward
+report[&#x27;cpu_profile&#x27;]={&#x27;total_seconds&#x27;:elapsed,&#x27;linear_conv_seconds&#x27;:sum(p[&#x27;seconds&#x27;] for p in profile.values()),&#x27;modules&#x27;:profile}
+save()
+print(&#x27;CPU_PROFILE&#x27;,json.dumps({k:v for k,v in report[&#x27;cpu_profile&#x27;].items() if k!=&#x27;modules&#x27;}),flush=True)
+engine=None
+try:
+    for mode in [&#x27;cpu&#x27;,&#x27;npu&#x27;]:
+        if mode==&#x27;npu&#x27;:
+            engine=Engine()
+            report[&#x27;offloaded_modules&#x27;]=install(model,engine,args.selection)
+            print(&#x27;OFFLOAD&#x27;,len(report[&#x27;offloaded_modules&#x27;]),flush=True)
+        for case in cases:
+            # Warm up this shape; first NPU request includes persistent weight/context setup.
+            start=time.perf_counter(); warm=invoke(case); warm_seconds=time.perf_counter()-start
+            timings=[]
+            before_calls=engine.calls if engine else 0
+            before_time=engine.seconds if engine else 0
+            before_fallback=engine.cpu_fallbacks if engine else 0
+            for _ in range(args.repeats):
+                start=time.perf_counter(); response=invoke(case); timings.append(time.perf_counter()-start)
+                assert response==warm, &#x27;Repeated response changed within the same backend&#x27;
+            record={&#x27;warmup_seconds&#x27;:warm_seconds,&#x27;seconds&#x27;:timings,&#x27;median_seconds&#x27;:statistics.median(timings),&#x27;response&#x27;:response}
+            if mode==&#x27;npu&#x27;:
+                record.update(npu_calls=engine.calls-before_calls,npu_adapter_seconds=engine.seconds-before_time,
+                              cpu_fallback_calls=engine.cpu_fallbacks-before_fallback)
+                baseline=report[&#x27;cases&#x27;][case[&#x27;id&#x27;]][&#x27;cpu&#x27;]
+                a=numbers(response[&#x27;answers&#x27;]); b=numbers(baseline[&#x27;response&#x27;][&#x27;answers&#x27;])
+                assert set(a)==set(b)
+                delta=max(abs(a[key]-b[key]) for key in a)
+                matches=all(v.get(&#x27;choice&#x27;)==baseline[&#x27;response&#x27;][&#x27;answers&#x27;][key].get(&#x27;choice&#x27;) for key,v in response[&#x27;answers&#x27;].items())
+                record.update(max_probability_or_score_delta=delta,choices_unchanged=matches,
+                              speedup=baseline[&#x27;median_seconds&#x27;]/record[&#x27;median_seconds&#x27;],parity_passed=delta&lt;=0.01 and matches)
+                assert model.attention_mode==&#x27;noncausal_full_attention&#x27; and isinstance(model.encoder,PromptEncoder)
+            report[&#x27;cases&#x27;].setdefault(case[&#x27;id&#x27;],{})[mode]=record
+            save()
+            print(&#x27;CASE&#x27;,mode,case[&#x27;id&#x27;],json.dumps({k:v for k,v in record.items() if k!=&#x27;response&#x27;}),flush=True)
+    report[&#x27;passed&#x27;]=all(c[&#x27;npu&#x27;][&#x27;parity_passed&#x27;] for c in report[&#x27;cases&#x27;].values())
+    report[&#x27;setup_seconds&#x27;]=engine.create_seconds
+    report[&#x27;npu_handles&#x27;]=len(engine.handles)
+    save()
+    assert report[&#x27;passed&#x27;], &#x27;CPU/NPU probability parity failed; do not promote&#x27;
+    print(&#x27;PASS: same choices; numeric delta &lt;= 0.01; original attention code unchanged.&#x27;,flush=True)
+finally:
+    if engine:
+        uninstall(model)
+        engine.close()
+</code></pre></details><details><summary>app/micro_test.py</summary><pre><code>import json
+import time
+from pathlib import Path
+import torch
+from rknn_linear import Engine
+
+torch.set_num_threads(4)
+torch.manual_seed(7)
+engine = Engine()
+results = []
+try:
+    for k,n in [(1024,3072),(3072,1024),(1024,2048),(128,64)]:
+        # BF16 model values are exactly representable in FP16 within its exponent range.
+        w = (torch.randn(n,k) * 0.02).bfloat16().float()
+        handle = engine.create(w)
+        for m in [115,129,97,381]:
+            x = torch.randn(m,k).bfloat16()
+            ref = torch.nn.functional.linear(x.float(),w)
+            y = engine.run(handle,x,n)
+            delta = y-ref
+            assert torch.isfinite(y).all()
+            relative = delta.norm().item()/ref.norm().item()
+            assert relative &lt; 0.005, (m,k,n,relative)
+            cpu=[]; npu=[]
+            for _ in range(5):
+                t=time.perf_counter(); torch.nn.functional.linear(x.float(),w); cpu.append(time.perf_counter()-t)
+                t=time.perf_counter(); engine.run(handle,x,n); npu.append(time.perf_counter()-t)
+            r={&#x27;M&#x27;:m,&#x27;K&#x27;:k,&#x27;N&#x27;:n,&#x27;max_absolute_delta&#x27;:delta.abs().max().item(),&#x27;relative_l2_delta&#x27;:relative,
+               &#x27;cpu_seconds_median&#x27;:sorted(cpu)[2],&#x27;npu_seconds_median&#x27;:sorted(npu)[2]}
+            r[&#x27;speedup&#x27;]=r[&#x27;cpu_seconds_median&#x27;]/r[&#x27;npu_seconds_median&#x27;]
+            results.append(r); print(json.dumps(r),flush=True)
+    Path(&#x27;/work/logs/micro-test.json&#x27;).write_text(json.dumps(results,indent=2)+&#x27;\n&#x27;)
+finally:
+    engine.close()
+</code></pre></details><details><summary>app/boundary_test.py</summary><pre><code>&quot;&quot;&quot;Focused checks for real native buffers, dynamic shape switches and CPU fallback.&quot;&quot;&quot;
+import json
+from pathlib import Path
+from types import SimpleNamespace
+import torch
+from cpu_optimized_server import optimize
+from rknn_linear import Engine, install, uninstall
+
+torch.set_num_threads(4)
+torch.manual_seed(9)
+backbone=torch.nn.Module()
+backbone.language_model=torch.nn.Module()
+backbone.language_model.layers=torch.nn.ModuleList([torch.nn.Module()])
+layer=torch.nn.Linear(1024,512,bias=True).bfloat16().eval().requires_grad_(False)
+backbone.language_model.layers[0].proj=layer
+model=SimpleNamespace(backbone=backbone)
+optimize(model)
+cpu_forward=layer.forward
+engine=Engine()
+result={}
+try:
+    assert len(install(model,engine))==1
+    for rows in [127,128,129,256,257,512,513]:
+        x=torch.randn(1,rows,1024).bfloat16()
+        reference=cpu_forward(x)
+        before=engine.calls
+        output=layer(x)
+        assert torch.isfinite(output).all()
+        if rows==513:
+            assert torch.equal(output,reference)
+            assert engine.calls==before and engine.cpu_fallbacks==1
+        else:
+            assert engine.calls==before+1
+            assert (output.float()-reference.float()).norm()/reference.float().norm()&lt;0.001
+        result[str(rows)]={&#x27;npu_used&#x27;:engine.calls&gt;before,&#x27;max_absolute_delta&#x27;:(output.float()-reference.float()).abs().max().item()}
+    x=torch.randn(1,17,1024,dtype=torch.float32)
+    assert torch.equal(layer(x),cpu_forward(x))
+    assert engine.cpu_fallbacks==2
+    try:
+        engine.lib.mm_create(7,8,x.data_ptr())
+        assert &#x27;alignment&#x27; in engine.lib.mm_error().decode()
+        bad=torch.randn(513,1024).half()
+        engine.run(layer._rknn_handle,bad,512)
+        raise AssertionError(&#x27;Native oversized request accepted&#x27;)
+    except RuntimeError as exc:
+        assert &#x27;Invalid run argument&#x27; in str(exc)
+    uninstall(model)
+    engine.close()
+    assert torch.equal(layer(x),cpu_forward(x))
+    result.update(non_bf16_cpu_fallback=True,native_oversize_rejected=True,cpu_forward_restored_after_release=True,passed=True)
+    Path(&#x27;/work/logs/boundary-test.json&#x27;).write_text(json.dumps(result,indent=2)+&#x27;\n&#x27;)
+    print(json.dumps(result,indent=2))
+finally:
+    uninstall(model)
+    engine.close()
+</code></pre></details><details><summary>app/request-cases.json</summary><pre><code>[
+  {
+    &quot;id&quot;: &quot;chinese-0&quot;,
+    &quot;state&quot;: &quot;请写一个 Python 函数，把两个有序列表合并成一个有序列表。&quot;,
+    &quot;questions&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;instructions&quot;: &quot;这个请求属于哪类任务？&quot;,
+        &quot;criteria&quot;: {
+          &quot;code&quot;: &quot;编写、解释或修复程序&quot;,
+          &quot;math&quot;: &quot;数学计算或证明&quot;,
+          &quot;chat&quot;: &quot;日常聊天和生活话题&quot;
+        }
+      },
+      &quot;programming&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;instructions&quot;: &quot;这个请求是否要求编写程序？&quot;
+      },
+      &quot;complexity&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;instructions&quot;: &quot;这个请求的复杂程度是多少？&quot;,
+        &quot;criteria&quot;: [
+          &quot;简单&quot;,
+          &quot;中等&quot;,
+          &quot;复杂&quot;
+        ]
+      }
+    },
+    &quot;baseline&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;choice&quot;: &quot;code&quot;,
+        &quot;probabilities&quot;: {
+          &quot;code&quot;: 0.9992407534465768,
+          &quot;math&quot;: 0.0005031534224754242,
+          &quot;chat&quot;: 0.00025609313094778077
+        },
+        &quot;confidence&quot;: 0.9939031290513372
+      },
+      &quot;programming&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;noul&quot;: 0.8701225052792207
+      },
+      &quot;complexity&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;score&quot;: 0.1014327779124191,
+        &quot;probabilities&quot;: {
+          &quot;0&quot;: 0.914882283616913,
+          &quot;1&quot;: 0.06880265485375493,
+          &quot;2&quot;: 0.016315061529332084
+        },
+        &quot;confidence&quot;: 0.6971758227789213,
+        &quot;legend&quot;: {
+          &quot;0&quot;: &quot;简单&quot;,
+          &quot;1&quot;: &quot;中等&quot;,
+          &quot;2&quot;: &quot;复杂&quot;
+        }
+      }
+    }
+  },
+  {
+    &quot;id&quot;: &quot;chinese-1&quot;,
+    &quot;state&quot;: &quot;你好，今天心情怎么样？&quot;,
+    &quot;questions&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;instructions&quot;: &quot;这个请求属于哪类任务？&quot;,
+        &quot;criteria&quot;: {
+          &quot;code&quot;: &quot;编写、解释或修复程序&quot;,
+          &quot;math&quot;: &quot;数学计算或证明&quot;,
+          &quot;chat&quot;: &quot;日常聊天和生活话题&quot;
+        }
+      },
+      &quot;programming&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;instructions&quot;: &quot;这个请求是否要求编写程序？&quot;
+      },
+      &quot;complexity&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;instructions&quot;: &quot;这个请求的复杂程度是多少？&quot;,
+        &quot;criteria&quot;: [
+          &quot;简单&quot;,
+          &quot;中等&quot;,
+          &quot;复杂&quot;
+        ]
+      }
+    },
+    &quot;baseline&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;choice&quot;: &quot;chat&quot;,
+        &quot;probabilities&quot;: {
+          &quot;code&quot;: 0.0007201397436318482,
+          &quot;math&quot;: 0.00036008721769970325,
+          &quot;chat&quot;: 0.9989197730386684
+        },
+        &quot;confidence&quot;: 0.991675122971715
+      },
+      &quot;programming&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;noul&quot;: 0.0002551515976465532
+      },
+      &quot;complexity&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;score&quot;: 0.019110443444288625,
+        &quot;probabilities&quot;: {
+          &quot;0&quot;: 0.9835840059958996,
+          &quot;1&quot;: 0.013721544563912261,
+          &quot;2&quot;: 0.0026944494401881826
+        },
+        &quot;confidence&quot;: 0.9171034390906018,
+        &quot;legend&quot;: {
+          &quot;0&quot;: &quot;简单&quot;,
+          &quot;1&quot;: &quot;中等&quot;,
+          &quot;2&quot;: &quot;复杂&quot;
+        }
+      }
+    }
+  },
+  {
+    &quot;id&quot;: &quot;english&quot;,
+    &quot;state&quot;: &quot;Write a Python function that merges two sorted lists and explain its running time.&quot;,
+    &quot;questions&quot;: {
+      &quot;domain&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;instructions&quot;: &quot;Which domain does this request belong to?&quot;,
+        &quot;criteria&quot;: {
+          &quot;code&quot;: &quot;Programming&quot;,
+          &quot;math&quot;: &quot;Mathematics&quot;,
+          &quot;other&quot;: &quot;Anything else&quot;
+        }
+      },
+      &quot;reasoning&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;instructions&quot;: &quot;Does answering this request need multi-step reasoning?&quot;
+      },
+      &quot;difficulty&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;instructions&quot;: &quot;How difficult is this request?&quot;,
+        &quot;criteria&quot;: [
+          &quot;Trivial&quot;,
+          &quot;Moderate&quot;,
+          &quot;Hard&quot;
+        ]
+      }
+    },
+    &quot;baseline&quot;: {
+      &quot;domain&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;choice&quot;: &quot;code&quot;,
+        &quot;probabilities&quot;: {
+          &quot;code&quot;: 0.9059022938497119,
+          &quot;math&quot;: 0.00010158083329922285,
+          &quot;other&quot;: 0.09399612531698893
+        },
+        &quot;confidence&quot;: 0.7153566085339282
+      },
+      &quot;reasoning&quot;: {
+        &quot;type&quot;: &quot;noul&quot;,
+        &quot;noul&quot;: 0.0630309302518049
+      },
+      &quot;difficulty&quot;: {
+        &quot;type&quot;: &quot;score&quot;,
+        &quot;score&quot;: 0.19148818189477718,
+        &quot;probabilities&quot;: {
+          &quot;0&quot;: 0.8434359933051915,
+          &quot;1&quot;: 0.12163983149483988,
+          &quot;2&quot;: 0.03492417519996865
+        },
+        &quot;confidence&quot;: 0.5293824489640959,
+        &quot;legend&quot;: {
+          &quot;0&quot;: &quot;Trivial&quot;,
+          &quot;1&quot;: &quot;Moderate&quot;,
+          &quot;2&quot;: &quot;Hard&quot;
+        }
+      }
+    }
+  },
+  {
+    &quot;id&quot;: &quot;single&quot;,
+    &quot;state&quot;: &quot;请写一个 Python 函数，合并两个有序列表。&quot;,
+    &quot;questions&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;instructions&quot;: &quot;这个请求属于哪类任务？&quot;,
+        &quot;criteria&quot;: {
+          &quot;code&quot;: &quot;编程任务&quot;,
+          &quot;math&quot;: &quot;数学问题&quot;,
+          &quot;chat&quot;: &quot;日常聊天&quot;
+        }
+      }
+    },
+    &quot;baseline&quot;: {
+      &quot;kind&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;choice&quot;: &quot;code&quot;,
+        &quot;probabilities&quot;: {
+          &quot;code&quot;: 0.9991648123435318,
+          &quot;math&quot;: 0.0006982751935839212,
+          &quot;chat&quot;: 0.0001369124628842124
+        },
+        &quot;confidence&quot;: 0.993512607365437
+      }
+    }
+  }
+]
+</code></pre></details><details><summary>app/golden-reference.json</summary><pre><code>{&quot;text&quot;: {&quot;state&quot;: &quot;Write a Python function that merges two sorted lists and explain its running time.&quot;, &quot;questions&quot;: {&quot;domain&quot;: {&quot;type&quot;: &quot;choice&quot;, &quot;instructions&quot;: &quot;Which domain does this request belong to?&quot;, &quot;criteria&quot;: {&quot;code&quot;: &quot;Programming&quot;, &quot;math&quot;: &quot;Mathematics&quot;, &quot;other&quot;: &quot;Anything else&quot;}}, &quot;reasoning&quot;: {&quot;type&quot;: &quot;noul&quot;, &quot;instructions&quot;: &quot;Does answering this request need multi-step reasoning?&quot;}, &quot;difficulty&quot;: {&quot;type&quot;: &quot;score&quot;, &quot;instructions&quot;: &quot;How difficult is this request?&quot;, &quot;criteria&quot;: [&quot;Trivial&quot;, &quot;Moderate&quot;, &quot;Hard&quot;]}}}, &quot;image&quot;: {&quot;state&quot;: &quot;Write a Python function that merges two sorted lists and explain its running time.&quot;, &quot;questions&quot;: {&quot;image_colour&quot;: {&quot;type&quot;: &quot;choice&quot;, &quot;instructions&quot;: &quot;Which colour dominates the image?&quot;, &quot;criteria&quot;: {&quot;red&quot;: &quot;Red&quot;, &quot;green&quot;: &quot;Green&quot;, &quot;blue&quot;: &quot;Blue&quot;, &quot;other&quot;: &quot;Anything else&quot;}}, &quot;image_photo&quot;: {&quot;type&quot;: &quot;noul&quot;, &quot;instructions&quot;: &quot;Is the image a photograph?&quot;}}, &quot;images&quot;: [&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg==&quot;]}, &quot;reference&quot;: {&quot;answers&quot;: {&quot;cpu&quot;: {&quot;difficulty&quot;: {&quot;confidence&quot;: 0.5289285314008614, &quot;legend&quot;: {&quot;0&quot;: &quot;Trivial&quot;, &quot;1&quot;: &quot;Moderate&quot;, &quot;2&quot;: &quot;Hard&quot;}, &quot;probabilities&quot;: {&quot;0&quot;: 0.8432784237578218, &quot;1&quot;: 0.12164200323898351, &quot;2&quot;: 0.035079573003194725}, &quot;score&quot;: 0.19180114924537295, &quot;type&quot;: &quot;score&quot;}, &quot;domain&quot;: {&quot;choice&quot;: &quot;code&quot;, &quot;confidence&quot;: 0.7191210067989227, &quot;probabilities&quot;: {&quot;code&quot;: 0.9077280006989817, &quot;math&quot;: 0.000104602467732264, &quot;other&quot;: 0.09216739683328601}, &quot;type&quot;: &quot;choice&quot;}, &quot;image_colour&quot;: {&quot;choice&quot;: &quot;other&quot;, &quot;confidence&quot;: 0.4202600410747662, &quot;probabilities&quot;: {&quot;blue&quot;: 0.012493534525591432, &quot;green&quot;: 0.33148042725877724, &quot;other&quot;: 0.6309736629601952, &quot;red&quot;: 0.02505237525543618}, &quot;type&quot;: &quot;choice&quot;}, &quot;image_photo&quot;: {&quot;noul&quot;: 0.028102190139954988, &quot;type&quot;: &quot;noul&quot;}, &quot;reasoning&quot;: {&quot;noul&quot;: 0.061222668965245294, &quot;type&quot;: &quot;noul&quot;}}, &quot;rocm&quot;: {&quot;difficulty&quot;: {&quot;confidence&quot;: 0.5227515959553738, &quot;legend&quot;: {&quot;0&quot;: &quot;Trivial&quot;, &quot;1&quot;: &quot;Moderate&quot;, &quot;2&quot;: &quot;Hard&quot;}, &quot;probabilities&quot;: {&quot;0&quot;: 0.8396536299508877, &quot;1&quot;: 0.12540091854484942, &quot;2&quot;: 0.034945451504262946}, &quot;score&quot;: 0.19529182155337532, &quot;type&quot;: &quot;score&quot;}, &quot;domain&quot;: {&quot;choice&quot;: &quot;code&quot;, &quot;confidence&quot;: 0.7147529744610905, &quot;probabilities&quot;: {&quot;code&quot;: 0.9056074417805747, &quot;math&quot;: 0.00010094160537437953, &quot;other&quot;: 0.09429161661405087}, &quot;type&quot;: &quot;choice&quot;}, &quot;image_colour&quot;: {&quot;choice&quot;: &quot;other&quot;, &quot;confidence&quot;: 0.43082307724658053, &quot;probabilities&quot;: {&quot;blue&quot;: 0.011831863595972134, &quot;green&quot;: 0.320919031784289, &quot;other&quot;: 0.6437116759427837, &quot;red&quot;: 0.023537428676955133}, &quot;type&quot;: &quot;choice&quot;}, &quot;image_photo&quot;: {&quot;noul&quot;: 0.028243631966222284, &quot;type&quot;: &quot;noul&quot;}, &quot;reasoning&quot;: {&quot;noul&quot;: 0.06407417958809034, &quot;type&quot;: &quot;noul&quot;}}}, &quot;revision&quot;: &quot;18d61df78684675463af9ae732872478845c5a79&quot;}}
+</code></pre></details><details><summary>.dockerignore</summary><pre><code>data/
+checks/
+__pycache__/
+*.tar
+*.tar.gz
+</code></pre></details></section><section><h2>来源与版本</h2><p><a href="https://huggingface.co/vllm-sr/d3-edge/tree/20c745653400d191ecacd99c4eafc0c5900dc15e">模型固定版本</a> · <a href="https://github.com/airockchip/rknn-toolkit2/tree/2c723177a94fac65cbc036d722907ddbc91980cf">官方 RKNN 固定提交</a>。模型许可随下载文件保留；SDK 下载工具同时保留官方 LICENSE，位于镜像 /work/sdk/LICENSE。</p><p>本文仅描述 RK3576 已测方案和接收方的安装研究流程，不宣称其他 RK 芯片或新系统已经验证通过。</p></section><footer>2026-10-17 · 独立交付文档 · 无外部脚本、字体或样式依赖</footer></main><script id="source-data" type="application/json">{"files": {"Dockerfile": "FROM ghcr.io/vllm-project/semantic-router/vllm-sr@sha256:efc356587252c28b8d972d5d27b381df0626ccdc53597f3fccff7ae454041178\n\n# PyTorch 2.10 ARM64 wheels crash on Cortex-A53/A72 at import (upstream #174344).\n# Install the fixed official CPU wheel and preserve the rest of the router image.\nRUN python -m pip install --no-cache-dir --no-deps --force-reinstall \\\n    'https://download-r2.pytorch.org/whl/cpu/torch-2.12.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=ce2ddb880b0813fcc91a737f08fdd973a8115a74c64ccb34e9c09a7964b4d448' \\\n    && python -c 'import torch; assert torch.__version__ == \"2.12.0+cpu\"; x = torch.ones(8, 8, dtype=torch.bfloat16); assert (x @ x).shape == (8, 8); print(\"ARMv8 PyTorch and BF16 matmul OK\")'\n\n\n# Serve through the HTTP implementation shipped with the pinned model package.\n# CPU inference uses PyTorch reference kernels; do not install GPU-only FLA.\nRUN python -m pip install --no-cache-dir \\\n    transformers==5.17.0 accelerate==1.10.1 \\\n    'https://download-r2.pytorch.org/whl/cpu/torchvision-0.27.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=1b06f42d48b62098114923d8a3fe9fa864182715db06584a515155db0aa8eb30' \\\n    && python -c 'import torch, torchvision, transformers; assert torch.__version__ == \"2.12.0+cpu\"; assert transformers.__version__ == \"5.17.0\"; print(torch.__version__, torchvision.__version__, transformers.__version__)'\n\nENV OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1\nENTRYPOINT [\"python\", \"-u\"]\n\nRUN apt-get update && apt-get install -y --no-install-recommends g++ ca-certificates && rm -rf /var/lib/apt/lists/*\nCOPY requirements.lock /tmp/requirements.lock\nRUN python -m pip install --no-cache-dir --no-deps -r /tmp/requirements.lock && python -m pip check\nWORKDIR /work\nCOPY tools/fetch_sdk.py sdk-manifest.json /tmp/sdk-fetch/\nRUN python /tmp/sdk-fetch/fetch_sdk.py /work/sdk /tmp/sdk-fetch/sdk-manifest.json\nCOPY app/ /work/\nRUN g++ -O2 -std=c++17 -shared -fPIC -I sdk matmul_bridge.cpp -L sdk -lrknnrt -Wl,-rpath,'$ORIGIN/sdk' -o libmatmul_bridge.so\nCMD [\"/work/npu_server.py\", \"--model\", \"/models/d3-edge\", \"--host\", \"0.0.0.0\", \"--port\", \"8900\"]\n", "requirements.lock": "accelerate==1.10.1\nannotated-doc==0.0.5\nanyio==4.15.1\ncertifi==2026.7.22\nclick==8.5.0\nfilelock==4.0.12\nfsspec==2026.9.0\nh11==0.16.0\nhf-xet==1.6.0\nhttpcore==1.0.9\nhttptools==0.8.0\nhttpx==0.28.1\nhuggingface_hub==1.33.0\nidna==3.20\nJinja2==3.1.6\nmarkdown-it-py==4.2.0\nMarkupSafe==3.0.3\nmdurl==0.1.2\nmpmath==1.3.0\nnetworkx==3.6.1\nnumpy==2.5.3\nopencv-python-headless==5.0.0.93\npackaging==26.3\npillow==12.3.0\nprometheus_client==0.26.0\npsutil==7.2.2\nPygments==2.21.0\nPyYAML==6.0.3\nregex==2026.9.29\nrich==15.0.0\nsafetensors==0.8.0\nshellingham==1.5.4\nstarlette==1.7.0\nsympy==1.14.0\ntokenizers==0.23.2\ntqdm==4.70.1\ntransformers==5.17.0\ntyper==0.27.3\ntyping_extensions==4.16.0\nuvicorn==0.54.0\nuvloop==0.23.0\n", "sdk-manifest.json": "{\n  \"repository\": \"https://github.com/airockchip/rknn-toolkit2\",\n  \"commit\": \"2c723177a94fac65cbc036d722907ddbc91980cf\",\n  \"files\": {\n    \"dynamic_demo.cpp\": {\n      \"bytes\": 45867,\n      \"sha256\": \"c4716e586978a03d04e0d7f8c6464087e575dd2544607261e5e52f3cf0b437a4\"\n    },\n    \"rknn_matmul_api.h\": {\n      \"bytes\": 18598,\n      \"sha256\": \"aaadd9a7118de30a06b222996b6731db77095d00f5931a7a98c83a67f14a4d42\"\n    },\n    \"librknnrt.so\": {\n      \"bytes\": 8189368,\n      \"sha256\": \"4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0\"\n    },\n    \"demo.cpp\": {\n      \"bytes\": 43338,\n      \"sha256\": \"739638f200f35c885c8e141091fe0700dba4f4aecfd4d03dfc36191001f40696\"\n    },\n    \"rknn_api.h\": {\n      \"bytes\": 36524,\n      \"sha256\": \"2d4160cd868efd7b83a72587e411c16d6972da5876e067bd73665cea778ce666\"\n    }\n  }\n}\n", "tools/fetch_sdk.py": "\"\"\"Fetch unmodified SDK files from the pinned official repository; verify hashes.\"\"\"\nimport hashlib\nimport json\nimport sys\nimport time\nimport urllib.request\nfrom pathlib import Path\n\ndestination, manifest_path = map(Path, sys.argv[1:])\nmanifest = json.loads(manifest_path.read_text())\nbase = f\"https://raw.githubusercontent.com/airockchip/rknn-toolkit2/{manifest['commit']}/\"\npaths = {\n    'librknnrt.so': 'rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so',\n    'rknn_api.h': 'rknpu2/runtime/Linux/librknn_api/include/rknn_api.h',\n    'rknn_matmul_api.h': 'rknpu2/runtime/Linux/librknn_api/include/rknn_matmul_api.h',\n    'LICENSE': 'LICENSE',\n}\ndestination.mkdir(parents=True, exist_ok=True)\nfor name, path in paths.items():\n    for attempt in range(3):\n        try:\n            with urllib.request.urlopen(base + path, timeout=120) as response:\n                data = response.read()\n            break\n        except OSError:\n            if attempt == 2:\n                raise\n            time.sleep(2)\n    if name in manifest['files']:\n        assert hashlib.sha256(data).hexdigest() == manifest['files'][name]['sha256'], name\n    (destination / name).write_bytes(data)\n    print(f'Verified/downloaded official SDK: {name}', flush=True)\n", "tools/download_model.py": "\"\"\"Network-enabled setup step. Inference containers stay offline.\"\"\"\nfrom pathlib import Path\nfrom huggingface_hub import snapshot_download\n\nREVISION = '20c745653400d191ecacd99c4eafc0c5900dc15e'\npath = Path(snapshot_download('vllm-sr/d3-edge', revision=REVISION, local_dir='/models/d3-edge'))\nimport sys\nsys.path.insert(0, str(path))\nfrom d3_runtime import verify_package\nverify_package(path, mode='full')\nprint(f'Pinned d3-edge downloaded and fully verified: {REVISION}')\n", "app/matmul_bridge.cpp": "#include \u003calgorithm>\n#include \u003ccstdint>\n#include \u003ccstdio>\n#include \u003ccstring>\n#include \u003cmemory>\n#include \u003cstring>\n#include \u003cvector>\n#include \"rknn_matmul_api.h\"\n\n// Experimental, synchronous, single-owner handle. Callers must serialize calls.\nstatic thread_local std::string last_error;\nstruct Matrix {\n  rknn_matmul_ctx ctx = 0;\n  rknn_tensor_mem *a = nullptr, *b = nullptr, *c = nullptr;\n  int k, n, selected = -1;\n  std::vector\u003crknn_matmul_shape> shapes;\n  std::vector\u003crknn_matmul_io_attr> attrs;\n  ~Matrix() {\n    if (a) rknn_destroy_mem(ctx, a);\n    if (b) rknn_destroy_mem(ctx, b);\n    if (c) rknn_destroy_mem(ctx, c);\n    if (ctx) rknn_matmul_destroy(ctx);\n  }\n};\nstatic bool check(int code, const char* operation) {\n  if (code == 0) return true;\n  last_error = std::string(operation) + \" returned \" + std::to_string(code);\n  return false;\n}\nextern \"C\" const char* mm_error() { return last_error.c_str(); }\nextern \"C\" void* mm_create(int k, int n, const void* half_kn) {\n  last_error.clear();\n  if (k \u003c= 0 || k > 10240 || k % 16 || n \u003c= 0 || n % 8 || !half_kn) {\n    last_error = \"Unsupported K/N alignment or missing weights\"; return nullptr;\n  }\n  auto p = std::make_unique\u003cMatrix>();\n  p->k = k; p->n = n;\n  for (int m : {128, 256, 512}) p->shapes.push_back({m,k,n});\n  p->attrs.resize(p->shapes.size());\n  rknn_matmul_info info{};\n  info.M=512; info.K=k; info.N=n;\n  info.type=RKNN_FLOAT16_MM_FLOAT16_TO_FLOAT32;\n  info.B_layout=RKNN_MM_LAYOUT_NATIVE;\n  info.AC_layout=RKNN_MM_LAYOUT_NORM;\n  if (!check(rknn_matmul_create_dynamic_shape(&p->ctx, &info,\n      p->shapes.size(), p->shapes.data(), p->attrs.data()), \"create_dynamic\")) return nullptr;\n  // RK3576 matmul rejects combined core mask 3; use the supported auto mode.\n  if (!check(rknn_matmul_set_core_mask(p->ctx, RKNN_NPU_CORE_AUTO), \"set_cores\")) return nullptr;\n  uint32_t as=0, bs=0, cs=0;\n  for (auto& attr : p->attrs) {\n    as=std::max(as,attr.A.size); bs=std::max(bs,attr.B.size); cs=std::max(cs,attr.C.size);\n  }\n  p->a=rknn_create_mem(p->ctx,as); p->b=rknn_create_mem(p->ctx,bs); p->c=rknn_create_mem(p->ctx,cs);\n  if (!p->a || !p->b || !p->c) { last_error=\"rknn_create_mem failed\"; return nullptr; }\n  if (!check(rknn_B_normal_layout_to_native_layout(const_cast\u003cvoid*>(half_kn),p->b->virt_addr,k,n,&info), \"pack_B\")) return nullptr;\n  if (!check(rknn_matmul_set_dynamic_shape(p->ctx,&p->shapes[0]),\"initial_shape\")) return nullptr;\n  if (!check(rknn_matmul_set_io_mem(p->ctx,p->b,&p->attrs[0].B),\"bind_B\")) return nullptr;\n  std::memset(p->a->virt_addr,0,as);\n  return p.release();\n}\nextern \"C\" int mm_run(void* handle, int rows, const void* half_mk, float* out_mn) {\n  auto* p=static_cast\u003cMatrix*>(handle);\n  if (!p || rows\u003c=0 || rows>512 || !half_mk || !out_mn) { last_error=\"Invalid run argument\"; return -1; }\n  int index=rows\u003c=128 ? 0 : rows\u003c=256 ? 1 : 2;\n  if (p->selected!=index) {\n    if (!check(rknn_matmul_set_dynamic_shape(p->ctx,&p->shapes[index]),\"set_shape\")) return -1;\n    if (!check(rknn_matmul_set_io_mem(p->ctx,p->a,&p->attrs[index].A),\"bind_A\")) return -1;\n    if (!check(rknn_matmul_set_io_mem(p->ctx,p->c,&p->attrs[index].C),\"bind_C\")) return -1;\n    p->selected=index;\n  }\n  size_t bytes=size_t(rows)*p->k*2;\n  std::memcpy(p->a->virt_addr,half_mk,bytes);\n  std::memset(static_cast\u003cchar*>(p->a->virt_addr)+bytes,0,size_t(p->shapes[index].M-rows)*p->k*2);\n  if (!check(rknn_matmul_run(p->ctx),\"run\")) return -1;\n  std::memcpy(out_mn,p->c->virt_addr,size_t(rows)*p->n*sizeof(float));\n  return 0;\n}\nextern \"C\" void mm_destroy(void* handle) { delete static_cast\u003cMatrix*>(handle); }\n", "app/rknn_linear.py": "\"\"\"Experimental FP16 RKNN Linear adapter; original attention stays in PyTorch.\"\"\"\nimport ctypes\nimport time\nfrom pathlib import Path\nfrom types import MethodType\nimport torch\n\n\nclass Engine:\n    def __init__(self):\n        self.lib = ctypes.CDLL(str(Path(__file__).with_name('libmatmul_bridge.so')))\n        self.lib.mm_error.restype = ctypes.c_char_p\n        self.lib.mm_create.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p]\n        self.lib.mm_create.restype = ctypes.c_void_p\n        self.lib.mm_run.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]\n        self.lib.mm_run.restype = ctypes.c_int\n        self.lib.mm_destroy.argtypes = [ctypes.c_void_p]\n        self.handles = []\n        self.calls = self.cpu_fallbacks = 0\n        self.seconds = self.create_seconds = 0.0\n\n    def error(self):\n        return RuntimeError(self.lib.mm_error().decode())\n\n    def create(self, weight):\n        # PyTorch weight [N,K] -> official normal B layout [K,N], then native-pack once.\n        start = time.perf_counter()\n        half = weight.detach().to(torch.float16).t().contiguous()\n        if not torch.isfinite(half).all():\n            raise ValueError('FP16 weight overflow')\n        handle = self.lib.mm_create(weight.shape[1], weight.shape[0], half.data_ptr())\n        if not handle:\n            raise self.error()\n        self.handles.append(handle)\n        self.create_seconds += time.perf_counter() - start\n        return handle\n\n    def run(self, handle, inputs, out_features):\n        start = time.perf_counter()\n        flat = inputs.reshape(-1, inputs.shape[-1]).to(torch.float16).contiguous()\n        if not torch.isfinite(flat).all():\n            raise ValueError('FP16 activation overflow')\n        output = torch.empty((flat.shape[0], out_features), dtype=torch.float32)\n        if self.lib.mm_run(handle, flat.shape[0], flat.data_ptr(), output.data_ptr()):\n            raise self.error()\n        self.calls += 1\n        self.seconds += time.perf_counter() - start\n        return output.reshape(*inputs.shape[:-1], out_features)\n\n    def close(self):\n        for handle in self.handles:\n            self.lib.mm_destroy(handle)\n        self.handles.clear()\n\n\ndef install(model, engine, selection='all'):\n    \"\"\"Replace only CPU BF16 text Linear.forward, after existing CPU optimization.\n\n    Unsupported large requests use the saved CPU forward. No runtime error is\n    silently hidden. Handles/weights live for the whole benchmark, not each call.\n    \"\"\"\n    chosen = []\n    for name, module in model.backbone.named_modules():\n        if 'language_model.layers.' not in name or not isinstance(module, torch.nn.Linear):\n            continue\n        if selection == 'mlp' and '.mlp.' not in name:\n            continue\n        k, n = module.in_features, module.out_features\n        if k > 10240 or k % 16 or n % 8 or k * n \u003c 262144:\n            continue\n        module._rknn_cpu_forward = module.forward\n        module._rknn_handle = None\n        def forward(self, inputs):\n            rows = inputs.numel() // inputs.shape[-1]\n            if inputs.device.type != 'cpu' or inputs.dtype != torch.bfloat16 or rows > 512:\n                engine.cpu_fallbacks += 1\n                return self._rknn_cpu_forward(inputs)\n            if self._rknn_handle is None:\n                self._rknn_handle = engine.create(self.weight)\n            output = engine.run(self._rknn_handle, inputs, self.out_features)\n            if self.bias is not None:\n                output += self.bias.float()\n            return output.to(inputs.dtype)\n        module.forward = MethodType(forward, module)\n        chosen.append({'name': name, 'K': k, 'N': n})\n    return chosen\n\n\ndef uninstall(model):\n    # Restore CPU forwards before freeing NPU buffers, so retained model objects\n    # cannot reference released native handles.\n    for module in model.backbone.modules():\n        if hasattr(module, '_rknn_cpu_forward'):\n            module.forward = module._rknn_cpu_forward\n            del module._rknn_cpu_forward\n            del module._rknn_handle\n", "app/cpu_optimized_server.py": "#!/usr/bin/env python3\n\"\"\"Serve pinned d3 with faster ARM CPU Linear/Conv kernels.\n\nKeep BF16 checkpoint tensors and activation boundaries. Compute Linear and\nConv operations in FP32 using cached FP32 weights, then round outputs to the\noriginal activation dtype. Probability parity must be measured before use.\n\"\"\"\nimport argparse\nimport os\nimport sys\nfrom pathlib import Path\nfrom types import MethodType\n\nimport torch\nimport torch.nn.functional as functional\n\n\ndef linear_forward(self, inputs):\n    return functional.linear(inputs.float(), self._cpu_fp32_weight,\n                             self._cpu_fp32_bias).to(inputs.dtype)\n\n\ndef conv_forward(self, inputs):\n    return self._conv_forward(inputs.float(), self._cpu_fp32_weight,\n                             self._cpu_fp32_bias).to(inputs.dtype)\n\n\ndef optimize(model):\n    count = 0\n    cache_bytes = 0\n    for module in model.backbone.modules():\n        if not isinstance(module, (torch.nn.Linear, torch.nn.Conv1d,\n                                   torch.nn.Conv2d, torch.nn.Conv3d)):\n            continue\n        if module.weight.device.type != \"cpu\" or module.weight.dtype != torch.bfloat16:\n            continue\n        weight = module.weight.detach().float()\n        bias = None if module.bias is None else module.bias.detach().float()\n        module.register_buffer(\"_cpu_fp32_weight\", weight, persistent=False)\n        module.register_buffer(\"_cpu_fp32_bias\", bias, persistent=False)\n        function = linear_forward if isinstance(module, torch.nn.Linear) else conv_forward\n        module.forward = MethodType(function, module)\n        count += 1\n        cache_bytes += weight.numel() * weight.element_size()\n        if bias is not None:\n            cache_bytes += bias.numel() * bias.element_size()\n    return count, cache_bytes\n\n\ndef main():\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--model\", required=True, type=Path)\n    parser.add_argument(\"--host\", default=\"0.0.0.0\")\n    parser.add_argument(\"--port\", type=int, default=8899)\n    args = parser.parse_args()\n    sys.path.insert(0, str(args.model))\n    from d3_runtime import D3\n    from d3_server import serve\n    model = D3.from_pretrained(args.model, device=\"cpu\", verify=\"full\")\n    model.model_name = \"vllm-sr/d3-edge\"\n    count, size = optimize(model)\n    print(f\"Optimized {count} CPU layers; cached FP32 weights: {size / 2**20:.1f} MiB\", flush=True)\n    server = serve(model, args.host, args.port,\n                   api_key=os.environ.get(\"DECISION_API_KEY\") or None)\n    print(f\"d3 CPU optimized server ready on {args.host}:{args.port}\", flush=True)\n    try:\n        server.serve_forever()\n    finally:\n        server.server_close()\n\n\nif __name__ == \"__main__\":\n    main()\n", "app/npu_server.py": "#!/usr/bin/env python3\n\"\"\"Separate experimental endpoint; reuse the official serialized D3 HTTP server.\"\"\"\nimport argparse\nfrom concurrent.futures import Future\nimport json\nimport os\nimport queue\nimport sys\nimport threading\nfrom pathlib import Path\nimport torch\nfrom cpu_optimized_server import optimize\nfrom rknn_linear import Engine, install, uninstall\n\nparser=argparse.ArgumentParser()\nparser.add_argument('--model',required=True,type=Path)\nparser.add_argument('--host',default='0.0.0.0')\nparser.add_argument('--port',type=int,default=8900)\nargs=parser.parse_args()\nsys.path.insert(0,str(args.model))\nfrom d3_runtime import D3, PromptEncoder\nfrom d3_server import serve\ntorch.set_num_threads(4)\nmodel=D3.from_pretrained(args.model,device='cpu',verify='full')\nmodel.model_name='vllm-sr/d3-edge'\nassert model.attention_mode=='noncausal_full_attention' and isinstance(model.encoder,PromptEncoder)\noptimize(model)\nengine=Engine()\nserver=None\nrequests=queue.Queue()\nhttp_thread=None\nactive=None\ntry:\n    selected=install(model,engine)\n    body=json.loads(Path('/work/request.json').read_text())\n    model.system_one(state=body['state'],questions=body['questions'])\n    print(f'RKNN warmup complete: {len(selected)} text Linear layers, {len(engine.handles)} cached NPU handles; original noncausal PromptEncoder',flush=True)\n    # Decider.turn in the official server serializes model.run across requests.\n    server=serve(model,args.host,args.port,api_key=os.environ.get('DECISION_API_KEY') or None)\n    original_answer=server.decider.answer\n    # The board measured significantly faster inference on the initialization\n    # thread than Python auxiliary threads. HTTP keeps its original handlers;\n    # model calls execute serially on this main thread and reuse native buffers.\n    def queued_answer(body):\n        future=Future()\n        requests.put((body,future))\n        return future.result()\n    server.decider.answer=queued_answer\n    print(f'Experimental CPU+RKNN service ready on {args.host}:{args.port}',flush=True)\n    http_thread=threading.Thread(target=server.serve_forever,name='d3-http',daemon=True)\n    http_thread.start()\n    while True:\n        body,active=requests.get()\n        try:\n            active.set_result(original_answer(body))\n        except Exception as exc:\n            active.set_exception(exc)\n        finally:\n            requests.task_done()\n        active=None\nfinally:\n    if server:\n        if http_thread: server.shutdown()\n        server.server_close()\n    if active is not None and not active.done():\n        active.set_exception(RuntimeError('Service is stopping'))\n    while not requests.empty():\n        _,pending=requests.get_nowait()\n        pending.set_exception(RuntimeError('Service is stopping'))\n    uninstall(model)\n    engine.close()\n", "app/request.json": "{\n  \"model\": \"vllm-sr/d3-edge\",\n  \"state\": \"请写一个 Python 函数，合并两个有序列表。\",\n  \"questions\": {\n    \"kind\": {\n      \"type\": \"choice\",\n      \"instructions\": \"这个请求属于哪类任务？\",\n      \"criteria\": {\"code\": \"编程任务\", \"math\": \"数学问题\", \"chat\": \"日常聊天\"}\n    }\n  }\n}\n", "app/benchmark.py": "\"\"\"Paired model test with unchanged D3 PromptEncoder and optimized CPU baseline.\"\"\"\nimport argparse\nimport hashlib\nimport inspect\nimport json\nimport statistics\nimport sys\nimport time\nfrom pathlib import Path\nimport torch\nfrom rknn_linear import Engine, install, uninstall\nfrom cpu_optimized_server import optimize\n\nparser=argparse.ArgumentParser()\nparser.add_argument('--model',required=True)\nparser.add_argument('--repeats',type=int,default=3)\nparser.add_argument('--selection',choices=['all','mlp'],default='all')\nargs=parser.parse_args()\nroot=Path('/work')\nsys.path.insert(0,args.model)\nfrom d3_runtime import D3, PromptEncoder\ntorch.set_num_threads(4)\nmodel=D3.from_pretrained(args.model,device='cpu',verify='full')\nmodel.model_name='vllm-sr/d3-edge'\nassert model.attention_mode=='noncausal_full_attention'\nassert isinstance(model.encoder,PromptEncoder)\noptimized,size=optimize(model)\ncases=json.loads((root/'request-cases.json').read_text())\nsingle=next(x for x in cases if x['id']=='single')\ncases=[single]+[x for x in cases if x['id']!='single']\nimage=json.loads((root/'golden-reference.json').read_text())['image']\nimage['state']='Describe the attached image.'\ncases.append({'id':'image',**image})\nreport={'attention_mode':model.attention_mode,'prompt_encoder_sha256':hashlib.sha256(inspect.getsource(PromptEncoder).encode()).hexdigest(),\n        'torch':torch.__version__,'threads':torch.get_num_threads(),'batch_size':model.batch_size,\n        'cpu_optimized_modules':optimized,'selection':args.selection,'repeats':args.repeats,'cases':{},'passed':False}\ndestination=root/'logs'/f'benchmark-{args.selection}.json'\ndef save():\n    destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\\n')\ndef invoke(case):\n    return model.system_one(**{k:case[k] for k in ['state','questions','images','videos'] if k in case})\ndef numbers(value,path=''):\n    result={}\n    if isinstance(value,dict):\n        for key,child in value.items():\n            if key not in ('confidence','legend'):\n                result.update(numbers(child,path+'/'+key))\n    elif isinstance(value,(int,float)):\n        result[path]=value\n    return result\n\nprofile={}\noriginal=[]\nfor name,module in model.backbone.named_modules():\n    if isinstance(module,(torch.nn.Linear,torch.nn.Conv1d,torch.nn.Conv2d,torch.nn.Conv3d)):\n        forward=module.forward\n        def timed(inputs,*positional,_forward=forward,_name=name,**keywords):\n            start=time.perf_counter(); out=_forward(inputs,*positional,**keywords)\n            p=profile.setdefault(_name,{'seconds':0,'calls':0,'shape':list(inputs.shape)})\n            p['seconds']+=time.perf_counter()-start; p['calls']+=1\n            return out\n        original.append((module,forward)); module.forward=timed\nstart=time.perf_counter(); invoke(single); elapsed=time.perf_counter()-start\nfor module,forward in original:\n    module.forward=forward\nreport['cpu_profile']={'total_seconds':elapsed,'linear_conv_seconds':sum(p['seconds'] for p in profile.values()),'modules':profile}\nsave()\nprint('CPU_PROFILE',json.dumps({k:v for k,v in report['cpu_profile'].items() if k!='modules'}),flush=True)\nengine=None\ntry:\n    for mode in ['cpu','npu']:\n        if mode=='npu':\n            engine=Engine()\n            report['offloaded_modules']=install(model,engine,args.selection)\n            print('OFFLOAD',len(report['offloaded_modules']),flush=True)\n        for case in cases:\n            # Warm up this shape; first NPU request includes persistent weight/context setup.\n            start=time.perf_counter(); warm=invoke(case); warm_seconds=time.perf_counter()-start\n            timings=[]\n            before_calls=engine.calls if engine else 0\n            before_time=engine.seconds if engine else 0\n            before_fallback=engine.cpu_fallbacks if engine else 0\n            for _ in range(args.repeats):\n                start=time.perf_counter(); response=invoke(case); timings.append(time.perf_counter()-start)\n                assert response==warm, 'Repeated response changed within the same backend'\n            record={'warmup_seconds':warm_seconds,'seconds':timings,'median_seconds':statistics.median(timings),'response':response}\n            if mode=='npu':\n                record.update(npu_calls=engine.calls-before_calls,npu_adapter_seconds=engine.seconds-before_time,\n                              cpu_fallback_calls=engine.cpu_fallbacks-before_fallback)\n                baseline=report['cases'][case['id']]['cpu']\n                a=numbers(response['answers']); b=numbers(baseline['response']['answers'])\n                assert set(a)==set(b)\n                delta=max(abs(a[key]-b[key]) for key in a)\n                matches=all(v.get('choice')==baseline['response']['answers'][key].get('choice') for key,v in response['answers'].items())\n                record.update(max_probability_or_score_delta=delta,choices_unchanged=matches,\n                              speedup=baseline['median_seconds']/record['median_seconds'],parity_passed=delta\u003c=0.01 and matches)\n                assert model.attention_mode=='noncausal_full_attention' and isinstance(model.encoder,PromptEncoder)\n            report['cases'].setdefault(case['id'],{})[mode]=record\n            save()\n            print('CASE',mode,case['id'],json.dumps({k:v for k,v in record.items() if k!='response'}),flush=True)\n    report['passed']=all(c['npu']['parity_passed'] for c in report['cases'].values())\n    report['setup_seconds']=engine.create_seconds\n    report['npu_handles']=len(engine.handles)\n    save()\n    assert report['passed'], 'CPU/NPU probability parity failed; do not promote'\n    print('PASS: same choices; numeric delta \u003c= 0.01; original attention code unchanged.',flush=True)\nfinally:\n    if engine:\n        uninstall(model)\n        engine.close()\n", "app/micro_test.py": "import json\nimport time\nfrom pathlib import Path\nimport torch\nfrom rknn_linear import Engine\n\ntorch.set_num_threads(4)\ntorch.manual_seed(7)\nengine = Engine()\nresults = []\ntry:\n    for k,n in [(1024,3072),(3072,1024),(1024,2048),(128,64)]:\n        # BF16 model values are exactly representable in FP16 within its exponent range.\n        w = (torch.randn(n,k) * 0.02).bfloat16().float()\n        handle = engine.create(w)\n        for m in [115,129,97,381]:\n            x = torch.randn(m,k).bfloat16()\n            ref = torch.nn.functional.linear(x.float(),w)\n            y = engine.run(handle,x,n)\n            delta = y-ref\n            assert torch.isfinite(y).all()\n            relative = delta.norm().item()/ref.norm().item()\n            assert relative \u003c 0.005, (m,k,n,relative)\n            cpu=[]; npu=[]\n            for _ in range(5):\n                t=time.perf_counter(); torch.nn.functional.linear(x.float(),w); cpu.append(time.perf_counter()-t)\n                t=time.perf_counter(); engine.run(handle,x,n); npu.append(time.perf_counter()-t)\n            r={'M':m,'K':k,'N':n,'max_absolute_delta':delta.abs().max().item(),'relative_l2_delta':relative,\n               'cpu_seconds_median':sorted(cpu)[2],'npu_seconds_median':sorted(npu)[2]}\n            r['speedup']=r['cpu_seconds_median']/r['npu_seconds_median']\n            results.append(r); print(json.dumps(r),flush=True)\n    Path('/work/logs/micro-test.json').write_text(json.dumps(results,indent=2)+'\\n')\nfinally:\n    engine.close()\n", "app/boundary_test.py": "\"\"\"Focused checks for real native buffers, dynamic shape switches and CPU fallback.\"\"\"\nimport json\nfrom pathlib import Path\nfrom types import SimpleNamespace\nimport torch\nfrom cpu_optimized_server import optimize\nfrom rknn_linear import Engine, install, uninstall\n\ntorch.set_num_threads(4)\ntorch.manual_seed(9)\nbackbone=torch.nn.Module()\nbackbone.language_model=torch.nn.Module()\nbackbone.language_model.layers=torch.nn.ModuleList([torch.nn.Module()])\nlayer=torch.nn.Linear(1024,512,bias=True).bfloat16().eval().requires_grad_(False)\nbackbone.language_model.layers[0].proj=layer\nmodel=SimpleNamespace(backbone=backbone)\noptimize(model)\ncpu_forward=layer.forward\nengine=Engine()\nresult={}\ntry:\n    assert len(install(model,engine))==1\n    for rows in [127,128,129,256,257,512,513]:\n        x=torch.randn(1,rows,1024).bfloat16()\n        reference=cpu_forward(x)\n        before=engine.calls\n        output=layer(x)\n        assert torch.isfinite(output).all()\n        if rows==513:\n            assert torch.equal(output,reference)\n            assert engine.calls==before and engine.cpu_fallbacks==1\n        else:\n            assert engine.calls==before+1\n            assert (output.float()-reference.float()).norm()/reference.float().norm()\u003c0.001\n        result[str(rows)]={'npu_used':engine.calls>before,'max_absolute_delta':(output.float()-reference.float()).abs().max().item()}\n    x=torch.randn(1,17,1024,dtype=torch.float32)\n    assert torch.equal(layer(x),cpu_forward(x))\n    assert engine.cpu_fallbacks==2\n    try:\n        engine.lib.mm_create(7,8,x.data_ptr())\n        assert 'alignment' in engine.lib.mm_error().decode()\n        bad=torch.randn(513,1024).half()\n        engine.run(layer._rknn_handle,bad,512)\n        raise AssertionError('Native oversized request accepted')\n    except RuntimeError as exc:\n        assert 'Invalid run argument' in str(exc)\n    uninstall(model)\n    engine.close()\n    assert torch.equal(layer(x),cpu_forward(x))\n    result.update(non_bf16_cpu_fallback=True,native_oversize_rejected=True,cpu_forward_restored_after_release=True,passed=True)\n    Path('/work/logs/boundary-test.json').write_text(json.dumps(result,indent=2)+'\\n')\n    print(json.dumps(result,indent=2))\nfinally:\n    uninstall(model)\n    engine.close()\n", "app/request-cases.json": "[\n  {\n    \"id\": \"chinese-0\",\n    \"state\": \"请写一个 Python 函数，把两个有序列表合并成一个有序列表。\",\n    \"questions\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"instructions\": \"这个请求属于哪类任务？\",\n        \"criteria\": {\n          \"code\": \"编写、解释或修复程序\",\n          \"math\": \"数学计算或证明\",\n          \"chat\": \"日常聊天和生活话题\"\n        }\n      },\n      \"programming\": {\n        \"type\": \"noul\",\n        \"instructions\": \"这个请求是否要求编写程序？\"\n      },\n      \"complexity\": {\n        \"type\": \"score\",\n        \"instructions\": \"这个请求的复杂程度是多少？\",\n        \"criteria\": [\n          \"简单\",\n          \"中等\",\n          \"复杂\"\n        ]\n      }\n    },\n    \"baseline\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"choice\": \"code\",\n        \"probabilities\": {\n          \"code\": 0.9992407534465768,\n          \"math\": 0.0005031534224754242,\n          \"chat\": 0.00025609313094778077\n        },\n        \"confidence\": 0.9939031290513372\n      },\n      \"programming\": {\n        \"type\": \"noul\",\n        \"noul\": 0.8701225052792207\n      },\n      \"complexity\": {\n        \"type\": \"score\",\n        \"score\": 0.1014327779124191,\n        \"probabilities\": {\n          \"0\": 0.914882283616913,\n          \"1\": 0.06880265485375493,\n          \"2\": 0.016315061529332084\n        },\n        \"confidence\": 0.6971758227789213,\n        \"legend\": {\n          \"0\": \"简单\",\n          \"1\": \"中等\",\n          \"2\": \"复杂\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"chinese-1\",\n    \"state\": \"你好，今天心情怎么样？\",\n    \"questions\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"instructions\": \"这个请求属于哪类任务？\",\n        \"criteria\": {\n          \"code\": \"编写、解释或修复程序\",\n          \"math\": \"数学计算或证明\",\n          \"chat\": \"日常聊天和生活话题\"\n        }\n      },\n      \"programming\": {\n        \"type\": \"noul\",\n        \"instructions\": \"这个请求是否要求编写程序？\"\n      },\n      \"complexity\": {\n        \"type\": \"score\",\n        \"instructions\": \"这个请求的复杂程度是多少？\",\n        \"criteria\": [\n          \"简单\",\n          \"中等\",\n          \"复杂\"\n        ]\n      }\n    },\n    \"baseline\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"choice\": \"chat\",\n        \"probabilities\": {\n          \"code\": 0.0007201397436318482,\n          \"math\": 0.00036008721769970325,\n          \"chat\": 0.9989197730386684\n        },\n        \"confidence\": 0.991675122971715\n      },\n      \"programming\": {\n        \"type\": \"noul\",\n        \"noul\": 0.0002551515976465532\n      },\n      \"complexity\": {\n        \"type\": \"score\",\n        \"score\": 0.019110443444288625,\n        \"probabilities\": {\n          \"0\": 0.9835840059958996,\n          \"1\": 0.013721544563912261,\n          \"2\": 0.0026944494401881826\n        },\n        \"confidence\": 0.9171034390906018,\n        \"legend\": {\n          \"0\": \"简单\",\n          \"1\": \"中等\",\n          \"2\": \"复杂\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"english\",\n    \"state\": \"Write a Python function that merges two sorted lists and explain its running time.\",\n    \"questions\": {\n      \"domain\": {\n        \"type\": \"choice\",\n        \"instructions\": \"Which domain does this request belong to?\",\n        \"criteria\": {\n          \"code\": \"Programming\",\n          \"math\": \"Mathematics\",\n          \"other\": \"Anything else\"\n        }\n      },\n      \"reasoning\": {\n        \"type\": \"noul\",\n        \"instructions\": \"Does answering this request need multi-step reasoning?\"\n      },\n      \"difficulty\": {\n        \"type\": \"score\",\n        \"instructions\": \"How difficult is this request?\",\n        \"criteria\": [\n          \"Trivial\",\n          \"Moderate\",\n          \"Hard\"\n        ]\n      }\n    },\n    \"baseline\": {\n      \"domain\": {\n        \"type\": \"choice\",\n        \"choice\": \"code\",\n        \"probabilities\": {\n          \"code\": 0.9059022938497119,\n          \"math\": 0.00010158083329922285,\n          \"other\": 0.09399612531698893\n        },\n        \"confidence\": 0.7153566085339282\n      },\n      \"reasoning\": {\n        \"type\": \"noul\",\n        \"noul\": 0.0630309302518049\n      },\n      \"difficulty\": {\n        \"type\": \"score\",\n        \"score\": 0.19148818189477718,\n        \"probabilities\": {\n          \"0\": 0.8434359933051915,\n          \"1\": 0.12163983149483988,\n          \"2\": 0.03492417519996865\n        },\n        \"confidence\": 0.5293824489640959,\n        \"legend\": {\n          \"0\": \"Trivial\",\n          \"1\": \"Moderate\",\n          \"2\": \"Hard\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"single\",\n    \"state\": \"请写一个 Python 函数，合并两个有序列表。\",\n    \"questions\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"instructions\": \"这个请求属于哪类任务？\",\n        \"criteria\": {\n          \"code\": \"编程任务\",\n          \"math\": \"数学问题\",\n          \"chat\": \"日常聊天\"\n        }\n      }\n    },\n    \"baseline\": {\n      \"kind\": {\n        \"type\": \"choice\",\n        \"choice\": \"code\",\n        \"probabilities\": {\n          \"code\": 0.9991648123435318,\n          \"math\": 0.0006982751935839212,\n          \"chat\": 0.0001369124628842124\n        },\n        \"confidence\": 0.993512607365437\n      }\n    }\n  }\n]\n", "app/golden-reference.json": "{\"text\": {\"state\": \"Write a Python function that merges two sorted lists and explain its running time.\", \"questions\": {\"domain\": {\"type\": \"choice\", \"instructions\": \"Which domain does this request belong to?\", \"criteria\": {\"code\": \"Programming\", \"math\": \"Mathematics\", \"other\": \"Anything else\"}}, \"reasoning\": {\"type\": \"noul\", \"instructions\": \"Does answering this request need multi-step reasoning?\"}, \"difficulty\": {\"type\": \"score\", \"instructions\": \"How difficult is this request?\", \"criteria\": [\"Trivial\", \"Moderate\", \"Hard\"]}}}, \"image\": {\"state\": \"Write a Python function that merges two sorted lists and explain its running time.\", \"questions\": {\"image_colour\": {\"type\": \"choice\", \"instructions\": \"Which colour dominates the image?\", \"criteria\": {\"red\": \"Red\", \"green\": \"Green\", \"blue\": \"Blue\", \"other\": \"Anything else\"}}, \"image_photo\": {\"type\": \"noul\", \"instructions\": \"Is the image a photograph?\"}}, \"images\": [\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg==\"]}, \"reference\": {\"answers\": {\"cpu\": {\"difficulty\": {\"confidence\": 0.5289285314008614, \"legend\": {\"0\": \"Trivial\", \"1\": \"Moderate\", \"2\": \"Hard\"}, \"probabilities\": {\"0\": 0.8432784237578218, \"1\": 0.12164200323898351, \"2\": 0.035079573003194725}, \"score\": 0.19180114924537295, \"type\": \"score\"}, \"domain\": {\"choice\": \"code\", \"confidence\": 0.7191210067989227, \"probabilities\": {\"code\": 0.9077280006989817, \"math\": 0.000104602467732264, \"other\": 0.09216739683328601}, \"type\": \"choice\"}, \"image_colour\": {\"choice\": \"other\", \"confidence\": 0.4202600410747662, \"probabilities\": {\"blue\": 0.012493534525591432, \"green\": 0.33148042725877724, \"other\": 0.6309736629601952, \"red\": 0.02505237525543618}, \"type\": \"choice\"}, \"image_photo\": {\"noul\": 0.028102190139954988, \"type\": \"noul\"}, \"reasoning\": {\"noul\": 0.061222668965245294, \"type\": \"noul\"}}, \"rocm\": {\"difficulty\": {\"confidence\": 0.5227515959553738, \"legend\": {\"0\": \"Trivial\", \"1\": \"Moderate\", \"2\": \"Hard\"}, \"probabilities\": {\"0\": 0.8396536299508877, \"1\": 0.12540091854484942, \"2\": 0.034945451504262946}, \"score\": 0.19529182155337532, \"type\": \"score\"}, \"domain\": {\"choice\": \"code\", \"confidence\": 0.7147529744610905, \"probabilities\": {\"code\": 0.9056074417805747, \"math\": 0.00010094160537437953, \"other\": 0.09429161661405087}, \"type\": \"choice\"}, \"image_colour\": {\"choice\": \"other\", \"confidence\": 0.43082307724658053, \"probabilities\": {\"blue\": 0.011831863595972134, \"green\": 0.320919031784289, \"other\": 0.6437116759427837, \"red\": 0.023537428676955133}, \"type\": \"choice\"}, \"image_photo\": {\"noul\": 0.028243631966222284, \"type\": \"noul\"}, \"reasoning\": {\"noul\": 0.06407417958809034, \"type\": \"noul\"}}}, \"revision\": \"18d61df78684675463af9ae732872478845c5a79\"}}\n", ".dockerignore": "data/\nchecks/\n__pycache__/\n*.tar\n*.tar.gz\n"}, "bootstrap": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"Save the source appendix from the handoff document into a new directory.\"\"\"\nimport json\nfrom pathlib import Path\nfiles = json.loads('{\"Dockerfile\": \"FROM ghcr.io/vllm-project/semantic-router/vllm-sr@sha256:efc356587252c28b8d972d5d27b381df0626ccdc53597f3fccff7ae454041178\\\\n\\\\n# PyTorch 2.10 ARM64 wheels crash on Cortex-A53/A72 at import (upstream #174344).\\\\n# Install the fixed official CPU wheel and preserve the rest of the router image.\\\\nRUN python -m pip install --no-cache-dir --no-deps --force-reinstall \\\\\\\\\\\\n    \\'https://download-r2.pytorch.org/whl/cpu/torch-2.12.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=ce2ddb880b0813fcc91a737f08fdd973a8115a74c64ccb34e9c09a7964b4d448\\' \\\\\\\\\\\\n    && python -c \\'import torch; assert torch.__version__ == \\\\\"2.12.0+cpu\\\\\"; x = torch.ones(8, 8, dtype=torch.bfloat16); assert (x @ x).shape == (8, 8); print(\\\\\"ARMv8 PyTorch and BF16 matmul OK\\\\\")\\'\\\\n\\\\n\\\\n# Serve through the HTTP implementation shipped with the pinned model package.\\\\n# CPU inference uses PyTorch reference kernels; do not install GPU-only FLA.\\\\nRUN python -m pip install --no-cache-dir \\\\\\\\\\\\n    transformers==5.17.0 accelerate==1.10.1 \\\\\\\\\\\\n    \\'https://download-r2.pytorch.org/whl/cpu/torchvision-0.27.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=1b06f42d48b62098114923d8a3fe9fa864182715db06584a515155db0aa8eb30\\' \\\\\\\\\\\\n    && python -c \\'import torch, torchvision, transformers; assert torch.__version__ == \\\\\"2.12.0+cpu\\\\\"; assert transformers.__version__ == \\\\\"5.17.0\\\\\"; print(torch.__version__, torchvision.__version__, transformers.__version__)\\'\\\\n\\\\nENV OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1\\\\nENTRYPOINT [\\\\\"python\\\\\", \\\\\"-u\\\\\"]\\\\n\\\\nRUN apt-get update && apt-get install -y --no-install-recommends g++ ca-certificates && rm -rf /var/lib/apt/lists/*\\\\nCOPY requirements.lock /tmp/requirements.lock\\\\nRUN python -m pip install --no-cache-dir --no-deps -r /tmp/requirements.lock && python -m pip check\\\\nWORKDIR /work\\\\nCOPY tools/fetch_sdk.py sdk-manifest.json /tmp/sdk-fetch/\\\\nRUN python /tmp/sdk-fetch/fetch_sdk.py /work/sdk /tmp/sdk-fetch/sdk-manifest.json\\\\nCOPY app/ /work/\\\\nRUN g++ -O2 -std=c++17 -shared -fPIC -I sdk matmul_bridge.cpp -L sdk -lrknnrt -Wl,-rpath,\\'$ORIGIN/sdk\\' -o libmatmul_bridge.so\\\\nCMD [\\\\\"/work/npu_server.py\\\\\", \\\\\"--model\\\\\", \\\\\"/models/d3-edge\\\\\", \\\\\"--host\\\\\", \\\\\"0.0.0.0\\\\\", \\\\\"--port\\\\\", \\\\\"8900\\\\\"]\\\\n\", \"requirements.lock\": \"accelerate==1.10.1\\\\nannotated-doc==0.0.5\\\\nanyio==4.15.1\\\\ncertifi==2026.7.22\\\\nclick==8.5.0\\\\nfilelock==4.0.12\\\\nfsspec==2026.9.0\\\\nh11==0.16.0\\\\nhf-xet==1.6.0\\\\nhttpcore==1.0.9\\\\nhttptools==0.8.0\\\\nhttpx==0.28.1\\\\nhuggingface_hub==1.33.0\\\\nidna==3.20\\\\nJinja2==3.1.6\\\\nmarkdown-it-py==4.2.0\\\\nMarkupSafe==3.0.3\\\\nmdurl==0.1.2\\\\nmpmath==1.3.0\\\\nnetworkx==3.6.1\\\\nnumpy==2.5.3\\\\nopencv-python-headless==5.0.0.93\\\\npackaging==26.3\\\\npillow==12.3.0\\\\nprometheus_client==0.26.0\\\\npsutil==7.2.2\\\\nPygments==2.21.0\\\\nPyYAML==6.0.3\\\\nregex==2026.9.29\\\\nrich==15.0.0\\\\nsafetensors==0.8.0\\\\nshellingham==1.5.4\\\\nstarlette==1.7.0\\\\nsympy==1.14.0\\\\ntokenizers==0.23.2\\\\ntqdm==4.70.1\\\\ntransformers==5.17.0\\\\ntyper==0.27.3\\\\ntyping_extensions==4.16.0\\\\nuvicorn==0.54.0\\\\nuvloop==0.23.0\\\\n\", \"sdk-manifest.json\": \"{\\\\n  \\\\\"repository\\\\\": \\\\\"https://github.com/airockchip/rknn-toolkit2\\\\\",\\\\n  \\\\\"commit\\\\\": \\\\\"2c723177a94fac65cbc036d722907ddbc91980cf\\\\\",\\\\n  \\\\\"files\\\\\": {\\\\n    \\\\\"dynamic_demo.cpp\\\\\": {\\\\n      \\\\\"bytes\\\\\": 45867,\\\\n      \\\\\"sha256\\\\\": \\\\\"c4716e586978a03d04e0d7f8c6464087e575dd2544607261e5e52f3cf0b437a4\\\\\"\\\\n    },\\\\n    \\\\\"rknn_matmul_api.h\\\\\": {\\\\n      \\\\\"bytes\\\\\": 18598,\\\\n      \\\\\"sha256\\\\\": \\\\\"aaadd9a7118de30a06b222996b6731db77095d00f5931a7a98c83a67f14a4d42\\\\\"\\\\n    },\\\\n    \\\\\"librknnrt.so\\\\\": {\\\\n      \\\\\"bytes\\\\\": 8189368,\\\\n      \\\\\"sha256\\\\\": \\\\\"4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0\\\\\"\\\\n    },\\\\n    \\\\\"demo.cpp\\\\\": {\\\\n      \\\\\"bytes\\\\\": 43338,\\\\n      \\\\\"sha256\\\\\": \\\\\"739638f200f35c885c8e141091fe0700dba4f4aecfd4d03dfc36191001f40696\\\\\"\\\\n    },\\\\n    \\\\\"rknn_api.h\\\\\": {\\\\n      \\\\\"bytes\\\\\": 36524,\\\\n      \\\\\"sha256\\\\\": \\\\\"2d4160cd868efd7b83a72587e411c16d6972da5876e067bd73665cea778ce666\\\\\"\\\\n    }\\\\n  }\\\\n}\\\\n\", \"tools/fetch_sdk.py\": \"\\\\\"\\\\\"\\\\\"Fetch unmodified SDK files from the pinned official repository; verify hashes.\\\\\"\\\\\"\\\\\"\\\\nimport hashlib\\\\nimport json\\\\nimport sys\\\\nimport time\\\\nimport urllib.request\\\\nfrom pathlib import Path\\\\n\\\\ndestination, manifest_path = map(Path, sys.argv[1:])\\\\nmanifest = json.loads(manifest_path.read_text())\\\\nbase = f\\\\\"https://raw.githubusercontent.com/airockchip/rknn-toolkit2/{manifest[\\'commit\\']}/\\\\\"\\\\npaths = {\\\\n    \\'librknnrt.so\\': \\'rknpu2/runtime/Linux/librknn_api/aarch64/librknnrt.so\\',\\\\n    \\'rknn_api.h\\': \\'rknpu2/runtime/Linux/librknn_api/include/rknn_api.h\\',\\\\n    \\'rknn_matmul_api.h\\': \\'rknpu2/runtime/Linux/librknn_api/include/rknn_matmul_api.h\\',\\\\n    \\'LICENSE\\': \\'LICENSE\\',\\\\n}\\\\ndestination.mkdir(parents=True, exist_ok=True)\\\\nfor name, path in paths.items():\\\\n    for attempt in range(3):\\\\n        try:\\\\n            with urllib.request.urlopen(base + path, timeout=120) as response:\\\\n                data = response.read()\\\\n            break\\\\n        except OSError:\\\\n            if attempt == 2:\\\\n                raise\\\\n            time.sleep(2)\\\\n    if name in manifest[\\'files\\']:\\\\n        assert hashlib.sha256(data).hexdigest() == manifest[\\'files\\'][name][\\'sha256\\'], name\\\\n    (destination / name).write_bytes(data)\\\\n    print(f\\'Verified/downloaded official SDK: {name}\\', flush=True)\\\\n\", \"tools/download_model.py\": \"\\\\\"\\\\\"\\\\\"Network-enabled setup step. Inference containers stay offline.\\\\\"\\\\\"\\\\\"\\\\nfrom pathlib import Path\\\\nfrom huggingface_hub import snapshot_download\\\\n\\\\nREVISION = \\'20c745653400d191ecacd99c4eafc0c5900dc15e\\'\\\\npath = Path(snapshot_download(\\'vllm-sr/d3-edge\\', revision=REVISION, local_dir=\\'/models/d3-edge\\'))\\\\nimport sys\\\\nsys.path.insert(0, str(path))\\\\nfrom d3_runtime import verify_package\\\\nverify_package(path, mode=\\'full\\')\\\\nprint(f\\'Pinned d3-edge downloaded and fully verified: {REVISION}\\')\\\\n\", \"app/matmul_bridge.cpp\": \"#include \u003calgorithm>\\\\n#include \u003ccstdint>\\\\n#include \u003ccstdio>\\\\n#include \u003ccstring>\\\\n#include \u003cmemory>\\\\n#include \u003cstring>\\\\n#include \u003cvector>\\\\n#include \\\\\"rknn_matmul_api.h\\\\\"\\\\n\\\\n// Experimental, synchronous, single-owner handle. Callers must serialize calls.\\\\nstatic thread_local std::string last_error;\\\\nstruct Matrix {\\\\n  rknn_matmul_ctx ctx = 0;\\\\n  rknn_tensor_mem *a = nullptr, *b = nullptr, *c = nullptr;\\\\n  int k, n, selected = -1;\\\\n  std::vector\u003crknn_matmul_shape> shapes;\\\\n  std::vector\u003crknn_matmul_io_attr> attrs;\\\\n  ~Matrix() {\\\\n    if (a) rknn_destroy_mem(ctx, a);\\\\n    if (b) rknn_destroy_mem(ctx, b);\\\\n    if (c) rknn_destroy_mem(ctx, c);\\\\n    if (ctx) rknn_matmul_destroy(ctx);\\\\n  }\\\\n};\\\\nstatic bool check(int code, const char* operation) {\\\\n  if (code == 0) return true;\\\\n  last_error = std::string(operation) + \\\\\" returned \\\\\" + std::to_string(code);\\\\n  return false;\\\\n}\\\\nextern \\\\\"C\\\\\" const char* mm_error() { return last_error.c_str(); }\\\\nextern \\\\\"C\\\\\" void* mm_create(int k, int n, const void* half_kn) {\\\\n  last_error.clear();\\\\n  if (k \u003c= 0 || k > 10240 || k % 16 || n \u003c= 0 || n % 8 || !half_kn) {\\\\n    last_error = \\\\\"Unsupported K/N alignment or missing weights\\\\\"; return nullptr;\\\\n  }\\\\n  auto p = std::make_unique\u003cMatrix>();\\\\n  p->k = k; p->n = n;\\\\n  for (int m : {128, 256, 512}) p->shapes.push_back({m,k,n});\\\\n  p->attrs.resize(p->shapes.size());\\\\n  rknn_matmul_info info{};\\\\n  info.M=512; info.K=k; info.N=n;\\\\n  info.type=RKNN_FLOAT16_MM_FLOAT16_TO_FLOAT32;\\\\n  info.B_layout=RKNN_MM_LAYOUT_NATIVE;\\\\n  info.AC_layout=RKNN_MM_LAYOUT_NORM;\\\\n  if (!check(rknn_matmul_create_dynamic_shape(&p->ctx, &info,\\\\n      p->shapes.size(), p->shapes.data(), p->attrs.data()), \\\\\"create_dynamic\\\\\")) return nullptr;\\\\n  // RK3576 matmul rejects combined core mask 3; use the supported auto mode.\\\\n  if (!check(rknn_matmul_set_core_mask(p->ctx, RKNN_NPU_CORE_AUTO), \\\\\"set_cores\\\\\")) return nullptr;\\\\n  uint32_t as=0, bs=0, cs=0;\\\\n  for (auto& attr : p->attrs) {\\\\n    as=std::max(as,attr.A.size); bs=std::max(bs,attr.B.size); cs=std::max(cs,attr.C.size);\\\\n  }\\\\n  p->a=rknn_create_mem(p->ctx,as); p->b=rknn_create_mem(p->ctx,bs); p->c=rknn_create_mem(p->ctx,cs);\\\\n  if (!p->a || !p->b || !p->c) { last_error=\\\\\"rknn_create_mem failed\\\\\"; return nullptr; }\\\\n  if (!check(rknn_B_normal_layout_to_native_layout(const_cast\u003cvoid*>(half_kn),p->b->virt_addr,k,n,&info), \\\\\"pack_B\\\\\")) return nullptr;\\\\n  if (!check(rknn_matmul_set_dynamic_shape(p->ctx,&p->shapes[0]),\\\\\"initial_shape\\\\\")) return nullptr;\\\\n  if (!check(rknn_matmul_set_io_mem(p->ctx,p->b,&p->attrs[0].B),\\\\\"bind_B\\\\\")) return nullptr;\\\\n  std::memset(p->a->virt_addr,0,as);\\\\n  return p.release();\\\\n}\\\\nextern \\\\\"C\\\\\" int mm_run(void* handle, int rows, const void* half_mk, float* out_mn) {\\\\n  auto* p=static_cast\u003cMatrix*>(handle);\\\\n  if (!p || rows\u003c=0 || rows>512 || !half_mk || !out_mn) { last_error=\\\\\"Invalid run argument\\\\\"; return -1; }\\\\n  int index=rows\u003c=128 ? 0 : rows\u003c=256 ? 1 : 2;\\\\n  if (p->selected!=index) {\\\\n    if (!check(rknn_matmul_set_dynamic_shape(p->ctx,&p->shapes[index]),\\\\\"set_shape\\\\\")) return -1;\\\\n    if (!check(rknn_matmul_set_io_mem(p->ctx,p->a,&p->attrs[index].A),\\\\\"bind_A\\\\\")) return -1;\\\\n    if (!check(rknn_matmul_set_io_mem(p->ctx,p->c,&p->attrs[index].C),\\\\\"bind_C\\\\\")) return -1;\\\\n    p->selected=index;\\\\n  }\\\\n  size_t bytes=size_t(rows)*p->k*2;\\\\n  std::memcpy(p->a->virt_addr,half_mk,bytes);\\\\n  std::memset(static_cast\u003cchar*>(p->a->virt_addr)+bytes,0,size_t(p->shapes[index].M-rows)*p->k*2);\\\\n  if (!check(rknn_matmul_run(p->ctx),\\\\\"run\\\\\")) return -1;\\\\n  std::memcpy(out_mn,p->c->virt_addr,size_t(rows)*p->n*sizeof(float));\\\\n  return 0;\\\\n}\\\\nextern \\\\\"C\\\\\" void mm_destroy(void* handle) { delete static_cast\u003cMatrix*>(handle); }\\\\n\", \"app/rknn_linear.py\": \"\\\\\"\\\\\"\\\\\"Experimental FP16 RKNN Linear adapter; original attention stays in PyTorch.\\\\\"\\\\\"\\\\\"\\\\nimport ctypes\\\\nimport time\\\\nfrom pathlib import Path\\\\nfrom types import MethodType\\\\nimport torch\\\\n\\\\n\\\\nclass Engine:\\\\n    def __init__(self):\\\\n        self.lib = ctypes.CDLL(str(Path(__file__).with_name(\\'libmatmul_bridge.so\\')))\\\\n        self.lib.mm_error.restype = ctypes.c_char_p\\\\n        self.lib.mm_create.argtypes = [ctypes.c_int, ctypes.c_int, ctypes.c_void_p]\\\\n        self.lib.mm_create.restype = ctypes.c_void_p\\\\n        self.lib.mm_run.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p]\\\\n        self.lib.mm_run.restype = ctypes.c_int\\\\n        self.lib.mm_destroy.argtypes = [ctypes.c_void_p]\\\\n        self.handles = []\\\\n        self.calls = self.cpu_fallbacks = 0\\\\n        self.seconds = self.create_seconds = 0.0\\\\n\\\\n    def error(self):\\\\n        return RuntimeError(self.lib.mm_error().decode())\\\\n\\\\n    def create(self, weight):\\\\n        # PyTorch weight [N,K] -> official normal B layout [K,N], then native-pack once.\\\\n        start = time.perf_counter()\\\\n        half = weight.detach().to(torch.float16).t().contiguous()\\\\n        if not torch.isfinite(half).all():\\\\n            raise ValueError(\\'FP16 weight overflow\\')\\\\n        handle = self.lib.mm_create(weight.shape[1], weight.shape[0], half.data_ptr())\\\\n        if not handle:\\\\n            raise self.error()\\\\n        self.handles.append(handle)\\\\n        self.create_seconds += time.perf_counter() - start\\\\n        return handle\\\\n\\\\n    def run(self, handle, inputs, out_features):\\\\n        start = time.perf_counter()\\\\n        flat = inputs.reshape(-1, inputs.shape[-1]).to(torch.float16).contiguous()\\\\n        if not torch.isfinite(flat).all():\\\\n            raise ValueError(\\'FP16 activation overflow\\')\\\\n        output = torch.empty((flat.shape[0], out_features), dtype=torch.float32)\\\\n        if self.lib.mm_run(handle, flat.shape[0], flat.data_ptr(), output.data_ptr()):\\\\n            raise self.error()\\\\n        self.calls += 1\\\\n        self.seconds += time.perf_counter() - start\\\\n        return output.reshape(*inputs.shape[:-1], out_features)\\\\n\\\\n    def close(self):\\\\n        for handle in self.handles:\\\\n            self.lib.mm_destroy(handle)\\\\n        self.handles.clear()\\\\n\\\\n\\\\ndef install(model, engine, selection=\\'all\\'):\\\\n    \\\\\"\\\\\"\\\\\"Replace only CPU BF16 text Linear.forward, after existing CPU optimization.\\\\n\\\\n    Unsupported large requests use the saved CPU forward. No runtime error is\\\\n    silently hidden. Handles/weights live for the whole benchmark, not each call.\\\\n    \\\\\"\\\\\"\\\\\"\\\\n    chosen = []\\\\n    for name, module in model.backbone.named_modules():\\\\n        if \\'language_model.layers.\\' not in name or not isinstance(module, torch.nn.Linear):\\\\n            continue\\\\n        if selection == \\'mlp\\' and \\'.mlp.\\' not in name:\\\\n            continue\\\\n        k, n = module.in_features, module.out_features\\\\n        if k > 10240 or k % 16 or n % 8 or k * n \u003c 262144:\\\\n            continue\\\\n        module._rknn_cpu_forward = module.forward\\\\n        module._rknn_handle = None\\\\n        def forward(self, inputs):\\\\n            rows = inputs.numel() // inputs.shape[-1]\\\\n            if inputs.device.type != \\'cpu\\' or inputs.dtype != torch.bfloat16 or rows > 512:\\\\n                engine.cpu_fallbacks += 1\\\\n                return self._rknn_cpu_forward(inputs)\\\\n            if self._rknn_handle is None:\\\\n                self._rknn_handle = engine.create(self.weight)\\\\n            output = engine.run(self._rknn_handle, inputs, self.out_features)\\\\n            if self.bias is not None:\\\\n                output += self.bias.float()\\\\n            return output.to(inputs.dtype)\\\\n        module.forward = MethodType(forward, module)\\\\n        chosen.append({\\'name\\': name, \\'K\\': k, \\'N\\': n})\\\\n    return chosen\\\\n\\\\n\\\\ndef uninstall(model):\\\\n    # Restore CPU forwards before freeing NPU buffers, so retained model objects\\\\n    # cannot reference released native handles.\\\\n    for module in model.backbone.modules():\\\\n        if hasattr(module, \\'_rknn_cpu_forward\\'):\\\\n            module.forward = module._rknn_cpu_forward\\\\n            del module._rknn_cpu_forward\\\\n            del module._rknn_handle\\\\n\", \"app/cpu_optimized_server.py\": \"#!/usr/bin/env python3\\\\n\\\\\"\\\\\"\\\\\"Serve pinned d3 with faster ARM CPU Linear/Conv kernels.\\\\n\\\\nKeep BF16 checkpoint tensors and activation boundaries. Compute Linear and\\\\nConv operations in FP32 using cached FP32 weights, then round outputs to the\\\\noriginal activation dtype. Probability parity must be measured before use.\\\\n\\\\\"\\\\\"\\\\\"\\\\nimport argparse\\\\nimport os\\\\nimport sys\\\\nfrom pathlib import Path\\\\nfrom types import MethodType\\\\n\\\\nimport torch\\\\nimport torch.nn.functional as functional\\\\n\\\\n\\\\ndef linear_forward(self, inputs):\\\\n    return functional.linear(inputs.float(), self._cpu_fp32_weight,\\\\n                             self._cpu_fp32_bias).to(inputs.dtype)\\\\n\\\\n\\\\ndef conv_forward(self, inputs):\\\\n    return self._conv_forward(inputs.float(), self._cpu_fp32_weight,\\\\n                             self._cpu_fp32_bias).to(inputs.dtype)\\\\n\\\\n\\\\ndef optimize(model):\\\\n    count = 0\\\\n    cache_bytes = 0\\\\n    for module in model.backbone.modules():\\\\n        if not isinstance(module, (torch.nn.Linear, torch.nn.Conv1d,\\\\n                                   torch.nn.Conv2d, torch.nn.Conv3d)):\\\\n            continue\\\\n        if module.weight.device.type != \\\\\"cpu\\\\\" or module.weight.dtype != torch.bfloat16:\\\\n            continue\\\\n        weight = module.weight.detach().float()\\\\n        bias = None if module.bias is None else module.bias.detach().float()\\\\n        module.register_buffer(\\\\\"_cpu_fp32_weight\\\\\", weight, persistent=False)\\\\n        module.register_buffer(\\\\\"_cpu_fp32_bias\\\\\", bias, persistent=False)\\\\n        function = linear_forward if isinstance(module, torch.nn.Linear) else conv_forward\\\\n        module.forward = MethodType(function, module)\\\\n        count += 1\\\\n        cache_bytes += weight.numel() * weight.element_size()\\\\n        if bias is not None:\\\\n            cache_bytes += bias.numel() * bias.element_size()\\\\n    return count, cache_bytes\\\\n\\\\n\\\\ndef main():\\\\n    parser = argparse.ArgumentParser()\\\\n    parser.add_argument(\\\\\"--model\\\\\", required=True, type=Path)\\\\n    parser.add_argument(\\\\\"--host\\\\\", default=\\\\\"0.0.0.0\\\\\")\\\\n    parser.add_argument(\\\\\"--port\\\\\", type=int, default=8899)\\\\n    args = parser.parse_args()\\\\n    sys.path.insert(0, str(args.model))\\\\n    from d3_runtime import D3\\\\n    from d3_server import serve\\\\n    model = D3.from_pretrained(args.model, device=\\\\\"cpu\\\\\", verify=\\\\\"full\\\\\")\\\\n    model.model_name = \\\\\"vllm-sr/d3-edge\\\\\"\\\\n    count, size = optimize(model)\\\\n    print(f\\\\\"Optimized {count} CPU layers; cached FP32 weights: {size / 2**20:.1f} MiB\\\\\", flush=True)\\\\n    server = serve(model, args.host, args.port,\\\\n                   api_key=os.environ.get(\\\\\"DECISION_API_KEY\\\\\") or None)\\\\n    print(f\\\\\"d3 CPU optimized server ready on {args.host}:{args.port}\\\\\", flush=True)\\\\n    try:\\\\n        server.serve_forever()\\\\n    finally:\\\\n        server.server_close()\\\\n\\\\n\\\\nif __name__ == \\\\\"__main__\\\\\":\\\\n    main()\\\\n\", \"app/npu_server.py\": \"#!/usr/bin/env python3\\\\n\\\\\"\\\\\"\\\\\"Separate experimental endpoint; reuse the official serialized D3 HTTP server.\\\\\"\\\\\"\\\\\"\\\\nimport argparse\\\\nfrom concurrent.futures import Future\\\\nimport json\\\\nimport os\\\\nimport queue\\\\nimport sys\\\\nimport threading\\\\nfrom pathlib import Path\\\\nimport torch\\\\nfrom cpu_optimized_server import optimize\\\\nfrom rknn_linear import Engine, install, uninstall\\\\n\\\\nparser=argparse.ArgumentParser()\\\\nparser.add_argument(\\'--model\\',required=True,type=Path)\\\\nparser.add_argument(\\'--host\\',default=\\'0.0.0.0\\')\\\\nparser.add_argument(\\'--port\\',type=int,default=8900)\\\\nargs=parser.parse_args()\\\\nsys.path.insert(0,str(args.model))\\\\nfrom d3_runtime import D3, PromptEncoder\\\\nfrom d3_server import serve\\\\ntorch.set_num_threads(4)\\\\nmodel=D3.from_pretrained(args.model,device=\\'cpu\\',verify=\\'full\\')\\\\nmodel.model_name=\\'vllm-sr/d3-edge\\'\\\\nassert model.attention_mode==\\'noncausal_full_attention\\' and isinstance(model.encoder,PromptEncoder)\\\\noptimize(model)\\\\nengine=Engine()\\\\nserver=None\\\\nrequests=queue.Queue()\\\\nhttp_thread=None\\\\nactive=None\\\\ntry:\\\\n    selected=install(model,engine)\\\\n    body=json.loads(Path(\\'/work/request.json\\').read_text())\\\\n    model.system_one(state=body[\\'state\\'],questions=body[\\'questions\\'])\\\\n    print(f\\'RKNN warmup complete: {len(selected)} text Linear layers, {len(engine.handles)} cached NPU handles; original noncausal PromptEncoder\\',flush=True)\\\\n    # Decider.turn in the official server serializes model.run across requests.\\\\n    server=serve(model,args.host,args.port,api_key=os.environ.get(\\'DECISION_API_KEY\\') or None)\\\\n    original_answer=server.decider.answer\\\\n    # The board measured significantly faster inference on the initialization\\\\n    # thread than Python auxiliary threads. HTTP keeps its original handlers;\\\\n    # model calls execute serially on this main thread and reuse native buffers.\\\\n    def queued_answer(body):\\\\n        future=Future()\\\\n        requests.put((body,future))\\\\n        return future.result()\\\\n    server.decider.answer=queued_answer\\\\n    print(f\\'Experimental CPU+RKNN service ready on {args.host}:{args.port}\\',flush=True)\\\\n    http_thread=threading.Thread(target=server.serve_forever,name=\\'d3-http\\',daemon=True)\\\\n    http_thread.start()\\\\n    while True:\\\\n        body,active=requests.get()\\\\n        try:\\\\n            active.set_result(original_answer(body))\\\\n        except Exception as exc:\\\\n            active.set_exception(exc)\\\\n        finally:\\\\n            requests.task_done()\\\\n        active=None\\\\nfinally:\\\\n    if server:\\\\n        if http_thread: server.shutdown()\\\\n        server.server_close()\\\\n    if active is not None and not active.done():\\\\n        active.set_exception(RuntimeError(\\'Service is stopping\\'))\\\\n    while not requests.empty():\\\\n        _,pending=requests.get_nowait()\\\\n        pending.set_exception(RuntimeError(\\'Service is stopping\\'))\\\\n    uninstall(model)\\\\n    engine.close()\\\\n\", \"app/request.json\": \"{\\\\n  \\\\\"model\\\\\": \\\\\"vllm-sr/d3-edge\\\\\",\\\\n  \\\\\"state\\\\\": \\\\\"请写一个 Python 函数，合并两个有序列表。\\\\\",\\\\n  \\\\\"questions\\\\\": {\\\\n    \\\\\"kind\\\\\": {\\\\n      \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n      \\\\\"instructions\\\\\": \\\\\"这个请求属于哪类任务？\\\\\",\\\\n      \\\\\"criteria\\\\\": {\\\\\"code\\\\\": \\\\\"编程任务\\\\\", \\\\\"math\\\\\": \\\\\"数学问题\\\\\", \\\\\"chat\\\\\": \\\\\"日常聊天\\\\\"}\\\\n    }\\\\n  }\\\\n}\\\\n\", \"app/benchmark.py\": \"\\\\\"\\\\\"\\\\\"Paired model test with unchanged D3 PromptEncoder and optimized CPU baseline.\\\\\"\\\\\"\\\\\"\\\\nimport argparse\\\\nimport hashlib\\\\nimport inspect\\\\nimport json\\\\nimport statistics\\\\nimport sys\\\\nimport time\\\\nfrom pathlib import Path\\\\nimport torch\\\\nfrom rknn_linear import Engine, install, uninstall\\\\nfrom cpu_optimized_server import optimize\\\\n\\\\nparser=argparse.ArgumentParser()\\\\nparser.add_argument(\\'--model\\',required=True)\\\\nparser.add_argument(\\'--repeats\\',type=int,default=3)\\\\nparser.add_argument(\\'--selection\\',choices=[\\'all\\',\\'mlp\\'],default=\\'all\\')\\\\nargs=parser.parse_args()\\\\nroot=Path(\\'/work\\')\\\\nsys.path.insert(0,args.model)\\\\nfrom d3_runtime import D3, PromptEncoder\\\\ntorch.set_num_threads(4)\\\\nmodel=D3.from_pretrained(args.model,device=\\'cpu\\',verify=\\'full\\')\\\\nmodel.model_name=\\'vllm-sr/d3-edge\\'\\\\nassert model.attention_mode==\\'noncausal_full_attention\\'\\\\nassert isinstance(model.encoder,PromptEncoder)\\\\noptimized,size=optimize(model)\\\\ncases=json.loads((root/\\'request-cases.json\\').read_text())\\\\nsingle=next(x for x in cases if x[\\'id\\']==\\'single\\')\\\\ncases=[single]+[x for x in cases if x[\\'id\\']!=\\'single\\']\\\\nimage=json.loads((root/\\'golden-reference.json\\').read_text())[\\'image\\']\\\\nimage[\\'state\\']=\\'Describe the attached image.\\'\\\\ncases.append({\\'id\\':\\'image\\',**image})\\\\nreport={\\'attention_mode\\':model.attention_mode,\\'prompt_encoder_sha256\\':hashlib.sha256(inspect.getsource(PromptEncoder).encode()).hexdigest(),\\\\n        \\'torch\\':torch.__version__,\\'threads\\':torch.get_num_threads(),\\'batch_size\\':model.batch_size,\\\\n        \\'cpu_optimized_modules\\':optimized,\\'selection\\':args.selection,\\'repeats\\':args.repeats,\\'cases\\':{},\\'passed\\':False}\\\\ndestination=root/\\'logs\\'/f\\'benchmark-{args.selection}.json\\'\\\\ndef save():\\\\n    destination.write_text(json.dumps(report,ensure_ascii=False,indent=2)+\\'\\\\\\\\n\\')\\\\ndef invoke(case):\\\\n    return model.system_one(**{k:case[k] for k in [\\'state\\',\\'questions\\',\\'images\\',\\'videos\\'] if k in case})\\\\ndef numbers(value,path=\\'\\'):\\\\n    result={}\\\\n    if isinstance(value,dict):\\\\n        for key,child in value.items():\\\\n            if key not in (\\'confidence\\',\\'legend\\'):\\\\n                result.update(numbers(child,path+\\'/\\'+key))\\\\n    elif isinstance(value,(int,float)):\\\\n        result[path]=value\\\\n    return result\\\\n\\\\nprofile={}\\\\noriginal=[]\\\\nfor name,module in model.backbone.named_modules():\\\\n    if isinstance(module,(torch.nn.Linear,torch.nn.Conv1d,torch.nn.Conv2d,torch.nn.Conv3d)):\\\\n        forward=module.forward\\\\n        def timed(inputs,*positional,_forward=forward,_name=name,**keywords):\\\\n            start=time.perf_counter(); out=_forward(inputs,*positional,**keywords)\\\\n            p=profile.setdefault(_name,{\\'seconds\\':0,\\'calls\\':0,\\'shape\\':list(inputs.shape)})\\\\n            p[\\'seconds\\']+=time.perf_counter()-start; p[\\'calls\\']+=1\\\\n            return out\\\\n        original.append((module,forward)); module.forward=timed\\\\nstart=time.perf_counter(); invoke(single); elapsed=time.perf_counter()-start\\\\nfor module,forward in original:\\\\n    module.forward=forward\\\\nreport[\\'cpu_profile\\']={\\'total_seconds\\':elapsed,\\'linear_conv_seconds\\':sum(p[\\'seconds\\'] for p in profile.values()),\\'modules\\':profile}\\\\nsave()\\\\nprint(\\'CPU_PROFILE\\',json.dumps({k:v for k,v in report[\\'cpu_profile\\'].items() if k!=\\'modules\\'}),flush=True)\\\\nengine=None\\\\ntry:\\\\n    for mode in [\\'cpu\\',\\'npu\\']:\\\\n        if mode==\\'npu\\':\\\\n            engine=Engine()\\\\n            report[\\'offloaded_modules\\']=install(model,engine,args.selection)\\\\n            print(\\'OFFLOAD\\',len(report[\\'offloaded_modules\\']),flush=True)\\\\n        for case in cases:\\\\n            # Warm up this shape; first NPU request includes persistent weight/context setup.\\\\n            start=time.perf_counter(); warm=invoke(case); warm_seconds=time.perf_counter()-start\\\\n            timings=[]\\\\n            before_calls=engine.calls if engine else 0\\\\n            before_time=engine.seconds if engine else 0\\\\n            before_fallback=engine.cpu_fallbacks if engine else 0\\\\n            for _ in range(args.repeats):\\\\n                start=time.perf_counter(); response=invoke(case); timings.append(time.perf_counter()-start)\\\\n                assert response==warm, \\'Repeated response changed within the same backend\\'\\\\n            record={\\'warmup_seconds\\':warm_seconds,\\'seconds\\':timings,\\'median_seconds\\':statistics.median(timings),\\'response\\':response}\\\\n            if mode==\\'npu\\':\\\\n                record.update(npu_calls=engine.calls-before_calls,npu_adapter_seconds=engine.seconds-before_time,\\\\n                              cpu_fallback_calls=engine.cpu_fallbacks-before_fallback)\\\\n                baseline=report[\\'cases\\'][case[\\'id\\']][\\'cpu\\']\\\\n                a=numbers(response[\\'answers\\']); b=numbers(baseline[\\'response\\'][\\'answers\\'])\\\\n                assert set(a)==set(b)\\\\n                delta=max(abs(a[key]-b[key]) for key in a)\\\\n                matches=all(v.get(\\'choice\\')==baseline[\\'response\\'][\\'answers\\'][key].get(\\'choice\\') for key,v in response[\\'answers\\'].items())\\\\n                record.update(max_probability_or_score_delta=delta,choices_unchanged=matches,\\\\n                              speedup=baseline[\\'median_seconds\\']/record[\\'median_seconds\\'],parity_passed=delta\u003c=0.01 and matches)\\\\n                assert model.attention_mode==\\'noncausal_full_attention\\' and isinstance(model.encoder,PromptEncoder)\\\\n            report[\\'cases\\'].setdefault(case[\\'id\\'],{})[mode]=record\\\\n            save()\\\\n            print(\\'CASE\\',mode,case[\\'id\\'],json.dumps({k:v for k,v in record.items() if k!=\\'response\\'}),flush=True)\\\\n    report[\\'passed\\']=all(c[\\'npu\\'][\\'parity_passed\\'] for c in report[\\'cases\\'].values())\\\\n    report[\\'setup_seconds\\']=engine.create_seconds\\\\n    report[\\'npu_handles\\']=len(engine.handles)\\\\n    save()\\\\n    assert report[\\'passed\\'], \\'CPU/NPU probability parity failed; do not promote\\'\\\\n    print(\\'PASS: same choices; numeric delta \u003c= 0.01; original attention code unchanged.\\',flush=True)\\\\nfinally:\\\\n    if engine:\\\\n        uninstall(model)\\\\n        engine.close()\\\\n\", \"app/micro_test.py\": \"import json\\\\nimport time\\\\nfrom pathlib import Path\\\\nimport torch\\\\nfrom rknn_linear import Engine\\\\n\\\\ntorch.set_num_threads(4)\\\\ntorch.manual_seed(7)\\\\nengine = Engine()\\\\nresults = []\\\\ntry:\\\\n    for k,n in [(1024,3072),(3072,1024),(1024,2048),(128,64)]:\\\\n        # BF16 model values are exactly representable in FP16 within its exponent range.\\\\n        w = (torch.randn(n,k) * 0.02).bfloat16().float()\\\\n        handle = engine.create(w)\\\\n        for m in [115,129,97,381]:\\\\n            x = torch.randn(m,k).bfloat16()\\\\n            ref = torch.nn.functional.linear(x.float(),w)\\\\n            y = engine.run(handle,x,n)\\\\n            delta = y-ref\\\\n            assert torch.isfinite(y).all()\\\\n            relative = delta.norm().item()/ref.norm().item()\\\\n            assert relative \u003c 0.005, (m,k,n,relative)\\\\n            cpu=[]; npu=[]\\\\n            for _ in range(5):\\\\n                t=time.perf_counter(); torch.nn.functional.linear(x.float(),w); cpu.append(time.perf_counter()-t)\\\\n                t=time.perf_counter(); engine.run(handle,x,n); npu.append(time.perf_counter()-t)\\\\n            r={\\'M\\':m,\\'K\\':k,\\'N\\':n,\\'max_absolute_delta\\':delta.abs().max().item(),\\'relative_l2_delta\\':relative,\\\\n               \\'cpu_seconds_median\\':sorted(cpu)[2],\\'npu_seconds_median\\':sorted(npu)[2]}\\\\n            r[\\'speedup\\']=r[\\'cpu_seconds_median\\']/r[\\'npu_seconds_median\\']\\\\n            results.append(r); print(json.dumps(r),flush=True)\\\\n    Path(\\'/work/logs/micro-test.json\\').write_text(json.dumps(results,indent=2)+\\'\\\\\\\\n\\')\\\\nfinally:\\\\n    engine.close()\\\\n\", \"app/boundary_test.py\": \"\\\\\"\\\\\"\\\\\"Focused checks for real native buffers, dynamic shape switches and CPU fallback.\\\\\"\\\\\"\\\\\"\\\\nimport json\\\\nfrom pathlib import Path\\\\nfrom types import SimpleNamespace\\\\nimport torch\\\\nfrom cpu_optimized_server import optimize\\\\nfrom rknn_linear import Engine, install, uninstall\\\\n\\\\ntorch.set_num_threads(4)\\\\ntorch.manual_seed(9)\\\\nbackbone=torch.nn.Module()\\\\nbackbone.language_model=torch.nn.Module()\\\\nbackbone.language_model.layers=torch.nn.ModuleList([torch.nn.Module()])\\\\nlayer=torch.nn.Linear(1024,512,bias=True).bfloat16().eval().requires_grad_(False)\\\\nbackbone.language_model.layers[0].proj=layer\\\\nmodel=SimpleNamespace(backbone=backbone)\\\\noptimize(model)\\\\ncpu_forward=layer.forward\\\\nengine=Engine()\\\\nresult={}\\\\ntry:\\\\n    assert len(install(model,engine))==1\\\\n    for rows in [127,128,129,256,257,512,513]:\\\\n        x=torch.randn(1,rows,1024).bfloat16()\\\\n        reference=cpu_forward(x)\\\\n        before=engine.calls\\\\n        output=layer(x)\\\\n        assert torch.isfinite(output).all()\\\\n        if rows==513:\\\\n            assert torch.equal(output,reference)\\\\n            assert engine.calls==before and engine.cpu_fallbacks==1\\\\n        else:\\\\n            assert engine.calls==before+1\\\\n            assert (output.float()-reference.float()).norm()/reference.float().norm()\u003c0.001\\\\n        result[str(rows)]={\\'npu_used\\':engine.calls>before,\\'max_absolute_delta\\':(output.float()-reference.float()).abs().max().item()}\\\\n    x=torch.randn(1,17,1024,dtype=torch.float32)\\\\n    assert torch.equal(layer(x),cpu_forward(x))\\\\n    assert engine.cpu_fallbacks==2\\\\n    try:\\\\n        engine.lib.mm_create(7,8,x.data_ptr())\\\\n        assert \\'alignment\\' in engine.lib.mm_error().decode()\\\\n        bad=torch.randn(513,1024).half()\\\\n        engine.run(layer._rknn_handle,bad,512)\\\\n        raise AssertionError(\\'Native oversized request accepted\\')\\\\n    except RuntimeError as exc:\\\\n        assert \\'Invalid run argument\\' in str(exc)\\\\n    uninstall(model)\\\\n    engine.close()\\\\n    assert torch.equal(layer(x),cpu_forward(x))\\\\n    result.update(non_bf16_cpu_fallback=True,native_oversize_rejected=True,cpu_forward_restored_after_release=True,passed=True)\\\\n    Path(\\'/work/logs/boundary-test.json\\').write_text(json.dumps(result,indent=2)+\\'\\\\\\\\n\\')\\\\n    print(json.dumps(result,indent=2))\\\\nfinally:\\\\n    uninstall(model)\\\\n    engine.close()\\\\n\", \"app/request-cases.json\": \"[\\\\n  {\\\\n    \\\\\"id\\\\\": \\\\\"chinese-0\\\\\",\\\\n    \\\\\"state\\\\\": \\\\\"请写一个 Python 函数，把两个有序列表合并成一个有序列表。\\\\\",\\\\n    \\\\\"questions\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求属于哪类任务？\\\\\",\\\\n        \\\\\"criteria\\\\\": {\\\\n          \\\\\"code\\\\\": \\\\\"编写、解释或修复程序\\\\\",\\\\n          \\\\\"math\\\\\": \\\\\"数学计算或证明\\\\\",\\\\n          \\\\\"chat\\\\\": \\\\\"日常聊天和生活话题\\\\\"\\\\n        }\\\\n      },\\\\n      \\\\\"programming\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求是否要求编写程序？\\\\\"\\\\n      },\\\\n      \\\\\"complexity\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求的复杂程度是多少？\\\\\",\\\\n        \\\\\"criteria\\\\\": [\\\\n          \\\\\"简单\\\\\",\\\\n          \\\\\"中等\\\\\",\\\\n          \\\\\"复杂\\\\\"\\\\n        ]\\\\n      }\\\\n    },\\\\n    \\\\\"baseline\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"choice\\\\\": \\\\\"code\\\\\",\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"code\\\\\": 0.9992407534465768,\\\\n          \\\\\"math\\\\\": 0.0005031534224754242,\\\\n          \\\\\"chat\\\\\": 0.00025609313094778077\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.9939031290513372\\\\n      },\\\\n      \\\\\"programming\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"noul\\\\\": 0.8701225052792207\\\\n      },\\\\n      \\\\\"complexity\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"score\\\\\": 0.1014327779124191,\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"0\\\\\": 0.914882283616913,\\\\n          \\\\\"1\\\\\": 0.06880265485375493,\\\\n          \\\\\"2\\\\\": 0.016315061529332084\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.6971758227789213,\\\\n        \\\\\"legend\\\\\": {\\\\n          \\\\\"0\\\\\": \\\\\"简单\\\\\",\\\\n          \\\\\"1\\\\\": \\\\\"中等\\\\\",\\\\n          \\\\\"2\\\\\": \\\\\"复杂\\\\\"\\\\n        }\\\\n      }\\\\n    }\\\\n  },\\\\n  {\\\\n    \\\\\"id\\\\\": \\\\\"chinese-1\\\\\",\\\\n    \\\\\"state\\\\\": \\\\\"你好，今天心情怎么样？\\\\\",\\\\n    \\\\\"questions\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求属于哪类任务？\\\\\",\\\\n        \\\\\"criteria\\\\\": {\\\\n          \\\\\"code\\\\\": \\\\\"编写、解释或修复程序\\\\\",\\\\n          \\\\\"math\\\\\": \\\\\"数学计算或证明\\\\\",\\\\n          \\\\\"chat\\\\\": \\\\\"日常聊天和生活话题\\\\\"\\\\n        }\\\\n      },\\\\n      \\\\\"programming\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求是否要求编写程序？\\\\\"\\\\n      },\\\\n      \\\\\"complexity\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求的复杂程度是多少？\\\\\",\\\\n        \\\\\"criteria\\\\\": [\\\\n          \\\\\"简单\\\\\",\\\\n          \\\\\"中等\\\\\",\\\\n          \\\\\"复杂\\\\\"\\\\n        ]\\\\n      }\\\\n    },\\\\n    \\\\\"baseline\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"choice\\\\\": \\\\\"chat\\\\\",\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"code\\\\\": 0.0007201397436318482,\\\\n          \\\\\"math\\\\\": 0.00036008721769970325,\\\\n          \\\\\"chat\\\\\": 0.9989197730386684\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.991675122971715\\\\n      },\\\\n      \\\\\"programming\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"noul\\\\\": 0.0002551515976465532\\\\n      },\\\\n      \\\\\"complexity\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"score\\\\\": 0.019110443444288625,\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"0\\\\\": 0.9835840059958996,\\\\n          \\\\\"1\\\\\": 0.013721544563912261,\\\\n          \\\\\"2\\\\\": 0.0026944494401881826\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.9171034390906018,\\\\n        \\\\\"legend\\\\\": {\\\\n          \\\\\"0\\\\\": \\\\\"简单\\\\\",\\\\n          \\\\\"1\\\\\": \\\\\"中等\\\\\",\\\\n          \\\\\"2\\\\\": \\\\\"复杂\\\\\"\\\\n        }\\\\n      }\\\\n    }\\\\n  },\\\\n  {\\\\n    \\\\\"id\\\\\": \\\\\"english\\\\\",\\\\n    \\\\\"state\\\\\": \\\\\"Write a Python function that merges two sorted lists and explain its running time.\\\\\",\\\\n    \\\\\"questions\\\\\": {\\\\n      \\\\\"domain\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"Which domain does this request belong to?\\\\\",\\\\n        \\\\\"criteria\\\\\": {\\\\n          \\\\\"code\\\\\": \\\\\"Programming\\\\\",\\\\n          \\\\\"math\\\\\": \\\\\"Mathematics\\\\\",\\\\n          \\\\\"other\\\\\": \\\\\"Anything else\\\\\"\\\\n        }\\\\n      },\\\\n      \\\\\"reasoning\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"Does answering this request need multi-step reasoning?\\\\\"\\\\n      },\\\\n      \\\\\"difficulty\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"How difficult is this request?\\\\\",\\\\n        \\\\\"criteria\\\\\": [\\\\n          \\\\\"Trivial\\\\\",\\\\n          \\\\\"Moderate\\\\\",\\\\n          \\\\\"Hard\\\\\"\\\\n        ]\\\\n      }\\\\n    },\\\\n    \\\\\"baseline\\\\\": {\\\\n      \\\\\"domain\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"choice\\\\\": \\\\\"code\\\\\",\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"code\\\\\": 0.9059022938497119,\\\\n          \\\\\"math\\\\\": 0.00010158083329922285,\\\\n          \\\\\"other\\\\\": 0.09399612531698893\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.7153566085339282\\\\n      },\\\\n      \\\\\"reasoning\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"noul\\\\\",\\\\n        \\\\\"noul\\\\\": 0.0630309302518049\\\\n      },\\\\n      \\\\\"difficulty\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"score\\\\\",\\\\n        \\\\\"score\\\\\": 0.19148818189477718,\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"0\\\\\": 0.8434359933051915,\\\\n          \\\\\"1\\\\\": 0.12163983149483988,\\\\n          \\\\\"2\\\\\": 0.03492417519996865\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.5293824489640959,\\\\n        \\\\\"legend\\\\\": {\\\\n          \\\\\"0\\\\\": \\\\\"Trivial\\\\\",\\\\n          \\\\\"1\\\\\": \\\\\"Moderate\\\\\",\\\\n          \\\\\"2\\\\\": \\\\\"Hard\\\\\"\\\\n        }\\\\n      }\\\\n    }\\\\n  },\\\\n  {\\\\n    \\\\\"id\\\\\": \\\\\"single\\\\\",\\\\n    \\\\\"state\\\\\": \\\\\"请写一个 Python 函数，合并两个有序列表。\\\\\",\\\\n    \\\\\"questions\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"instructions\\\\\": \\\\\"这个请求属于哪类任务？\\\\\",\\\\n        \\\\\"criteria\\\\\": {\\\\n          \\\\\"code\\\\\": \\\\\"编程任务\\\\\",\\\\n          \\\\\"math\\\\\": \\\\\"数学问题\\\\\",\\\\n          \\\\\"chat\\\\\": \\\\\"日常聊天\\\\\"\\\\n        }\\\\n      }\\\\n    },\\\\n    \\\\\"baseline\\\\\": {\\\\n      \\\\\"kind\\\\\": {\\\\n        \\\\\"type\\\\\": \\\\\"choice\\\\\",\\\\n        \\\\\"choice\\\\\": \\\\\"code\\\\\",\\\\n        \\\\\"probabilities\\\\\": {\\\\n          \\\\\"code\\\\\": 0.9991648123435318,\\\\n          \\\\\"math\\\\\": 0.0006982751935839212,\\\\n          \\\\\"chat\\\\\": 0.0001369124628842124\\\\n        },\\\\n        \\\\\"confidence\\\\\": 0.993512607365437\\\\n      }\\\\n    }\\\\n  }\\\\n]\\\\n\", \"app/golden-reference.json\": \"{\\\\\"text\\\\\": {\\\\\"state\\\\\": \\\\\"Write a Python function that merges two sorted lists and explain its running time.\\\\\", \\\\\"questions\\\\\": {\\\\\"domain\\\\\": {\\\\\"type\\\\\": \\\\\"choice\\\\\", \\\\\"instructions\\\\\": \\\\\"Which domain does this request belong to?\\\\\", \\\\\"criteria\\\\\": {\\\\\"code\\\\\": \\\\\"Programming\\\\\", \\\\\"math\\\\\": \\\\\"Mathematics\\\\\", \\\\\"other\\\\\": \\\\\"Anything else\\\\\"}}, \\\\\"reasoning\\\\\": {\\\\\"type\\\\\": \\\\\"noul\\\\\", \\\\\"instructions\\\\\": \\\\\"Does answering this request need multi-step reasoning?\\\\\"}, \\\\\"difficulty\\\\\": {\\\\\"type\\\\\": \\\\\"score\\\\\", \\\\\"instructions\\\\\": \\\\\"How difficult is this request?\\\\\", \\\\\"criteria\\\\\": [\\\\\"Trivial\\\\\", \\\\\"Moderate\\\\\", \\\\\"Hard\\\\\"]}}}, \\\\\"image\\\\\": {\\\\\"state\\\\\": \\\\\"Write a Python function that merges two sorted lists and explain its running time.\\\\\", \\\\\"questions\\\\\": {\\\\\"image_colour\\\\\": {\\\\\"type\\\\\": \\\\\"choice\\\\\", \\\\\"instructions\\\\\": \\\\\"Which colour dominates the image?\\\\\", \\\\\"criteria\\\\\": {\\\\\"red\\\\\": \\\\\"Red\\\\\", \\\\\"green\\\\\": \\\\\"Green\\\\\", \\\\\"blue\\\\\": \\\\\"Blue\\\\\", \\\\\"other\\\\\": \\\\\"Anything else\\\\\"}}, \\\\\"image_photo\\\\\": {\\\\\"type\\\\\": \\\\\"noul\\\\\", \\\\\"instructions\\\\\": \\\\\"Is the image a photograph?\\\\\"}}, \\\\\"images\\\\\": [\\\\\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg==\\\\\"]}, \\\\\"reference\\\\\": {\\\\\"answers\\\\\": {\\\\\"cpu\\\\\": {\\\\\"difficulty\\\\\": {\\\\\"confidence\\\\\": 0.5289285314008614, \\\\\"legend\\\\\": {\\\\\"0\\\\\": \\\\\"Trivial\\\\\", \\\\\"1\\\\\": \\\\\"Moderate\\\\\", \\\\\"2\\\\\": \\\\\"Hard\\\\\"}, \\\\\"probabilities\\\\\": {\\\\\"0\\\\\": 0.8432784237578218, \\\\\"1\\\\\": 0.12164200323898351, \\\\\"2\\\\\": 0.035079573003194725}, \\\\\"score\\\\\": 0.19180114924537295, \\\\\"type\\\\\": \\\\\"score\\\\\"}, \\\\\"domain\\\\\": {\\\\\"choice\\\\\": \\\\\"code\\\\\", \\\\\"confidence\\\\\": 0.7191210067989227, \\\\\"probabilities\\\\\": {\\\\\"code\\\\\": 0.9077280006989817, \\\\\"math\\\\\": 0.000104602467732264, \\\\\"other\\\\\": 0.09216739683328601}, \\\\\"type\\\\\": \\\\\"choice\\\\\"}, \\\\\"image_colour\\\\\": {\\\\\"choice\\\\\": \\\\\"other\\\\\", \\\\\"confidence\\\\\": 0.4202600410747662, \\\\\"probabilities\\\\\": {\\\\\"blue\\\\\": 0.012493534525591432, \\\\\"green\\\\\": 0.33148042725877724, \\\\\"other\\\\\": 0.6309736629601952, \\\\\"red\\\\\": 0.02505237525543618}, \\\\\"type\\\\\": \\\\\"choice\\\\\"}, \\\\\"image_photo\\\\\": {\\\\\"noul\\\\\": 0.028102190139954988, \\\\\"type\\\\\": \\\\\"noul\\\\\"}, \\\\\"reasoning\\\\\": {\\\\\"noul\\\\\": 0.061222668965245294, \\\\\"type\\\\\": \\\\\"noul\\\\\"}}, \\\\\"rocm\\\\\": {\\\\\"difficulty\\\\\": {\\\\\"confidence\\\\\": 0.5227515959553738, \\\\\"legend\\\\\": {\\\\\"0\\\\\": \\\\\"Trivial\\\\\", \\\\\"1\\\\\": \\\\\"Moderate\\\\\", \\\\\"2\\\\\": \\\\\"Hard\\\\\"}, \\\\\"probabilities\\\\\": {\\\\\"0\\\\\": 0.8396536299508877, \\\\\"1\\\\\": 0.12540091854484942, \\\\\"2\\\\\": 0.034945451504262946}, \\\\\"score\\\\\": 0.19529182155337532, \\\\\"type\\\\\": \\\\\"score\\\\\"}, \\\\\"domain\\\\\": {\\\\\"choice\\\\\": \\\\\"code\\\\\", \\\\\"confidence\\\\\": 0.7147529744610905, \\\\\"probabilities\\\\\": {\\\\\"code\\\\\": 0.9056074417805747, \\\\\"math\\\\\": 0.00010094160537437953, \\\\\"other\\\\\": 0.09429161661405087}, \\\\\"type\\\\\": \\\\\"choice\\\\\"}, \\\\\"image_colour\\\\\": {\\\\\"choice\\\\\": \\\\\"other\\\\\", \\\\\"confidence\\\\\": 0.43082307724658053, \\\\\"probabilities\\\\\": {\\\\\"blue\\\\\": 0.011831863595972134, \\\\\"green\\\\\": 0.320919031784289, \\\\\"other\\\\\": 0.6437116759427837, \\\\\"red\\\\\": 0.023537428676955133}, \\\\\"type\\\\\": \\\\\"choice\\\\\"}, \\\\\"image_photo\\\\\": {\\\\\"noul\\\\\": 0.028243631966222284, \\\\\"type\\\\\": \\\\\"noul\\\\\"}, \\\\\"reasoning\\\\\": {\\\\\"noul\\\\\": 0.06407417958809034, \\\\\"type\\\\\": \\\\\"noul\\\\\"}}}, \\\\\"revision\\\\\": \\\\\"18d61df78684675463af9ae732872478845c5a79\\\\\"}}\\\\n\", \".dockerignore\": \"data/\\\\nchecks/\\\\n__pycache__/\\\\n*.tar\\\\n*.tar.gz\\\\n\"}')\nroot = Path('d3-edge-rknn')\nif root.exists():\n    raise SystemExit('d3-edge-rknn already exists; choose an empty parent directory')\nroot.mkdir()\nfor name, content in files.items():\n    target = root / name\n    target.parent.mkdir(parents=True, exist_ok=True)\n    target.write_text(content, encoding='utf-8')\nprint('Source files saved to', root.resolve())\n"}</script><script>const payload=JSON.parse(document.getElementById('source-data').textContent);document.getElementById('download-init').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([payload.bootstrap],{type:'text/x-python;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='prepare_d3_sources.py';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);});</script></body></html>

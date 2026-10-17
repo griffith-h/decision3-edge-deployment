@@ -1,0 +1,173 @@
+{
+  "date": "2026-10-13T12:12:22.941595+00:00",
+  "status": "export_and_portable_policy_prepared_native_integration_unavailable",
+  "requested_outcome": "Modify RKLLM to preserve D3 noncausal full attention while using the official Qwen3.5 NPU path, without starting services",
+  "acceptance_criteria": {
+    "original_12_layer_structure_and_weights_unchanged": true,
+    "full_attention_noncausal_and_linear_scan_causal": true,
+    "model_probability_or_score_delta_target": 0.01,
+    "no_services_started": true,
+    "native_model_parity_required_before_claiming_success": true
+  },
+  "native_runtime_fixed": false,
+  "new_native_model_inference_performed": false,
+  "new_model_speedup_measured": false,
+  "official_repository": "https://github.com/airockchip/rknn-llm",
+  "official_commit": "f7390530443bf84f0394255a449d7cbe81e69d1c",
+  "latest_main_matches_tested_commit": true,
+  "sdk_version": "1.3.1",
+  "findings": {
+    "qwen35_mapping_already_selected": {
+      "return_code": 0,
+      "modelname": "CustomModel",
+      "modelpath": "/work/source-model",
+      "custom_config": {
+        "BLOCKNAME": "Qwen3_5DecoderLayer",
+        "TOKEN_EMBD": "embed_tokens",
+        "ATTN_NORM": "input_layernorm",
+        "ATTN_Q_NORM": "self_attn.q_norm",
+        "ATTN_Q": "self_attn.q_proj",
+        "ATTN_K_NORM": "self_attn.k_norm",
+        "ATTN_K": "self_attn.k_proj",
+        "ATTN_V": "self_attn.v_proj",
+        "ATTN_QKV": "",
+        "ATTN_KV": "",
+        "KV_CONTINUOUS": "true",
+        "ATTN_OUT": "self_attn.o_proj",
+        "ATTN_POST_NORM": "",
+        "FFN_NORM": "post_attention_layernorm",
+        "FFN_UP": "mlp.up_proj",
+        "FFN_GATE": "mlp.gate_proj",
+        "ACT_TYPE": "silu",
+        "FFN_DOWN": "mlp.down_proj",
+        "FFN_POST_NORM": "",
+        "OUTPUT_NORM": "norm",
+        "OUTPUT": "lm_head"
+      },
+      "state": "<run_state.load_model: 1>",
+      "v": "",
+      "loaded_class": "Qwen3_5ForCausalLM"
+    },
+    "runtime_source_files_in_public_runtime_tree": [],
+    "published_native_runtime": "rkllm-runtime/Linux/librkllm_api/aarch64/librkllmrt.so",
+    "converter_loader_core_modules": {
+      "rkllm.base.converter": "/usr/local/lib/python3.12/site-packages/rkllm/base/converter.cpython-312-x86_64-linux-gnu.so",
+      "rkllm.base.loader": "/usr/local/lib/python3.12/site-packages/rkllm/base/loader.cpython-312-x86_64-linux-gnu.so",
+      "rkllm.base.common": "/usr/local/lib/python3.12/site-packages/rkllm/base/common.cpython-312-x86_64-linux-gnu.so"
+    },
+    "runtime_export_count": 19,
+    "self_attention_mask_or_per_layer_callback_public_api": false,
+    "cross_attention_api_is_not_a_self_attention_replacement": true,
+    "previous_actual_native_evidence": "../rkllm-experiment/logs/hidden-diagnosis.json: NPU cosine to causal CPU 0.9999997616; noncausal CPU 0.7706229091, despite correctly exported causal=false",
+    "public_custom_config_role": "Module/weight name mapping and a limited set of declared operator options; no documented noncausal Qwen3.5 scheduler control"
+  },
+  "implemented": [
+    {
+      "file": "patches/d3_export_adapter.py",
+      "scope": "Original-config integrity/layout validation, public writer metadata hook, distinct full/linear attention flags, required-native-capability guard",
+      "native_effect": "Metadata preparation only; namespaced extension fields require native parser integration and are not treated as existing hidden switches"
+    },
+    {
+      "file": "patches/d3_attention_policy.hpp",
+      "scope": "Portable C++ explicit layer selection, noncausal padding mask, readiness/history checks; preserves the causal linear scan boundary",
+      "native_effect": "Compiles independently; not loaded by the precompiled official library; does not implement or replace its scheduler"
+    }
+  ],
+  "verification": [
+    {
+      "command": "python3 -m unittest discover -s rkllm-d3-support -p test_export_adapter.py -v",
+      "result": "PASS 6 focused tests: original layout, metadata flags/enums, modified-config rejection, current Runtime and incomplete capabilities rejected"
+    },
+    {
+      "command": "c++ -std=c++17 -O2 -Wall -Wextra -Werror rkllm-d3-support/test_attention_policy.cpp -o rkllm-d3-support/test_attention_policy; execute binary",
+      "result": "PASS on macOS host: future key across chunks, row padding isolation, query bounds, incomplete KV/history/linear-mask rejection"
+    },
+    {
+      "command": "g++ -std=c++17 -O2 -Wall -Wextra -Werror test_attention_policy.cpp -o test_attention_policy; execute binary",
+      "result": "PASS on ARM64 RK3576 board, CPU-only unit component, no model loaded"
+    },
+    {
+      "command": "Isolated linux/amd64 Docker: python /support/verify_writer_patch.py",
+      "result": "PASS actual official Writer hook and GGUFReader metadata readback: 12 layers, causal=false, exact 0/1 layer array, linear causal=true, layer-major prefill code=1; metadata-only file has no model weights"
+    },
+    {
+      "command": "Isolated linux/amd64 Docker: python /support/probe_qwen_path.py",
+      "result": "PASS load_weight=False; official loader chooses CustomModel + Qwen3_5DecoderLayer mapping"
+    },
+    {
+      "command": "ast.parse of support Python files; Docker/port checks",
+      "result": "PASS syntax; both services remain exited with restart=no; ports closed; local conversion containers removed"
+    }
+  ],
+  "missing_native_integration": [
+    {
+      "component": "Model metadata loader",
+      "change": "Read explicit D3 per-layer types instead of deriving all layer kinds from full_attention_interval; validate exactly 12 original layers and reject unknown types",
+      "contract": "d3.contract.layer_types: uint32 array (0 linear, 1 full)"
+    },
+    {
+      "component": "Qwen3.5 full-attention graph/mask builder",
+      "change": "Full-attention queries see every valid key in the same sample, including future tokens; mask only padding, preserve original RoPE/QK norm/query gate/scale",
+      "contract": "custom.attention.causal=false for full attention only; translate boolean allow-mask to the backend representation"
+    },
+    {
+      "component": "Prefill scheduler and KV lifecycle",
+      "change": "Use layer-major full-sequence prefill. For each full-attention layer, generate/store all current-layer K/V before chunked query attention. Keep GatedDeltaNet causal scans and their per-chunk recurrent state",
+      "contract": "d3.contract.prefill_order=1; d3.contract.linear_attention_causal=true"
+    },
+    {
+      "component": "History and sample isolation",
+      "change": "Do not reuse decoder history or causal prefix representations for a noncausal D3 request; preserve per-sample padding/positions without sharing state across samples",
+      "contract": "d3.contract.keep_history=false"
+    },
+    {
+      "component": "Output extraction",
+      "change": "Return the correct last-token hidden vector through existing GET_LAST_HIDDEN_LAYER; retain the original FP32 CPU readout and scoring rules",
+      "contract": "Existing official API can provide hidden states; no new LM head training or pruning"
+    }
+  ],
+  "required_external_input": "Rockchip modified native Runtime/compiler source and build dependencies, or a vendor SDK implementation of the same semantics. Public demo/client source and the unmodified upstream llama.cpp alone do not provide the current official RKLLM NPU implementation.",
+  "service_state": {
+    "verified_at_utc": "2026-10-13T12:11:09.726867+00:00",
+    "containers": [
+      {
+        "name": "decision3-edge",
+        "state": "exited",
+        "running": false,
+        "restart": "no"
+      },
+      {
+        "name": "decision3-edge-matmul",
+        "state": "exited",
+        "running": false,
+        "restart": "no"
+      }
+    ],
+    "ports_connect_errno": {
+      "8899": 111,
+      "8900": 111
+    },
+    "npu_load": "NPU load:  Core0:  0%, Core1:  0%,",
+    "passed": true
+  },
+  "weights_or_runtime_binaries_modified": false,
+  "original_config_sha256": "5e529d9aea2f8d387750acf5b02cc32a47d7e87dc65d6d008fba98e5d15acc4d",
+  "evidence": [
+    "logs/sdk-public-api.json",
+    "logs/qwen-path.json",
+    "logs/writer-patch-readback.json",
+    "logs/export-unit-tests.log",
+    "logs/services-still-stopped.json",
+    "official-tree.json"
+  ],
+  "source_sha256": {
+    "modeling_custom.py": "1c13d820012343dda3dea5ce2cf58ab69a89ceed3752e912be01488e05280ce3",
+    "test_export_adapter.py": "f9982d872bd03c09417b2f4de583f4d82495e21c82de7320b615609f69e6155e",
+    "probe_qwen_path.py": "9da525562c15d4e5a93ebe0f52c457cac266de7cdc108ce8d0e45df7794fb688",
+    "verify_writer_patch.py": "ea226cfbec49ce16514bc948929ac8ca0d4f50bddca3ac4132f964071a4bfbd5",
+    "test_attention_policy.cpp": "2dd7cc150aa4a220db0dfb1cbad73239dff38b95191f1ac39708f440e0288171",
+    "audit_sdk.py": "ddcc835a71ffe1cf5e3330fa7ae93ddaea017b622e96da7777db806a75185ed4",
+    "patches/d3_attention_policy.hpp": "0e76d8ee13dd4b06d19ae584ae7f7a6aea31f633b615af31bbd1ae64beefd39b",
+    "patches/d3_export_adapter.py": "caf43a98e5fed31a36227d1530439360479458ec9690cae73cbe2680fb2b3759"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "url": "http://192.168.1.164:8899",
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false
+  },
+  "discovery": {
+    "models": [
+      {
+        "name": "vllm-sr/d3-edge",
+        "description": "Typed decisions with a probability for every option",
+        "max_input_tokens": null,
+        "modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "image_max_pixels": 1638400,
+        "video": {
+          "fps": 2.0,
+          "max_frames": 32,
+          "max_pixels_per_frame": 200704,
+          "max_tokens_per_request": 16384,
+          "max_bytes": 32000000
+        }
+      }
+    ]
+  },
+  "discovery_seconds": 0.01,
+  "requests": [
+    {
+      "state": "请写一个 Python 函数，把两个有序列表合并成一个有序列表。",
+      "seconds": 47.217,
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992407534465768,
+              "math": 0.0005031534224754242,
+              "chat": 0.00025609313094778077
+            },
+            "confidence": 0.9939031290513372
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8701225052792207
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.1014327779124191,
+            "probabilities": {
+              "0": 0.914882283616913,
+              "1": 0.06880265485375493,
+              "2": 0.016315061529332084
+            },
+            "confidence": 0.6971758227789213,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "state": "你好，今天心情怎么样？",
+      "seconds": 43.232,
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0007201397436318482,
+              "math": 0.00036008721769970325,
+              "chat": 0.9989197730386684
+            },
+            "confidence": 0.991675122971715
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002551515976465532
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.019110443444288625,
+            "probabilities": {
+              "0": 0.9835840059958996,
+              "1": 0.013721544563912261,
+              "2": 0.0026944494401881826
+            },
+            "confidence": 0.9171034390906018,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 314,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

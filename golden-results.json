@@ -1,0 +1,142 @@
+[
+  {
+    "kind": "text",
+    "seconds": 47.845,
+    "response": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "domain": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9059022938497119,
+            "math": 0.00010158083329922285,
+            "other": 0.09399612531698893
+          },
+          "confidence": 0.7153566085339282
+        },
+        "reasoning": {
+          "type": "noul",
+          "noul": 0.0630309302518049
+        },
+        "difficulty": {
+          "type": "score",
+          "score": 0.19148818189477718,
+          "probabilities": {
+            "0": 0.8434359933051915,
+            "1": 0.12163983149483988,
+            "2": 0.03492417519996865
+          },
+          "confidence": 0.5293824489640959,
+          "legend": {
+            "0": "Trivial",
+            "1": "Moderate",
+            "2": "Hard"
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 328,
+        "output_tokens": 0
+      }
+    },
+    "expected_cpu": {
+      "domain": {
+        "choice": "code",
+        "confidence": 0.7191210067989227,
+        "probabilities": {
+          "code": 0.9077280006989817,
+          "math": 0.000104602467732264,
+          "other": 0.09216739683328601
+        },
+        "type": "choice"
+      },
+      "reasoning": {
+        "noul": 0.061222668965245294,
+        "type": "noul"
+      },
+      "difficulty": {
+        "confidence": 0.5289285314008614,
+        "legend": {
+          "0": "Trivial",
+          "1": "Moderate",
+          "2": "Hard"
+        },
+        "probabilities": {
+          "0": 0.8432784237578218,
+          "1": 0.12164200323898351,
+          "2": 0.035079573003194725
+        },
+        "score": 0.19180114924537295,
+        "type": "score"
+      }
+    },
+    "max_absolute_difference": 0.0037643982649944174,
+    "differences": {
+      "/domain/probabilities/code": 0.0018257068492698592,
+      "/domain/probabilities/math": 3.021634433041147e-06,
+      "/domain/probabilities/other": 0.0018287284837029266,
+      "/domain/confidence": 0.0037643982649944174,
+      "/reasoning/noul": 0.001808261286559601,
+      "/difficulty/score": 0.00031296735059577196,
+      "/difficulty/probabilities/0": 0.00015756954736967366,
+      "/difficulty/probabilities/1": 2.1717441436308604e-06,
+      "/difficulty/probabilities/2": 0.0001553978032260775,
+      "/difficulty/confidence": 0.00045391756323454047
+    }
+  },
+  {
+    "kind": "image",
+    "seconds": 72.409,
+    "response": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "image_colour": {
+          "type": "choice",
+          "choice": "other",
+          "probabilities": {
+            "red": 0.02364327331874184,
+            "green": 0.3301090484545966,
+            "blue": 0.011854427597732893,
+            "other": 0.6343932506289287
+          },
+          "confidence": 0.4260341803011969
+        },
+        "image_photo": {
+          "type": "noul",
+          "noul": 0.02674455878997961
+        }
+      },
+      "usage": {
+        "input_tokens": 347,
+        "output_tokens": 0
+      }
+    },
+    "expected_cpu": {
+      "image_colour": {
+        "choice": "other",
+        "confidence": 0.4202600410747662,
+        "probabilities": {
+          "blue": 0.012493534525591432,
+          "green": 0.33148042725877724,
+          "other": 0.6309736629601952,
+          "red": 0.02505237525543618
+        },
+        "type": "choice"
+      },
+      "image_photo": {
+        "noul": 0.028102190139954988,
+        "type": "noul"
+      }
+    },
+    "max_absolute_difference": 0.0057741392264306635,
+    "differences": {
+      "/image_colour/probabilities/red": 0.0014091019366943396,
+      "/image_colour/probabilities/green": 0.0013713788041806452,
+      "/image_colour/probabilities/blue": 0.0006391069278585387,
+      "/image_colour/probabilities/other": 0.0034195876687335147,
+      "/image_colour/confidence": 0.0057741392264306635,
+      "/image_photo/noul": 0.0013576313499753766
+    }
+  }
+]

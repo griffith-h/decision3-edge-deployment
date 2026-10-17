@@ -1,0 +1,44 @@
+{
+  "official_repository": "https://github.com/airockchip/rknn-llm",
+  "reviewed_commit": "f7390530443bf84f0394255a449d7cbe81e69d1c",
+  "sdk_version": "1.3.1",
+  "board": "RK3576",
+  "driver_version": "0.9.8",
+  "hardware_driver_loaded": true,
+  "npu_inference_tested": true,
+  "official_qwen35_support": true,
+  "last_hidden_state_api": "RKLLM_INFER_GET_LAST_HIDDEN_LAYER",
+  "conversion_toolkit_architecture": "Linux x86_64 (Python 3.10 / 3.11 / 3.12 wheels)",
+  "available_machines_architecture": "ARM64 Mac with working linux/amd64 Docker emulation and ARM64 RK3576 board",
+  "d3_edge_port_requirements": [
+    "Preserve noncausal_full_attention on full-attention layers; ordinary causal generation changes model behavior",
+    "Preserve the pruned, irregular layer_types sequence",
+    "Return last hidden state, then apply the original FP32 readout and option softmax on CPU",
+    "Convert and calibrate weights using representative d3 question prompts; compare probabilities and class choices",
+    "Export vision encoder separately through RKNN if image/video inputs are required"
+  ],
+  "conclusion": "Official SDK exports and executes this experimental model on RK3576 NPU, but tested RKLLM 1.3.1 path uses causal attention despite exported causal=false. Probability parity fails; original CPU service remains active.",
+  "sources": [
+    "https://github.com/airockchip/rknn-llm/blob/main/README.md",
+    "https://github.com/airockchip/rknn-llm/blob/main/CHANGELOG.md",
+    "https://github.com/airockchip/rknn-llm/blob/main/rkllm-runtime/Linux/librkllm_api/include/rkllm.h",
+    "https://github.com/airockchip/rknn-llm/blob/main/doc/Rockchip_RKLLM_SDK_EN_1.3.1.pdf"
+  ],
+  "conversion_via_local_x86_docker": "passed",
+  "faithful_d3_edge_npu_inference": false,
+  "experiment_report": "rkllm-experiment/experiment-result.json",
+  "alternative_rknn_matmul_experiment": {
+    "report": "rknn-matmul-experiment/experiment-result.json",
+    "validated": true,
+    "service": "http://192.168.1.164:8900",
+    "original_noncausal_attention_preserved": true,
+    "rkllm_decoder_limitation_still_present": true,
+    "cpu_service_preserved": true
+  },
+  "current_operational_state": {
+    "status": "stopped_by_user",
+    "verified_at_utc": "2026-10-13T10:03:08.307191+00:00",
+    "auto_restart_disabled": true,
+    "shutdown_evidence": "shutdown-verification.json"
+  }
+}

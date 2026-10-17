@@ -1,0 +1,40 @@
+# Local editor / browser / Python caches
+.DS_Store
+.playwright-cli/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+output/
+report-revisions/
+
+# Downloaded model packages and generated native model artifacts
+rkllm-experiment/source-model/
+rkllm-experiment/prepared-model/
+*.safetensors
+*.rkllm
+*.onnx
+*.rknn
+*.whl
+*.so
+*.dylib
+*.o
+*.a
+*.tar
+*.tar.gz
+*.zip
+rkllm-d3-support/test_attention_policy
+
+# Vendor SDK downloads and manuals; use the fixed upstream versions.
+rknn-matmul-experiment/sdk/
+rkllm-experiment/toolkit/
+rkllm-experiment/runtime/rkllm.h
+rkllm-sdk-1.3.1.pdf
+rkllm-d3-support/logs/sdk-manual.txt
+
+# Recipient-specific installation state
+d3-edge-rknn-handoff/config.json
+d3-edge-rknn-handoff/data/
+d3-edge-rknn-handoff/checks/

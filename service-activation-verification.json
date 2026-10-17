@@ -1,0 +1,107 @@
+{
+  "verified_at_utc": "2026-10-17T08:59:19.142401+00:00",
+  "passed": true,
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false
+  },
+  "containers": [
+    {
+      "name": "decision3-edge",
+      "running": false,
+      "status": "exited",
+      "health": "unhealthy",
+      "restart_policy": "no"
+    },
+    {
+      "name": "decision3-edge-matmul",
+      "running": true,
+      "status": "running",
+      "health": "healthy",
+      "restart_policy": "no"
+    }
+  ],
+  "cpu_port_8899_closed": true,
+  "invalid_request_returns_422": true,
+  "requests": [
+    {
+      "case": "single",
+      "seconds": 2.548352334,
+      "max_probability_or_score_delta_vs_historical_optimized_cpu": 1.4304555694262663e-05,
+      "max_delta_vs_historical_rknn": 2.2465938880555925e-05,
+      "choices_unchanged": true,
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991779995411796,
+              "math": 0.0006839706378896585,
+              "chat": 0.00013802982093074769
+            },
+            "confidence": 0.993598307003921
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "case": "chinese-0",
+      "seconds": 5.868488,
+      "max_probability_or_score_delta_vs_historical_optimized_cpu": 0.002334555382135617,
+      "max_delta_vs_historical_rknn": 0.0004968004632273093,
+      "choices_unchanged": true,
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992481212284638,
+              "math": 0.0004883924431633323,
+              "chat": 0.00026348632837280747
+            },
+            "confidence": 0.9939498072576618
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8748925067516414
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.10342136076992567,
+            "probabilities": {
+              "0": 0.9133813364771602,
+              "1": 0.06981596627575386,
+              "2": 0.016802697247085906
+            },
+            "confidence": 0.6930163118783574,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      }
+    }
+  ],
+  "measurement_scope": "Restart smoke check only; comparison uses retained 2026-10-13 output vectors. No fresh CPU timing or speedup benchmark. Existing restart=no preserved."
+}

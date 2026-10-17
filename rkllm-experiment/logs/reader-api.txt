@@ -1,0 +1,11 @@
+['GGUFReader', 'GGUF_MAGIC', 'ReaderField', 'ReaderTensor']
+GGUFReader <class 'rkllm.base.gguf.GGUFReader'>
+signature (path, mode: "Literal['r', 'r+', 'c']" = 'r', crypt=False)
+methods ['_DT', '_build_fields', '_build_tensor_info', '_build_tensors', '_get', '_get_field_parts', '_get_str', '_get_tensor_info_field', '_push_field', 'alignment', 'byte_order', 'get_field', 'get_tensor', 'gguf_scalar_to_np']
+GGUF_MAGIC 1179993927
+ReaderField <class 'rkllm.base.gguf.ReaderField'>
+signature (offset: ForwardRef('int'), name: ForwardRef('str'), parts: ForwardRef('list[npt.NDArray[Any]]') = [], data: ForwardRef('list[int]') = [-1], types: ForwardRef('list[GGUFValueType]') = [])
+methods ['_asdict', '_field_defaults', '_fields', '_make', '_replace', 'count', 'data', 'index', 'name', 'offset', 'parts', 'types']
+ReaderTensor <class 'rkllm.base.gguf.ReaderTensor'>
+signature (name: ForwardRef('str'), tensor_type: ForwardRef('GGMLQuantizationType'), shape: ForwardRef('npt.NDArray[np.uint32]'), n_elements: ForwardRef('int'), n_bytes: ForwardRef('int'), data_offset: ForwardRef('int'), data: ForwardRef('npt.NDArray[Any]'), field: ForwardRef('ReaderField'))
+methods ['_asdict', '_field_defaults', '_fields', '_make', '_replace', 'count', 'data', 'data_offset', 'field', 'index', 'n_bytes', 'n_elements', 'name', 'shape', 'tensor_type']

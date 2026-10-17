@@ -1,0 +1,38 @@
+{
+  "verified_at_utc": "2026-10-13T10:03:08.307191+00:00",
+  "scope": "All d3-edge CPU/RKNN services and test processes created in this task; local conversion containers also absent",
+  "containers": [
+    {
+      "name": "decision3-edge",
+      "id": "a1157559fc1826a981e6d57bed50828315b4f69e37620c40451761e50cbf5962",
+      "status": "exited",
+      "running": false,
+      "restart_policy": "no",
+      "finished_at": "2026-10-13T10:01:55.779766469Z"
+    },
+    {
+      "name": "decision3-edge-matmul",
+      "id": "19a30c8727fbc08008fe956fb8d5c6ce78988459e0f831084cfaa85390a1c93f",
+      "status": "exited",
+      "running": false,
+      "restart_policy": "no",
+      "finished_at": "2026-10-13T10:01:56.352971591Z"
+    }
+  ],
+  "ports": {
+    "8899": {
+      "connect_result": 111,
+      "accepting_connections": false
+    },
+    "8900": {
+      "connect_result": 111,
+      "accepting_connections": false
+    }
+  },
+  "remaining_model_test_processes": [],
+  "npu_load": "NPU load:  Core0:  0%, Core1:  0%,",
+  "passed": true,
+  "files_and_models_retained": true,
+  "command": "docker update --restart=no decision3-edge decision3-edge-matmul; docker stop decision3-edge decision3-edge-matmul",
+  "local_running_docker_containers": []
+}

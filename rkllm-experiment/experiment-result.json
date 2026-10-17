@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-13",
+  "status": "npu_executed_but_not_compatible_with_d3_edge",
+  "source_model": "vllm-sr/d3-edge",
+  "source_revision": "20c745653400d191ecacd99c4eafc0c5900dc15e",
+  "official_sdk": {
+    "version": "1.3.1",
+    "repository": "https://github.com/airockchip/rknn-llm",
+    "commit": "f7390530443bf84f0394255a449d7cbe81e69d1c"
+  },
+  "conversion_environment": {
+    "host": "ARM64 macOS",
+    "docker_context": "orbstack",
+    "platform": "linux/amd64 (emulated)",
+    "image": "d3-rkllm-toolkit:1.3.1",
+    "python": "3.12",
+    "torch": "2.6.0+cpu",
+    "transformers": "5.8.0",
+    "toolkit_import": "passed",
+    "pip_check": "passed"
+  },
+  "board": {
+    "soc": "RK3576",
+    "driver": "0.9.8",
+    "runtime": "1.3.1",
+    "npu_cores": 2
+  },
+  "original_w8a8": {
+    "conversion": "passed",
+    "runtime_initialization": "failed",
+    "error": "Tensor blk.2.ssm_conv1d.weight not found",
+    "cause": "Runtime periodic layer assumption does not match pruned layer_types",
+    "sha256": "d3ae7408d34f7b5f976d1c142f7b6a1d40fa5b1056368d79db7f75644e0dbf66"
+  },
+  "padded_fp16": {
+    "file": "output/d3-edge-unquantized-rk3576-padded-noncausal-v2.rkllm",
+    "sha256": "3c56a5a4e8a888c3337b697411fa3e7e444ab33dc4a2a6f7b3dbe9d55c2c5cbb",
+    "original_layers": 12,
+    "exported_layers": 18,
+    "added_identity_layers": 6,
+    "padding_max_hidden_difference_causal": 0.0,
+    "padding_max_hidden_difference_noncausal": 0.0,
+    "exported_metadata_causal": false,
+    "runtime_initialization": "passed",
+    "native_token_requests": 10,
+    "output_hidden_width": 1024,
+    "seconds_per_question_range": [
+      2.70543,
+      3.47073
+    ],
+    "timing_scope": "Text last-hidden-state inference per question, excluding model initialization; no NPU HTTP endpoint",
+    "memory_mb_range": [
+      1649.54,
+      1666.39
+    ]
+  },
+  "accuracy": {
+    "missing": 0,
+    "max_probability_delta": 0.7526993326676651,
+    "choices_matched": 2,
+    "choices_total": 4,
+    "max_observed_npu_load_percent": 26,
+    "cpu_equivalence_tolerance": 0.01,
+    "parity_passed": false
+  },
+  "diagnosis": {
+    "npu_cosine_to_source_causal": 0.9999997615814209,
+    "npu_cosine_to_source_noncausal": 0.7706229090690613,
+    "sample_code_probability_cpu": 0.9991648123435318,
+    "sample_code_probability_npu": 0.5601248145103455,
+    "conclusion": "Despite correctly exported causal=false metadata, this tested RKLLM 1.3.1 custom/Qwen3.5 hybrid path executed causal behavior. Requantization does not address this attention-semantic mismatch."
+  },
+  "preservation": {
+    "cpu_service": "http://192.168.1.164:8899",
+    "container_id": "a1157559fc18",
+    "health": "ready",
+    "output_unchanged": true,
+    "cpu_retest_seconds": 6.822,
+    "npu_service_promoted": false,
+    "remaining_npu_processes": 0,
+    "npu_load_after_test_percent": 0,
+    "local_conversion_containers_remaining": 0
+  },
+  "limits": [
+    "Text-only experiment; vision encoder not converted",
+    "Test inputs 97-127 tokens; max context 512",
+    "Only this pinned SDK/runtime path was evaluated",
+    "Probability agreement failed; artifact is unsuitable as a production d3-edge replacement"
+  ],
+  "verification": [
+    {
+      "command": "docker run --rm --platform linux/amd64 ... d3-rkllm-toolkit:1.3.1 python /work/probe_load.py",
+      "result": "Official toolkit loads original model"
+    },
+    {
+      "command": "python /work/convert_probe.py ...",
+      "result": "W8A8 and padded FP16 RKLLM exports created"
+    },
+    {
+      "command": "python /work/prepare_padding.py; python /work/diagnose_hidden.py",
+      "result": "Padding preserves both CPU attention modes exactly on tested request; NPU matches causal mode"
+    },
+    {
+      "command": "bash run-board-test.sh output/d3-edge-unquantized-rk3576-padded-noncausal-v2.rkllm",
+      "result": "10 native-token hidden-state inference requests completed on board; NPU load observed"
+    },
+    {
+      "command": "python /work/compare_npu.py",
+      "result": "FAIL probability parity: max delta 0.752699; choices matched 2/4"
+    },
+    {
+      "command": "Official GGUFReader(path, crypt=True) metadata readback",
+      "result": "Confirmed custom.attention.causal=false in exported artifact"
+    },
+    {
+      "command": "POST http://192.168.1.164:8899/v1/systemone with existing request.json; GET /health",
+      "result": "CPU result unchanged; health ready"
+    }
+  ],
+  "evidence": {
+    "comparison": "logs/npu-comparison.json",
+    "diagnosis": "logs/hidden-diagnosis.json",
+    "export_metadata": "logs/exported-attention-metadata.json",
+    "cpu_preservation": "logs/cpu-preservation-check.json"
+  },
+  "next_options": [
+    "Vendor support/fix for noncausal full attention in this runtime path",
+    "Separately implement and benchmark RKNN MatMul offload while preserving d3 attention on CPU"
+  ],
+  "current_operational_state": {
+    "status": "stopped_by_user",
+    "verified_at_utc": "2026-10-13T10:03:08.307191+00:00",
+    "auto_restart_disabled": true,
+    "shutdown_evidence": "shutdown-verification.json"
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "component": "Model metadata loader",
+    "change": "Read explicit D3 per-layer types instead of deriving all layer kinds from full_attention_interval; validate exactly 12 original layers and reject unknown types",
+    "contract": "d3.contract.layer_types: uint32 array (0 linear, 1 full)"
+  },
+  {
+    "component": "Qwen3.5 full-attention graph/mask builder",
+    "change": "Full-attention queries see every valid key in the same sample, including future tokens; mask only padding, preserve original RoPE/QK norm/query gate/scale",
+    "contract": "custom.attention.causal=false for full attention only; translate boolean allow-mask to the backend representation"
+  },
+  {
+    "component": "Prefill scheduler and KV lifecycle",
+    "change": "Use layer-major full-sequence prefill. For each full-attention layer, generate/store all current-layer K/V before chunked query attention. Keep GatedDeltaNet causal scans and their per-chunk recurrent state",
+    "contract": "d3.contract.prefill_order=1; d3.contract.linear_attention_causal=true"
+  },
+  {
+    "component": "History and sample isolation",
+    "change": "Do not reuse decoder history or causal prefix representations for a noncausal D3 request; preserve per-sample padding/positions without sharing state across samples",
+    "contract": "d3.contract.keep_history=false"
+  },
+  {
+    "component": "Output extraction",
+    "change": "Return the correct last-token hidden vector through existing GET_LAST_HIDDEN_LAYER; retain the original FP32 CPU readout and scoring rules",
+    "contract": "Existing official API can provide hidden states; no new LM head training or pruning"
+  }
+]

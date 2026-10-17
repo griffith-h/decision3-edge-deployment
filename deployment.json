@@ -1,0 +1,56 @@
+{
+  "host": "192.168.1.164",
+  "board": "NanoPi R76S / RK3576",
+  "architecture": "aarch64",
+  "model": "vllm-sr/d3-edge",
+  "model_revision": "20c745653400d191ecacd99c4eafc0c5900dc15e",
+  "serving_implementation": "official d3_server HTTP handling with CPU FP32 Linear/Conv adapter",
+  "device": "cpu",
+  "weight_dtype": "bfloat16",
+  "model_verification": "full file hashes",
+  "torch_version": "2.12.0+cpu",
+  "transformers_version": "5.17.0",
+  "container": "decision3-edge",
+  "image": "decision3-edge:arm64-cpu",
+  "image_id": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "restart_policy": "no",
+  "memory_limit_bytes": 8589934592,
+  "ports": {
+    "8899/tcp": [
+      {
+        "HostIp": "192.168.1.164",
+        "HostPort": "8899"
+      }
+    ]
+  },
+  "health": "stopped",
+  "api": "http://192.168.1.164:8899/v1/systemone",
+  "discovery": "http://192.168.1.164:8899/v1/models",
+  "authentication": false,
+  "start_script": "/opt/decision3-edge/start-edge.sh",
+  "reference_check": "CPU reference tolerance 0.001 was not met; see golden-results.json",
+  "limitations": [
+    "NPU port is not yet validated",
+    "Video has not been tested",
+    "CPU numerical output differs slightly from baseline; validated on five sample requests"
+  ],
+  "cpu_affinity": "4-7",
+  "container_id": "a1157559fc1826a981e6d57bed50828315b4f69e37620c40451761e50cbf5962",
+  "npu_used": false,
+  "optimized_script": "/opt/decision3-edge/cpu_optimized_server.py",
+  "rollback_script": "/opt/decision3-edge/start-edge-bf16.sh",
+  "kernel_math": "FP32 Linear/Conv with cached FP32 weights and BF16 output rounding",
+  "activation_dtype": "bfloat16",
+  "checkpoint_dtype": "bfloat16",
+  "sample_max_probability_or_score_delta_vs_original": 0.005655719063191733,
+  "sample_speedup_range": [
+    2.15,
+    3.46
+  ],
+  "current_operational_state": {
+    "status": "stopped_by_user",
+    "verified_at_utc": "2026-10-13T10:03:08.307191+00:00",
+    "auto_restart_disabled": true,
+    "shutdown_evidence": "shutdown-verification.json"
+  }
+}

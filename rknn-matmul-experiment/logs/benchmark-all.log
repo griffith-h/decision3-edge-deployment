@@ -1,0 +1,34 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  60%|█████▉    | 182/305 [00:00<00:00, 1789.16it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1744.75it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+CPU_PROFILE {"total_seconds": 6.328314971877262, "linear_conv_seconds": 3.323232518741861}
+CASE cpu single {"warmup_seconds": 5.222845650976524, "seconds": [5.227759536122903, 5.338683636859059, 5.362647981848568], "median_seconds": 5.338683636859059}
+CASE cpu chinese-0 {"warmup_seconds": 32.41481945710257, "seconds": [15.090738558210433, 14.552225623978302, 15.320526035968214], "median_seconds": 15.090738558210433}
+CASE cpu chinese-1 {"warmup_seconds": 13.184299340005964, "seconds": [13.60559328016825, 13.320335003780201, 13.71392740891315], "median_seconds": 13.60559328016825}
+CASE cpu english {"warmup_seconds": 12.792994474992156, "seconds": [12.928256368031725, 13.657180805923417, 12.862891543889418], "median_seconds": 12.928256368031725}
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff8387a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff83819018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff8554ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff84f0f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff84f0fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff85e8abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff84915cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff848f0c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff8492b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff84917538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff8e2938a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff90657744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff90657818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+CASE cpu image {"warmup_seconds": 17.768450991017744, "seconds": [17.11799877206795, 17.526121855946258, 16.94422180415131], "median_seconds": 17.11799877206795}
+OFFLOAD 78
+CASE npu single {"warmup_seconds": 8.748554588994011, "seconds": [2.44246853585355, 2.41298917401582, 2.488319923169911], "median_seconds": 2.44246853585355, "npu_calls": 234, "npu_adapter_seconds": 1.119708753656596, "cpu_fallback_calls": 0, "max_probability_or_score_delta": 3.5653136528313034e-05, "choices_unchanged": true, "speedup": 2.185773760640643, "parity_passed": true}
+CASE npu chinese-0 {"warmup_seconds": 5.816142837982625, "seconds": [5.503838720032945, 5.404898355016485, 6.676673756912351], "median_seconds": 5.503838720032945, "npu_calls": 234, "npu_adapter_seconds": 3.759099324932322, "cpu_fallback_calls": 0, "max_probability_or_score_delta": 0.002831355845362926, "choices_unchanged": true, "speedup": 2.7418569703510682, "parity_passed": true}
+CASE npu chinese-1 {"warmup_seconds": 5.165131267858669, "seconds": [5.006934960838407, 5.239682022947818, 5.224301049951464], "median_seconds": 5.224301049951464, "npu_calls": 234, "npu_adapter_seconds": 3.351146092871204, "cpu_fallback_calls": 0, "max_probability_or_score_delta": 0.00013811560325800026, "choices_unchanged": true, "speedup": 2.604289674366038, "parity_passed": true}
+CASE npu english {"warmup_seconds": 6.162863006116822, "seconds": [5.229930917033926, 5.299197435146198, 5.141147679882124], "median_seconds": 5.229930917033926, "npu_calls": 234, "npu_adapter_seconds": 3.6111986241303384, "cpu_fallback_calls": 0, "max_probability_or_score_delta": 0.0011133199214161116, "choices_unchanged": true, "speedup": 2.47197459643765, "parity_passed": true}
+CASE npu image {"warmup_seconds": 11.892353757983074, "seconds": [11.971307012019679, 11.824145172024146, 13.024417243897915], "median_seconds": 11.971307012019679, "npu_calls": 234, "npu_adapter_seconds": 3.9387016829568893, "cpu_fallback_calls": 0, "max_probability_or_score_delta": 0.0003945651103218206, "choices_unchanged": true, "speedup": 1.4299189516132853, "parity_passed": true}
+PASS: same choices; numeric delta <= 0.01; original attention code unchanged.

@@ -1,0 +1,11 @@
+FROM decision3-edge-rk3576:torch2.12
+
+# Serve through the HTTP implementation shipped with the pinned model package.
+# CPU inference uses PyTorch reference kernels; do not install GPU-only FLA.
+RUN python -m pip install --no-cache-dir \
+    transformers==5.17.0 accelerate==1.10.1 \
+    'https://download-r2.pytorch.org/whl/cpu/torchvision-0.27.0%2Bcpu-cp312-cp312-manylinux_2_28_aarch64.whl#sha256=1b06f42d48b62098114923d8a3fe9fa864182715db06584a515155db0aa8eb30' \
+    && python -c 'import torch, torchvision, transformers; assert torch.__version__ == "2.12.0+cpu"; assert transformers.__version__ == "5.17.0"; print(torch.__version__, torchvision.__version__, transformers.__version__)'
+
+ENV OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+ENTRYPOINT ["python", "-u"]

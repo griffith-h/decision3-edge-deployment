@@ -1,0 +1,172 @@
+{
+  "configs": {
+    "qwen3_5_config": "{'BLOCKNAME': 'Qwen3_5DecoderLayer', 'TOKEN_EMBD': 'embed_tokens', 'ATTN_NORM': 'input_layernorm', 'ATTN_Q_NORM': 'self_attn.q_norm', 'ATTN_Q': 'self_attn.q_proj', 'ATTN_K_NORM': 'self_attn.k_norm', 'ATTN_K': 'self_attn.k_proj', 'ATTN_V': 'self_attn.v_proj', 'ATTN_QKV': '', 'ATTN_KV': '', 'KV_CONTINUOUS': 'true', 'ATTN_OUT': 'self_attn.o_proj', 'ATTN_POST_NORM': '', 'FFN_NORM': 'post_attention_layernorm', 'FFN_UP': 'mlp.up_proj', 'FFN_GATE': 'mlp.gate_proj', 'ACT_TYPE': 'silu', 'FFN_DOWN': 'mlp.down_proj', 'FFN_POST_NORM': '', 'OUTPUT_NORM': 'norm', 'OUTPUT': 'lm_head'}",
+    "qwen3_config": "{'BLOCKNAME': 'Qwen3DecoderLayer', 'TOKEN_EMBD': 'embed_tokens', 'ATTN_NORM': 'input_layernorm', 'ATTN_Q_NORM': 'self_attn.q_norm', 'ATTN_Q': 'self_attn.q_proj', 'ATTN_K_NORM': 'self_attn.k_norm', 'ATTN_K': 'self_attn.k_proj', 'ATTN_V': 'self_attn.v_proj', 'ATTN_QKV': '', 'ATTN_KV': '', 'KV_CONTINUOUS': 'true', 'ATTN_OUT': 'self_attn.o_proj', 'ATTN_POST_NORM': '', 'FFN_NORM': 'post_attention_layernorm', 'FFN_UP': 'mlp.up_proj', 'FFN_GATE': 'mlp.gate_proj', 'ACT_TYPE': 'silu', 'FFN_DOWN': 'mlp.down_proj', 'FFN_POST_NORM': '', 'OUTPUT_NORM': 'norm', 'OUTPUT': 'lm_head'}",
+    "allow_model": "['Gemma4ForCausalLM', 'Gemma3nForCausalLM', 'RWKV7ForCausalLM', 'Gemma3ForCausalLM', 'TeleChat2ForCausalLM', 'TelechatForCausalLM', 'GemmaForCausalLM', 'LlamaForCausalLM', 'ChatGLMModel', 'PhiForCausalLM', 'BaichuanForCausalLM', 'QWenLMHeadModel', 'Qwen2ForCausalLM', 'ChatGLMForConditionalGeneration', 'MiniCPM3ForCausalLM', 'InternLM2ForCausalLM', 'MiniCPMForCausalLM', 'Phi3ForCausalLM', 'Gemma2ForCausalLM', 'BertModel']",
+    "model_type_map": "{'llama': 'LlamaForCausalLM', 'lfm2': 'Lfm2ForCausalLM', 'smollm3': 'SmolLM3ForCausalLM', 'qwen3_5_text': 'Qwen3_5ForCausalLM', 'qwen3': 'Qwen3ForCausalLM', 'qwen2': 'Qwen2ForCausalLM', 'qwen': 'QWenLMHeadModel', 'phi2': 'PhiForCausalLM', 'phi3': 'Phi3ForCausalLM', 'gemma4': 'Gemma4ForCausalLM', 'gemma3n': 'Gemma3nForCausalLM', 'gemma3': 'Gemma3ForCausalLM', 'gemma2': 'Gemma2ForCausalLM', 'gemma': 'GemmaForCausalLM', 'internlm2': 'InternLM2ForCausalLM', 'minicpm3': 'MiniCPM3ForCausalLM', 'minicpm': 'MiniCPMForCausalLM', 'telechat': 'TeleChat2ForCausalLM', 'rwkv7': 'RWKV7ForCausalLM'}"
+  },
+  "help": {
+    "rkllm.base.converter": {
+      "exception": "TypeError('custom_help() takes exactly 1 positional argument (0 given)')"
+    },
+    "rkllm.base.loader": {
+      "exception": "TypeError('custom_help() takes exactly 1 positional argument (0 given)')"
+    },
+    "rkllm.base.common": {
+      "exception": "TypeError('custom_help() takes exactly 1 positional argument (0 given)')"
+    }
+  },
+  "functions": {
+    "convert_model": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(f, f_lora, model, model_lora, lora_config, modelname, modelpath, tokenizer, hybrid_layer, dtype, v='', target_platform='rk3588', num_npu_core=1, version='', custom_config=None, max_context=4096, export_tokenizer=True, export_embedding=True)"
+    },
+    "get_llm_config": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(hparams)"
+    },
+    "get_key_opts": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(d, keys)"
+    }
+  },
+  "custom_class": {
+    "count_model_parts": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(dir_model: 'Path', prefix: 'str') -> 'int'"
+    },
+    "does_token_look_special": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, token: 'str | bytes') -> 'bool'"
+    },
+    "find_hparam": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, keys, optional=True, default=None)"
+    },
+    "format_tensor_name": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, key: 'MODEL_TENSOR', bid: 'int | None' = None, suffix: 'str' = '.weight') -> 'str'"
+    },
+    "from_model_architecture": {
+      "type": "<class 'method'>",
+      "doc": null,
+      "signature": "(arch)"
+    },
+    "get_tensors": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self) -> 'Iterator[tuple[str, Tensor]]'"
+    },
+    "get_vocab_base_pre": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self)"
+    },
+    "load_hparams": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(dir_model)"
+    },
+    "model_arch": {
+      "type": "<enum 'MODEL_ARCH'>",
+      "doc": null
+    },
+    "permute_qk": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, tensor, n_head, n_head_kv, name='')"
+    },
+    "post_write_tensors": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, tensor_map, name, data_torch, hybrid_layer, tensor_info)"
+    },
+    "proc_tensor": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, data_torch, hybrid_layer, tensor_info, n_dims, name, new_name, old_shape, old_dtype)"
+    },
+    "quantize_nbit": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, tensor, name, new_name, w_bit, w_asym=False, a_asym=False, group_size=-1) -> 'torch.Tensor'"
+    },
+    "register": {
+      "type": "<class 'method'>",
+      "doc": "Register a virtual subclass of an ABC.\n\nReturns the subclass, to allow usage as a class decorator.",
+      "signature": "(*names: 'str') -> 'Callable[[AnyModel], AnyModel]'"
+    },
+    "set_llm_parameters": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self)"
+    },
+    "set_vocab": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self)"
+    },
+    "write": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, hybrid_layer, version, custom_config, max_context)"
+    },
+    "write_rkllm": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self)"
+    },
+    "write_special_vocab": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": "Write only SpecialVocab (special token IDs, add_bos/eos flags, chat_template)\nwithout the full token list.  Called when export_tokenizer=False.",
+      "signature": "(self) -> 'None'"
+    },
+    "write_tensors": {
+      "type": "<class '_cython_3_0_12.cython_function_or_method'>",
+      "doc": null,
+      "signature": "(self, hybrid_layer, custom_config)"
+    }
+  },
+  "model_archs": {
+    "1": "llama",
+    "2": "falcon",
+    "3": "baichuan",
+    "4": "gpt2",
+    "5": "gptj",
+    "6": "gptneox",
+    "7": "mpt",
+    "8": "starcoder",
+    "9": "persimmon",
+    "10": "refact",
+    "11": "bert",
+    "12": "bloom",
+    "13": "stablelm",
+    "14": "qwen",
+    "15": "qwen2",
+    "16": "phi2",
+    "17": "phi3",
+    "18": "plamo",
+    "19": "gemma",
+    "20": "gemma2",
+    "21": "gemma3",
+    "22": "gemma4",
+    "23": "codeshell",
+    "24": "orion",
+    "25": "internlm2",
+    "26": "minicpm",
+    "27": "minicpm3",
+    "28": "chatglm",
+    "29": "telechat",
+    "30": "custom",
+    "31": "rwkv7",
+    "32": "gemma3n",
+    "33": "lfm2"
+  }
+}

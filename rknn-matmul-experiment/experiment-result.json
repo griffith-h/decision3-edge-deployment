@@ -1,0 +1,195 @@
+{
+  "date": "2026-10-13",
+  "status": "tests_complete_services_stopped_by_user",
+  "acceptance": {
+    "original_cpu_service_preserved": true,
+    "original_noncausal_attention_preserved": true,
+    "all_sample_choices_unchanged": true,
+    "probability_or_score_tolerance": 0.01,
+    "measured_max_delta": 0.002831355845362926
+  },
+  "model": {
+    "name": "vllm-sr/d3-edge",
+    "revision": "20c745653400d191ecacd99c4eafc0c5900dc15e",
+    "source_package_hash_verification": "full, on every server startup",
+    "original_text_layers": 12,
+    "attention_mode": "noncausal_full_attention",
+    "prompt_encoder_sha256": "92f1c373b095acaf653fca7d83d7fa48d4fe6aaf9d178642a50bdcf9eaeffccf",
+    "model_structure_changed": false,
+    "whole_model_conversion_required": false,
+    "description": "Original checkpoint/runtime loaded directly; FP16 weight matrices packed once into the RKNN native MatMul layout. No RKLLM decoder or model conversion used."
+  },
+  "implementation": {
+    "sdk_repository": "https://github.com/airockchip/rknn-toolkit2",
+    "sdk_commit": "2c723177a94fac65cbc036d722907ddbc91980cf",
+    "runtime": "2.5.0 (74ea630ce8@2026-09-30T09:41:17)",
+    "board": "RK3576",
+    "driver": "0.9.8",
+    "matmul_type": "RKNN_FLOAT16_MM_FLOAT16_TO_FLOAT32",
+    "activation_boundary": "BF16, unchanged",
+    "cpu_math": "Original optimized FP32 CPU Linear/Conv path for non-offloaded layers and fallback",
+    "offloaded_text_linear_modules": 78,
+    "cached_native_handles": 78,
+    "native_setup_seconds": 6.207711151335388,
+    "core_mask": "AUTO; combined 0+1 mask rejected by this RK3576 MatMul runtime",
+    "observed_peak_npu_load_percent": 27,
+    "inference_thread": "model initialization/main thread, serialized; official HTTP handlers run in background threads",
+    "vision_attention_and_gated_delta_scan": "Original PyTorch code retained",
+    "flush_denormal_setting_changed": false
+  },
+  "model_benchmarks": {
+    "method": "Same process, same 4 big CPU cores and 4 Torch threads; one warmup then 3 measured calls per backend/case; medians exclude checkpoint loading and NPU context/weight setup",
+    "cases": {
+      "single": {
+        "cpu_seconds": 5.338683636859059,
+        "rknn_seconds": 2.44246853585355,
+        "speedup": 2.185773760640643,
+        "max_probability_or_score_delta": 3.5653136528313034e-05,
+        "choices_unchanged": true,
+        "cpu_fallback_calls": 0
+      },
+      "chinese-0": {
+        "cpu_seconds": 15.090738558210433,
+        "rknn_seconds": 5.503838720032945,
+        "speedup": 2.7418569703510682,
+        "max_probability_or_score_delta": 0.002831355845362926,
+        "choices_unchanged": true,
+        "cpu_fallback_calls": 0
+      },
+      "chinese-1": {
+        "cpu_seconds": 13.60559328016825,
+        "rknn_seconds": 5.224301049951464,
+        "speedup": 2.604289674366038,
+        "max_probability_or_score_delta": 0.00013811560325800026,
+        "choices_unchanged": true,
+        "cpu_fallback_calls": 0
+      },
+      "english": {
+        "cpu_seconds": 12.928256368031725,
+        "rknn_seconds": 5.229930917033926,
+        "speedup": 2.47197459643765,
+        "max_probability_or_score_delta": 0.0011133199214161116,
+        "choices_unchanged": true,
+        "cpu_fallback_calls": 0
+      },
+      "image": {
+        "cpu_seconds": 17.11799877206795,
+        "rknn_seconds": 11.971307012019679,
+        "speedup": 1.4299189516132853,
+        "max_probability_or_score_delta": 0.0003945651103218206,
+        "choices_unchanged": true,
+        "cpu_fallback_calls": 0
+      }
+    }
+  },
+  "http_verification": {
+    "cpu_single_seconds": 6.686007375,
+    "rknn_single_seconds_median": 2.822265290999999,
+    "single_speedup": 2.3690215786308952,
+    "max_probability_or_score_delta": 0.002831355845362926,
+    "concurrent_requests_passed": true,
+    "invalid_request_returns_422": true,
+    "cpu_response_exactly_unchanged": true,
+    "method": "Original CPU service tested once; separate RKNN service tested with 3 single requests, a 3-question text request, an image request, and two concurrent requests switching MatMul shapes"
+  },
+  "services": {
+    "existing_cpu": {
+      "url": "http://192.168.1.164:8899",
+      "api": "http://192.168.1.164:8899/v1/systemone",
+      "container": "decision3-edge",
+      "container_id": "a1157559fc1826a981e6d57bed50828315b4f69e37620c40451761e50cbf5962",
+      "health": "stopped",
+      "preserved": true,
+      "memory_gib_observed": 1.871,
+      "test_end_health": "healthy",
+      "restart": "no"
+    },
+    "experimental_rknn": {
+      "url": "http://192.168.1.164:8900",
+      "api": "http://192.168.1.164:8900/v1/systemone",
+      "container": "decision3-edge-matmul",
+      "container_id": "19a30c8727fbc08008fe956fb8d5c6ce78988459e0f831084cfaa85390a1c93f",
+      "health": "stopped",
+      "restart": "no",
+      "memory_gib_observed": 2.851,
+      "cpu_affinity": "4-7",
+      "memory_limit_gib": 8,
+      "source_dir": "/opt/decision3-edge-matmul",
+      "original_cpu_replaced": false,
+      "test_end_health": "healthy"
+    }
+  },
+  "limitations": [
+    "MatMul native rows supported up to 512, where rows=batch size times padded sequence length; larger tensors fall back to the saved optimized CPU forward without truncation",
+    "Only eligible text Linear layers are offloaded; vision tower and attention/scan remain CPU",
+    "Short text, 3-question batches and one small-image request validated; long-text throughput and video not benchmarked",
+    "Both endpoints use CPU cores 4-7; simultaneous traffic to CPU and RKNN endpoints can contend for CPU resources",
+    "Experimental custom adapter with tested SDK/driver versions; probability agreement demonstrated on these samples rather than the full input distribution"
+  ],
+  "verification_commands": [
+    {
+      "command": "bash /opt/decision3-edge-matmul/build-bridge.sh",
+      "result": "PASS g++ compilation against pinned official RKNN runtime"
+    },
+    {
+      "command": "docker run ... /work/micro_test.py",
+      "result": "PASS 16 matrix size/dynamic-switch numerical checks; large matrices faster, small matrices slower"
+    },
+    {
+      "command": "bash /opt/decision3-edge-matmul/run-benchmark.sh all",
+      "result": "PASS 5 full-model cases, 3 timed repeats each, same choices and numeric delta <= 0.01"
+    },
+    {
+      "command": "docker run ... /work/boundary_test.py",
+      "result": "PASS 127/128/129/256/257/512/513 row boundaries, exact CPU fallback, non-BF16 fallback, oversize rejection, native release then restored CPU forward"
+    },
+    {
+      "command": "python3 rknn-matmul-experiment/verify_api.py (local workspace)",
+      "result": "PASS preserved CPU response, separate endpoint, invalid request 422, shape-changing concurrent requests"
+    },
+    {
+      "command": "ast.parse for experimental Python scripts; bash -n for build/start/benchmark scripts",
+      "result": "PASS syntax"
+    },
+    {
+      "command": "docker ps; GET both /health endpoints",
+      "result": "PASS both services healthy; temporary benchmark/micro/diagnostic containers removed"
+    }
+  ],
+  "reproduction": {
+    "board_build": "bash /opt/decision3-edge-matmul/build-bridge.sh",
+    "board_benchmark": "bash /opt/decision3-edge-matmul/run-benchmark.sh all",
+    "start_when_experiment_container_absent": "bash /opt/decision3-edge-matmul/start-npu-test-service.sh",
+    "stop_experiment_only": "docker stop decision3-edge-matmul",
+    "client_change": "Keep the same model name and request body; use port 8900 instead of 8899 for the RKNN experiment"
+  },
+  "evidence": [
+    "logs/benchmark-all.json",
+    "logs/api-verification.json",
+    "logs/boundary-test.json",
+    "logs/micro-test.json",
+    "logs/npu-load.log",
+    "logs/thread-diagnosis.json",
+    "sdk-manifest.json"
+  ],
+  "source_sha256": {
+    "verify_api.py": "0697813defc2d857ed0e8933e6e77a3ebcc73dc047e81a80f35ca6c78115cf55",
+    "benchmark.py": "b15da8acf19ac9811fbb73f3015a0604d6263f9315eb109264e0cf631739be86",
+    "start-npu-test-service.sh": "404b79547a4ca61005ed02fda24cdb67ec66fbdacdb4e3522befdba6a31ca7e1",
+    "build-bridge.sh": "6aa4d622738c6eaa32d8978ec34c553cc94755c195dc71b673dfdb9b0ce1bdb9",
+    "boundary_test.py": "801c81fd568c68de6fd14e132ab59998dee33d251289172f0f8ddcf7fd631632",
+    "run-benchmark.sh": "eb152fd1f5eaefbc94b59979e728a64d684b72b85917686560de3b44686a09e4",
+    "micro_test.py": "64b737522119d0c10d38feb6134fc657cc480571663059dca9951a1cfc488eda",
+    "matmul_bridge.cpp": "3ae7a20d24797655e3faf2565768a6c2f0502fb99e1face5425ba81ee407170f",
+    "rknn_linear.py": "2cc72b3a1ba7bd440e4a4b1d3fc612bdb181ce9a67853cf7493ca25e9098c0c1",
+    "npu_server.py": "08f5184534f7a450c34b7e08ac7e0ee24872b4b41b8cd16abe127a0b65bfba1c",
+    "libmatmul_bridge.so": "ab9437ebb49e6dfeac6a6de76c2468744a1de9b25fb97e6e8663befe92f79f41",
+    "diagnose_thread.py": "73d35f56259444bb8d3863014bc6de3a4e331b69b2f9cdf095001530e24e1907"
+  },
+  "current_operational_state": {
+    "status": "stopped_by_user",
+    "verified_at_utc": "2026-10-13T10:03:08.307191+00:00",
+    "auto_restart_disabled": true,
+    "shutdown_evidence": "shutdown-verification.json"
+  }
+}

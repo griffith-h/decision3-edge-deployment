@@ -1,0 +1,162 @@
+[37mINFO: rkllm-toolkit version: 1.3.1[0m
+[transformers] Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='axial'
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+[33mWARNING: rkllm-toolkit only exports Qwen3_5ForCausalLM of Qwen3_5Model![0m
+source-model {
+  "source-model/causal": {
+    "norm": 33.45144271850586,
+    "min": -6.894238471984863,
+    "max": 10.458763122558594,
+    "logits": [
+      5.404597282409668,
+      5.10558557510376,
+      2.233215570449829
+    ],
+    "probabilities": [
+      0.5606964230537415,
+      0.4157848358154297,
+      0.023518748581409454
+    ]
+  },
+  "source-model/noncausal": {
+    "norm": 41.38344955444336,
+    "min": -6.78279972076416,
+    "max": 9.479233741760254,
+    "logits": [
+      8.248899459838867,
+      0.9347388744354248,
+      -0.6820215582847595
+    ],
+    "probabilities": [
+      0.9992024302482605,
+      0.0006655091419816017,
+      0.0001321307645412162
+    ]
+  }
+}
+[37mINFO: rkllm-toolkit version: 1.3.1[0m
+[transformers] Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='axial'
+[33mWARNING: rkllm-toolkit only exports Qwen3_5ForCausalLM of Qwen3_5Model![0m
+prepared-model {
+  "prepared-model/causal": {
+    "norm": 33.45144271850586,
+    "min": -6.894238471984863,
+    "max": 10.458763122558594,
+    "logits": [
+      5.404597282409668,
+      5.10558557510376,
+      2.233215570449829
+    ],
+    "probabilities": [
+      0.5606964230537415,
+      0.4157848358154297,
+      0.023518748581409454
+    ]
+  },
+  "prepared-model/noncausal": {
+    "norm": 41.38344955444336,
+    "min": -6.78279972076416,
+    "max": 9.479233741760254,
+    "logits": [
+      8.248899459838867,
+      0.9347388744354248,
+      -0.6820215582847595
+    ],
+    "probabilities": [
+      0.9992024302482605,
+      0.0006655091419816017,
+      0.0001321307645412162
+    ]
+  }
+}
+{
+  "npu": {
+    "norm": 33.45120620727539,
+    "min": -6.894240379333496,
+    "max": 10.45821762084961,
+    "logits": [
+      5.404299259185791,
+      5.10777473449707,
+      2.232279062271118
+    ],
+    "probabilities": [
+      0.5601248145103455,
+      0.4163953363895416,
+      0.023479776456952095
+    ]
+  },
+  "cpu_service": {
+    "type": "choice",
+    "choice": "code",
+    "probabilities": {
+      "code": 0.9991648123435318,
+      "math": 0.0006982751935839212,
+      "chat": 0.0001369124628842124
+    },
+    "confidence": 0.993512607365437
+  },
+  "source-model/causal": {
+    "norm": 33.45144271850586,
+    "min": -6.894238471984863,
+    "max": 10.458763122558594,
+    "logits": [
+      5.404597282409668,
+      5.10558557510376,
+      2.233215570449829
+    ],
+    "probabilities": [
+      0.5606964230537415,
+      0.4157848358154297,
+      0.023518748581409454
+    ]
+  },
+  "source-model/noncausal": {
+    "norm": 41.38344955444336,
+    "min": -6.78279972076416,
+    "max": 9.479233741760254,
+    "logits": [
+      8.248899459838867,
+      0.9347388744354248,
+      -0.6820215582847595
+    ],
+    "probabilities": [
+      0.9992024302482605,
+      0.0006655091419816017,
+      0.0001321307645412162
+    ]
+  },
+  "prepared-model/causal": {
+    "norm": 33.45144271850586,
+    "min": -6.894238471984863,
+    "max": 10.458763122558594,
+    "logits": [
+      5.404597282409668,
+      5.10558557510376,
+      2.233215570449829
+    ],
+    "probabilities": [
+      0.5606964230537415,
+      0.4157848358154297,
+      0.023518748581409454
+    ]
+  },
+  "prepared-model/noncausal": {
+    "norm": 41.38344955444336,
+    "min": -6.78279972076416,
+    "max": 9.479233741760254,
+    "logits": [
+      8.248899459838867,
+      0.9347388744354248,
+      -0.6820215582847595
+    ],
+    "probabilities": [
+      0.9992024302482605,
+      0.0006655091419816017,
+      0.0001321307645412162
+    ]
+  },
+  "padding_causal_max_hidden_difference": 0.0,
+  "npu_cosine_causal": 0.9999997615814209,
+  "padding_noncausal_max_hidden_difference": 0.0,
+  "npu_cosine_noncausal": 0.7706229090690613
+}

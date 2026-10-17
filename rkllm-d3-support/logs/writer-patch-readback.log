@@ -1,0 +1,96 @@
+{
+  "artifact_is_executable_model": false,
+  "contract": {
+    "schema": "d3-rkllm-attention-contract-v1",
+    "layer_types": [
+      "linear_attention",
+      "linear_attention",
+      "full_attention",
+      "linear_attention",
+      "linear_attention",
+      "full_attention",
+      "linear_attention",
+      "linear_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention",
+      "full_attention"
+    ],
+    "hidden_size": 1024,
+    "full_attention_causal": false,
+    "linear_attention_causal": true,
+    "prefill_order": "layer_major_full_sequence",
+    "keep_history": false,
+    "readout": "original_cpu_fp32_last_token",
+    "original_config_sha256": "5e529d9aea2f8d387750acf5b02cc32a47d7e87dc65d6d008fba98e5d15acc4d",
+    "requires_native_runtime_implementation": true
+  },
+  "method_signatures": {
+    "add_array": "(self, key: 'str', val: 'Sequence[Any]') -> 'None'",
+    "write_header_to_file": "(self) -> 'None'",
+    "write_kv_data_to_file": "(self) -> 'None'",
+    "write_ti_data_to_file": "(self) -> 'None'",
+    "close": "(self) -> 'None'"
+  },
+  "readback": {
+    "custom.block_count": [
+      [
+        12
+      ]
+    ],
+    "custom.attention.causal": [
+      [
+        false
+      ]
+    ],
+    "d3.contract.layer_types": [
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        1
+      ],
+      [
+        1
+      ],
+      [
+        1
+      ]
+    ],
+    "d3.contract.linear_attention_causal": [
+      [
+        true
+      ]
+    ],
+    "d3.contract.prefill_order": [
+      [
+        1
+      ]
+    ]
+  },
+  "serialization_passed": true
+}

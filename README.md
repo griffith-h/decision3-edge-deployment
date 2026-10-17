@@ -2,6 +2,12 @@
 
 RK3576 上部署 `vllm-sr/d3-edge` 的研究记录、RKNN 矩阵加速适配和独立安装文档。
 
+## 全过程版本与尝试记录
+
+[从最初CPU部署到最终graph-half的统一记录](d3-edge-development-history.html)：按27个阶段记录每版的目标、实现、速度、输出差异、采用/淘汰原因，附所有留存配置结果、失败日志和源码快照索引。包含计时口径区分、469ms残差、失败注意力图、A72初筛纠正与confidence勘误。
+
+文档由 `build_development_history.py` 读取本仓库历史证据生成；`python3 build_development_history.py --check` 可检查是否与留存资料一致，不运行模型或更改服务。
+
 ## 最新 graph-half 发布（2026-10-18）
 
 318.51ms 暖态方法调用候选已接入 HTTP 服务，替换原三线程版本；旧容器保留用于回退。**快路径只适用于 batch1、115 token**，其他长度/形状回退CPU融合路径，不能承诺任意请求318ms。

@@ -1,0 +1,62 @@
+CPU GatedDeltaNet 扫描优化：独立实验复现
+
+依赖与基线
+与现有已验证 RK3576、ARM64 Linux、Docker 环境相同。固定原模型 snapshot
+20c745653400d191ecacd99c4eafc0c5900dc15e，Torch2.12.0+cpu、Transformers5.17.0，
+RKNN2.5.0/驱动0.9.8。使用既有 image-id.txt 中的镜像，不构建镜像。
+板端必须已具备以下只读实验依赖：
+  /opt/decision3-edge-optimized-20261017-v1     已有三线程服务release
+  /opt/decision3-edge-matmul                  原始适配器、用例、SDK
+  /opt/decision3-edge-bridge-parallel-20261017 已验证组合候选与libfused_bridge.so
+  /root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime
+新机器从零安装仍参考仓库现有 HTML 安装指南，本文件只复现本次优化实验。
+
+隔离约定
+使用独立目录 /opt/decision3-edge-scan-20261017 和 decision3-scan-test 临时容器。
+CPU4..7，Torch/OpenBLAS/OpenMP3，OMP_THREAD_LIMIT=3；内存上限8GiB。
+模型、既有三线程release、组合候选、参考用例均只读挂载，不发布端口。
+不改变CPU/NPU频率策略、驱动、服务配置、模型文件或在线容器。
+容器--rm --init，禁止core dump。脚本检测到已有同名容器时拒绝编译覆盖其动态库。
+重复实验会覆盖日志；先归档logs和service-before/after.json，或使用新实验目录并同步修改run.sh的lab。
+不要rsync覆盖正在被实验进程使用的代码或动态库。
+
+开发机仓库根目录
+  python3 -m py_compile scan-optimization-experiment/*.py
+  bash -n scan-optimization-experiment/run.sh
+  python3 scan-optimization-experiment/preserve_service.py before
+  ssh 192.168.1.164 'docker ps --filter name=decision3-scan --format "{{.Names}}"'
+  rsync -az --exclude logs --exclude '*.so' --exclude __pycache__ scan-optimization-experiment/ 192.168.1.164:/opt/decision3-edge-scan-20261017/
+
+板端，按顺序执行
+  mkdir -p /opt/decision3-edge-scan-20261017/logs
+  bash /opt/decision3-edge-scan-20261017/run.sh --stage micro
+  D3_SCAN_SCRIPT=micro_only.py bash /opt/decision3-edge-scan-20261017/run.sh
+
+第一个命令加载原模型和组合引擎，从真实115token请求捕获六层扫描输入，保留于logs/captured-scans.pt，
+并探索compact与native分块/NEON模式。第二个命令不加载模型，执行聚焦单元检查后重放捕获输入。
+所有候选的命中计数必须显示optimized>0，不能把fallback计时当成优化。
+
+selection.json列出整模型待比较候选；必须根据微测选择，并保留compact消融项。
+随后：
+  bash /opt/decision3-edge-scan-20261017/run.sh --stage full
+
+full使用同一已加载模型、同一个78句柄组合引擎，只切换扫描函数：
+  聚焦检查 -> 7用例基线/候选对照 -> 交替顺序12轮每组预热1次 -> 合格最快候选100次 -> 轻量扫描耗时分解。
+每个整模型计时结果均校验概率/score/noul最大绝对差<=0.01、choice一致；排除confidence、legend。
+真实精度结果与逐用例命中/回退数量见logs/full-results.json；少量用例不代表完整数据集准确率。
+
+native模式参数f是内核实现编号：0/1行为主、2/3列向四值寄存器归约、4/5列向十六值寄存器归约；
+偶数使用独立乘加，奇数使用NEON FMA。t16/32/64/128为value列分块，递推状态仍为FP32。
+各实现采用相同公式；FMA/求和顺序可能造成很小数值差异，必须看整模型对照。
+原生资格外调用直接回退已有扫描；不会截断或裁剪token。
+
+结束后开发机
+  rsync -az --exclude '*.pt' 192.168.1.164:/opt/decision3-edge-scan-20261017/logs/ scan-optimization-experiment/logs/
+  python3 scan-optimization-experiment/preserve_service.py after
+  python3 scan-optimization-experiment/summarize.py
+检查service-after.json passed=true，容器ID/启动时间/配置/源码哈希/响应不变、临时容器已移除。
+summarize.py核对实际执行的核心源码哈希，并生成experiment-result.json和RESULTS.txt。
+
+时延是预热后完整system_one、115token单问题、并发1，不含加载/HTTP/网络。
+微测用于挑选候选；正式提速来自同引擎交替对照。不要把不同进程/频率阶段的中位数直接相减当成严格收益。
+不启动实验服务、不替换线上版本、不自动提交或推送代码。

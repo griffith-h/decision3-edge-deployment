@@ -1,0 +1,30 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  36%|███▌      | 109/305 [00:00<00:00, 1078.88it/s]Loading weights:  71%|███████   | 217/305 [00:00<00:00, 1065.49it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1250.37it/s]
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff8303a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff82fd9018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff84d0ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff846cf658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff846cfbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff8564abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff840d5cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff840b0c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff840eb660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff840d7538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff8da538a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff8f897744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff8f897818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+SCREEN baseline 0.44037443201523274 True delta442 0.0 extra 0.005730063361573334
+SCREEN lut 0.410271598957479 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN activation 0.4005437269806862 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN mlp-norm 0.4002125660190359 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN attn 0.4288025414571166 True delta442 0.0038864714783962695 extra 0.006054851261129979
+SCREEN attn-scalar 0.43202244210988283 False delta442 0.0025994956267796354 extra 0.017094286828267302
+SCREEN small 0.4422593724448234 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN small-merge 0.4250460150651634 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN lut-small-merge 0.40453764237463474 True delta442 0.0013926503357579445 extra 0.005730063361573334
+SCREEN lut-attn 0.4071597009897232 True delta442 0.0038864714783962695 extra 0.006054851261129979
+SCREEN lut-attn-small-merge 0.39342869946267456 True delta442 0.0038864714783962695 extra 0.006054851261129979

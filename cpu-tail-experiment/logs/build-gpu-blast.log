@@ -1,0 +1,20 @@
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp: In function ‘void* d3_gpu_create(const char*)’:
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:30:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   30 |   for(auto platform:platforms){cl_uint count=0;if(clGetDeviceIDs(platform,CL_DEVICE_TYPE_GPU,1,&p->device,&count)==CL_SUCCESS&&count)break;}
+      |   ^~
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:30:59: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   30 |   for(auto platform:platforms){cl_uint count=0;if(clGetDeviceIDs(platform,CL_DEVICE_TYPE_GPU,1,&p->device,&count)==CL_SUCCESS&&count)break;}
+      |                                                           ^~~~~~
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp: In function ‘int d3_gpu_scan(void*, const float*, const float*, const float*, const float*, const float*, uint16_t*, int, int, int, int)’:
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:49:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   49 |   p->arg(p->score,0,p->bufs[0]);p->arg(p->score,1,p->bufs[1]);p->arg(p->score,2,p->bufs[4]);p->arg(p->score,3,T);p->arg(p->score,4,H);p->arg(p->score,5,KH);p->arg(p->score,6,D);p->arg(p->score,7,scale);p->run(p->score,3,g,local);if(std::getenv("D3_GPU_DEBUG")){std::vector<float>v(H*T*T);p->read(4,v.data(),v.size()*4);std::fprintf(stderr,"OWN GPU SCORE %g %g\n",v[0],v.back());}
+      |   ^~
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:49:111: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   49 |   p->arg(p->score,0,p->bufs[0]);p->arg(p->score,1,p->bufs[1]);p->arg(p->score,2,p->bufs[4]);p->arg(p->score,3,T);p->arg(p->score,4,H);p->arg(p->score,5,KH);p->arg(p->score,6,D);p->arg(p->score,7,scale);p->run(p->score,3,g,local);if(std::getenv("D3_GPU_DEBUG")){std::vector<float>v(H*T*T);p->read(4,v.data(),v.size()*4);std::fprintf(stderr,"OWN GPU SCORE %g %g\n",v[0],v.back());}
+      |                                                                                                               ^~~~
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:51:3: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   51 |   p->arg(p->softmax,0,p->bufs[4]);p->arg(p->softmax,1,p->bufs[3]);p->arg(p->softmax,2,T);p->arg(p->softmax,3,H*T);size_t gs=(size_t)(H*T+63)/64*64,ls=64;p->run(p->softmax,1,&gs,&ls);if(std::getenv("D3_GPU_DEBUG")){std::vector<float>v(H*T*T);p->read(4,v.data(),v.size()*4);std::fprintf(stderr,"OWN GPU SOFTMAX %g %g\n",v[0],v.back());}
+      |   ^~~
+/opt/decision3-edge-cpu-tail-20261017/gpu_host.cpp:51:52: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   51 |   p->arg(p->softmax,0,p->bufs[4]);p->arg(p->softmax,1,p->bufs[3]);p->arg(p->softmax,2,T);p->arg(p->softmax,3,H*T);size_t gs=(size_t)(H*T+63)/64*64,ls=64;p->run(p->softmax,1,&gs,&ls);if(std::getenv("D3_GPU_DEBUG")){std::vector<float>v(H*T*T);p->read(4,v.data(),v.size()*4);std::fprintf(stderr,"OWN GPU SOFTMAX %g %g\n",v[0],v.back());}
+      |                                                    ^

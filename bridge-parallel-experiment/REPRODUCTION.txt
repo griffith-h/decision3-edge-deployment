@@ -1,0 +1,39 @@
+RK3576 桥接融合 / 同层独立投影并行实验
+
+只用于独立进程测试。没有创建新服务端口、停止或替换线上三线程服务。
+结果入口：experiment-result.json。完整单次计时、输出与初始失败日志在 logs/。
+
+已有环境：与原部署相同的 RK3576；模型固定版本、Torch2.12.0+cpu、Transformers5.17.0；RKNN Runtime2.5.0、驱动0.9.8。
+依赖现有 /opt/decision3-edge-optimized-20261017-v1/ 和 /opt/decision3-edge-matmul/。
+本目录不是新机器从零安装手册；从零安装仍见仓库现有 HTML 指南。
+
+Mac 仓库根目录：
+  python3 -m py_compile bridge-parallel-experiment/*.py
+  bash -n bridge-parallel-experiment/run.sh bridge-parallel-experiment/run-shadow.sh bridge-parallel-experiment/run-paired.sh
+
+确认没有 decision3-bridge 开头的实验容器运行后，将源码同步到独立目录：
+  ssh 192.168.1.164 'docker ps --filter name=decision3-bridge --format "{{.Names}}"'
+  rsync -av --exclude logs --exclude '*.so' --exclude __pycache__ bridge-parallel-experiment/ 192.168.1.164:/opt/decision3-edge-bridge-parallel-20261017/
+
+板端：
+  bash /opt/decision3-edge-bridge-parallel-20261017/run.sh
+  bash /opt/decision3-edge-bridge-parallel-20261017/run-shadow.sh
+  bash /opt/decision3-edge-bridge-parallel-20261017/run-paired.sh
+
+run.sh：编译自己的 C++ 桥接，运行聚焦单元检查、原版/仅融合/仅并行/组合四组各30次速度及7用例回归、原版15次复测，再选合格候选单引擎100次。
+run-shadow.sh：原桥接、新桥接legacy路径、融合路径在同一实际输入上逐个比较78个大投影；不用于计时。
+run-paired.sh：两个78句柄引擎常驻，顺序交替10轮，每次计时前重设Torch3并预热1次，逐次校验输出。两引擎对照需要4096文件描述符上限，只对测试容器生效。
+全部容器 --rm --init，源模型/生产目录只读挂载，不发布端口，不构建镜像，不修改驱动/governor或原服务配置。重复运行会覆盖同名结果，请先另存原日志，或更换独立实验目录。
+不要覆盖仍被运行进程加载的源码和共享库。
+
+测试结束，在 Mac 仓库根目录：
+  python3 bridge-parallel-experiment/verify_preservation.py
+用于核验线上容器ID/启动时间/配置/源码与示例响应未变、实验容器全部移除。
+将板端 logs/ 的新文件复制到本目录后，可运行 python3 bridge-parallel-experiment/summarize.py 汇总。
+summary 会核对性能/回归所用源码 SHA256；修改核心源码后不能把旧成绩当作新版本成绩。
+
+精度口径：概率、score、noul 最大绝对差 <=0.01；分类选择一致；排除 confidence 和 legend。
+7用例14问题不等于完整数据集准确率评测。桥接转换位级一致不等于所有整模型运行都位级一致。
+时延口径：预热后115 token、单问题、并发1的完整 system_one 调用，不含HTTP/网络/模型加载。100次全部<1s不是长期硬时限保证。
+
+线上保持原版。未经后续明确部署要求，不将本实验脚本用于替换服务。

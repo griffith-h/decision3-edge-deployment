@@ -1,0 +1,34 @@
+
+        Configs
+        :param mean_values: Channel mean value list, default is None, means all mean is zero.
+        :param std_values: Channel std value list, default is None, means all std is one.
+        :param quantized_dtype: quantize data type, currently support: w8a8, w8a16, w16a16i_dfp, w4a16. default is w8a8.
+        :param quantized_algorithm: currently support: normal, mmse (Min Mean Square Error), kl_divergence, gdq. default is normal.
+        :param quantized_method: quantize method, currently support: layer, channel, group{SIZE}. default is channel.
+                                 {SIZE} is the multiple value of 32 between 32 and 256, e.g group32.
+        :param target_platform: target chip platform, currently support rv1103 / rv1103b / rv1106 / rv1106b / rv1126b / rk2118 / rk3562 / rk3566 /
+                                rk3568 / rk3576 / rk3588. default is None.
+        :param quant_img_RGB2BGR: whether to do RGB2BGR when load quantize image (jpg/jpeg/png/bmp), default is False.
+        :param float_dtype: non quantize data type, currently support: float16, default is float16.
+        :param optimization_level: set optimization level. default is 3, means use all default optimization options.
+        :param custom_string: add custom string information to rknn model, then can query the information at runtime. default is None.
+        :param remove_weight: generate a slave rknn model which removes conv2d weight, need share weight with rknn model of complete weights.
+                              default is False.
+        :param compress_weight: compress the weights of the model, which can reduce the size of rknn model. default is False.
+        :param inputs_yuv_fmt: add yuv preprocess at the top of model. default is None.
+        :param single_core_mode: single_core_mode=True can reduce the size of rknn model, only for rk3588. default is False.
+        :param model_pruning: pruning the model to reduce the model size, default is False.
+        :param op_target: used to specify the target of each operation, the format is {'111':'cpu', '222':'cpu', ...}, default is None.
+        :param dynamic_input: simulate the function of dynamic input according to multiple sets of input shapes specified by the user,
+                              the format is [[[1,3,224,224],[1,1,224,224], ...], [[1,3,160,160],[1,1,160,160], ...], ...].
+                              default is None, experimental.
+        :param quantize_weight: When 'do_quantization' of rknn.build is False, reduce the size of the rknn model by quantizing some weights.
+                                default is False, is about to be deprecated!
+        :param remove_reshape: Remove possible 'Reshape' in model inputs and outputs to improve model runtime performance. default is False.
+        :param sparse_infer: Sparse inference on already sparsified models to improve performance. default is False.
+        :param mini_rknn: Enable converting model to rknn mini model for inference via mini-runtime. default is False.
+        :param enable_flash_attention: Whether to enable Flash Attention. default is False.
+        :param auto_hybrid_cos_thresh: The thresholds of cosine distance in auto hybrid when model is quantizate. default is 0.98
+        :param auto_hybrid_euc_thresh: The thresholds of euclidean distance in auto hybrid when model is quantizate. default is None
+        :return: success: 0, failure: -1
+        

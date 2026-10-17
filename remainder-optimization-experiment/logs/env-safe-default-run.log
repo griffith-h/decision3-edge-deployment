@@ -1,0 +1,29 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  33%|███▎      | 101/305 [00:00<00:00, 1005.32it/s]Loading weights:  66%|██████▌   | 202/305 [00:00<00:00, 969.16it/s] Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1207.97it/s]
+ENV safe-default 10 0.51330610900186
+ENV safe-default 20 0.5102148440200835
+ENV safe-default 30 0.5123754739761353
+ENV safe-default 40 0.5156641940120608
+ENV safe-default 50 0.5098155080340803
+ENV safe-default 60 0.5101280140224844
+ENV safe-default 70 0.5153305931016803
+ENV safe-default 80 0.5142866428941488
+ENV safe-default 90 0.47402735287323594
+ENV safe-default 100 0.5129967101383954
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff758da988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff75879018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff775aef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff76f6f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff76f6fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff77eeabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff76975cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff76950c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff7698b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff76977538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff802f38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff827f7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff827f7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)

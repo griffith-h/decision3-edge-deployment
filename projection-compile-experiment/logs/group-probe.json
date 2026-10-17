@@ -1,0 +1,2081 @@
+{
+  "scope": "Isolated two-fork replay from real warmed model inputs, one group at a time. Per-piece wall includes SDK sync and output conversion, not pure NPU compute. Instrumented numbers are diagnostic, not end-to-end speed.",
+  "groups": {
+    "delta": {
+      "input_shape": [
+        1,
+        115,
+        1024
+      ],
+      "original_n": [
+        6144,
+        2048
+      ],
+      "records": [
+        {
+          "round": 0,
+          "variant": "baseline",
+          "seconds": 0.0048282749485224485,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002058116951957345
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004037855193018913
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 0,
+          "variant": "balanced",
+          "seconds": 0.0044537249486893415,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0033694501034915447
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0036123250611126423
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 1,
+          "variant": "balanced",
+          "seconds": 0.004516559885814786,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.003421630011871457
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.003671871032565832
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 1,
+          "variant": "baseline",
+          "seconds": 0.004934266209602356,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0021529479417949915
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004058223916217685
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 2,
+          "variant": "baseline",
+          "seconds": 0.00490257702767849,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002176287118345499
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.00406998791731894
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 2,
+          "variant": "balanced",
+          "seconds": 0.004377756034955382,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0033714810851961374
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.003491719951853156
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 3,
+          "variant": "balanced",
+          "seconds": 0.004265652038156986,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.003311250824481249
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0034036291763186455
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 3,
+          "variant": "baseline",
+          "seconds": 0.004886918934062123,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0020935600623488426
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004055324010550976
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 4,
+          "variant": "baseline",
+          "seconds": 0.004888162016868591,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002141397213563323
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.0040545829106122255
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 4,
+          "variant": "balanced",
+          "seconds": 0.004187325015664101,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.003299347823485732
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0033406121656298637
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 5,
+          "variant": "balanced",
+          "seconds": 0.004296313039958477,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.00331809907220304
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0034331202041357756
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 5,
+          "variant": "baseline",
+          "seconds": 0.0049262638203799725,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0020998481195420027
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004057128913700581
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 6,
+          "variant": "baseline",
+          "seconds": 0.004893528064712882,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0022064310032874346
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004066675901412964
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 6,
+          "variant": "balanced",
+          "seconds": 0.004273467930033803,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0032363450154662132
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0034600840881466866
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 7,
+          "variant": "balanced",
+          "seconds": 0.004195679910480976,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0033074349630624056
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0033535868860781193
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 7,
+          "variant": "baseline",
+          "seconds": 0.004917882848531008,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0021583049092441797
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004092235118150711
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 8,
+          "variant": "baseline",
+          "seconds": 0.004958944860845804,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0021536971908062696
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004089802037924528
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 8,
+          "variant": "balanced",
+          "seconds": 0.004400007892400026,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0034300079569220543
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.003526621963828802
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 9,
+          "variant": "balanced",
+          "seconds": 0.0043829320929944515,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.003418591106310487
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0035472000017762184
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 9,
+          "variant": "baseline",
+          "seconds": 0.004895544145256281,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0021086419001221657
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004048421047627926
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 10,
+          "variant": "baseline",
+          "seconds": 0.004942539846524596,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002144515048712492
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004122448153793812
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 10,
+          "variant": "balanced",
+          "seconds": 0.004239177098497748,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0032331638503819704
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0034233119804412127
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 11,
+          "variant": "balanced",
+          "seconds": 0.004262725822627544,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0032905328553169966
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0034084441140294075
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 11,
+          "variant": "baseline",
+          "seconds": 0.004878899082541466,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002134867012500763
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004040808882564306
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 12,
+          "variant": "baseline",
+          "seconds": 0.004901638021692634,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.002100713085383177
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.004072858951985836
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 12,
+          "variant": "balanced",
+          "seconds": 0.0042418139055371284,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.00333207193762064
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0033702580258250237
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 13,
+          "variant": "balanced",
+          "seconds": 0.004288763040676713,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.003228649962693453
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0034529748372733593
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 13,
+          "variant": "baseline",
+          "seconds": 0.004724325845018029,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0019157398492097855
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.003898385912179947
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 14,
+          "variant": "baseline",
+          "seconds": 0.0042370150331407785,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0014021338429301977
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.003419895889237523
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 14,
+          "variant": "balanced",
+          "seconds": 0.003440032945945859,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0025003899354487658
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0026090401224792004
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 15,
+          "variant": "balanced",
+          "seconds": 0.0034908060915768147,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.002565427217632532
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002719458192586899
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 15,
+          "variant": "baseline",
+          "seconds": 0.004207296064123511,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0014587899204343557
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.0034079512115567923
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 16,
+          "variant": "baseline",
+          "seconds": 0.0042196710128337145,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0014156890101730824
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.0034264770802110434
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 16,
+          "variant": "balanced",
+          "seconds": 0.003947603050619364,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0024058190174400806
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.003050331026315689
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 17,
+          "variant": "balanced",
+          "seconds": 0.0033566157799214125,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0024416781961917877
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.002492510946467519
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 17,
+          "variant": "baseline",
+          "seconds": 0.0042146730702370405,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.001393015030771494
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.003401488997042179
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 18,
+          "variant": "baseline",
+          "seconds": 0.004179975017905235,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.001441739033907652
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.0034054990392178297
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 18,
+          "variant": "balanced",
+          "seconds": 0.0033912209328264,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002479274058714509
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.002527188044041395
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 19,
+          "variant": "balanced",
+          "seconds": 0.003438966115936637,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002535241888836026
+            },
+            {
+              "core": 2,
+              "n": 4096,
+              "seconds": 0.0025747008621692657
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 19,
+          "variant": "baseline",
+          "seconds": 0.00420707487501204,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2048,
+              "seconds": 0.0014025610871613026
+            },
+            {
+              "core": 1,
+              "n": 6144,
+              "seconds": 0.0034074510913342237
+            }
+          ],
+          "max_tensor_delta": 0.0
+        }
+      ],
+      "summary": {
+        "baseline": {
+          "seconds": [
+            0.0048282749485224485,
+            0.004934266209602356,
+            0.00490257702767849,
+            0.004886918934062123,
+            0.004888162016868591,
+            0.0049262638203799725,
+            0.004893528064712882,
+            0.004917882848531008,
+            0.004958944860845804,
+            0.004895544145256281,
+            0.004942539846524596,
+            0.004878899082541466,
+            0.004901638021692634,
+            0.004724325845018029,
+            0.0042370150331407785,
+            0.004207296064123511,
+            0.0042196710128337145,
+            0.0042146730702370405,
+            0.004179975017905235,
+            0.00420707487501204
+          ],
+          "count": 20,
+          "median": 0.004887540475465357,
+          "min": 0.004179975017905235,
+          "max": 0.004958944860845804,
+          "p95_nearest_rank": 0.004942539846524596
+        },
+        "balanced": {
+          "seconds": [
+            0.0044537249486893415,
+            0.004516559885814786,
+            0.004377756034955382,
+            0.004265652038156986,
+            0.004187325015664101,
+            0.004296313039958477,
+            0.004273467930033803,
+            0.004195679910480976,
+            0.004400007892400026,
+            0.0043829320929944515,
+            0.004239177098497748,
+            0.004262725822627544,
+            0.0042418139055371284,
+            0.004288763040676713,
+            0.003440032945945859,
+            0.0034908060915768147,
+            0.003947603050619364,
+            0.0033566157799214125,
+            0.0033912209328264,
+            0.003438966115936637
+          ],
+          "count": 20,
+          "median": 0.004252269864082336,
+          "min": 0.0033566157799214125,
+          "max": 0.004516559885814786,
+          "p95_nearest_rank": 0.0044537249486893415
+        }
+      }
+    },
+    "full": {
+      "input_shape": [
+        1,
+        115,
+        1024
+      ],
+      "original_n": [
+        4096,
+        512,
+        512
+      ],
+      "records": [
+        {
+          "round": 0,
+          "variant": "baseline",
+          "seconds": 0.003635668894276023,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006109778769314289
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006244478281587362
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023620338179171085
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 0,
+          "variant": "merge",
+          "seconds": 0.0032168168108910322,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008912461344152689
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023730751127004623
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 0,
+          "variant": "balanced",
+          "seconds": 0.002571254037320614,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.001655450789257884
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017419380601495504
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 1,
+          "variant": "balanced",
+          "seconds": 0.002511241938918829,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016423121560364962
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016860649921000004
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 1,
+          "variant": "merge",
+          "seconds": 0.00319545716047287,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008766259998083115
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002348376903682947
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 1,
+          "variant": "baseline",
+          "seconds": 0.0032079219818115234,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0004934130702167749
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0005844191182404757
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002341574989259243
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 2,
+          "variant": "baseline",
+          "seconds": 0.003238032106310129,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006104342173784971
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0005782679654657841
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002377039985731244
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 2,
+          "variant": "merge",
+          "seconds": 0.003225340973585844,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.000881521962583065
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023954438511282206
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 2,
+          "variant": "balanced",
+          "seconds": 0.0029481679666787386,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016192151233553886
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0020371440332382917
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 3,
+          "variant": "balanced",
+          "seconds": 0.0026005329564213753,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016503860242664814
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.001754125813022256
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 3,
+          "variant": "merge",
+          "seconds": 0.0032283500768244267,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008161941077560186
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023850759025663137
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 3,
+          "variant": "baseline",
+          "seconds": 0.0032421208452433348,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.000610539922490716
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006286210846155882
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023704448249191046
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 4,
+          "variant": "baseline",
+          "seconds": 0.003235829994082451,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006074900738894939
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.000630721915513277
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023499459493905306
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 4,
+          "variant": "merge",
+          "seconds": 0.003224327228963375,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0009092357940971851
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002371382899582386
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 4,
+          "variant": "balanced",
+          "seconds": 0.002605634042993188,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016529369167983532
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017630988731980324
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 5,
+          "variant": "balanced",
+          "seconds": 0.002576794009655714,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.001642758958041668
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016832889523357153
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 5,
+          "variant": "merge",
+          "seconds": 0.0032234080135822296,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008778239134699106
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023569881450384855
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 5,
+          "variant": "baseline",
+          "seconds": 0.0032306320499628782,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.000621256185695529
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006333808414638042
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023645691107958555
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 6,
+          "variant": "baseline",
+          "seconds": 0.0032184480223804712,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006058760918676853
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006417459808290005
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002359981881454587
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 6,
+          "variant": "merge",
+          "seconds": 0.0032256359700113535,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008778420742601156
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023817268665879965
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 6,
+          "variant": "balanced",
+          "seconds": 0.002511073835194111,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016462651547044516
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016819899901747704
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 7,
+          "variant": "balanced",
+          "seconds": 0.002539814915508032,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016445079818367958
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016820968594402075
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 7,
+          "variant": "merge",
+          "seconds": 0.0032124980352818966,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008698028977960348
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023655439727008343
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 7,
+          "variant": "baseline",
+          "seconds": 0.0032673231326043606,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006097219884395599
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006341901607811451
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0024018120020627975
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 8,
+          "variant": "baseline",
+          "seconds": 0.0032605368178337812,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006156950257718563
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006686919368803501
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.00235615111887455
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 8,
+          "variant": "merge",
+          "seconds": 0.0033477270044386387,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0009178158361464739
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002360905986279249
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 8,
+          "variant": "balanced",
+          "seconds": 0.0029880760703235865,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016517459880560637
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0019493040163069963
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 9,
+          "variant": "balanced",
+          "seconds": 0.0028291039634495974,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.001534690847620368
+            },
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.002011687960475683
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 9,
+          "variant": "merge",
+          "seconds": 0.0032001438084989786,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008762429933995008
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023707409854978323
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 9,
+          "variant": "baseline",
+          "seconds": 0.003250707872211933,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006093000993132591
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006310469470918179
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002366898814216256
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 10,
+          "variant": "baseline",
+          "seconds": 0.0032137518282979727,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006014159880578518
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006282760296016932
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023072229232639074
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 10,
+          "variant": "merge",
+          "seconds": 0.0032200871501117945,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.000893584918230772
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002386633073911071
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 10,
+          "variant": "balanced",
+          "seconds": 0.002748328959569335,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0015979299787431955
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.001921381102874875
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 11,
+          "variant": "balanced",
+          "seconds": 0.002529535908252001,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.001643381081521511
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016892040148377419
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 11,
+          "variant": "merge",
+          "seconds": 0.0032232929952442646,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008822530508041382
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002381332917138934
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 11,
+          "variant": "baseline",
+          "seconds": 0.0032105580903589725,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0005455110222101212
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006332090124487877
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023506050929427147
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 12,
+          "variant": "baseline",
+          "seconds": 0.0032197970431298018,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006169581320136786
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006214429158717394
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002366672968491912
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 12,
+          "variant": "merge",
+          "seconds": 0.003247214015573263,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008840789087116718
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0024313810281455517
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 12,
+          "variant": "balanced",
+          "seconds": 0.002636224962770939,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016564119141548872
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017806191463023424
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 13,
+          "variant": "balanced",
+          "seconds": 0.0025352169759571552,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016476199962198734
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.001708898926153779
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 13,
+          "variant": "merge",
+          "seconds": 0.003198866965249181,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008820050861686468
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023702289909124374
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 13,
+          "variant": "baseline",
+          "seconds": 0.003239843063056469,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006133138667792082
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006316220387816429
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023544849827885628
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 14,
+          "variant": "baseline",
+          "seconds": 0.0032263530883938074,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006134300492703915
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006258231587707996
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023585432209074497
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 14,
+          "variant": "merge",
+          "seconds": 0.0032025701366364956,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008854430634528399
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023613842204213142
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 14,
+          "variant": "balanced",
+          "seconds": 0.0026173540391027927,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016655800864100456
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017719210591167212
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 15,
+          "variant": "balanced",
+          "seconds": 0.002513187937438488,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016493459697812796
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.001701575005427003
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 15,
+          "variant": "merge",
+          "seconds": 0.0032149150501936674,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.000883100088685751
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002372296992689371
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 15,
+          "variant": "baseline",
+          "seconds": 0.0032021631486713886,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0005457659717649221
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006540750619024038
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023463640827685595
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 16,
+          "variant": "baseline",
+          "seconds": 0.003233738010749221,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.000610067043453455
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006263940595090389
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023679761216044426
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 16,
+          "variant": "merge",
+          "seconds": 0.0032146889716386795,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008763701189309359
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002387349959462881
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 16,
+          "variant": "balanced",
+          "seconds": 0.0025338369887322187,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.00164498807862401
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016601111274212599
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 17,
+          "variant": "balanced",
+          "seconds": 0.002608718117699027,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.001654790947213769
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017579838167876005
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 17,
+          "variant": "merge",
+          "seconds": 0.0032071128953248262,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.000864802161231637
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023785640951246023
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 17,
+          "variant": "baseline",
+          "seconds": 0.0032422340009361506,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0005566801410168409
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006411750800907612
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023547960445284843
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 18,
+          "variant": "baseline",
+          "seconds": 0.0032070488668978214,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006330080796033144
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006197518669068813
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023617150727659464
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 18,
+          "variant": "merge",
+          "seconds": 0.003232155926525593,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008499778341501951
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023922808468341827
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 18,
+          "variant": "balanced",
+          "seconds": 0.0026114319916814566,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016710131894797087
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0017672849353402853
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 19,
+          "variant": "balanced",
+          "seconds": 0.002498287009075284,
+          "pieces": [
+            {
+              "core": 1,
+              "n": 2560,
+              "seconds": 0.0016376848798245192
+            },
+            {
+              "core": 2,
+              "n": 2560,
+              "seconds": 0.0016879988834261894
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 19,
+          "variant": "merge",
+          "seconds": 0.003204071894288063,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 1024,
+              "seconds": 0.0008805620018392801
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.002362953033298254
+            }
+          ],
+          "max_tensor_delta": 0.0
+        },
+        {
+          "round": 19,
+          "variant": "baseline",
+          "seconds": 0.003214538097381592,
+          "pieces": [
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006071268580853939
+            },
+            {
+              "core": 2,
+              "n": 512,
+              "seconds": 0.0006427790503948927
+            },
+            {
+              "core": 1,
+              "n": 4096,
+              "seconds": 0.0023531829938292503
+            }
+          ],
+          "max_tensor_delta": 0.0
+        }
+      ],
+      "summary": {
+        "baseline": {
+          "seconds": [
+            0.003635668894276023,
+            0.0032079219818115234,
+            0.003238032106310129,
+            0.0032421208452433348,
+            0.003235829994082451,
+            0.0032306320499628782,
+            0.0032184480223804712,
+            0.0032673231326043606,
+            0.0032605368178337812,
+            0.003250707872211933,
+            0.0032137518282979727,
+            0.0032105580903589725,
+            0.0032197970431298018,
+            0.003239843063056469,
+            0.0032263530883938074,
+            0.0032021631486713886,
+            0.003233738010749221,
+            0.0032422340009361506,
+            0.0032070488668978214,
+            0.003214538097381592
+          ],
+          "count": 20,
+          "median": 0.0032321850303560495,
+          "min": 0.0032021631486713886,
+          "max": 0.003635668894276023,
+          "p95_nearest_rank": 0.0032673231326043606
+        },
+        "merge": {
+          "seconds": [
+            0.0032168168108910322,
+            0.00319545716047287,
+            0.003225340973585844,
+            0.0032283500768244267,
+            0.003224327228963375,
+            0.0032234080135822296,
+            0.0032256359700113535,
+            0.0032124980352818966,
+            0.0033477270044386387,
+            0.0032001438084989786,
+            0.0032200871501117945,
+            0.0032232929952442646,
+            0.003247214015573263,
+            0.003198866965249181,
+            0.0032025701366364956,
+            0.0032149150501936674,
+            0.0032146889716386795,
+            0.0032071128953248262,
+            0.003232155926525593,
+            0.003204071894288063
+          ],
+          "count": 20,
+          "median": 0.0032184519805014133,
+          "min": 0.00319545716047287,
+          "max": 0.0033477270044386387,
+          "p95_nearest_rank": 0.003247214015573263
+        },
+        "balanced": {
+          "seconds": [
+            0.002571254037320614,
+            0.002511241938918829,
+            0.0029481679666787386,
+            0.0026005329564213753,
+            0.002605634042993188,
+            0.002576794009655714,
+            0.002511073835194111,
+            0.002539814915508032,
+            0.0029880760703235865,
+            0.0028291039634495974,
+            0.002748328959569335,
+            0.002529535908252001,
+            0.002636224962770939,
+            0.0025352169759571552,
+            0.0026173540391027927,
+            0.002513187937438488,
+            0.0025338369887322187,
+            0.002608718117699027,
+            0.0026114319916814566,
+            0.002498287009075284
+          ],
+          "count": 20,
+          "median": 0.0025886634830385447,
+          "min": 0.002498287009075284,
+          "max": 0.0029880760703235865,
+          "p95_nearest_rank": 0.0029481679666787386
+        }
+      }
+    }
+  }
+}

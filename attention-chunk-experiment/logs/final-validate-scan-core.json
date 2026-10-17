@@ -1,0 +1,2010 @@
+{
+  "stage": "validate",
+  "variant": "scan-core",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "records": [],
+  "cases": {},
+  "sources": {
+    "attention_core.py": "3d4a636e13298b7fc45e35f88c6d2f05fef5c05afebeb6a5095d59797c15564a",
+    "test_chunk_v2.py": "9e11e1b00ce93beaf721a0ec2f2c4e4a439400125c75da5d4e178c999419bc32",
+    "bench_chunk.py": "e82b351086175c2169d2f53360a3e4003cc9e851a3c3603ce1e1db3f38a7eedb",
+    "libcore_nchw.so": "dd8ff6dcaeaaf2bf7319aa16f98ab7ad103d8cb707aad03a7619f3a400db0429",
+    "baseline.py": "6b88549e153569d43b8fc9fea10272ece87e1e5a744d96b644600bf8f4fb1b19",
+    "core_graph.py": "ee368e37295802d89af54eb7825a3c9c70cf0a08c53f4e7bea9fe42df35b9f03",
+    "graph.py": "46c256cc1cdc6c78e95609021a75ade3941dafc17b55482a74a00f62d90cdb41",
+    "chunk_scan.py": "a3a20336d7db13906c0f4f024e777004ad917e9d11a8f4a5ca54cdb7a1f70fc4",
+    "core_eval.py": "5ba8cc21d0b49d4790fc969a9ee82c050ae25e7dcd4f38fd61df34794e759c90",
+    "bench_variants.py": "534e4521e89155116e3859ac77e79cecb39b868ccd45403b9b2611b27814e5d2",
+    "graph_profile.cpp": "a2cbcdba3517f18c3f3bf0e20bda7c3fdddc45b0fa039ee2431c5e5899492b5d",
+    "target_shape_cases.py": "de94700c5b2b7b94aaca4ed4735b63d0d27da733d33aa25e1d21c050d58b6008",
+    "libchunk_blas2.so": "b5d2e4e7bbf8dfbf6027a4552ba0caf2ea1efdd4c74982fcab5edf76e98d2997",
+    "chunk_blas.c": "5101c20b5a19125fc7aca8a9a039b488fcec656902f344d08eb3e66059c2393c",
+    "read_graph_profile.py": "261ee90efecb2c23db3f9a9996662a80ee0173db570ca2c132954db7cd596451",
+    "attention-3-fp16graph.rknn": "597fb67f77fe00a78aecf4578a75c611fc67b5438383be82c32715994766f6ea",
+    "test_core_guards.py": "738e94864648ee25f9288662c9400d45722e2b7713937d295a39f9b72eb938ca",
+    "chunk_scan.c": "f571299593a3441b66b034234d84917d8e19c5a09aa545ecf9f2f05dcfe610b9",
+    "test_chunk_blas.py": "d259e19311f76cb547daf960de226dbc3a92dad17fc1f0906b233953103274c2",
+    "core_diagnostic.cpp": "d270e3cfd7aada0136a591b5027fa6d706b117ff9096f187e9688f81d42f0fd7",
+    "attention-core.rknn": "642f3e78739bb0746f9e670921a8005f739bea6a16199a2200841140964a2517",
+    "libsafe_half_bridge.so": "f8bd5a93a41122d7444b8513ebf6d317518025c0f9da28ba253a4711b6e967e3",
+    "chunk_blas.py": "b7c70192e0ef99eebd616adc4fd5362876fdee7acce7f4fbd2eea2d7c0cd0dd5",
+    "final_eval.py": "771eea8e6357ccfdd8a3112ad3b36d13775ab6689c83c1f67a44336b17a680ef",
+    "diagnose_core_io.py": "16d255cb1b14a24a4ddf66ebe6eb3ae0cce935e4a75a307aeb286828a72cc85d",
+    "libchunk_blas.so": "ad2067aa683fdb2f4507bb05a10876e8ec8a25fa8032472e21097dd93e1c4334",
+    "chunk_scan_v2.c": "6c19d2b39a03fd731df01bffe7b226979aaf8bdda167a876294c056603709d6a",
+    "attention-4-fp16graph.rknn": "6057f544e60f314c1381e7b36d7d2b7fe05c2a79de3ed13ce9d8d2e206d885ff",
+    "core_runtime.cpp": "4b2adac09ebecff7564d2e0aff29adb3e112a9ccc20c7cdd870f47686b366a74",
+    "test_core_masks.py": "56ed5de7915021bd536c5e84daf84bcf1593a655c7861ed65e75b8a2672e3aaf",
+    "test_chunk_wrapper.py": "181ce9c3fe6784881cf3102d1f9450fdd7df4c4bd838f8cddd4c761e55e6a0ca",
+    "attention-2-fp16graph.rknn": "8314aa5cfab7d5cc96ceba60d1d32508cd346141049a6ef9b050717375ec978f",
+    "libcore_runtime.so": "fd5158f310e430da5cf1aab488a9fe721264982309e810ff1ad34b4f4b49bfa0",
+    "libcore_diagnostic.so": "4ff859a6b4e89b5c416e729cdaa3daedbe910014f0fac4cd92840897da35b320",
+    "libgraph_profile.so": "bc2c090db3d1f00e7f60c9a814a7c6333e8e9ab04b2287bbd7d8773120761bc4",
+    "attention-1-fp16graph.rknn": "29b7f128e6c9e461c0a6a11029e9930eb2b521a26877d131d7fddde4f3df9eb4",
+    "attention-5-fp16graph.rknn": "236802dafb7d8acfbf83542b5f33da4f500c2b7a7cd99b37b6ca4f47ac24e6fc",
+    "test_graph_guards.py": "5b9c3cfbd996c0513cba00e80dca56b21881a3fa362a108d95aa5ed07c936fee",
+    "libgraph_runtime.so": "86349a3aa7e8fe41c1eef3702a531a6ae98b2434be1e19ccdb9601195bcd5471",
+    "test_chunk_blas2.py": "de3420a0637f1e9b9e5e06ef2c3f5d98e4b11010e66e75a9f69e2092a35378c3",
+    "libchunk_scan_v2.so": "d181c2228285fa1f17858694adc89fb882a4e18d1b3a7c21f2a34a9517cb0a82",
+    "libsafe_scatter_bridge.so": "e5d2208b9c970475f7168f5ec2b8bee5fcb9d85e4686483196c336b73663ec46",
+    "core_nchw.cpp": "154ae416793eeb9fb68b3c3695c788d3f9e59a7f3cae6d19ebc65bb8c7c41ece",
+    "test_chunk.py": "f2a5ae539dfa338527a61853d3f24e003a970a14d6854b61accd7598133fe575",
+    "test_graph_masks.py": "c2c3a0cec33b10417b5f375506d482f9ac03e9c7e2b58f21407755e5d019db93",
+    "attention_graph.py": "0d19d98bc87645752026a21c5d549f1199c92d8c744915e152793fc1b073767f",
+    "chunk_blas2.c": "dd4f924d86a3a8c7dadb94cbbbd5be87ae509f4dbd369a32d31f85ef0abd9b5a",
+    "graph_runtime.cpp": "a5193f73081b0b6be5126770f320d9f31bbb19d1163d674f7717d0c9f3034868",
+    "chunk_blas2.py": "6d76a72e36c083de24a179ae5787d17ed01e35af953adc69316e9718fa06cc3b",
+    "probe_graph.py": "a625c22f421cfe0947a5ac41674e10d2eda9be28f310c811a824f99a81b6c8df",
+    "preserve_service.py": "b483b496fe1949a334a1ccbc108747b82eb11731650eb9c216673e2842ca30ee",
+    "capture_attention.py": "e034cf3a0acfca46cef8a83591ddb0f46029a25bd005416fe88d43e8d399046f",
+    "attention-0-fp16graph.rknn": "3a6a56cd903e5801c047f464cc67448c4e920a46149be393c2c30b2734a8b1d1",
+    "libchunk_scan.so": "23e0be5af5e515f81e5447ec20cdfb162ef0de185e3be1f100c1b9cf376b85ba"
+  },
+  "target_shape_cases": [
+    {
+      "id": "shape115-0",
+      "state": "你好。 x x x x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-1",
+      "state": "1+1=? x x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-2",
+      "state": "Explain photosynthesis. x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-3",
+      "state": "Write a Python loop. x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-4",
+      "state": "我今天想出去散步。 x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-5",
+      "state": "计算 37 乘以 19。 x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-6",
+      "state": "Translate hello to French. x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-7",
+      "state": "How to sort a list? x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-8",
+      "state": "Tell me a joke. x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-9",
+      "state": "Explain gravity. x x x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-10",
+      "state": "推荐三个轻松聊天话题。 x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    },
+    {
+      "id": "shape115-11",
+      "state": "检查这段代码是否有错误。 x x x x x x",
+      "questions": {
+        "kind": {
+          "type": "choice",
+          "instructions": "这个请求属于哪类任务？",
+          "criteria": {
+            "code": "编程任务",
+            "math": "数学问题",
+            "chat": "日常聊天"
+          }
+        }
+      },
+      "baseline": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991648123435318,
+            "math": 0.0006982751935839212,
+            "chat": 0.0001369124628842124
+          },
+          "confidence": 0.993512607365437
+        }
+      }
+    }
+  ],
+  "variants": {
+    "core": {
+      "cases": {
+        "chinese-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991964893258422,
+                  "math": 0.0005287480411154301,
+                  "chat": 0.00027476263304242426
+                },
+                "confidence": 0.9935868772395309
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8782821297645569
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10137126948429034,
+                "probabilities": {
+                  "0": 0.914899645531737,
+                  "1": 0.0688294394522357,
+                  "2": 0.016270915016027326
+                },
+                "confidence": 0.6972746052621781,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.007933842087562537,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 0
+          }
+        },
+        "chinese-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0006810459863049809,
+                  "math": 0.00033277342893640936,
+                  "chat": 0.9989861805847586
+                },
+                "confidence": 0.9921316397606037
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002719489349085055
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.018882948027406903,
+                "probabilities": {
+                  "0": 0.9837768590929956,
+                  "1": 0.013563333786601845,
+                  "2": 0.002659807120402529
+                },
+                "confidence": 0.9179057803261212,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0004061576148229572,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 0
+          }
+        },
+        "english": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9087352605371987,
+                  "math": 0.00010281932024313249,
+                  "other": 0.09116192014255824
+                },
+                "confidence": 0.7212346863940933
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06507931358757703
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.18971656436590606,
+                "probabilities": {
+                  "0": 0.8443972877307413,
+                  "1": 0.12148886017261142,
+                  "2": 0.034113852096647315
+                },
+                "confidence": 0.5320064639423537,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0023871950982169154,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 0
+          }
+        },
+        "single": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.999207312856322,
+                  "math": 0.0006517849364476504,
+                  "chat": 0.0001409022072302679
+                },
+                "confidence": 0.993789276963722
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 9.030188689451284e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 4.04581963919441e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 6
+          }
+        },
+        "image": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.026366118931013025,
+                  "green": 0.326732881219675,
+                  "blue": 0.012252424186149781,
+                  "other": 0.6346485756631622
+                },
+                "confidence": 0.42014761109716425
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.02672941920950167
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.006411993712312769,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 0
+          }
+        },
+        "novel-math": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0018567871907209411,
+                  "math": 0.9979250130461182,
+                  "chat": 0.00021819976316075904
+                },
+                "confidence": 0.985809878838433
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 1.1394310246695596e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 0
+          }
+        },
+        "novel-chat": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 9.8612420321337e-05,
+                  "math": 0.00011265179407447938,
+                  "chat": 0.9997887357856042
+                },
+                "confidence": 0.9980475234230409
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 2.8975401878961193e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.406904874880823e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "core": 6
+          }
+        }
+      },
+      "extra": {
+        "shape115-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.08742577615166372,
+                  "math": 0.04098497718939549,
+                  "chat": 0.8715892466589408
+                },
+                "confidence": 0.5778576838525835
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.0035430435346046063,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.01043795422934689,
+                  "math": 0.9868236791654765,
+                  "chat": 0.0027383666051765516
+                },
+                "confidence": 0.930031987359825
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 9.3513531406594e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-2": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.2779601431500869,
+                  "math": 0.5798295563510193,
+                  "chat": 0.14221030049889385
+                },
+                "confidence": 0.135946941921807
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.025729220173120515,
+            "choices_unchanged": true,
+            "passed": false
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-3": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9915114810155649,
+                  "math": 0.007778151091430813,
+                  "chat": 0.0007103678930043103
+                },
+                "confidence": 0.9532351302307602
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.0001888916629005366,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-4": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.19082801470521124,
+                  "math": 0.07559811492856104,
+                  "chat": 0.7335738703662277
+                },
+                "confidence": 0.32771185389385804
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.000713317465164412,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-5": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0028077907011619407,
+                  "math": 0.9967701629745069,
+                  "chat": 0.0004220463243311121
+                },
+                "confidence": 0.979063718613515
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.00010130635448848914,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-6": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.6626867435928099,
+                  "math": 0.009570750095903637,
+                  "chat": 0.3277425063112865
+                },
+                "confidence": 0.37852067039044845
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.005037943014187363,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-7": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9215664130215881,
+                  "math": 0.046838450478934486,
+                  "chat": 0.03159513649947738
+                },
+                "confidence": 0.7016215923477336
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.004175192245484682,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-8": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.035700983035715894,
+                  "math": 0.01315989857532443,
+                  "chat": 0.9511391183889597
+                },
+                "confidence": 0.7964581823224522
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.002027903959564377,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-9": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.19471800801883596,
+                  "math": 0.6885468600703178,
+                  "chat": 0.11673513191084621
+                },
+                "confidence": 0.2478931787983789
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.010052589610481055,
+            "choices_unchanged": true,
+            "passed": false
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-10": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.002095538141852942,
+                  "math": 0.0008174240744735814,
+                  "chat": 0.9970870377836735
+                },
+                "confidence": 0.9802976579389372
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 3.435404250809546e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        },
+        "shape115-11": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.967350402759215,
+                  "math": 0.02394127647320404,
+                  "chat": 0.008708320767580952
+                },
+                "confidence": 0.851839559916183
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.0005916109917973866,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "core": 6
+          }
+        }
+      },
+      "counts": {
+        "core": {
+          "optimized": 84,
+          "fallback": 54,
+          "range_fallback": 0,
+          "disabled": 0,
+          "errors": []
+        }
+      },
+      "passed": false
+    },
+    "scan-core": {
+      "cases": {
+        "chinese-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9992335710183758,
+                  "math": 0.0005022780241647079,
+                  "chat": 0.00026415095745941817
+                },
+                "confidence": 0.9938486439849145
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8741487004116565
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.1022238233768069,
+                "probabilities": {
+                  "0": 0.9141070723556922,
+                  "1": 0.06956203191180858,
+                  "2": 0.016330895732499157
+                },
+                "confidence": 0.6953333378130497,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.004133429352900397,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0038004127346621397,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 0
+          }
+        },
+        "chinese-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0007331417272864871,
+                  "math": 0.0003619572367731325,
+                  "chat": 0.9989049010359404
+                },
+                "confidence": 0.9915761133519653
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002667936064840181
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.01882124395045777,
+                "probabilities": {
+                  "0": 0.9837731516940943,
+                  "1": 0.013632452661353597,
+                  "2": 0.0025943956445520864
+                },
+                "confidence": 0.9179892193413645,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 8.127954881820276e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.00046786169177209097,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 0
+          }
+        },
+        "english": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9079660081132906,
+                  "math": 0.00010287188286173684,
+                  "other": 0.09193112000384758
+                },
+                "confidence": 0.7196275436615016
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06455681617312467
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.19031278468089247,
+                "probabilities": {
+                  "0": 0.8439016594936878,
+                  "1": 0.12188389633173198,
+                  "2": 0.03421444417458025
+                },
+                "confidence": 0.5310163484971469,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0007692524239080178,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.001790974783230509,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 0
+          }
+        },
+        "single": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.999179577847549,
+                  "math": 0.0006750726266379022,
+                  "chat": 0.00014534952581314695
+                },
+                "confidence": 0.9935983387215189
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 3.675243881162693e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 1.717050620169227e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "image": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.025966669372096747,
+                  "green": 0.3244233538203321,
+                  "blue": 0.011980923294381461,
+                  "other": 0.6376290535131897
+                },
+                "confidence": 0.4229586708626113
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.027933572361733997
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 0.0029804778500274187,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.008721521111655639,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 0
+          }
+        },
+        "novel-math": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.001879886262469562,
+                  "math": 0.9978951237380733,
+                  "chat": 0.0002249899994570807
+                },
+                "confidence": 0.9856258283746283
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 2.9889308044928065e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.7494610629740244e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 0
+          }
+        },
+        "novel-chat": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.00010517258451988557,
+                  "math": 0.00012043442943217051,
+                  "chat": 0.999774392986048
+                },
+                "confidence": 0.9979284759021996
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_454": {
+            "max_delta": 1.144525936835894e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 1.0935894681374236e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true,
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        }
+      },
+      "extra": {
+        "shape115-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.08842495479099251,
+                  "math": 0.040996896073083405,
+                  "chat": 0.8705781491359241
+                },
+                "confidence": 0.5757388288097245
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.004542222173933394,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.010058225352660098,
+                  "math": 0.987281999738074,
+                  "chat": 0.0026597749092660008
+                },
+                "confidence": 0.9320329845388687
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.00047324240809338593,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-2": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.26889652815152787,
+                  "math": 0.5877550419496013,
+                  "chat": 0.1433484298988709
+                },
+                "confidence": 0.14074607819889928
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.017803734574538543,
+            "choices_unchanged": true,
+            "passed": false
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-3": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9915906113712094,
+                  "math": 0.007704099577734335,
+                  "chat": 0.0007052890510563073
+                },
+                "confidence": 0.9535957188782548
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.00026294317659701465,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-4": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.1956885576890624,
+                  "math": 0.07585668450807505,
+                  "chat": 0.7284547578028625
+                },
+                "confidence": 0.32129206062360327
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.00498596890211328,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-5": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.002931391226678189,
+                  "math": 0.9966421884320652,
+                  "chat": 0.0004264203412565836
+                },
+                "confidence": 0.9783746139363921
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 3.304174082308098e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-6": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.663346693611728,
+                  "math": 0.009556374307911276,
+                  "chat": 0.32709693208036067
+                },
+                "confidence": 0.37899074192375415
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.005697893033105528,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-7": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9262131418056296,
+                  "math": 0.04293443619111763,
+                  "chat": 0.030852422003252722
+                },
+                "confidence": 0.7146604485181708
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.001111839652180882,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-8": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.03539432736912748,
+                  "math": 0.012969238805641421,
+                  "chat": 0.9516364338252311
+                },
+                "confidence": 0.7981198667090756
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.0017212482929759645,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-9": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.19137416779994965,
+                  "math": 0.6909522414207458,
+                  "chat": 0.1176735907793045
+                },
+                "confidence": 0.2502550215765422
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.007647208260053051,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-10": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0021068684992571816,
+                  "math": 0.0008363756629642379,
+                  "chat": 0.9970567558377785
+                },
+                "confidence": 0.9801117132178248
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 2.8335581146028753e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        },
+        "shape115-11": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9677994531830951,
+                  "math": 0.02368605618457127,
+                  "chat": 0.008514490632333633
+                },
+                "confidence": 0.8535332294178183
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "comparison": {
+            "max_delta": 0.00016487505496589477,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "hits": {
+            "scan": 6,
+            "core": 6
+          }
+        }
+      },
+      "counts": {
+        "scan": {
+          "optimized": 114,
+          "fallback": 0
+        },
+        "core": {
+          "optimized": 84,
+          "fallback": 54,
+          "range_fallback": 0,
+          "disabled": 0,
+          "errors": []
+        }
+      },
+      "passed": false
+    }
+  },
+  "extra_baseline_responses": {
+    "shape115-0": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.08388273261705911,
+            "math": 0.04122284350501665,
+            "chat": 0.8748944238779243
+          },
+          "confidence": 0.5846843643732964
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-1": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "math",
+          "probabilities": {
+            "code": 0.010531467760753484,
+            "math": 0.9868159049616273,
+            "chat": 0.002652627277619199
+          },
+          "confidence": 0.9301058402296881
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-2": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "math",
+          "probabilities": {
+            "code": 0.25503118306212524,
+            "math": 0.6055587765241398,
+            "chat": 0.1394100404137349
+          },
+          "confidence": 0.15629753276023028
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-3": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9913491628639906,
+            "math": 0.00796704275433135,
+            "chat": 0.0006837943816781153
+          },
+          "confidence": 0.9525792900792224
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-4": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.19070258878694912,
+            "math": 0.07631143239372545,
+            "chat": 0.7329859788193254
+          },
+          "confidence": 0.32639338407614893
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-5": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "math",
+          "probabilities": {
+            "code": 0.00290909705565043,
+            "math": 0.9966752301728883,
+            "chat": 0.00041567277146132393
+          },
+          "confidence": 0.9785689853846973
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-6": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.6576488005786225,
+            "math": 0.00990492289903588,
+            "chat": 0.3324462765223416
+          },
+          "confidence": 0.3742704625054073
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-7": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9257416052670728,
+            "math": 0.04404627584329851,
+            "chat": 0.030212118889628655
+          },
+          "confidence": 0.7135539496313945
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-8": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.03367307907615152,
+            "math": 0.013353877267013389,
+            "chat": 0.9529730436568351
+          },
+          "confidence": 0.8018178005901838
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-9": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "math",
+          "probabilities": {
+            "code": 0.18601689921155803,
+            "math": 0.6985994496807989,
+            "chat": 0.11538365110764306
+          },
+          "confidence": 0.2603329282694483
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-10": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.0021298921843610373,
+            "math": 0.0008080400818182091,
+            "chat": 0.9970620677338208
+          },
+          "confidence": 0.9801658803941614
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "shape115-11": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9679420137510124,
+            "math": 0.023521181129605374,
+            "chat": 0.008536805119382236
+          },
+          "confidence": 0.8539944512617775
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "passed": false,
+  "graph_contexts": 1,
+  "handles": 72,
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  }
+}

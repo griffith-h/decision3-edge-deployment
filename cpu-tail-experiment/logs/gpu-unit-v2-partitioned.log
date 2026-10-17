@@ -1,0 +1,12 @@
+GPU SCAN REPLAY 0 0.5333385245176032
+Traceback (most recent call last):
+  File "/work/test_gpu.py", line 35, in <module>
+    expected=ref.transpose(1,2).contiguous();actual=gpu.scan(q,k,v,decay,b);torch.testing.assert_close(actual,expected,atol=.008,rtol=.008)
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/testing/_comparison.py", line 1631, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 443 / 235520 (0.2%)
+Greatest absolute difference: 0.10595703125 at index (0, 92, 12, 101) (up to 0.008 allowed)
+Greatest relative difference: 18432.0 at index (0, 6, 15, 114) (up to 0.008 allowed)

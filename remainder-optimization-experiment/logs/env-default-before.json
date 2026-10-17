@@ -1,0 +1,158 @@
+{
+  "tag": "default-before",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "environment": {
+    "OMP_NUM_THREADS": "3",
+    "OMP_THREAD_LIMIT": "3",
+    "OPENBLAS_NUM_THREADS": "3",
+    "OMP_WAIT_POLICY": null,
+    "GOMP_SPINCOUNT": null
+  },
+  "sources": {
+    "/work/cpu_math_sleef.c": "413699d5a3b9f94e7b6579ef3b51c12cce015cf5ef2daa1c71fce7a7e876749d",
+    "/work/profile_remainder.py": "07eb6cae23cce835ccb0a127383cfa1e985304424fb6c07e189783039847d917",
+    "/work/common.py": "7a755a9030afb56d056c98dfc4ada8955eab0f7b184f1d7522848b6b7816c51a",
+    "/work/environment_benchmark.py": "e9180d5e963f8526f66daf1fa43a6fed5e4e41f152afbab81617ab815657305b",
+    "/work/half_bridge.cpp": "99d2c3d1d396a7fdfefc582ce04ffd0f591b5d596d938aaa1bec082819aab972",
+    "/work/sleef_setup.py": "1e602f4412a12626ea2a19f110a2d6c57e5e105887130ffb0fdd93a479c1c045",
+    "/work/libhalf_profile.so": "58a57768c8a30684d33692aef17b2c0a3d3e7150dd98896e945082eeb1d9c175",
+    "/work/libcpu_math_sleef.so": "e829c13430686cafe2a5b2fd84d63a5566446b25934553da8f802b926a0903fb",
+    "/work/cpu_math.c": "5c511c9ba4a56dbed86ae60d12a7d24d0900116d20324fd088144ff23a61d46b",
+    "/work/fused_profile.cpp": "71452a256f5520038df5959c858d561dec9151b7fc150d25dcb78346b1bf19d3",
+    "/work/cpu_math.py": "8500f751eabb648bf7cf6e30d68d6387d25ec585446cae2e5fe3d35ec64baaec",
+    "/work/half_profile.cpp": "e9e773b4ff6b4cb6623789da42d2716af04de6ee97f6900cbf723df8d444128a",
+    "/work/libfused_profile.so": "dc90182ba56553a5e4bef173900a73b68ef60e0a1ce32792038c6fd0d431fb60",
+    "/work/libhalf_bridge.so": "ed2404bc253c76a89a1a38d2d0a9b85417a804d6868aafcf82eb9d50e131c43e",
+    "/work/probe_sleef.py": "1d25c0cdddb700a2a24f676668f07054c2c22e4d8259f4af3cb341baf6954d52",
+    "/work/unit_only.py": "e1a1729a8f90a44bf025aec10499ae8638ac01ad98eeb7d4aef9f2089b200abe",
+    "/work/make_profile.py": "ec0609725b315797384a097282a7f6219e9abe267104ab66ff8505f3443278a3",
+    "/work/libcpu_math.so": "137919764f813827589966ad6685e0fe2b33ca243d7be8d1626b68336a4b1048",
+    "/work/benchmark.py": "fdc894575f0090de49d807589c83df9027c32ac4e016720677396b44be103d02",
+    "/work/preserve_service.py": "a3da833a291dc58ab43ef862f6b47e6c3a640680fc580583e8572add71d3745e",
+    "/work/test_math.py": "2d0f16366777f7119f1befc3096de96a2cf360e77aea8105f46306a274dad044",
+    "/work/probe_activations.py": "8f33f575ddd299c42f26fcfe307fb03d59b60a28d1e6a962b6ba47dbbbbe9835",
+    "/work/make_half_bridge.py": "2cfaa6e4878a3bcad797ce4d2a4564c39a8bc8a2b81dc0e73c3ac581677ead7a",
+    "/scan/debug_scan.py": "d59bf0c1afe95479e425fb18fbedb0a82bc10fd05ba6102b89bec46fcb675865",
+    "/scan/test_scan.py": "b12c15f77b7a34a7f8087dc238f8bba3a2ef4a407bb8e4aa255eb4a895fc3810",
+    "/scan/micro_only.py": "c34bec169dc1637df543dc0dd78556c029c8ded12eb41631e44e9ac83fef166f",
+    "/scan/scan_native.c": "a6e3dcdb09c6441e036e358f433309888a7b449d213ec6e86b564deb6e4b1ca2",
+    "/scan/libd3_scan.so": "e9632674d3d08aee8acb708d7ce4026f6a73b866909d203e15ac17be5f0d9dfb",
+    "/scan/scan.py": "43f1189973f2d4d4252db2ddc8ba3482e9e3dbc5fbd8d79a52a42c7e755e0493",
+    "/scan/benchmark.py": "7b8a98b5319859365f74dbf87b4d8bdbdc1b32f5020f9f66cc8ef298c0da2853",
+    "/scan/preserve_service.py": "1b65350fa761d8ee86060700d75f83a30626127d8b6a9014339b4be7b0e46014",
+    "/combined/cpu_control.c": "e6edfadc0840dbecb15858ad32aa75c82b6e710e8b2df37d50b072bbdf74fe0e",
+    "/combined/shadow_check.py": "05fcac8f979da6cad26d40bb8cae831d3a9cda988903d7e71b12b3873ed53721",
+    "/combined/test_units.py": "e336a7ac97d1d77583c2dfae756e65f9c23d90c55515a6389298c785ff0ac7ab",
+    "/combined/paired_check.py": "ea58ebd4213cc41c13e90153beb67cd32b17cf24b59d2de7f4165ea1307b0785",
+    "/combined/adapter.py": "2a3b936acdf8462ed45f62995095111053bf4ef18f2961e671e6c41813b9c7fa",
+    "/combined/fused_bridge.cpp": "0a3a49008f06eea52aa803b1f5aaaa3a93e37a85159ba461309adf82faf34609",
+    "/combined/libfused_bridge.so": "72a4ee4f2f221839cf9f9c580474aba74e94f703eccd73598940d76114bae7e7",
+    "/combined/benchmark.py": "6a35f0389d42297ffb970f310e0d71a0aa8b91f9bafe6b12129741077cc1a999",
+    "/combined/debug_conversion.py": "d4818f1b6de7fe4766fe2111d9b7f079fa22843af3944d8398f5d4979b6276f2",
+    "/combined/libcpu_control.so": "4286d32eda8ec27668cf23bc0da3f4fdbcefdc4ff371ae56ab757fb6757ee193",
+    "/release/server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+    "/release/native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf",
+    "/release/libd3_native_norm.so": "80813bfc1c7f0b5763af536815da9691e47680a460c391de46c16166678b0592",
+    "/release/cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "/release/native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875"
+  },
+  "scope": "Single FP16-output engine + native scan; one request at a time, warmed system_one, not HTTP. Process environment only.",
+  "cases": {
+    "single": {
+      "comparison": {
+        "max_delta": 3.824814245190211e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992073985209514,
+              "math": 0.0006635769130980008,
+              "chat": 0.00012902456595058792
+            },
+            "confidence": 0.9938069738994934
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    }
+  },
+  "timing": {
+    "seconds": [
+      0.5124483639374375,
+      0.513103666016832,
+      0.4731080050114542,
+      0.4909074199385941,
+      0.5345616219565272,
+      0.5122981599997729,
+      0.527456218842417,
+      0.5169923219364136,
+      0.49922932498157024,
+      0.5090248950291425,
+      0.5098522529006004,
+      0.5129207810387015,
+      0.5112188661005348,
+      0.5136117008514702,
+      0.510320310946554,
+      0.5099382409825921,
+      0.5089077199809253,
+      0.5122009068727493,
+      0.5081841710489243,
+      0.5095141581259668,
+      0.5091211688704789,
+      0.5091746018733829,
+      0.5076270459685475,
+      0.5093473489396274,
+      0.5244390438310802,
+      0.5129074167925864,
+      0.5091928080655634,
+      0.5099203928839415,
+      0.5096993199549615,
+      0.5116137450095266
+    ],
+    "count": 30,
+    "median": 0.5099293169332668,
+    "min": 0.4731080050114542,
+    "max": 0.5345616219565272,
+    "p95_nearest_rank": 0.527456218842417
+  },
+  "every_response_checked": true,
+  "max_timed_delta": 3.824814245190211e-05,
+  "cpu_usage": {
+    "user_seconds": 29.596794000000003,
+    "system_seconds": 1.9335550000000001,
+    "cpu_seconds_per_request": 1.0510116333333335,
+    "voluntary_switches": 13350,
+    "involuntary_switches": 122
+  },
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "passed": true
+}

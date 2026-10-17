@@ -1,0 +1,15 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  35%|███▌      | 107/305 [00:00<00:00, 1064.73it/s]Loading weights:  70%|███████   | 215/305 [00:00<00:00, 1067.68it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1165.81it/s]
+Traceback (most recent call last):
+  File "/work/probe_groups.py", line 34, in <module>
+    for e in variants.values():e.group(modules,x)
+                               ^^^^^^^^^^^^^^^^^^
+  File "/work/scattered_adapter.py", line 42, in group
+    if entry is None:return super().group(modules,x)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/merged_adapter.py", line 47, in group
+    if entry is None:return super().group(modules,x)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/combined/adapter.py", line 78, in group
+    buckets=[[m for m in modules if self.bucket[id(m)]==i] for i in range(2)]
+                                    ~~~~~~~~~~~^^^^^^^
+KeyError: 281472764046720

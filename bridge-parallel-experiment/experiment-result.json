@@ -1,0 +1,254 @@
+{
+  "verified_at_utc": "2026-10-17T11:47:31.935990+00:00",
+  "passed": true,
+  "deployment_performed": false,
+  "checkpoint": "vllm-sr/d3-edge@20c745653400d191ecacd99c4eafc0c5900dc15e",
+  "constraints": {
+    "weights_and_12_layers_unchanged": true,
+    "noncausal_full_attention_and_causal_delta_scan_unchanged": true,
+    "vendor_binaries_unmodified_no_reverse_engineering": true,
+    "original_three_thread_service_preserved": true
+  },
+  "scope": "RK3576, CPU4-7, Torch/OpenMP3, loaded and warmed model, 115-token single question, concurrency1. In-process full system_one latency, excludes HTTP/network/startup; no response memoization.",
+  "implementations": {
+    "fusion": "BF16->FP16 plus finite/overflow check directly in RKNN A buffer; direct C FP32->BF16 RNE conversion into a new owned Torch output, retaining bias and unsupported-route behavior.",
+    "parallel": "24 scoped forks per text forward:12 MLP gate/up,6 attention Q/K/V,6 GatedDeltaNet qkv/z. Two persistent task queues, independent public RKNN contexts on masks1/2. All jobs join before reuse/error propagation.",
+    "combined": "Fusion + scoped parallel projection groups; convert common BF16 input once per fork, copy prepared FP16 inputs to independent handle buffers. No cross-request activation/result cache."
+  },
+  "sequential_ablation": {
+    "baseline": {
+      "count": 30,
+      "median": 0.8556775285396725,
+      "p95": 0.8658561760094017,
+      "max": 0.8743104981258512,
+      "model_cases": 7,
+      "max_delta_vs_starting_baseline": 0.0,
+      "max_delta_vs_historical_cpu": 0.0024895148224974295,
+      "passed": true,
+      "group_stats": null
+    },
+    "fusion": {
+      "count": 30,
+      "median": 0.6992131230654195,
+      "p95": 0.7027718878816813,
+      "max": 0.7041327371262014,
+      "model_cases": 7,
+      "max_delta_vs_starting_baseline": 0.0048337858914832,
+      "max_delta_vs_historical_cpu": 0.00489881374262241,
+      "passed": true,
+      "group_stats": {
+        "groups": 0,
+        "shared_input_prepares": 0,
+        "parallel_jobs": 0,
+        "cpu_fallbacks": 0
+      }
+    },
+    "parallel": {
+      "count": 30,
+      "median": 0.8170731869759038,
+      "p95": 0.8539992519654334,
+      "max": 0.8547449090983719,
+      "model_cases": 7,
+      "max_delta_vs_starting_baseline": 0.0048337858914832,
+      "max_delta_vs_historical_cpu": 0.00489881374262241,
+      "passed": true,
+      "group_stats": {
+        "groups": 912,
+        "shared_input_prepares": 0,
+        "parallel_jobs": 1824,
+        "cpu_fallbacks": 0
+      }
+    },
+    "combined": {
+      "count": 30,
+      "median": 0.6623769850702956,
+      "p95": 0.6681702819187194,
+      "max": 0.6701437900774181,
+      "model_cases": 7,
+      "max_delta_vs_starting_baseline": 0.0048337858914832,
+      "max_delta_vs_historical_cpu": 0.00489881374262241,
+      "passed": true,
+      "group_stats": {
+        "groups": 912,
+        "shared_input_prepares": 912,
+        "parallel_jobs": 1824,
+        "cpu_fallbacks": 0
+      }
+    },
+    "baseline_recheck": {
+      "count": 15,
+      "median": 0.8066609899979085,
+      "p95": 0.8258962519466877,
+      "max": 0.8258962519466877,
+      "model_cases": 1,
+      "max_delta_vs_starting_baseline": 1.6171911109837686e-05,
+      "max_delta_vs_historical_cpu": 1.2011840210601754e-05,
+      "passed": true,
+      "group_stats": null
+    }
+  },
+  "ablation_caution": "Initial baseline median855.7ms, later recheck806.7ms and a small output difference. Do not attribute all drift to candidate code. Only-parallel817.1ms lies inside this bracket, so standalone parallel gain is not established by this sequence.",
+  "controlled_paired": {
+    "summary": {
+      "baseline": {
+        "median": 0.8590794020565227,
+        "min": 0.8556569549255073,
+        "max": 0.8981085210107267
+      },
+      "combined": {
+        "median": 0.721370950108394,
+        "min": 0.6815873140003532,
+        "max": 0.7298645039554685
+      }
+    },
+    "median_paired_speedup": 1.1914570558486046,
+    "median_latency_reduction_fraction": 0.16029769962878027,
+    "candidate_faster_rounds": 10,
+    "rounds": 10,
+    "max_timed_output_delta": 0.0,
+    "english_three_question_delta": 0.0,
+    "scope": "Same loaded model and frozen CPU kernels; original baseline vs fusion+split-core candidate. Two persistent78-handle engines. Alternating trial order, Torch3 reset before each trial, explicit single warmup per trial. Each timed output checked. Not a deployed/HTTP benchmark.",
+    "caution": "Two full78-handle engines coexist with4096 test-container FD limit; configuration differs from the separate single-engine100-run test. Each trial resets Torch3 and has one explicit warmup. Not a deployment forecast."
+  },
+  "selected_single_engine_100": {
+    "count": 100,
+    "median": 0.664756701909937,
+    "p95_nearest_rank": 0.6702241469174623,
+    "max": 0.6776911348570138,
+    "min": 0.6083424298558384,
+    "below_one_second": 100,
+    "comparison": {
+      "max_probability_or_score_delta": 1.6171911109837686e-05,
+      "choices_unchanged": true,
+      "passed": true
+    },
+    "variant": "combined"
+  },
+  "precision": {
+    "cases": 7,
+    "questions": 14,
+    "all_choices_unchanged": true,
+    "max_probability_or_score_delta_vs_initial_three_thread_baseline": 0.0048337858914832,
+    "max_delta_vs_historical_cpu": 0.00489881374262241,
+    "cpu_reference_cases": 5,
+    "tolerance": 0.01,
+    "confidence_and_legend_excluded": true,
+    "shadow_78_real_projections_bitwise_equal": true,
+    "controlled_paired_single_and_english_outputs_equal": true,
+    "caution": "Seven-case regression and operator equality are not a full task-dataset accuracy evaluation. Whole-model sequential comparisons are not bitwise identical; observed differences remain below agreed tolerance."
+  },
+  "focused_checks": {
+    "passed": true,
+    "converter_values_and_focused_cases": 165566,
+    "exhaustive_bf16_input_patterns": 65536,
+    "random_fp32_output_patterns": 100003,
+    "dynamic_rows": [
+      1,
+      115,
+      127,
+      128,
+      129,
+      256,
+      257,
+      512,
+      128,
+      1
+    ],
+    "noncontiguous_and_biased_outputs_bitwise_equal": true,
+    "nonfinite_and_fp16_overflow_rejected": true,
+    "failed_input_recovery_passed": true,
+    "cpu_fallback_exact": true,
+    "worker_exception_join_passed": true
+  },
+  "iterations_and_failures": [
+    {
+      "record": "logs/unit-attempt01-failed.log",
+      "issue": "FP32 NaN -> BF16 canonical representation initially0xffff instead of Torch0x7fc0; finite values matched. Corrected both scalar/vector converters; exhaustive/random focused checks rerun and passed."
+    },
+    {
+      "record": "logs/shadow-fd-limit-failed.log",
+      "issue": "Double-engine shadow hit test-container default1024 open-file limit, SDK exited139. Repeated with isolated-container nofile4096 and core0; shadow/paired checks passed. Original service limits untouched. Generated3GB test core dump removed; error log retained."
+    }
+  ],
+  "current_service": {
+    "verified_at_utc": "2026-10-17T11:45:31.718768+00:00",
+    "passed": true,
+    "container_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+    "started_at": "2026-10-17T11:04:28.007796263Z",
+    "id_start_time_config_and_host_config_unchanged": true,
+    "source_sha256": {
+      "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+      "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+      "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+      "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf"
+    },
+    "responses_exactly_equal": true,
+    "health": {
+      "status": "ready",
+      "model": "vllm-sr/d3-edge",
+      "max_input_tokens": null,
+      "modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "authentication": false,
+      "deployment": {
+        "release": "2026-10-17-three-thread-v1",
+        "torch_threads": 3,
+        "OMP_THREAD_LIMIT": "3",
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "chunk_size": 128,
+        "rknn_linear_layers": 78,
+        "native_stats": {
+          "native_calls": 5929,
+          "norm_calls": 5203,
+          "conv_calls": 726
+        }
+      }
+    },
+    "inference_http_seconds": [
+      1.0009185840000003,
+      0.8585655840000004,
+      0.8635748330000004,
+      0.862714875,
+      0.8626843340000008
+    ],
+    "median": 0.862714875,
+    "min": 0.8585655840000004,
+    "max": 1.0009185840000003,
+    "remaining_test_containers": [],
+    "scope": "Final verification after all isolated bridge/parallel experiments completed; existing service never stopped or reconfigured."
+  },
+  "reproduction": {
+    "board_directory": "/opt/decision3-edge-bridge-parallel-20261017",
+    "existing_image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+    "commands": [
+      "python3 -m py_compile bridge-parallel-experiment/*.py",
+      "bash -n bridge-parallel-experiment/run.sh bridge-parallel-experiment/run-shadow.sh bridge-parallel-experiment/run-paired.sh",
+      "bash /opt/decision3-edge-bridge-parallel-20261017/run.sh",
+      "bash /opt/decision3-edge-bridge-parallel-20261017/run-shadow.sh",
+      "bash /opt/decision3-edge-bridge-parallel-20261017/run-paired.sh",
+      "python3 bridge-parallel-experiment/verify_preservation.py"
+    ]
+  },
+  "source_sha256": {
+    "test_units.py": "e336a7ac97d1d77583c2dfae756e65f9c23d90c55515a6389298c785ff0ac7ab",
+    "adapter.py": "2a3b936acdf8462ed45f62995095111053bf4ef18f2961e671e6c41813b9c7fa",
+    "fused_bridge.cpp": "0a3a49008f06eea52aa803b1f5aaaa3a93e37a85159ba461309adf82faf34609",
+    "benchmark.py": "6a35f0389d42297ffb970f310e0d71a0aa8b91f9bafe6b12129741077cc1a999",
+    "debug_conversion.py": "d4818f1b6de7fe4766fe2111d9b7f079fa22843af3944d8398f5d4979b6276f2"
+  },
+  "limitations": [
+    "No candidate HTTP service or production replacement.",
+    "200ms not reached.",
+    "100-request speed test compares its last response; full precision evidence is seven cases and all20 controlled paired timed outputs.",
+    "No new long-text/video/high-concurrency benchmarks; dynamic rows and CPU fallback checked at operator level.",
+    "Original CPU scan/norm/conv/attention kernels unchanged; existing164 arithmetic tests not duplicated."
+  ]
+}

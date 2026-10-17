@@ -1,0 +1,417 @@
+{
+  "tag": "baseline-all",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "load_seconds": 19.58203489612788,
+  "case_count": 7,
+  "question_count": 14,
+  "cases": {
+    "chinese-0": {
+      "seconds": 43.61789674591273,
+      "comparison": {
+        "max_delta": 0.0033519341220543675,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.008963194648690331,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.999253267847296,
+              "math": 0.0004914860159642361,
+              "chat": 0.00025524613673975595
+            },
+            "confidence": 0.9939902775304901
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8793114823256847
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.10491219318030257,
+            "probabilities": {
+              "0": 0.9116980295923479,
+              "1": 0.07169174763500166,
+              "2": 0.016610222772650448
+            },
+            "confidence": 0.6893512420691188,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      }
+    },
+    "chinese-1": {
+      "seconds": 1.5702689001336694,
+      "comparison": {
+        "max_delta": 0.00028731354941491025,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.00016451826080238902,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0007356869357704813,
+              "math": 0.00037080807120683056,
+              "chat": 0.9988935049930227
+            },
+            "confidence": 0.9914956652080316
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.00027031468719877164
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.01912458738142747,
+            "probabilities": {
+              "0": 0.9835614005556749,
+              "1": 0.013752611507222848,
+              "2": 0.002685987937102311
+            },
+            "confidence": 0.9170281134622696,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 314,
+          "output_tokens": 0
+        }
+      }
+    },
+    "english": {
+      "seconds": 1.550994959892705,
+      "comparison": {
+        "max_delta": 0.0028982116692303217,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.003222732194167202,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9070743726511069,
+              "math": 9.754045339260867e-05,
+              "other": 0.09282808689550054
+            },
+            "confidence": 0.7178063138197825
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.062258366263440376
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.1919583711004837,
+            "probabilities": {
+              "0": 0.8423375361973906,
+              "1": 0.12336655650473516,
+              "2": 0.034295907297874274
+            },
+            "confidence": 0.5281768657761472,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 328,
+          "output_tokens": 0
+        }
+      }
+    },
+    "single": {
+      "seconds": 0.5691474941559136,
+      "comparison": {
+        "max_delta": 4.713040615378361e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 1.2674210120920942e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991602681147976,
+              "math": 0.0007049173429605155,
+              "chat": 0.00013481454224181867
+            },
+            "confidence": 0.993485707150506
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    },
+    "image": {
+      "seconds": 8.370395304169506,
+      "comparison": {
+        "max_delta": 0.002425735073568469,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.0027769922904533617,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "image_colour": {
+            "type": "choice",
+            "choice": "other",
+            "probabilities": {
+              "red": 0.025451887460105637,
+              "green": 0.33040005610286793,
+              "blue": 0.011472751505738949,
+              "other": 0.6326753049312875
+            },
+            "confidence": 0.4227560190349505
+          },
+          "image_photo": {
+            "type": "noul",
+            "noul": 0.026747362458353446
+          }
+        },
+        "usage": {
+          "input_tokens": 347,
+          "output_tokens": 0
+        }
+      }
+    },
+    "novel-math": {
+      "seconds": 0.5457366488408297,
+      "comparison": {
+        "max_delta": 7.271686299326302e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 7.438108094202749e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.001919773961416273,
+              "math": 0.9978595835887434,
+              "chat": 0.0002206424498403014
+            },
+            "confidence": 0.9854316726681637
+          }
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 0
+        }
+      }
+    },
+    "novel-chat": {
+      "seconds": 0.5621951499488205,
+      "comparison": {
+        "max_delta": 1.9414019901797808e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 2.091982515306512e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0001104554714262596,
+              "math": 0.00012513547299741363,
+              "chat": 0.9997644090555763
+            },
+            "confidence": 0.9978460159806715
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    }
+  },
+  "sources": {
+    "merged_adapter.py": "e8a03b370517b3fa7cd389b8607ba9ad4428aa01cabb4fb77627827abff64b2d",
+    "scattered_adapter.py": "4bb272263c49b994bf7df037749cd43ff387efe9e405a54ef2b0c1a750cfa458",
+    "bench.py": "ff5c1e976a38c04a9cb8bcf00d3e2a02cd4a04fbadef296bb6f930290c1839bb",
+    "scatter_runner.py": "02f45beda6d3613022ab2d87507cdcfb5c8c1ef8b494343cc62743375ac6b3f3",
+    "paired.py": "8107207395469f4176f649e0a192b7cc2e700c5282e81fa92243147c00c126b0",
+    "test_packing.py": "7c5b832ce9db8e0427b03ae4ee8562127fad474f2e5cf22bc89dc1496f96fbaa",
+    "probe_groups.py": "99c35103d301f54012af7339a481488f29d9e0aee27533d0df89379918a324ef",
+    "compiled_regions.py": "77b5f23c249ebe2facc327e108460890f488146fe0e1337c281f12b85fb12c4a",
+    "preserve_service.py": "1128e5225803bbd754922d22b775a47f4cb5cbfbcaa0780753e6d3b9af896c66",
+    "test_compile.py": "643cf5206ddddf3ed15280d97251490a83af752000044af42ab7da86b13d2192",
+    "setup_helpers.py": "061babfd18cd9c7bab6f942e10dffe0a68d997d0c4eab449e34d092013539644",
+    "diagnose_compile.py": "2e8d29a39f29fbd6db13f92c1de3da6dc401c276c0753bcc756d775c4b503d5b",
+    "cache_compiler_debs.py": "abc854e758d57926d01a144090b3aa30b660723538697aac64d7dbe814c0ec33"
+  },
+  "cold_first_call_seconds": 64.02832547901198,
+  "timing": {
+    "seconds": [
+      0.5515328811015934,
+      0.5574894959572703,
+      0.5518831270746887,
+      0.5668887658976018,
+      0.5478573171421885,
+      0.5647663110867143,
+      0.5607580989599228,
+      0.5543104950338602,
+      0.5527256119530648,
+      0.5570217489730567,
+      0.551616617012769,
+      0.5515367488842458,
+      0.557312621967867,
+      0.5436826238874346,
+      0.5531207171734422,
+      0.5543844769708812
+    ],
+    "count": 16,
+    "median": 0.5537156061036512,
+    "min": 0.5436826238874346,
+    "max": 0.5668887658976018,
+    "p95_nearest_rank": 0.5668887658976018
+  },
+  "every_response_checked": true,
+  "max_timed_delta": 4.713040615378361e-05,
+  "max_timed_delta_vs_fp32": 1.2674210120920942e-05,
+  "passed": true,
+  "engine_stats": {
+    "groups": 600,
+    "shared_input_prepares": 600,
+    "parallel_jobs": 1200,
+    "cpu_fallbacks": 0
+  },
+  "handles": 78,
+  "layout": [],
+  "compile_stats": {
+    "calls": {
+      "norm": 925,
+      "gated": 150,
+      "mlp": 300,
+      "rope": 150
+    },
+    "first_signature_seconds": {
+      "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 18.31901282304898,
+      "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 6.615636673057452,
+      "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 0.5392228451091796,
+      "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.369088258128613,
+      "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.023760758107528,
+      "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 23.4634392359294,
+      "('norm', (((3, 127, 1024), 'torch.bfloat16', (130048, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 3.9218027440365404,
+      "('gated', (((6096, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((6096, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.0066454410552978516,
+      "('mlp', (((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1)), ((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1))))": 0.7497971220873296,
+      "('norm', (((3, 127, 8, 256), 'torch.bfloat16', (520192, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.20976216183044,
+      "('norm', (((3, 127, 2, 256), 'torch.bfloat16', (65024, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.0547437409404665,
+      "('rope', (((3, 8, 127, 256), 'torch.bfloat16', (260096, 256, 2048, 1)), ((3, 2, 127, 256), 'torch.bfloat16', (65024, 256, 512, 1)), ((3, 127, 64), 'torch.bfloat16', (8128, 64, 1)), ((3, 127, 64), 'torch.bfloat16', (8128, 64, 1)), 1))": 28.88893286092207,
+      "('norm', (((3, 117, 1024), 'torch.bfloat16', (119808, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.001589139923453331,
+      "('gated', (((5616, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5616, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.0052284980192780495,
+      "('mlp', (((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.0075356687884777784,
+      "('norm', (((3, 117, 8, 256), 'torch.bfloat16', (479232, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.002831765217706561,
+      "('norm', (((3, 117, 2, 256), 'torch.bfloat16', (59904, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013316369149833918,
+      "('rope', (((3, 8, 117, 256), 'torch.bfloat16', (239616, 256, 2048, 1)), ((3, 2, 117, 256), 'torch.bfloat16', (59904, 256, 512, 1)), ((3, 117, 64), 'torch.bfloat16', (7488, 64, 1)), ((3, 117, 64), 'torch.bfloat16', (7488, 64, 1)), 1))": 0.0037104939110577106,
+      "('norm', (((3, 114, 1024), 'torch.bfloat16', (116736, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0016845290083438158,
+      "('gated', (((5472, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5472, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.004836081061512232,
+      "('mlp', (((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1)), ((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1))))": 0.007694867206737399,
+      "('norm', (((3, 114, 8, 256), 'torch.bfloat16', (466944, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0028193839825689793,
+      "('norm', (((3, 114, 2, 256), 'torch.bfloat16', (58368, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013439739122986794,
+      "('rope', (((3, 8, 114, 256), 'torch.bfloat16', (233472, 256, 2048, 1)), ((3, 2, 114, 256), 'torch.bfloat16', (58368, 256, 512, 1)), ((3, 114, 64), 'torch.bfloat16', (7296, 64, 1)), ((3, 114, 64), 'torch.bfloat16', (7296, 64, 1)), 1))": 0.0031076089944690466,
+      "('norm', (((2, 180, 1024), 'torch.bfloat16', (184320, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013996870256960392,
+      "('gated', (((5760, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5760, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.005461381049826741,
+      "('mlp', (((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1)), ((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1))))": 0.0077630882151424885,
+      "('norm', (((2, 180, 8, 256), 'torch.bfloat16', (737280, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0027260337956249714,
+      "('norm', (((2, 180, 2, 256), 'torch.bfloat16', (92160, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0012944031041115522,
+      "('rope', (((2, 8, 180, 256), 'torch.bfloat16', (368640, 256, 2048, 1)), ((2, 2, 180, 256), 'torch.bfloat16', (92160, 256, 512, 1)), ((2, 180, 64), 'torch.bfloat16', (11520, 64, 1)), ((2, 180, 64), 'torch.bfloat16', (11520, 64, 1)), 1))": 0.003377167973667383,
+      "('norm', (((1, 117, 1024), 'torch.bfloat16', (119808, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0010513230226933956,
+      "('gated', (((1872, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1872, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.002091272035613656,
+      "('mlp', (((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.0029856411274522543,
+      "('norm', (((1, 117, 8, 256), 'torch.bfloat16', (479232, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0014560509007424116,
+      "('norm', (((1, 117, 2, 256), 'torch.bfloat16', (59904, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.000939738005399704,
+      "('rope', (((1, 8, 117, 256), 'torch.bfloat16', (239616, 256, 2048, 1)), ((1, 2, 117, 256), 'torch.bfloat16', (59904, 256, 512, 1)), ((1, 117, 64), 'torch.bfloat16', (7488, 64, 1)), ((1, 117, 64), 'torch.bfloat16', (7488, 64, 1)), 1))": 0.0014462079852819443
+    },
+    "errors": [],
+    "precision_cast_emulation": true
+  },
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  }
+}

@@ -1,0 +1,96 @@
+实验限定：RK3576 同一硬件/SDK/镜像，线上 decision3-edge-optimized:8900 保持不变。
+只在 /opt/decision3-edge-projection-compile-20261017 中运行无端口、无 restart 的临时容器。
+不构建镜像，不改 governor、驱动、时钟、服务配置。不改模型参数/层数/注意力 mask。
+
+前提：此前已经安装好的 512ms 带回退实验及其 /release /base /combined /scan 依赖。
+这是现有仓库内的增量实验复现说明，完整从零安装仍见主 HTML 安装指南。
+容器镜像固定读取 /opt/decision3-edge-optimized-20261017-v1/image-id.txt。
+运行参数：CPU4–7，Torch3，OMP3，OMP_THREAD_LIMIT3，OpenBLAS3，内存8GB，nofile4096。
+模型路径和所有绑定挂载见 run.sh。只把新实验 /work 设为可写。
+
+Mac：
+  python3 projection-compile-experiment/preserve_service.py before
+  rsync -a --exclude logs --exclude __pycache__ projection-compile-experiment/ \
+    192.168.1.164:/opt/decision3-edge-projection-compile-20261017/
+
+RK 主机：
+  cd /opt/decision3-edge-projection-compile-20261017
+  cp /opt/decision3-edge-remainder-20261017/libsafe_half_bridge.so .
+  bash run.sh test_packing.py
+  bash run.sh bench.py --mode baseline --count 16
+  bash run.sh bench.py --mode merge --count 16
+  bash run.sh bench.py --mode balanced --count 16
+  bash run.sh --compiler cpu_suite.sh
+
+原地转换写回（不先 torch.cat 输出再切分）的候选：
+  # 等上述测试完全退出后，禁止覆盖正在被加载的库。
+  bash build_scatter.sh
+  bash run.sh scatter_runner.py test_packing.py
+  bash run.sh scatter_runner.py bench.py --mode merge --count 16
+  bash run.sh scatter_runner.py bench.py --mode balanced --count 16
+  bash run.sh probe_groups.py
+
+scatter_runner 只在本 Python 进程选用 scattered_adapter，复用同一个 bench/paired
+协议和测试集合；结果以 scatter- 前缀单独保存，记录自己的 C++ / .so 哈希。
+直接写入原各投影的独立 BF16 输出缓冲区，两个线程只能写互不重叠的列范围。
+分组中任一块溢出时全部缓冲区作废，待所有线程结束后用原 CPU 投影组重算。
+
+--compiler 仅在这次 --rm 容器的可写层 apt 安装 g++，不产生新镜像；退出即删除。
+Inductor 生成代码缓存单独保存在实验目录 inductor-cache/，不上传仓库。
+CPU 编译单测、MLP 和 MLP+Norm+RoPE 消融在不同 Python 进程顺序运行；不重叠性能测试。
+首次编译/动态签名首次调用耗时另列，暖态延迟不含这些开销。
+每次 bench 都检查7用例14问题，100次稳定性轮次也逐次检查响应。
+上轮安全 FP16 baseline 和更早 FP32 baseline 都做数值比较；threshold=0.01 且选择相同。
+这不是标注任务集的准确率测评，不把少量样例一致称为无损。
+
+投影 pack 只拼接原权重输出行，RKNN handle 延用基线的 BF16->FP16 权重副本。
+merge：Q4096在core1，K512+V512合并1024在core2。
+balanced：Q/K/V合并5120列再分2560/2560；Delta qkv/z同理；等宽MLP不改。
+输出重排为原各投影形状。所有工作线程结束后才传播错误、复用缓冲区。
+任一合并块输出饱和/非有限时，整个原始投影组用原 CPU forward 重算。
+未分组单投影沿用原保护；NaN/Inf/FP16输入溢出仍报错。
+
+早期 zero-bias-attempt/ 记录了给无偏置投影人为补零偏置而走慢路径的负结果，
+该实现已修正并单独保存源码，不能用它的耗时代表最终 pack 实现。
+
+结束：确认临时容器自动移除，再运行 Mac 上 preserve_service.py after。
+核对容器ID/启动时间/配置/线上源码哈希、HTTP响应完全一致以及健康状态。
+最终结果、命令追加到 RESULTS.txt 和 experiment-result.json。
+
+CPU 固定形状对照：
+  bash run.sh --compiler static_runner.py test_compile.py
+  bash run.sh --compiler static_runner.py bench.py --mode baseline --compile all --count 16
+  bash run.sh --compiler static_runner.py scatter_runner.py bench.py --mode balanced --compile all --count 16
+
+固定形状版本只编译暖机期间实际出现的 tensor shape/dtype/stride 签名，随后冻结。
+其他签名用原 CPU 函数，不重新编译、不裁剪、不缩短输入，不改请求内容。
+对其他长度的回归用例检查完整输出，并记录 unseen_shape_fallbacks。
+动态版本使用 dynamic=True；两者结果和首次调用开销分开记录。
+
+数值边界问题及修复：最初只开 emulate_precision_casts，但生成代码中某些
+BF16 转换结果没被后续计算使用，门控归一化单测 max abs delta=0.03125 失败。
+最终通过显式 IEEE FP32->BF16 RNE 位运算保留原 cast 边界；100003 随机FP32
+位模式（含非有限值 NaN分类）和原始 eager MLP/门控Norm/RoPE 比较通过。
+保留原失败日志、编译前后源码及自己的生成代码样例，不包含厂商 runtime 反编译。
+
+完整第二阶段顺序脚本：
+  bash build_scatter.sh
+  bash run.sh --compiler scatter_suite.sh
+  # 完成后检查 logs/ 各消融的 passed / errors / compile_stats，再选最终候选。
+
+后续容器会在 apt update 后恢复 apt-cache/ 中完整下载的包，避免 Docker
+镜像的 docker-clean update 钩子删除刚恢复的缓存；缓存不入 Git。
+
+只降低编译内核的线程数（Torch / native scan 仍为3，环境 OMP limit仍3）：
+  bash run.sh --compiler cpp1_runner.py static_runner.py bench.py --mode baseline --compile all --count 16
+  bash run.sh --compiler cpp1_runner.py static_runner.py scatter_runner.py bench.py --mode balanced --compile all --count 16
+cpp1_runner 用当前 PyTorch 的 torch.compile options={"cpp.threads":1}，
+不会调用 torch.set_num_threads(1)；结果文件另加 -cpp1，不能混作默认3线程结果。
+
+候选最终对照模板（选择实际获益的 mode / compile 配置）：
+  bash run.sh scatter_runner.py paired.py --mode balanced --rounds 12
+  bash run.sh scatter_runner.py bench.py --mode balanced --count 100
+若 CPU cpp1 组合通过且更快，使用：
+  bash run.sh --compiler cpp1_runner.py static_runner.py scatter_runner.py paired.py --mode balanced --compile all --rounds 12
+  bash run.sh --compiler cpp1_runner.py static_runner.py scatter_runner.py bench.py --mode balanced --compile all --count 100
+运行100次前将16次筛选同名结果复制为 *-screen.json，防止覆盖原消融证据。

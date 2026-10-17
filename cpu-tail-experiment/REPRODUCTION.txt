@@ -1,0 +1,149 @@
+d3-edge RK3576 442ms 后续优化实验复现补充（2026-10-17实验记录）
+2026-10-18 graph-half已部署，实际发布/回退和HTTP测试见../cpu-tail-deployment/README.md。
+
+1. 范围与前提
+这是冻结实验工作区的复现说明，不是仅克隆 Git 仓库即可运行的全新安装包。
+新机器先完成 ../d3-edge-rk3576-install-guide.html 中的基础安装，再准备下列历史实验目录。
+不修改模型权重、12层结构、非因果完整注意力或 DeltaNet 递推语义；不反编译厂商库。
+当前线上 decision3-edge-optimized（8900）始终保留。以下只创建无监听端口的临时测试容器。
+性能口径：热启动、batch1、并发1、115 token、单问题、system_one 整个方法，不含 HTTP/网络；
+其他长度、多问题、图片用于数值回归，不能直接套用115 token耗时。
+数值验收（旧比较器实际实现）：概率、score、noul 最大绝对差异 <=0.01，choice 不变。
+confidence被旧比较器跳过：本次补充审计其最大差异0.01002684，单独报告，不能声称所有数值字段均<=0.01。
+发布HTTP对冻结候选的等价性校验包含confidence，详情见../cpu-tail-deployment/README.md。
+它是输出一致性门槛，不是有标签任务准确率。
+
+2. 已验证环境
+RK3576 / ARM64 Debian13 / 16GB；容器 Debian12。
+Python3.12 / PyTorch2.12.0+cpu / Transformers5.17.0。
+RKNN SDK/runtime2.5.0，NPU driver0.9.8。
+模型 vllm-sr/d3-edge snapshot 20c745653400d191ecacd99c4eafc0c5900dc15e。
+镜像ID sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d。
+CPU4-7亲和，Torch/OMP3线程，NumPy私有OpenBLAS ILP64在算子中设1线程。
+记录到CPU2.208GHz、NPU950MHz；未修改主机频率/驱动/调度策略，DMC等动态状态保留在原始记录中。
+
+3. 必需工作区（在目标RK机器，路径与 run.sh 一致）
+/opt/decision3-edge-optimized-20261017-v1（image-id.txt、base/sdk、原三线程发布目录）
+/opt/decision3-edge-matmul（公开sdk头文件、FP32输出参考/测试辅助代码）
+/opt/decision3-edge-bridge-parallel-20261017
+/opt/decision3-edge-scan-20261017
+/opt/decision3-edge-remainder-20261017（logs/model-results.json）
+/opt/decision3-edge-projection-compile-20261017
+/opt/decision3-edge-remaining-500ms-20261017
+/opt/decision3-edge-attention-chunk-20261017（logs/final-single-scan.json、libchunk_blas2.so）
+/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime
+/opt/decision3-edge-cpu-tail-20261017（本目录内容，至少含所引用的代码、库、原始JSON）
+
+这些历史实验目录是 imports、冻结桥接库及数值参考的依赖；不能用空目录占位。
+代码依赖 NumPy 随镜像提供的 scipy_cblas_sgemm64_/strsm64_ 符号，换镜像须重新验证。
+不需要 GPU 私有运行时，也不需要重转整个模型，就能运行最终 cpu-std 候选。
+当前实验 Application 导入了图运行库，因此 libmlp_graph_runtime.so 仍需存在，即使未启用图。
+
+4. 在RK上构建本次自有桥接/CPU代码（不要覆盖仍被进程加载的.so）
+以下宿主机命令要求已有 gcc/g++ 及第3节目录；不构建Docker镜像。
+先停止自己的实验进程，保留线上容器。使用独立目录上传源码后：
+
+cd /opt/decision3-edge-cpu-tail-20261017
+mkdir -p logs
+cp /opt/decision3-edge-remaining-500ms-20261017/libsafe_half_bridge.so .
+cp /opt/decision3-edge-remaining-500ms-20261017/libsafe_scatter_bridge.so .
+bash build_native.sh
+bash build_pipeline.sh
+bash build_mlp_graph.sh
+bash build_a72.sh
+
+上述两个safe库若实际存放在历史实验的其他目录，按该机器冻结工作区位置复制；
+不要从不匹配的SDK或另一ABI版本替换。以 logs/formal-single.json 的 sources SHA256 核对。
+编译后的ELF是ARM64；不要在x86上直接运行这些构建命令。
+本目录已有 pipeline_bridge.cpp / pipeline_profile.cpp，复现最终运行无需重新执行生成器。
+
+5. 定向验证（RK宿主机，逐条顺序运行；所有容器--rm，无端口，无线上卷写权限）
+bash run.sh test_lut.py
+bash run.sh activation_replay.py
+bash run.sh test_attention.py
+bash run.sh test_attention_guards.py
+bash run.sh test_small.py
+bash run.sh test_rotary.py
+bash run.sh test_residual.py
+bash run.sh test_attention_prepare.py
+bash run.sh test_pipeline.py
+bash run.sh test_pipeline_guards.py
+bash run.sh test_mlp_graph_guards.py
+
+6. 复现正式性能与回归
+原始结果先完整备份到另一个目录；这些脚本会写 logs/ 中同名文件。
+logs/lut-screen.json 包含固定extra_cases/extra_refs，必须保留；不要通过修改参考来放宽门槛。
+logs/thread-sweep.json 等已完成筛选数据用于选候选；runtime-selection.json保存默认运行策略。
+
+bash formal_host_suite.sh > logs/formal-suite.log 2>&1
+
+内部依次选择运行参数、重跑pipeline守卫、20轮交替基线/CPU/A72、选中版本100次连续、
+原7场景14问题+12个额外场景、额外场景3轮共36次复测、最后独立进程分段剖析。
+100次与20轮交替的机器状态/协议不同，必须分别报告。P95用nearest-rank，保留所有慢样本。
+单次阶段读取 logs/formal-paired.json 的 selected_config；不缓存答案。
+最终100次实际运行72个矩阵句柄，计数每次12个MLP流水融合+6个完整注意力准备融合。
+
+7. 补充交替验证MLP图（可选，不是最终CPU候选必需）
+需要完整12个 mlp-N-fp16graph.rknn；不支持T115以外形状时回退。
+这些图用 capture_mlp.py 捕获原始权重，export_mlp.py 导出，再用 compile_mlp_suite.sh 编译。
+x86编译步骤要求已有 d3-rkllm-toolkit:1.3.1 镜像及 attention-chunk-experiment/compiler-env；
+脚本中路径针对本机冻结工作区，先检查再运行，不需要重新构建镜像。
+生成文件、模型权重、私有GPU包不纳入源码；全12层均保留，未剪层。
+
+bash run.sh final_graph_comparison.py > logs/final-graph-comparison.log 2>&1
+
+该补充测试20轮轮换最终CPU、图、图+A72；门槛不变，图需稳定胜出>=3%才考虑采用。
+本次实际取舍与具体值见 report.html 和 experiment-result.json。
+
+8. 分段剖析与解释
+bash run.sh profile_final.py > logs/final-profile.log 2>&1
+主线程嵌套区间记exclusive；并行SDK调用按时间区间并集，不能把两个worker耗时相加。
+SDK同步墙钟含调用、驱动、等待，不等于纯NPU设备计算。
+profile前后各15次无插桩对照、10次插桩；分解总和对应插桩均值，不能与100次中位数混加。
+使用方法包装而非nn forward hooks，因为hooks会触发正确性保护而使融合回退。
+
+9. 保留线上服务的核验（开发Mac执行）
+修改目标IP时，同时检查 preserve_service.py 及 run.sh 的路径；脚本不会重启线上服务。
+python3 cpu-tail-experiment/preserve_service.py before
+# 在自己的独立测试进程完成上述实验后
+python3 cpu-tail-experiment/preserve_service.py after
+
+after验证容器ID、启动时间、Config/HostConfig、发布目录文件哈希完全相同，5次HTTP输出逐值一致，
+/health ready且Docker healthy，无decision3-cputail测试容器残留。
+GPU实验结束还需检查 gpu-worker.sock 与 gpu_worker.py 进程，本次已退出并清理自己创建的IPC文件。
+不要用 docker stop decision3-edge-optimized 结束实验。run.sh 测试结束自动删除自己的容器。
+
+10. 本地报告与证据检查
+python3 cpu-tail-experiment/build_report.py
+python3 -m py_compile cpu-tail-experiment/*.py
+for f in cpu-tail-experiment/*.sh; do bash -n "$f" || exit; done
+
+build_report.py 校验100次原始样本、配对轮数、所有数值门槛、区间闭合、运行核心源码/库哈希，
+生成 RESULTS.txt / experiment-result.json / report.html；原始JSON在logs，未剔除离群点。
+以上是10-17实验流程；10-18已补齐独立服务接口及真实HTTP验收并部署。不能把方法耗时当HTTP SLA，具体见部署文档。
+
+补充正式图候选的最终验证（本轮20轮补充比较选择 graph-half）：
+bash run.sh final_graph_single.py --stage single --count 100 > logs/formal-graph-single.log 2>&1
+bash run.sh profile_graph_final.py > logs/final-graph-profile.log 2>&1
+这两个脚本与CPU正式脚本只有读取的候选选择文件及输出文件名不同，未修改运行算子。
+构建报告会据 final-graph-comparison.json 自动选用最终图候选数据；保留CPU版正式记录。
+
+可选12个MLP图从原权重重新生成的完整调用（不构建镜像）：
+# RK宿主机，先用第3节固定模型工作区捕获12层真实MLP：
+cd /opt/decision3-edge-cpu-tail-20261017
+bash run.sh capture_mlp.py > logs/mlp-capture.log 2>&1
+# Mac仓库根目录，取捕获文件并用现有x86环境编译：
+rsync -az root@192.168.1.164:/opt/decision3-edge-cpu-tail-20261017/mlp-layers.pt cpu-tail-experiment/
+# 把本机仓库绝对路径替换为自己的位置；镜像固定ID与前轮相同。
+docker run --rm --platform linux/amd64 --entrypoint /bin/bash \
+  --mount "type=bind,source=$PWD/cpu-tail-experiment,target=/work" \
+  --mount "type=bind,source=$PWD/attention-chunk-experiment/compiler-env,target=/work/compiler-env,readonly" \
+  sha256:abbed9aef590a8e2f565c695531e7ce57214ed626e30d5e14e317d0f4b0cfce3 \
+  /work/compile_mlp_suite.sh
+rsync -az cpu-tail-experiment/mlp-*-fp16graph.rknn root@192.168.1.164:/opt/decision3-edge-cpu-tail-20261017/
+# RK宿主机，核对两种I/O对12层输出逐位一致，然后跑第7节补充正式对照：
+bash run.sh test_mlp_io.py
+
+compile_mlp_suite.sh 逐层检查 export_return==0；12个层号0..11均须成功。
+compiler-env 的具体安装版本/公开SDK轮包准备见 attention-chunk-experiment/REPRODUCTION.txt 第3节附近。
+以上镜像、SDK和历史工作区是外部依赖，不随纯源码文档自动获得；更换版本不能沿用本次性能或精度声明。

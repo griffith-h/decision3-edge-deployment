@@ -1,0 +1,100 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  30%|███       | 92/305 [00:00<00:00, 905.41it/s]Loading weights:  82%|████████▏ | 251/305 [00:00<00:00, 1304.21it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1304.05it/s]
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+SCAN_UNITS 480 passed
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff86eaa988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff86e49018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff88b7ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff8853f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff8853fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff894babcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff87f45cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff87f20c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff87f5b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff87f47538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff918c38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff93d77744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff93d77818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+CASE compact chinese-0 1.9421033100225031 {'max_probability_or_score_delta': 0.00144264449737945, 'choices_unchanged': True, 'passed': True}
+CASE compact chinese-1 1.8202019277960062 {'max_probability_or_score_delta': 0.0006107077361262384, 'choices_unchanged': True, 'passed': True}
+CASE compact english 1.7439339451957494 {'max_probability_or_score_delta': 0.0048337858914832, 'choices_unchanged': True, 'passed': True}
+CASE compact single 0.6121628610417247 {'max_probability_or_score_delta': 1.6171911109837686e-05, 'choices_unchanged': True, 'passed': True}
+CASE compact image 8.896644145948812 {'max_probability_or_score_delta': 0.0, 'choices_unchanged': True, 'passed': True}
+CASE compact novel-math 0.6113809300586581 {'max_probability_or_score_delta': 3.3700005366177344e-05, 'choices_unchanged': True, 'passed': True}
+CASE compact novel-chat 0.6069380720146 {'max_probability_or_score_delta': 0.0, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 chinese-0 1.8140496578998864 {'max_probability_or_score_delta': 0.0026291404817767594, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 chinese-1 1.7295697599183768 {'max_probability_or_score_delta': 0.00043244406433052066, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 english 1.6918533169664443 {'max_probability_or_score_delta': 0.0027284545214305567, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 single 0.5686693091411144 {'max_probability_or_score_delta': 1.2368035071300154e-05, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 image 8.450441915774718 {'max_probability_or_score_delta': 0.003126309099399982, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 novel-math 0.571655364939943 {'max_probability_or_score_delta': 4.0257392658472934e-05, 'choices_unchanged': True, 'passed': True}
+CASE native_t16_f5 novel-chat 0.569683144800365 {'max_probability_or_score_delta': 2.17235797471536e-06, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 chinese-0 1.7930411279667169 {'max_probability_or_score_delta': 0.0026291404817767594, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 chinese-1 1.7294661060441285 {'max_probability_or_score_delta': 0.00043244406433052066, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 english 1.7448413181118667 {'max_probability_or_score_delta': 0.0027284545214305567, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 single 0.5627642418257892 {'max_probability_or_score_delta': 1.2368035071300154e-05, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 image 8.405481009976938 {'max_probability_or_score_delta': 0.003126309099399982, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 novel-math 0.5467299250885844 {'max_probability_or_score_delta': 4.0257392658472934e-05, 'choices_unchanged': True, 'passed': True}
+CASE native_t32_f5 novel-chat 0.5806862770114094 {'max_probability_or_score_delta': 2.17235797471536e-06, 'choices_unchanged': True, 'passed': True}
+PAIR 0 baseline 0.6726344109047204 1.6171911109837686e-05
+PAIR 0 compact 0.6082097650505602 1.6171911109837686e-05
+PAIR 0 native_t16_f5 0.5772471530362964 1.2368035071300154e-05
+PAIR 0 native_t32_f5 0.5855932729318738 1.2368035071300154e-05
+PAIR 1 native_t32_f5 0.5741508509963751 1.2368035071300154e-05
+PAIR 1 native_t16_f5 0.5718822840135545 1.2368035071300154e-05
+PAIR 1 compact 0.6187435849569738 1.6171911109837686e-05
+PAIR 1 baseline 0.6740323950070888 1.6171911109837686e-05
+PAIR 2 baseline 0.6717430618591607 1.6171911109837686e-05
+PAIR 2 compact 0.6099529969505966 1.6171911109837686e-05
+PAIR 2 native_t16_f5 0.568251843098551 1.2368035071300154e-05
+PAIR 2 native_t32_f5 0.5723065510392189 1.2368035071300154e-05
+PAIR 3 native_t32_f5 0.5746790119446814 1.2368035071300154e-05
+PAIR 3 native_t16_f5 0.5678818048909307 1.2368035071300154e-05
+PAIR 3 compact 0.6156972078606486 1.6171911109837686e-05
+PAIR 3 baseline 0.632445152150467 1.6171911109837686e-05
+PAIR 4 baseline 0.6698517431505024 1.6171911109837686e-05
+PAIR 4 compact 0.6200792388990521 1.6171911109837686e-05
+PAIR 4 native_t16_f5 0.5656074821017683 1.2368035071300154e-05
+PAIR 4 native_t32_f5 0.5743610081262887 1.2368035071300154e-05
+PAIR 5 native_t32_f5 0.5753933030646294 1.2368035071300154e-05
+PAIR 5 native_t16_f5 0.5542525870259851 1.2368035071300154e-05
+PAIR 5 compact 0.5997399401385337 1.6171911109837686e-05
+PAIR 5 baseline 0.6826757369562984 1.6171911109837686e-05
+PAIR 6 baseline 0.6697519388981164 1.6171911109837686e-05
+PAIR 6 compact 0.6104647610336542 1.6171911109837686e-05
+PAIR 6 native_t16_f5 0.5740358829498291 1.2368035071300154e-05
+PAIR 6 native_t32_f5 0.5718637648969889 1.2368035071300154e-05
+PAIR 7 native_t32_f5 0.5726819019764662 1.2368035071300154e-05
+PAIR 7 native_t16_f5 0.5714670380111784 1.2368035071300154e-05
+PAIR 7 compact 0.6089803751092404 1.6171911109837686e-05
+PAIR 7 baseline 0.6739280980546027 1.6171911109837686e-05
+PAIR 8 baseline 0.6746362920384854 1.6171911109837686e-05
+PAIR 8 compact 0.5992675910238177 1.6171911109837686e-05
+PAIR 8 native_t16_f5 0.5687101590447128 1.2368035071300154e-05
+PAIR 8 native_t32_f5 0.5697158528491855 1.2368035071300154e-05
+PAIR 9 native_t32_f5 0.5696243150159717 1.2368035071300154e-05
+PAIR 9 native_t16_f5 0.5666317429859191 1.2368035071300154e-05
+PAIR 9 compact 0.6142194259446114 1.6171911109837686e-05
+PAIR 9 baseline 0.671850266167894 1.6171911109837686e-05
+PAIR 10 baseline 0.6731900030281395 1.6171911109837686e-05
+PAIR 10 compact 0.6113390100654215 1.6171911109837686e-05
+PAIR 10 native_t16_f5 0.5788743288721889 1.2368035071300154e-05
+PAIR 10 native_t32_f5 0.5693017379380763 1.2368035071300154e-05
+PAIR 11 native_t32_f5 0.5729300151579082 1.2368035071300154e-05
+PAIR 11 native_t16_f5 0.5695446999743581 1.2368035071300154e-05
+PAIR 11 compact 0.6128816641867161 1.6171911109837686e-05
+PAIR 11 baseline 0.6705990899354219 1.6171911109837686e-05
+STABILITY native_t16_f5 10 0.5745011009275913
+STABILITY native_t16_f5 20 0.567168524954468
+STABILITY native_t16_f5 30 0.5786636921111494
+STABILITY native_t16_f5 40 0.5698078779969364
+STABILITY native_t16_f5 50 0.5690113669261336
+STABILITY native_t16_f5 60 0.5701836009975523
+STABILITY native_t16_f5 70 0.5686697971541435
+STABILITY native_t16_f5 80 0.5744721919763833
+STABILITY native_t16_f5 90 0.5686254701577127
+STABILITY native_t16_f5 100 0.5702325829770416

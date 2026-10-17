@@ -1,0 +1,89 @@
+469ms余量剖析、CPU消融、SDK FP16输出和等待策略：复现
+
+前提
+相同RK3576、ARM64 Linux、Docker、板端gcc/g++和OpenMP。使用已有镜像，不构建镜像。
+模型snapshot固定20c745653400d191ecacd99c4eafc0c5900dc15e；Torch2.12.0+cpu、Transformers5.17.0；
+RKNN Runtime2.5.0、driver0.9.8，原12层、完整注意力非因果mask、GatedDeltaNet因果扫描。
+原服务release、base/sdk、模型缓存和两个已有候选目录必须已具备：
+  /opt/decision3-edge-optimized-20261017-v1
+  /opt/decision3-edge-matmul
+  /opt/decision3-edge-bridge-parallel-20261017
+  /opt/decision3-edge-scan-20261017
+从零安装仍见仓库HTML安装指南；本文件只复现本轮独立实验。
+
+隔离
+工作目录/opt/decision3-edge-remainder-20261017，容器decision3-remainder-test。
+原release/base/组合候选/扫描候选/模型/参考用例均只读挂载；本轮工作目录可写。
+CPU4..7、Torch/OpenBLAS/OpenMP3、OMP_THREAD_LIMIT3、8GiB、/dev/dri、--init --rm。
+不发布端口，不停机/重配线上服务，不修改驱动/governor。禁止core dump。
+双引擎阶段只在本容器提升nofile到4096，防止超过默认描述符上限；不改变主机或线上容器。
+已有同名容器时run.sh拒绝覆盖库。不要向运行中的实验目录rsync覆盖代码或库。
+重复实验会覆盖同名日志；先归档logs及service-before/after.json，或使用新目录。
+
+开发机，仓库根目录
+  python3 -m py_compile remainder-optimization-experiment/*.py
+  bash -n remainder-optimization-experiment/run.sh
+  python3 remainder-optimization-experiment/preserve_service.py before
+  python3 remainder-optimization-experiment/make_profile.py
+  python3 remainder-optimization-experiment/make_half_bridge.py
+  python3 remainder-optimization-experiment/make_profile.py --half
+  rsync -az --exclude logs --exclude '*.so' --exclude __pycache__ remainder-optimization-experiment/ 192.168.1.164:/opt/decision3-edge-remainder-20261017/
+
+板端，顺序执行，不要并行争用CPU/NPU
+  cd /opt/decision3-edge-remainder-20261017
+  mkdir -p logs
+  bash run.sh > logs/profile-run.log 2>&1
+  D3_REMAINDER_SCRIPT=unit_only.py bash run.sh > logs/unit-run.log 2>&1
+  D3_REMAINDER_SCRIPT=benchmark.py bash run.sh > logs/model-run.log 2>&1
+  bash run.sh --half-output --probe-activations > logs/profile-half-run.log 2>&1
+  D3_REMAINDER_SCRIPT=probe_sleef.py bash run.sh > logs/sleef-screen-run.log 2>&1
+  D3_REMAINDER_SCRIPT=environment_benchmark.py bash run.sh --tag default-before --count 30 > logs/env-default-before-run.log 2>&1
+  D3_WAIT_POLICY=passive D3_REMAINDER_SCRIPT=environment_benchmark.py bash run.sh --tag passive --count 100 --cases > logs/env-passive-run.log 2>&1
+  D3_REMAINDER_SCRIPT=environment_benchmark.py bash run.sh --tag default-after --count 100 --cases > logs/env-default-after-run.log 2>&1
+  D3_REMAINDER_SCRIPT=test_output_range.py bash run.sh > logs/output-range-run.log 2>&1
+  D3_REMAINDER_SCRIPT=environment_benchmark.py bash run.sh --safe-output --tag safe-default --count 100 --cases > logs/env-safe-default-run.log 2>&1
+  D3_REMAINDER_SCRIPT=paired_safe.py bash run.sh > logs/safe-paired-run.log 2>&1
+
+各阶段口径
+profile：自有桥接仅加入时钟。无插桩前后各15次，剖析10次，主线程排他span闭合；
+78句柄SDK时间区间合并去重。SDK同步不是纯NPU执行，线程耗时总和不是请求墙钟。
+
+unit_only：自有CPU向量激活、融合、norm检查，65536 BF16位模式各3种算子，
+加尾部/空/非连续/原norm对照，共46组记录。普通norm位级相同，其他<=2 BF16 ULP。
+
+benchmark：同模型/同引擎CPU候选消融，12轮顺序交替、每组预热一次，逐次计时输出检查。
+all候选做7用例14问题，norm/activation单项仅单问题速度消融，不宣称它们单独做了7用例。
+100次阶段如all未更快就保留baseline，不能把baseline100次伪称CPU候选稳定性成绩。
+随后两个常驻引擎FP32输出与FP16输出对照：7用例精度、通过后12轮交替计时。
+这一阶段有两个78句柄引擎，不能直接与单引擎100次中位数混为同等资源条件。
+FP16权重表示与原路径相同；只选择公开type4输出路径，不量化权重、不修改训练权重。
+SDK内部累加方式未公开，不能只凭类型枚举称其为无损或同一硬件内核。
+
+profile-half：对FP16单引擎同样剖析，并重放真实18次SiLU输入，比较Torch BF16、
+Torch FP32转回、手写多项式。另筛选已安装开源Torch公开导出的SLEEF函数，
+不反编译、不读取厂商执行器内部；合成筛选结果不冒充整模型速度。
+
+environment：只有FP16输出路径，CPU其他算子保持基线。默认/被动/默认复测；
+被动策略只对新容器设置OMP_WAIT_POLICY=PASSIVE、GOMP_SPINCOUNT=0，仍为三线程。
+每次输出比较，100次两组另做7用例；CPU使用时间不等于能耗/功率测量。
+这些是有前后默认参照的不同进程，不能把微小差异称为严格成对策略收益。
+
+最终safe_half_bridge.cpp + SafeEngine补齐FP16输出范围：C融合转换时检测饱和/非有限值，
+仅对状态-3回退原CPU投影；不抑制原有NaN/FP16输入溢出检查。不是截断/钳位输出。
+test_output_range展示原CPU结果1048576在未保护FP16下为Inf，以及保护版回退和恢复。
+safe-default单引擎100次和7用例；paired_safe两个常驻引擎6轮交替，单独报告资源条件。
+生成代码提供为源码；直接编译safe_half_bridge.cpp，不用修改厂商库。
+
+精度
+概率/score/noul最大绝对差<=0.01，choice一致，排除confidence、legend。
+FP16路径有额外数值舍入；7用例不是带标签数据集准确率，不代表所有输入的位级等价。
+时延为预热后115token、单问题、并发1的完整system_one，排除加载/HTTP/网络。
+
+收集与线上核验（开发机仓库根目录）
+  rsync -az --exclude '*.pt' 192.168.1.164:/opt/decision3-edge-remainder-20261017/logs/ remainder-optimization-experiment/logs/
+  python3 remainder-optimization-experiment/preserve_service.py after
+  python3 remainder-optimization-experiment/summarize.py
+
+检查service-after.json passed=true，容器ID/启动时间/配置/源码/示例响应相同，
+decision3-remainder-test不存在。summarize.py核对SDK核心/环境脚本源码哈希并生成RESULTS.txt、experiment-result.json。
+本轮不部署、不提交推送；原始失败诊断也保留，未伪装为成功结果。

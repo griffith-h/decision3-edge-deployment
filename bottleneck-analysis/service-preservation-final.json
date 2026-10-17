@@ -1,0 +1,55 @@
+{
+  "verified_at_utc": "2026-10-17T11:20:49.056257+00:00",
+  "passed": true,
+  "container_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+  "started_at": "2026-10-17T11:04:28.007796263Z",
+  "id_start_time_config_and_host_config_unchanged": true,
+  "source_sha256": {
+    "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf"
+  },
+  "responses_exactly_equal": true,
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 5635,
+        "norm_calls": 4945,
+        "conv_calls": 690
+      }
+    }
+  },
+  "inference_http_seconds": [
+    0.93689825,
+    0.872980375,
+    0.8671400409999999,
+    0.8657558749999996,
+    0.8563685840000002
+  ],
+  "median": 0.8671400409999999,
+  "min": 0.8563685840000002,
+  "max": 0.93689825,
+  "remaining_test_containers": [],
+  "scope": "Final verification after all isolated profiling/capability probes completed; existing service never stopped or reconfigured."
+}

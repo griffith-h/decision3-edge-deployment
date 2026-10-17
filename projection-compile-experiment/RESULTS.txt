@@ -1,0 +1,38 @@
+同输入投影合并、两核平衡、CPU编译融合：独立测试结果
+
+RK3576；原权重、12层、非因果完整注意力；同一115-token请求的暖态system_one耗时，不含HTTP。7用例14问题为数值回归，不能代表任务准确率。无反编译、镜像构建、主机时钟或线上改动。
+
+本轮最好候选：合并同输入投影＋两核等宽分块＋原地转换写回；保留原CPU路径及输出范围回退。100次中位数 509.67ms，P95 516.74ms，最慢 524.81ms。未到200ms。
+成对复核：516.75 -> 508.78ms，逐轮降时延中位数 1.28%，18/20轮更快；与单引擎100次条件不同。
+7用例14问题选择一致；相对512ms安全基线，受检概率/score/noul最大绝对差 0；相对更早FP32输出基线为 0.00561126053。100次逐次校验通过。
+CPU编译：动态MLP、大区域动态、大区域固定形状、编译内核单线程及组合均无端到端收益，不纳入候选。固定形状只优化暖机签名，其他签名回退原路径。
+首个CPU编译方案丢失中间BF16舍入边界，单测失败后用显式位运算修复；没有放宽原阈值。首次调用含编译/NPU初始化，不计入暖态中位数，详见原始JSON。
+原线上三线程服务保留；候选未部署。
+
+真实输入分组重放（包含SDK等待/输出转换，不是纯NPU计算；插桩，仅作机制诊断）：
+delta: baseline=4.888ms, balanced=4.252ms
+full: baseline=3.232ms, merge=3.218ms, balanced=2.589ms
+
+单引擎数据（时间ms；不同进程屏蔽不了漂移，最终以成对试验复核）：
+baseline-all-static-cpp1.json: n=16, median=620.92, P95=632.70, min=617.26, max=632.70, passed=True, maxΔsafe=4.713040615378361e-05, maxΔFP32=0.005611260526635964
+baseline-all-static-cpp3.json: n=16, median=541.10, P95=551.31, min=498.86, max=551.31, passed=True, maxΔsafe=4.713040615378361e-05, maxΔFP32=0.005611260526635964
+baseline-all.json: n=16, median=553.72, P95=566.89, min=543.68, max=566.89, passed=True, maxΔsafe=0.0033519341220543675, maxΔFP32=0.008963194648690331
+baseline-mlp.json: n=16, median=524.70, P95=538.67, min=510.21, max=538.67, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+baseline-none.json: n=16, median=512.44, P95=515.25, min=499.39, max=515.25, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+compiler-baseline-none.json: n=16, median=512.44, P95=515.25, min=499.39, max=515.25, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+pre-compiler-baseline-none.json: n=16, median=519.21, P95=525.86, min=510.30, max=525.86, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+scatter-balanced-all-static-cpp1.json: n=16, median=616.87, P95=619.58, min=613.78, max=619.58, passed=True, maxΔsafe=4.713040615378361e-05, maxΔFP32=0.005611260526635964
+scatter-balanced-all-static-cpp3.json: n=16, median=534.01, P95=551.17, min=500.55, max=551.17, passed=True, maxΔsafe=4.713040615378361e-05, maxΔFP32=0.005611260526635964
+scatter-balanced-none-screen.json: n=16, median=502.87, P95=507.56, min=468.79, max=507.56, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+scatter-balanced-none.json: n=100, median=509.67, P95=516.74, min=466.69, max=524.81, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+scatter-merge-none.json: n=16, median=515.27, P95=525.83, min=504.57, max=525.83, passed=True, maxΔsafe=0.0, maxΔFP32=0.005611260526635964
+
+同模型、持久引擎、交替顺序的成对复核（资源条件不同，不能与单引擎100次当同口径）：
+scatter-paired-balanced-none.json: baseline=516.75 -> candidate=508.78, 逐轮降时延中位数=1.28%, 18/20轮更快
+
+定向测试：{'scatter-packing-unit.json': True, 'compile-static-unit.json': True, 'compile-dynamic-unit.json': True, 'compile-unit.json': True}
+线上容器/源码/配置/响应不变：True
+验证命令：bash build_scatter.sh；bash run.sh scatter_runner.py test_packing.py；bash run.sh --compiler cpu_suite.sh；bash run.sh --compiler scatter_suite.sh（诊断脚本分支修复后继续cpp1_suite.sh）；bash run.sh --compiler cpp1_suite.sh；bash run.sh final_native_suite.sh；python3 preserve_service.py after；python3 summarize.py。
+本地静态检查：python3 -m py_compile projection-compile-experiment/*.py；bash -n projection-compile-experiment/*.sh。
+定向覆盖：分列/偏置/非连续输入/动态行数、输出溢出CPU回退与恢复、工作线程错误后的全部等待；CPU显式舍入100003位模式、eager对照、空输入/FP32/梯度回退、固定形状失配回退、RoPE及还原。
+所有逐次原始值、完整范围、首次签名耗时和源码/原生库哈希见logs/；完整复现见REPRODUCTION.txt。

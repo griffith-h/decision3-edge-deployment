@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "precision_cast_emulation": true,
+  "explicit_rounding_random_fp32_values": 100003,
+  "records": [
+    {
+      "region": "mlp",
+      "rows": 1,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.556625050958246,
+      "exact": true
+    },
+    {
+      "region": "mlp",
+      "rows": 17,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.619434179039672,
+      "exact": true
+    },
+    {
+      "region": "mlp",
+      "rows": 115,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.001177110942080617,
+      "exact": true
+    },
+    {
+      "region": "mlp",
+      "rows": 129,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.0011519801337271929,
+      "exact": true
+    },
+    {
+      "region": "norm",
+      "rows": 1,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.4476756879594177,
+      "exact": true
+    },
+    {
+      "region": "norm",
+      "rows": 17,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.40089311404153705,
+      "exact": true
+    },
+    {
+      "region": "norm",
+      "rows": 115,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.0010933130979537964,
+      "exact": true
+    },
+    {
+      "region": "norm",
+      "rows": 129,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.0011215079575777054,
+      "exact": true
+    },
+    {
+      "region": "gated",
+      "rows": 1,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.6087943909224123,
+      "exact": true
+    },
+    {
+      "region": "gated",
+      "rows": 17,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.834916157880798,
+      "exact": true
+    },
+    {
+      "region": "gated",
+      "rows": 115,
+      "max_abs_delta": 0.0009765625,
+      "first_call_seconds": 0.0012108359951525927,
+      "exact": false
+    },
+    {
+      "region": "gated",
+      "rows": 129,
+      "max_abs_delta": 0.0,
+      "first_call_seconds": 0.0012309961020946503,
+      "exact": true
+    }
+  ],
+  "empty_float32_grad_disabled_and_restore_checks": true,
+  "wrapper_stats": {
+    "calls": {
+      "mlp": 1,
+      "norm": 1,
+      "gated": 1,
+      "rope": 2
+    },
+    "first_signature_seconds": {
+      "('mlp', (((3, 128), 'torch.bfloat16', (128, 1)), ((3, 128), 'torch.bfloat16', (128, 1))))": 13.833029412897304,
+      "('norm', (((3, 64), 'torch.bfloat16', (64, 1)), ((64,), 'torch.bfloat16', (1,)), 1e-06))": 3.6381561930757016,
+      "('gated', (((3, 64), 'torch.bfloat16', (64, 1)), ((64,), 'torch.bfloat16', (1,)), ((3, 64), 'torch.bfloat16', (64, 1)), 1e-06))": 5.217791486997157,
+      "('rope', (((1, 2, 17, 128), 'torch.bfloat16', (4352, 2176, 128, 1)), ((1, 1, 17, 128), 'torch.bfloat16', (2176, 2176, 128, 1)), ((1, 17, 64), 'torch.bfloat16', (1088, 64, 1)), ((1, 17, 64), 'torch.bfloat16', (1088, 64, 1)), 1))": 7.925322434166446,
+      "('rope', (((1, 2, 17, 128), 'torch.bfloat16', (4352, 2176, 128, 1)), ((1, 1, 17, 128), 'torch.bfloat16', (2176, 2176, 128, 1)), ((1, 17, 64), 'torch.float32', (1088, 64, 1)), ((1, 17, 64), 'torch.float32', (1088, 64, 1)), 1))": 4.479793766979128
+    },
+    "errors": [],
+    "precision_cast_emulation": true,
+    "explicit_bf16_rounding": true,
+    "dynamic": false,
+    "unseen_shape_fallbacks": 1
+  }
+}

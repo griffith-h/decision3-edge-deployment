@@ -1,0 +1,67 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  36%|███▋      | 111/305 [00:00<00:00, 1090.56it/s]Loading weights:  72%|███████▏  | 221/305 [00:00<00:00, 1047.42it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1258.79it/s]
+TIMED baseline 0 0.5122007359750569
+TIMED baseline 1 0.5133367939852178
+TIMED baseline 2 0.511663646902889
+TIMED baseline 3 0.46817942103371024
+TIMED baseline 4 0.4658448409754783
+TIMED baseline 5 0.4828301209490746
+TIMED baseline 6 0.5031492169946432
+TIMED baseline 7 0.51091324002482
+TIMED baseline 8 0.5102035889867693
+TIMED baseline 9 0.47753861313685775
+TIMED baseline 10 0.5030639080796391
+TIMED baseline 11 0.5069500738754869
+TIMED baseline 12 0.5066618039272726
+TIMED baseline 13 0.5051560569554567
+TIMED baseline 14 0.5049811040516943
+TIMED baseline 15 0.5048405141569674
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffffac8ba988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffffac859018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffffae58ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffffadf4f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffffadf4fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffffaeecabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffffad955cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffffad930c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffffad96b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffffad957538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffffb72d38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffffb9117744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffffb9117818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+TIMED conv-prepare 0 0.4599728861358017
+TIMED conv-prepare 1 0.43389332899823785
+TIMED conv-prepare 2 0.4519996631424874
+TIMED conv-prepare 3 0.45314300898462534
+TIMED conv-prepare 4 0.4515184238553047
+TIMED conv-prepare 5 0.4630769737996161
+TIMED conv-prepare 6 0.47158597805537283
+TIMED conv-prepare 7 0.45095690595917404
+TIMED conv-prepare 8 0.4517679999116808
+TIMED conv-prepare 9 0.45031549385748804
+TIMED conv-prepare 10 0.45025856606662273
+TIMED conv-prepare 11 0.4525234398897737
+TIMED conv-prepare 12 0.4527982408180833
+TIMED conv-prepare 13 0.4529117299243808
+TIMED conv-prepare 14 0.45186899206601083
+TIMED conv-prepare 15 0.45128622208721936
+TIMED conversion-conv-prepare 0 0.45541111193597317
+TIMED conversion-conv-prepare 1 0.45556044206023216
+TIMED conversion-conv-prepare 2 0.44926019199192524
+TIMED conversion-conv-prepare 3 0.4355681349989027
+TIMED conversion-conv-prepare 4 0.445340096950531
+TIMED conversion-conv-prepare 5 0.44167214701883495
+TIMED conversion-conv-prepare 6 0.44609782309271395
+TIMED conversion-conv-prepare 7 0.44375077495351434
+TIMED conversion-conv-prepare 8 0.44309458206407726
+TIMED conversion-conv-prepare 9 0.44352454296313226
+TIMED conversion-conv-prepare 10 0.4443511760327965
+TIMED conversion-conv-prepare 11 0.45413478184491396
+TIMED conversion-conv-prepare 12 0.4428209050092846
+TIMED conversion-conv-prepare 13 0.4411066679749638
+TIMED conversion-conv-prepare 14 0.4439471911173314
+TIMED conversion-conv-prepare 15 0.44118936685845256

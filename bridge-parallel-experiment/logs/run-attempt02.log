@@ -1,0 +1,97 @@
+FOCUSED_UNITS_PASSED {"passed": true, "converter_values_and_focused_cases": 165566, "exhaustive_bf16_input_patterns": 65536, "random_fp32_output_patterns": 100003, "dynamic_rows": [1, 115, 127, 128, 129, 256, 257, 512, 128, 1], "noncontiguous_and_biased_outputs_bitwise_equal": true, "nonfinite_and_fp16_overflow_rejected": true, "failed_input_recovery_passed": true, "cpu_fallback_exact": true, "worker_exception_join_passed": true}
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 105/305 [00:00<00:00, 1042.37it/s]Loading weights:  73%|███████▎  | 222/305 [00:00<00:00, 1116.14it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1219.62it/s]
+TIMING baseline 5 0.858884
+TIMING baseline 10 0.856124
+TIMING baseline 15 0.865856
+TIMING baseline 20 0.85157
+TIMING baseline 25 0.858945
+TIMING baseline 30 0.85504
+CASE baseline chinese-0 2.6916397879831493 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE baseline chinese-1 2.598844953812659 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE baseline english 2.6792539830785245 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE baseline single 0.8040590560995042 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff876ea988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff87689018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff893bef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff88d7f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff88d7fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff89cfabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff88785cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff88760c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff8879b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff88787538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff921038a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff945b7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff945b7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+CASE baseline image 9.782059160992503 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE baseline novel-math 0.7623113400768489 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE baseline novel-chat 0.7968816391658038 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+TIMING fusion 5 0.698532
+TIMING fusion 10 0.700709
+TIMING fusion 15 0.702332
+TIMING fusion 20 0.69704
+TIMING fusion 25 0.698998
+TIMING fusion 30 0.691937
+CASE fusion chinese-0 2.239742796868086 {"max_probability_or_score_delta": 0.00144264449737945, "choices_unchanged": true, "passed": true}
+CASE fusion chinese-1 2.1807641100604087 {"max_probability_or_score_delta": 0.0006107077361262384, "choices_unchanged": true, "passed": true}
+CASE fusion english 2.166786946821958 {"max_probability_or_score_delta": 0.0048337858914832, "choices_unchanged": true, "passed": true}
+CASE fusion single 0.7132507970090955 {"max_probability_or_score_delta": 1.6171911109837686e-05, "choices_unchanged": true, "passed": true}
+CASE fusion image 9.648953096941113 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE fusion novel-math 0.7113411300815642 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE fusion novel-chat 0.6990619008429348 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+TIMING parallel 5 0.854745
+TIMING parallel 10 0.818745
+TIMING parallel 15 0.841621
+TIMING parallel 20 0.812726
+TIMING parallel 25 0.823764
+TIMING parallel 30 0.821137
+CASE parallel chinese-0 2.50783927901648 {"max_probability_or_score_delta": 0.00144264449737945, "choices_unchanged": true, "passed": true}
+CASE parallel chinese-1 2.4387912510428578 {"max_probability_or_score_delta": 0.0006107077361262384, "choices_unchanged": true, "passed": true}
+CASE parallel english 2.276175732957199 {"max_probability_or_score_delta": 0.0048337858914832, "choices_unchanged": true, "passed": true}
+CASE parallel single 0.8272520541213453 {"max_probability_or_score_delta": 1.6171911109837686e-05, "choices_unchanged": true, "passed": true}
+CASE parallel image 9.47956583998166 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE parallel novel-math 0.7996806760784239 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE parallel novel-chat 0.7395291260909289 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+TIMING combined 5 0.662131
+TIMING combined 10 0.66817
+TIMING combined 15 0.664651
+TIMING combined 20 0.666795
+TIMING combined 25 0.66349
+TIMING combined 30 0.660229
+CASE combined chinese-0 2.1133140549063683 {"max_probability_or_score_delta": 0.00144264449737945, "choices_unchanged": true, "passed": true}
+CASE combined chinese-1 2.0371627151034772 {"max_probability_or_score_delta": 0.0006107077361262384, "choices_unchanged": true, "passed": true}
+CASE combined english 2.0182520039379597 {"max_probability_or_score_delta": 0.0048337858914832, "choices_unchanged": true, "passed": true}
+CASE combined single 0.664896555012092 {"max_probability_or_score_delta": 1.6171911109837686e-05, "choices_unchanged": true, "passed": true}
+CASE combined image 9.09412062796764 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE combined novel-math 0.6597301959991455 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+CASE combined novel-chat 0.6637086980044842 {"max_probability_or_score_delta": 0.0, "choices_unchanged": true, "passed": true}
+TIMING baseline_recheck 5 0.807434
+TIMING baseline_recheck 10 0.808878
+TIMING baseline_recheck 15 0.802002
+CASE baseline_recheck single 0.8019099810626358 {"max_probability_or_score_delta": 1.6171911109837686e-05, "choices_unchanged": true, "passed": true}
+TIMING selected_combined 5 0.662852
+TIMING selected_combined 10 0.667427
+TIMING selected_combined 15 0.662735
+TIMING selected_combined 20 0.662131
+TIMING selected_combined 25 0.664596
+TIMING selected_combined 30 0.661713
+TIMING selected_combined 35 0.664857
+TIMING selected_combined 40 0.663055
+TIMING selected_combined 45 0.664767
+TIMING selected_combined 50 0.665246
+TIMING selected_combined 55 0.664747
+TIMING selected_combined 60 0.663083
+TIMING selected_combined 65 0.664787
+TIMING selected_combined 70 0.667224
+TIMING selected_combined 75 0.667509
+TIMING selected_combined 80 0.612776
+TIMING selected_combined 85 0.664009
+TIMING selected_combined 90 0.665597
+TIMING selected_combined 95 0.617567
+TIMING selected_combined 100 0.665668
+EXPERIMENT_COMPLETE True

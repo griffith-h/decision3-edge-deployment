@@ -1,0 +1,2198 @@
+{
+  "scope": "Isolated three-thread process, fixed official model/12 layers/masks and CPU kernels. 115-token single-question timings, concurrency1, initialization excluded, no response cache.",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "OMP_THREAD_LIMIT": "3"
+  },
+  "source_sha256": {
+    "test_units.py": "e336a7ac97d1d77583c2dfae756e65f9c23d90c55515a6389298c785ff0ac7ab",
+    "adapter.py": "2a3b936acdf8462ed45f62995095111053bf4ef18f2961e671e6c41813b9c7fa",
+    "fused_bridge.cpp": "0a3a49008f06eea52aa803b1f5aaaa3a93e37a85159ba461309adf82faf34609",
+    "benchmark.py": "6a35f0389d42297ffb970f310e0d71a0aa8b91f9bafe6b12129741077cc1a999",
+    "debug_conversion.py": "d4818f1b6de7fe4766fe2111d9b7f079fa22843af3944d8398f5d4979b6276f2"
+  },
+  "baseline_cases": {
+    "chinese-0": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9992494195019632,
+            "math": 0.0004935644786135119,
+            "chat": 0.00025701601942321444
+          },
+          "confidence": 0.9939625486992795
+        },
+        "programming": {
+          "type": "noul",
+          "noul": 0.8752567228121104
+        },
+        "complexity": {
+          "type": "score",
+          "score": 0.10385067374070459,
+          "probabilities": {
+            "0": 0.912946667039891,
+            "1": 0.07025599217951327,
+            "2": 0.016797340780595662
+          },
+          "confidence": 0.6920072715541228,
+          "legend": {
+            "0": "简单",
+            "1": "中等",
+            "2": "复杂"
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 344,
+        "output_tokens": 0
+      }
+    },
+    "chinese-1": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.0007173556069197987,
+            "math": 0.00034791887361597726,
+            "chat": 0.9989347255194643
+          },
+          "confidence": 0.9917814646650902
+        },
+        "programming": {
+          "type": "noul",
+          "noul": 0.0002665421819460783
+        },
+        "complexity": {
+          "type": "score",
+          "score": 0.018856718385752525,
+          "probabilities": {
+            "0": 0.9837947449388112,
+            "1": 0.013553791736625062,
+            "2": 0.002651463324563731
+          },
+          "confidence": 0.917987914049969,
+          "legend": {
+            "0": "简单",
+            "1": "中等",
+            "2": "复杂"
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 314,
+        "output_tokens": 0
+      }
+    },
+    "english": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "domain": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9052683264523447,
+            "math": 0.0001014976458856811,
+            "other": 0.09463017590176968
+          },
+          "confidence": 0.7140518332891264
+        },
+        "reasoning": {
+          "type": "noul",
+          "noul": 0.06314141632609005
+        },
+        "difficulty": {
+          "type": "score",
+          "score": 0.19181100238144017,
+          "probabilities": {
+            "0": 0.8434411537727241,
+            "1": 0.12130669007311169,
+            "2": 0.03525215615416424
+          },
+          "confidence": 0.5290208128833576,
+          "legend": {
+            "0": "Trivial",
+            "1": "Moderate",
+            "2": "Hard"
+          }
+        }
+      },
+      "usage": {
+        "input_tokens": 328,
+        "output_tokens": 0
+      }
+    },
+    "single": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "image": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "image_colour": {
+          "type": "choice",
+          "choice": "other",
+          "probabilities": {
+            "red": 0.026228535303524977,
+            "green": 0.33001856583258776,
+            "blue": 0.011836226660430021,
+            "other": 0.6319166722034573
+          },
+          "confidence": 0.420096347037626
+        },
+        "image_photo": {
+          "type": "noul",
+          "noul": 0.026739071755792144
+        }
+      },
+      "usage": {
+        "input_tokens": 347,
+        "output_tokens": 0
+      }
+    },
+    "novel-math": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "math",
+          "probabilities": {
+            "code": 0.0018856502731327185,
+            "math": 0.9978929475974954,
+            "chat": 0.00022140212937187467
+          },
+          "confidence": 0.9856203671772973
+        }
+      },
+      "usage": {
+        "input_tokens": 117,
+        "output_tokens": 0
+      }
+    },
+    "novel-chat": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "chat",
+          "probabilities": {
+            "code": 0.00010059916430897093,
+            "math": 0.000112020525900909,
+            "chat": 0.9997873803097901
+          },
+          "confidence": 0.9980360858862768
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "variants": {
+    "baseline": {
+      "fusion": false,
+      "parallel": false,
+      "cases": {
+        "chinese-0": {
+          "seconds": 2.6916397879831493,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9992494195019632,
+                  "math": 0.0004935644786135119,
+                  "chat": 0.00025701601942321444
+                },
+                "confidence": 0.9939625486992795
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8752567228121104
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10385067374070459,
+                "probabilities": {
+                  "0": 0.912946667039891,
+                  "1": 0.07025599217951327,
+                  "2": 0.016797340780595662
+                },
+                "confidence": 0.6920072715541228,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0019052424113567001,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "chinese-1": {
+          "seconds": 2.598844953812659,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0007173556069197987,
+                  "math": 0.00034791887361597726,
+                  "chat": 0.9989347255194643
+                },
+                "confidence": 0.9917814646650902
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002665421819460783
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.018856718385752525,
+                "probabilities": {
+                  "0": 0.9837947449388112,
+                  "1": 0.013553791736625062,
+                  "2": 0.002651463324563731
+                },
+                "confidence": 0.917987914049969,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.000648105181084168,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "english": {
+          "seconds": 2.6792539830785245,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9052683264523447,
+                  "math": 0.0001014976458856811,
+                  "other": 0.09463017590176968
+                },
+                "confidence": 0.7140518332891264
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06314141632609005
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.19181100238144017,
+                "probabilities": {
+                  "0": 0.8434411537727241,
+                  "1": 0.12130669007311169,
+                  "2": 0.03525215615416424
+                },
+                "confidence": 0.5290208128833576,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0012922684958656672,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "single": {
+          "seconds": 0.8040590560995042,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991614487649136,
+                  "math": 0.0007030417676997158,
+                  "chat": 0.00013550946738658898
+                },
+                "confidence": 0.9934924631719657
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 4.766574115794633e-06,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "image": {
+          "seconds": 9.782059160992503,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.026228535303524977,
+                  "green": 0.33001856583258776,
+                  "blue": 0.011836226660430021,
+                  "other": 0.6319166722034573
+                },
+                "confidence": 0.420096347037626
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026739071755792144
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0024895148224974295,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "novel-math": {
+          "seconds": 0.7623113400768489,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0018856502731327185,
+                  "math": 0.9978929475974954,
+                  "chat": 0.00022140212937187467
+                },
+                "confidence": 0.9856203671772973
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          }
+        },
+        "novel-chat": {
+          "seconds": 0.7968816391658038,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.00010059916430897093,
+                  "math": 0.000112020525900909,
+                  "chat": 0.9997873803097901
+                },
+                "confidence": 0.9980360858862768
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          }
+        }
+      },
+      "timing": {
+        "count": 30,
+        "seconds": [
+          0.8573059919290245,
+          0.8565955508965999,
+          0.8557955650612712,
+          0.8637401289306581,
+          0.8588839538861066,
+          0.8524275119416416,
+          0.8588881650939584,
+          0.8555594920180738,
+          0.85700096283108,
+          0.8561243619769812,
+          0.8609944630879909,
+          0.8550558350980282,
+          0.8363036022055894,
+          0.8234540449921042,
+          0.8658561760094017,
+          0.8743104981258512,
+          0.8532987220678478,
+          0.8499571040738374,
+          0.8484770408831537,
+          0.8515699440613389,
+          0.83827581605874,
+          0.852523994166404,
+          0.8595039939973503,
+          0.8591531759593636,
+          0.858945244923234,
+          0.8574062681291252,
+          0.8516542280558497,
+          0.8527259810362011,
+          0.8518261841963977,
+          0.8550400580279529
+        ],
+        "median": 0.8556775285396725,
+        "p95_nearest_rank": 0.8658561760094017,
+        "max": 0.8743104981258512,
+        "min": 0.8234540449921042,
+        "below_one_second": 30,
+        "response": {
+          "model": "vllm-sr/d3-edge",
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991614487649136,
+                "math": 0.0007030417676997158,
+                "chat": 0.00013550946738658898
+              },
+              "confidence": 0.9934924631719657
+            }
+          },
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          }
+        }
+      },
+      "passed": true,
+      "engine_calls": 2964,
+      "cpu_fallbacks": 0
+    },
+    "fusion": {
+      "fusion": true,
+      "parallel": false,
+      "cases": {
+        "chinese-0": {
+          "seconds": 2.239742796868086,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.00144264449737945,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.999253651679891,
+                  "math": 0.0004838798008386332,
+                  "chat": 0.0002624685192703835
+                },
+                "confidence": 0.9939887774844951
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8750360142444971
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10529331823808404,
+                "probabilities": {
+                  "0": 0.9115277221351327,
+                  "1": 0.07165123749165057,
+                  "2": 0.01682104037321673
+                },
+                "confidence": 0.6886776545193621,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0007422100979154189,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "chinese-1": {
+          "seconds": 2.1807641100604087,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0006107077361262384,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0007034587958880582,
+                  "math": 0.0003394958646552243,
+                  "chat": 0.9989570453394567
+                },
+                "confidence": 0.9919342972699308
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002665401425428306
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019467426121878764,
+                "probabilities": {
+                  "0": 0.9832600056714845,
+                  "1": 0.014012562535152102,
+                  "2": 0.00272743179336333
+                },
+                "confidence": 0.9157976329317854,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 5.296977865673104e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "english": {
+          "seconds": 2.166786946821958,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0048337858914832,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9073625420213792,
+                  "math": 0.00010378406585557958,
+                  "other": 0.09253367391276522
+                },
+                "confidence": 0.7183658957575783
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06310861604741674
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.19664478827292337,
+                "probabilities": {
+                  "0": 0.8389398361860979,
+                  "1": 0.12547553935488084,
+                  "2": 0.03558462445902127
+                },
+                "confidence": 0.5207783674447087,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.00489881374262241,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "single": {
+          "seconds": 0.7132507970090955,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 1.6171911109837686e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991768241837424,
+                  "math": 0.0006868698565898781,
+                  "chat": 0.00013630595966765554
+                },
+                "confidence": 0.9935930379283835
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 1.2011840210601754e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "image": {
+          "seconds": 9.648953096941113,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.026228535303524977,
+                  "green": 0.33001856583258776,
+                  "blue": 0.011836226660430021,
+                  "other": 0.6319166722034573
+                },
+                "confidence": 0.420096347037626
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026739071755792144
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0024895148224974295,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "novel-math": {
+          "seconds": 0.7113411300815642,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0018856502731327185,
+                  "math": 0.9978929475974954,
+                  "chat": 0.00022140212937187467
+                },
+                "confidence": 0.9856203671772973
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          }
+        },
+        "novel-chat": {
+          "seconds": 0.6990619008429348,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.00010059916430897093,
+                  "math": 0.000112020525900909,
+                  "chat": 0.9997873803097901
+                },
+                "confidence": 0.9980360858862768
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          }
+        }
+      },
+      "timing": {
+        "count": 30,
+        "seconds": [
+          0.7002385719679296,
+          0.6985593689605594,
+          0.6987090541515499,
+          0.6985097092110664,
+          0.6985317838843912,
+          0.7011547598522156,
+          0.6998461820185184,
+          0.7006091170478612,
+          0.7005906498525292,
+          0.7007091620471328,
+          0.6985080379527062,
+          0.6978269461542368,
+          0.6989557310007513,
+          0.7001488010864705,
+          0.7023319839499891,
+          0.7000485239550471,
+          0.7012516770046204,
+          0.6986865140497684,
+          0.7041327371262014,
+          0.6970402710139751,
+          0.7001097479369491,
+          0.697312334086746,
+          0.6977340797893703,
+          0.7027718878816813,
+          0.698998369043693,
+          0.6987634298857301,
+          0.6970901428721845,
+          0.6998689300380647,
+          0.699427877087146,
+          0.6919366170186549
+        ],
+        "median": 0.6992131230654195,
+        "p95_nearest_rank": 0.7027718878816813,
+        "max": 0.7041327371262014,
+        "min": 0.6919366170186549,
+        "below_one_second": 30,
+        "response": {
+          "model": "vllm-sr/d3-edge",
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991768241837424,
+                "math": 0.0006868698565898781,
+                "chat": 0.00013630595966765554
+              },
+              "confidence": 0.9935930379283835
+            }
+          },
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          }
+        }
+      },
+      "passed": true,
+      "engine_calls": 2964,
+      "cpu_fallbacks": 0,
+      "group_stats": {
+        "groups": 0,
+        "shared_input_prepares": 0,
+        "parallel_jobs": 0,
+        "cpu_fallbacks": 0
+      },
+      "groups": []
+    },
+    "parallel": {
+      "fusion": false,
+      "parallel": true,
+      "cases": {
+        "chinese-0": {
+          "seconds": 2.50783927901648,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.00144264449737945,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.999253651679891,
+                  "math": 0.0004838798008386332,
+                  "chat": 0.0002624685192703835
+                },
+                "confidence": 0.9939887774844951
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8750360142444971
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10529331823808404,
+                "probabilities": {
+                  "0": 0.9115277221351327,
+                  "1": 0.07165123749165057,
+                  "2": 0.01682104037321673
+                },
+                "confidence": 0.6886776545193621,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0007422100979154189,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "chinese-1": {
+          "seconds": 2.4387912510428578,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0006107077361262384,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0007034587958880582,
+                  "math": 0.0003394958646552243,
+                  "chat": 0.9989570453394567
+                },
+                "confidence": 0.9919342972699308
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002665401425428306
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019467426121878764,
+                "probabilities": {
+                  "0": 0.9832600056714845,
+                  "1": 0.014012562535152102,
+                  "2": 0.00272743179336333
+                },
+                "confidence": 0.9157976329317854,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 5.296977865673104e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "english": {
+          "seconds": 2.276175732957199,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0048337858914832,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9073625420213792,
+                  "math": 0.00010378406585557958,
+                  "other": 0.09253367391276522
+                },
+                "confidence": 0.7183658957575783
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06310861604741674
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.19664478827292337,
+                "probabilities": {
+                  "0": 0.8389398361860979,
+                  "1": 0.12547553935488084,
+                  "2": 0.03558462445902127
+                },
+                "confidence": 0.5207783674447087,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.00489881374262241,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "single": {
+          "seconds": 0.8272520541213453,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 1.6171911109837686e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991768241837424,
+                  "math": 0.0006868698565898781,
+                  "chat": 0.00013630595966765554
+                },
+                "confidence": 0.9935930379283835
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 1.2011840210601754e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "image": {
+          "seconds": 9.47956583998166,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.026228535303524977,
+                  "green": 0.33001856583258776,
+                  "blue": 0.011836226660430021,
+                  "other": 0.6319166722034573
+                },
+                "confidence": 0.420096347037626
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026739071755792144
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0024895148224974295,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "novel-math": {
+          "seconds": 0.7996806760784239,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0018856502731327185,
+                  "math": 0.9978929475974954,
+                  "chat": 0.00022140212937187467
+                },
+                "confidence": 0.9856203671772973
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          }
+        },
+        "novel-chat": {
+          "seconds": 0.7395291260909289,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.00010059916430897093,
+                  "math": 0.000112020525900909,
+                  "chat": 0.9997873803097901
+                },
+                "confidence": 0.9980360858862768
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          }
+        }
+      },
+      "timing": {
+        "count": 30,
+        "seconds": [
+          0.8175052299629897,
+          0.8142243199981749,
+          0.8112384309060872,
+          0.7561240899376571,
+          0.8547449090983719,
+          0.8245795408729464,
+          0.8161303668748587,
+          0.8095773179084063,
+          0.8128716668579727,
+          0.818744805874303,
+          0.8222341330256313,
+          0.8124613899271935,
+          0.8539992519654334,
+          0.829252348979935,
+          0.8416211670264602,
+          0.8150632651522756,
+          0.8268330949358642,
+          0.8140123321209103,
+          0.8110889671370387,
+          0.8127264871727675,
+          0.818007575115189,
+          0.8281626990064979,
+          0.8166258300188929,
+          0.8166411439888179,
+          0.823764167027548,
+          0.8260575460735708,
+          0.812326000072062,
+          0.8180888050701469,
+          0.8150893040001392,
+          0.8211366040632129
+        ],
+        "median": 0.8170731869759038,
+        "p95_nearest_rank": 0.8539992519654334,
+        "max": 0.8547449090983719,
+        "min": 0.7561240899376571,
+        "below_one_second": 30,
+        "response": {
+          "model": "vllm-sr/d3-edge",
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991768241837424,
+                "math": 0.0006868698565898781,
+                "chat": 0.00013630595966765554
+              },
+              "confidence": 0.9935930379283835
+            }
+          },
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          }
+        }
+      },
+      "passed": true,
+      "engine_calls": 2964,
+      "cpu_fallbacks": 0,
+      "group_stats": {
+        "groups": 912,
+        "shared_input_prepares": 0,
+        "parallel_jobs": 1824,
+        "cpu_fallbacks": 0
+      },
+      "groups": [
+        {
+          "parent": "language_model.layers.0.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.0.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.1.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.1.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.2.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.2.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.3.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.3.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.4.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.4.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.5.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.5.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.6.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.6.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.7.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.7.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.8.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.8.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.9.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.9.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.10.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.10.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.11.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.11.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        }
+      ]
+    },
+    "combined": {
+      "fusion": true,
+      "parallel": true,
+      "cases": {
+        "chinese-0": {
+          "seconds": 2.1133140549063683,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.00144264449737945,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.999253651679891,
+                  "math": 0.0004838798008386332,
+                  "chat": 0.0002624685192703835
+                },
+                "confidence": 0.9939887774844951
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8750360142444971
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10529331823808404,
+                "probabilities": {
+                  "0": 0.9115277221351327,
+                  "1": 0.07165123749165057,
+                  "2": 0.01682104037321673
+                },
+                "confidence": 0.6886776545193621,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0007422100979154189,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "chinese-1": {
+          "seconds": 2.0371627151034772,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0006107077361262384,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0007034587958880582,
+                  "math": 0.0003394958646552243,
+                  "chat": 0.9989570453394567
+                },
+                "confidence": 0.9919342972699308
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002665401425428306
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019467426121878764,
+                "probabilities": {
+                  "0": 0.9832600056714845,
+                  "1": 0.014012562535152102,
+                  "2": 0.00272743179336333
+                },
+                "confidence": 0.9157976329317854,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 5.296977865673104e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "english": {
+          "seconds": 2.0182520039379597,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0048337858914832,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9073625420213792,
+                  "math": 0.00010378406585557958,
+                  "other": 0.09253367391276522
+                },
+                "confidence": 0.7183658957575783
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.06310861604741674
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.19664478827292337,
+                "probabilities": {
+                  "0": 0.8389398361860979,
+                  "1": 0.12547553935488084,
+                  "2": 0.03558462445902127
+                },
+                "confidence": 0.5207783674447087,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.00489881374262241,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "single": {
+          "seconds": 0.664896555012092,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 1.6171911109837686e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991768241837424,
+                  "math": 0.0006868698565898781,
+                  "chat": 0.00013630595966765554
+                },
+                "confidence": 0.9935930379283835
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 1.2011840210601754e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "image": {
+          "seconds": 9.09412062796764,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.026228535303524977,
+                  "green": 0.33001856583258776,
+                  "blue": 0.011836226660430021,
+                  "other": 0.6319166722034573
+                },
+                "confidence": 0.420096347037626
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026739071755792144
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 0.0024895148224974295,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        },
+        "novel-math": {
+          "seconds": 0.6597301959991455,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.0018856502731327185,
+                  "math": 0.9978929475974954,
+                  "chat": 0.00022140212937187467
+                },
+                "confidence": 0.9856203671772973
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          }
+        },
+        "novel-chat": {
+          "seconds": 0.6637086980044842,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 0.0,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.00010059916430897093,
+                  "math": 0.000112020525900909,
+                  "chat": 0.9997873803097901
+                },
+                "confidence": 0.9980360858862768
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          }
+        }
+      },
+      "timing": {
+        "count": 30,
+        "seconds": [
+          0.6637198780663311,
+          0.6185808379668742,
+          0.659728794824332,
+          0.6614701671060175,
+          0.6621313889045268,
+          0.6681088961195201,
+          0.6652696079108864,
+          0.6632352939341217,
+          0.6626110610086471,
+          0.6681702819187194,
+          0.6615153378807008,
+          0.6616072519682348,
+          0.6608856611419469,
+          0.6621429091319442,
+          0.6646506069228053,
+          0.6636759089305997,
+          0.6647539180703461,
+          0.6644402840174735,
+          0.6701437900774181,
+          0.6667954009026289,
+          0.6605959401931614,
+          0.662663078866899,
+          0.6628591211047024,
+          0.6597930020652711,
+          0.6634899280034006,
+          0.6618652390316129,
+          0.661845956929028,
+          0.661961711011827,
+          0.6620694559533149,
+          0.6602287779096514
+        ],
+        "median": 0.6623769850702956,
+        "p95_nearest_rank": 0.6681702819187194,
+        "max": 0.6701437900774181,
+        "min": 0.6185808379668742,
+        "below_one_second": 30,
+        "response": {
+          "model": "vllm-sr/d3-edge",
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991768241837424,
+                "math": 0.0006868698565898781,
+                "chat": 0.00013630595966765554
+              },
+              "confidence": 0.9935930379283835
+            }
+          },
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          }
+        }
+      },
+      "passed": true,
+      "engine_calls": 2964,
+      "cpu_fallbacks": 0,
+      "group_stats": {
+        "groups": 912,
+        "shared_input_prepares": 912,
+        "parallel_jobs": 1824,
+        "cpu_fallbacks": 0
+      },
+      "groups": [
+        {
+          "parent": "language_model.layers.0.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.0.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.1.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.1.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.2.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.2.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.3.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.3.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.4.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.4.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.5.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.5.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.6.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.6.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.7.linear_attn",
+          "members": [
+            "in_proj_qkv",
+            "in_proj_z"
+          ]
+        },
+        {
+          "parent": "language_model.layers.7.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.8.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.8.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.9.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.9.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.10.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.10.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.11.self_attn",
+          "members": [
+            "q_proj",
+            "k_proj",
+            "v_proj"
+          ]
+        },
+        {
+          "parent": "language_model.layers.11.mlp",
+          "members": [
+            "gate_proj",
+            "up_proj"
+          ]
+        }
+      ]
+    },
+    "baseline_recheck": {
+      "fusion": false,
+      "parallel": false,
+      "cases": {
+        "single": {
+          "seconds": 0.8019099810626358,
+          "vs_three_thread_baseline": {
+            "max_probability_or_score_delta": 1.6171911109837686e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991768241837424,
+                  "math": 0.0006868698565898781,
+                  "chat": 0.00013630595966765554
+                },
+                "confidence": 0.9935930379283835
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_historical_cpu": {
+            "max_probability_or_score_delta": 1.2011840210601754e-05,
+            "choices_unchanged": true,
+            "passed": true
+          }
+        }
+      },
+      "timing": {
+        "count": 15,
+        "seconds": [
+          0.7449892400763929,
+          0.7949061878025532,
+          0.7972369680646807,
+          0.8008797848597169,
+          0.8074336820282042,
+          0.8114255599211901,
+          0.8112386469729245,
+          0.8067353749647737,
+          0.804330918006599,
+          0.8088779388926923,
+          0.8066609899979085,
+          0.8043581519741565,
+          0.8116081769112498,
+          0.8258962519466877,
+          0.8020022618584335
+        ],
+        "median": 0.8066609899979085,
+        "p95_nearest_rank": 0.8258962519466877,
+        "max": 0.8258962519466877,
+        "min": 0.7449892400763929,
+        "below_one_second": 15,
+        "response": {
+          "model": "vllm-sr/d3-edge",
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991768241837424,
+                "math": 0.0006868698565898781,
+                "chat": 0.00013630595966765554
+              },
+              "confidence": 0.9935930379283835
+            }
+          },
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          }
+        }
+      },
+      "passed": true,
+      "engine_calls": 1326,
+      "cpu_fallbacks": 0
+    }
+  },
+  "selected_100": {
+    "count": 100,
+    "seconds": [
+      0.6632425209973007,
+      0.6617426858283579,
+      0.6622502109967172,
+      0.6650903339032084,
+      0.6628520551603287,
+      0.6617633039131761,
+      0.6641413678880781,
+      0.6652620879467577,
+      0.6647821930237114,
+      0.6674266939517111,
+      0.6618802761659026,
+      0.6628646398894489,
+      0.6627301760017872,
+      0.6631690978538245,
+      0.6627346780151129,
+      0.6629908580798656,
+      0.6638617888092995,
+      0.6625408220570534,
+      0.6660017620306462,
+      0.6621314608491957,
+      0.6630358861293644,
+      0.6643977488856763,
+      0.6625110269524157,
+      0.6655647018924356,
+      0.6645956269931048,
+      0.6647085309959948,
+      0.6640577330254018,
+      0.6648869011551142,
+      0.6666561001911759,
+      0.6617131638340652,
+      0.6671457360498607,
+      0.6624126438982785,
+      0.6215456631034613,
+      0.6634728771168739,
+      0.6648572159465402,
+      0.6627354191150516,
+      0.6672256470192224,
+      0.6634982039686292,
+      0.6702241469174623,
+      0.6630549000110477,
+      0.6643956939224154,
+      0.6655717368703336,
+      0.6648906450718641,
+      0.6703649291303009,
+      0.6647667197976261,
+      0.6645917540881783,
+      0.6645289768930525,
+      0.6653583799488842,
+      0.6689243370201439,
+      0.6652460650075227,
+      0.6682450640946627,
+      0.6644428938161582,
+      0.66523074102588,
+      0.6643747298512608,
+      0.6647466840222478,
+      0.6776911348570138,
+      0.6663718500640243,
+      0.6712438371032476,
+      0.6665787720121443,
+      0.6630828569177538,
+      0.6652005580253899,
+      0.6664143369998783,
+      0.6700713040772825,
+      0.6648482161108404,
+      0.664787232875824,
+      0.6724786709528416,
+      0.6633051838725805,
+      0.6720265389885753,
+      0.6681646660435945,
+      0.6672236870508641,
+      0.6663107951171696,
+      0.6653849829453975,
+      0.6700582290068269,
+      0.6651790859177709,
+      0.6675089760683477,
+      0.6650839131325483,
+      0.668815576005727,
+      0.6651319048833102,
+      0.610654114978388,
+      0.6127764820121229,
+      0.629798840964213,
+      0.6648898620624095,
+      0.6626919189002365,
+      0.6645086680073291,
+      0.664009016007185,
+      0.661963518941775,
+      0.6643286959733814,
+      0.663134953007102,
+      0.6629202470649034,
+      0.6655970439314842,
+      0.6651933169923723,
+      0.665951119037345,
+      0.6657331390306354,
+      0.6083424298558384,
+      0.6175669459626079,
+      0.6668065469712019,
+      0.6631572511978447,
+      0.6651647079270333,
+      0.6631633599754423,
+      0.6656679229345173
+    ],
+    "median": 0.664756701909937,
+    "p95_nearest_rank": 0.6702241469174623,
+    "max": 0.6776911348570138,
+    "min": 0.6083424298558384,
+    "below_one_second": 100,
+    "response": {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991768241837424,
+            "math": 0.0006868698565898781,
+            "chat": 0.00013630595966765554
+          },
+          "confidence": 0.9935930379283835
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    "comparison": {
+      "max_probability_or_score_delta": 1.6171911109837686e-05,
+      "choices_unchanged": true,
+      "passed": true
+    },
+    "variant": "combined"
+  },
+  "selected_stats": {
+    "groups": 2424,
+    "shared_input_prepares": 2424,
+    "parallel_jobs": 4848,
+    "cpu_fallbacks": 0
+  },
+  "native_stats": {
+    "native_calls": 13230,
+    "norm_calls": 11610,
+    "conv_calls": 1620
+  },
+  "passed": true
+}

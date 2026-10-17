@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "valid_shapes": [
+    {
+      "rows": 1,
+      "exact_valid_output": true
+    },
+    {
+      "rows": 115,
+      "exact_valid_output": true
+    },
+    {
+      "rows": 128,
+      "exact_valid_output": true
+    },
+    {
+      "rows": 129,
+      "exact_valid_output": true
+    },
+    {
+      "rows": 512,
+      "exact_valid_output": true
+    },
+    {
+      "rows": 1,
+      "exact_valid_output": true
+    }
+  ],
+  "range_boundary": {
+    "unsafe_first_value": "inf",
+    "cpu_first_value": 1048576.0,
+    "unsafe_differs": true
+  },
+  "fallbacks": 2,
+  "mixed_group_and_recovery_passed": true,
+  "input_validation_preserved": true,
+  "scope": "Finite BF16 inputs and FP16 weights can produce out-of-range FP16 output. New candidate detects saturation/nonfinite during output conversion and delegates that projection to the original CPU forward."
+}

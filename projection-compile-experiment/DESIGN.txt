@@ -1,0 +1,17 @@
+Independent experiment based on frozen safe FP16-output ~512ms baseline.
+No original weights, layers, masks, token limits or service configuration changes.
+
+Acceptance: identical choices and <=0.01 max absolute probability/score/noul delta
+on 7 cases / 14 questions; no NaN. This is numerical regression, not task accuracy.
+Measure warmed single-request latency, alternate variants; selected candidate gets
+100 calls with every output checked. Preserve saturation/nonfinite CPU fallback.
+
+Projection ablations: (1) merge K/V on their existing core; (2) concatenate Q/K/V
+and qkv/z output columns, split into equal aligned halves on core masks 1 and 2.
+Gate/up are already balanced and remain unchanged. Temporary packed weights only;
+all original model parameters stay in place. Join both jobs before propagating errors.
+CPU compile: inference-only tensor regions between NPU calls. No device ctypes
+inside a compiled graph. Preserve BF16 round boundaries using Inductor precision
+cast emulation, check actual output numerically. Compilation time reported separately.
+Compiler packages may be installed only in the disposable test container, no image build.
+Failures/unsupported cases fall back to baseline; no online deployment or git push.

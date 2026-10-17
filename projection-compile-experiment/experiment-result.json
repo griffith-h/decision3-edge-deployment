@@ -1,0 +1,466 @@
+{
+  "scope": "RK3576；原权重、12层、非因果完整注意力；同一115-token请求的暖态system_one耗时，不含HTTP。7用例14问题为数值回归，不能代表任务准确率。无反编译、镜像构建、主机时钟或线上改动。",
+  "screening_and_stability": [
+    {
+      "file": "baseline-all-static-cpp1.json",
+      "tag": "baseline-all-static",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 620.9227740764618,
+      "p95_ms": 632.704152027145,
+      "min_ms": 617.26338788867,
+      "max_ms": 632.704152027145,
+      "max_case_delta_vs_safe": 4.713040615378361e-05,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 48.591450524982065,
+      "compile_stats": {
+        "calls": {
+          "norm": 740,
+          "gated": 120,
+          "mlp": 240,
+          "rope": 120
+        },
+        "first_signature_seconds": {
+          "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 17.627557068830356,
+          "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 5.304948303848505,
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 4.051514107035473,
+          "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 3.2387440900783986,
+          "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 3.064396081957966,
+          "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 8.762571685016155
+        },
+        "errors": [],
+        "precision_cast_emulation": true,
+        "explicit_bf16_rounding": true,
+        "dynamic": false,
+        "unseen_shape_fallbacks": 305
+      },
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "baseline-all-static-cpp3.json",
+      "tag": "baseline-all-static",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 541.1003264598548,
+      "p95_ms": 551.3146340381354,
+      "min_ms": 498.85975709185004,
+      "max_ms": 551.3146340381354,
+      "max_case_delta_vs_safe": 4.713040615378361e-05,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 48.131581258028746,
+      "compile_stats": {
+        "calls": {
+          "norm": 740,
+          "gated": 120,
+          "mlp": 240,
+          "rope": 120
+        },
+        "first_signature_seconds": {
+          "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 17.43604429392144,
+          "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 4.96251889388077,
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 3.9639818409923464,
+          "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 3.2437360431067646,
+          "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 3.1205605471041054,
+          "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 8.332007453078404
+        },
+        "errors": [],
+        "precision_cast_emulation": true,
+        "explicit_bf16_rounding": true,
+        "dynamic": false,
+        "unseen_shape_fallbacks": 305
+      },
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "baseline-all.json",
+      "tag": "baseline-all",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 553.7156061036512,
+      "p95_ms": 566.8887658976018,
+      "min_ms": 543.6826238874346,
+      "max_ms": 566.8887658976018,
+      "max_case_delta_vs_safe": 0.0033519341220543675,
+      "max_case_delta_vs_fp32": 0.008963194648690331,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 64.02832547901198,
+      "compile_stats": {
+        "calls": {
+          "norm": 925,
+          "gated": 150,
+          "mlp": 300,
+          "rope": 150
+        },
+        "first_signature_seconds": {
+          "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 18.31901282304898,
+          "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 6.615636673057452,
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 0.5392228451091796,
+          "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.369088258128613,
+          "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.023760758107528,
+          "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 23.4634392359294,
+          "('norm', (((3, 127, 1024), 'torch.bfloat16', (130048, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 3.9218027440365404,
+          "('gated', (((6096, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((6096, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.0066454410552978516,
+          "('mlp', (((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1)), ((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1))))": 0.7497971220873296,
+          "('norm', (((3, 127, 8, 256), 'torch.bfloat16', (520192, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.20976216183044,
+          "('norm', (((3, 127, 2, 256), 'torch.bfloat16', (65024, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 4.0547437409404665,
+          "('rope', (((3, 8, 127, 256), 'torch.bfloat16', (260096, 256, 2048, 1)), ((3, 2, 127, 256), 'torch.bfloat16', (65024, 256, 512, 1)), ((3, 127, 64), 'torch.bfloat16', (8128, 64, 1)), ((3, 127, 64), 'torch.bfloat16', (8128, 64, 1)), 1))": 28.88893286092207,
+          "('norm', (((3, 117, 1024), 'torch.bfloat16', (119808, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.001589139923453331,
+          "('gated', (((5616, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5616, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.0052284980192780495,
+          "('mlp', (((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.0075356687884777784,
+          "('norm', (((3, 117, 8, 256), 'torch.bfloat16', (479232, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.002831765217706561,
+          "('norm', (((3, 117, 2, 256), 'torch.bfloat16', (59904, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013316369149833918,
+          "('rope', (((3, 8, 117, 256), 'torch.bfloat16', (239616, 256, 2048, 1)), ((3, 2, 117, 256), 'torch.bfloat16', (59904, 256, 512, 1)), ((3, 117, 64), 'torch.bfloat16', (7488, 64, 1)), ((3, 117, 64), 'torch.bfloat16', (7488, 64, 1)), 1))": 0.0037104939110577106,
+          "('norm', (((3, 114, 1024), 'torch.bfloat16', (116736, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0016845290083438158,
+          "('gated', (((5472, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5472, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.004836081061512232,
+          "('mlp', (((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1)), ((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1))))": 0.007694867206737399,
+          "('norm', (((3, 114, 8, 256), 'torch.bfloat16', (466944, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0028193839825689793,
+          "('norm', (((3, 114, 2, 256), 'torch.bfloat16', (58368, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013439739122986794,
+          "('rope', (((3, 8, 114, 256), 'torch.bfloat16', (233472, 256, 2048, 1)), ((3, 2, 114, 256), 'torch.bfloat16', (58368, 256, 512, 1)), ((3, 114, 64), 'torch.bfloat16', (7296, 64, 1)), ((3, 114, 64), 'torch.bfloat16', (7296, 64, 1)), 1))": 0.0031076089944690466,
+          "('norm', (((2, 180, 1024), 'torch.bfloat16', (184320, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0013996870256960392,
+          "('gated', (((5760, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((5760, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.005461381049826741,
+          "('mlp', (((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1)), ((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1))))": 0.0077630882151424885,
+          "('norm', (((2, 180, 8, 256), 'torch.bfloat16', (737280, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0027260337956249714,
+          "('norm', (((2, 180, 2, 256), 'torch.bfloat16', (92160, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0012944031041115522,
+          "('rope', (((2, 8, 180, 256), 'torch.bfloat16', (368640, 256, 2048, 1)), ((2, 2, 180, 256), 'torch.bfloat16', (92160, 256, 512, 1)), ((2, 180, 64), 'torch.bfloat16', (11520, 64, 1)), ((2, 180, 64), 'torch.bfloat16', (11520, 64, 1)), 1))": 0.003377167973667383,
+          "('norm', (((1, 117, 1024), 'torch.bfloat16', (119808, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 0.0010513230226933956,
+          "('gated', (((1872, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1872, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.002091272035613656,
+          "('mlp', (((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.0029856411274522543,
+          "('norm', (((1, 117, 8, 256), 'torch.bfloat16', (479232, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.0014560509007424116,
+          "('norm', (((1, 117, 2, 256), 'torch.bfloat16', (59904, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.000939738005399704,
+          "('rope', (((1, 8, 117, 256), 'torch.bfloat16', (239616, 256, 2048, 1)), ((1, 2, 117, 256), 'torch.bfloat16', (59904, 256, 512, 1)), ((1, 117, 64), 'torch.bfloat16', (7488, 64, 1)), ((1, 117, 64), 'torch.bfloat16', (7488, 64, 1)), 1))": 0.0014462079852819443
+        },
+        "errors": [],
+        "precision_cast_emulation": true
+      },
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "baseline-mlp.json",
+      "tag": "baseline-mlp",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 524.7005234705284,
+      "p95_ms": 538.6676469352096,
+      "min_ms": 510.2124239783734,
+      "max_ms": 538.6676469352096,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 25.426404849858955,
+      "compile_stats": {
+        "calls": {
+          "mlp": 300
+        },
+        "first_signature_seconds": {
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 18.954541954910383,
+          "('mlp', (((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1)), ((3, 127, 3584), 'torch.bfloat16', (455168, 3584, 1))))": 6.218811065191403,
+          "('mlp', (((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((3, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.0073153499979525805,
+          "('mlp', (((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1)), ((3, 114, 3584), 'torch.bfloat16', (408576, 3584, 1))))": 0.007315488066524267,
+          "('mlp', (((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1)), ((2, 180, 3584), 'torch.bfloat16', (645120, 3584, 1))))": 0.008120615966618061,
+          "('mlp', (((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1)), ((1, 117, 3584), 'torch.bfloat16', (419328, 3584, 1))))": 0.002760410076007247
+        },
+        "errors": [],
+        "precision_cast_emulation": true
+      },
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "baseline-none.json",
+      "tag": "baseline-none",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 512.4397973995656,
+      "p95_ms": 515.2493980713189,
+      "min_ms": 499.3890458717942,
+      "max_ms": 515.2493980713189,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 6.331763178808615,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "compiler-baseline-none.json",
+      "tag": "baseline-none",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 512.4397973995656,
+      "p95_ms": 515.2493980713189,
+      "min_ms": 499.3890458717942,
+      "max_ms": 515.2493980713189,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 6.331763178808615,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "pre-compiler-baseline-none.json",
+      "tag": "baseline-none",
+      "backend": "tensor-or-baseline",
+      "count": 16,
+      "median_ms": 519.210800062865,
+      "p95_ms": 525.8612730540335,
+      "min_ms": 510.3034758940339,
+      "max_ms": 525.8612730540335,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 78,
+      "cold_first_call_seconds": 6.391369367949665,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 600,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0
+      }
+    },
+    {
+      "file": "scatter-balanced-all-static-cpp1.json",
+      "tag": "balanced-all-static",
+      "backend": "native-scatter",
+      "count": 16,
+      "median_ms": 616.8678121175617,
+      "p95_ms": 619.5828970521688,
+      "min_ms": 613.7815641704947,
+      "max_ms": 619.5828970521688,
+      "max_case_delta_vs_safe": 4.713040615378361e-05,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 72,
+      "cold_first_call_seconds": 13.543133608065546,
+      "compile_stats": {
+        "calls": {
+          "norm": 740,
+          "gated": 120,
+          "mlp": 240,
+          "rope": 120
+        },
+        "first_signature_seconds": {
+          "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 4.724750529974699,
+          "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.37585885799489915,
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 0.3056625078897923,
+          "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.22511761100031435,
+          "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.23043563589453697,
+          "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 0.7513364690821618
+        },
+        "errors": [],
+        "precision_cast_emulation": true,
+        "explicit_bf16_rounding": true,
+        "dynamic": false,
+        "unseen_shape_fallbacks": 305
+      },
+      "engine_stats": {
+        "groups": 300,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0,
+        "packed_groups": 300,
+        "packed_range_fallbacks": 0
+      }
+    },
+    {
+      "file": "scatter-balanced-all-static-cpp3.json",
+      "tag": "balanced-all-static",
+      "backend": "native-scatter",
+      "count": 16,
+      "median_ms": 534.005044028163,
+      "p95_ms": 551.1724441312253,
+      "min_ms": 500.55089802481234,
+      "max_ms": 551.1724441312253,
+      "max_case_delta_vs_safe": 4.713040615378361e-05,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 72,
+      "cold_first_call_seconds": 31.84597306814976,
+      "compile_stats": {
+        "calls": {
+          "norm": 740,
+          "gated": 120,
+          "mlp": 240,
+          "rope": 120
+        },
+        "first_signature_seconds": {
+          "('norm', (((1, 115, 1024), 'torch.bfloat16', (117760, 1024, 1)), ((1024,), 'torch.bfloat16', (1,)), 1e-06))": 22.762588306795806,
+          "('gated', (((1840, 128), 'torch.bfloat16', (128, 1)), ((128,), 'torch.bfloat16', (1,)), ((1840, 128), 'torch.bfloat16', (128, 1)), 1e-06))": 0.3604611339978874,
+          "('mlp', (((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1)), ((1, 115, 3584), 'torch.bfloat16', (412160, 3584, 1))))": 0.2908461650367826,
+          "('norm', (((1, 115, 8, 256), 'torch.bfloat16', (471040, 4096, 512, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.1797817819751799,
+          "('norm', (((1, 115, 2, 256), 'torch.bfloat16', (58880, 512, 256, 1)), ((256,), 'torch.bfloat16', (1,)), 1e-06))": 0.1930875899270177,
+          "('rope', (((1, 8, 115, 256), 'torch.bfloat16', (235520, 256, 2048, 1)), ((1, 2, 115, 256), 'torch.bfloat16', (58880, 256, 512, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), ((1, 115, 64), 'torch.bfloat16', (7360, 64, 1)), 1))": 0.8439551589544863
+        },
+        "errors": [],
+        "precision_cast_emulation": true,
+        "explicit_bf16_rounding": true,
+        "dynamic": false,
+        "unseen_shape_fallbacks": 305
+      },
+      "engine_stats": {
+        "groups": 300,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0,
+        "packed_groups": 300,
+        "packed_range_fallbacks": 0
+      }
+    },
+    {
+      "file": "scatter-balanced-none-screen.json",
+      "tag": "balanced-none",
+      "backend": "native-scatter",
+      "count": 16,
+      "median_ms": 502.8691514162347,
+      "p95_ms": 507.5597201939672,
+      "min_ms": 468.78612600266933,
+      "max_ms": 507.5597201939672,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 72,
+      "cold_first_call_seconds": 6.81738691101782,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 300,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0,
+        "packed_groups": 300,
+        "packed_range_fallbacks": 0
+      }
+    },
+    {
+      "file": "scatter-balanced-none.json",
+      "tag": "balanced-none",
+      "backend": "native-scatter",
+      "count": 100,
+      "median_ms": 509.67489753384143,
+      "p95_ms": 516.7384559754282,
+      "min_ms": 466.69167885556817,
+      "max_ms": 524.8057111166418,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 72,
+      "cold_first_call_seconds": 6.53890991397202,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 1308,
+        "shared_input_prepares": 2616,
+        "parallel_jobs": 5232,
+        "cpu_fallbacks": 0,
+        "packed_groups": 1308,
+        "packed_range_fallbacks": 0
+      }
+    },
+    {
+      "file": "scatter-merge-none.json",
+      "tag": "merge-none",
+      "backend": "native-scatter",
+      "count": 16,
+      "median_ms": 515.2742145583034,
+      "p95_ms": 525.8298090193421,
+      "min_ms": 504.5726108364761,
+      "max_ms": 525.8298090193421,
+      "max_case_delta_vs_safe": 0.0,
+      "max_case_delta_vs_fp32": 0.005611260526635964,
+      "passed": true,
+      "case_count": 7,
+      "handles": 72,
+      "cold_first_call_seconds": 6.934474373003468,
+      "compile_stats": {},
+      "engine_stats": {
+        "groups": 450,
+        "shared_input_prepares": 600,
+        "parallel_jobs": 1200,
+        "cpu_fallbacks": 0,
+        "packed_groups": 150,
+        "packed_range_fallbacks": 0
+      }
+    }
+  ],
+  "paired": [
+    {
+      "file": "scatter-paired-balanced-none.json",
+      "baseline_ms": 516.7533425847068,
+      "candidate_ms": 508.7761535542086,
+      "median_per_round_reduction_percent": 1.284347061648211,
+      "faster_rounds": 18,
+      "rounds": 20
+    }
+  ],
+  "units": {
+    "scatter-packing-unit.json": true,
+    "compile-static-unit.json": true,
+    "compile-dynamic-unit.json": true,
+    "compile-unit.json": true
+  },
+  "production_preserved": true,
+  "selected": {
+    "file": "scatter-balanced-none.json",
+    "median_ms": 509.67489753384143,
+    "p95_ms": 516.7384559754282,
+    "count": 100,
+    "max_delta_vs_safe": 0.0,
+    "max_delta_vs_fp32": 0.005611260526635964,
+    "paired": {
+      "file": "scatter-paired-balanced-none.json",
+      "baseline_ms": 516.7533425847068,
+      "candidate_ms": 508.7761535542086,
+      "median_per_round_reduction_percent": 1.284347061648211,
+      "faster_rounds": 18,
+      "rounds": 20
+    },
+    "deployed": false
+  }
+}

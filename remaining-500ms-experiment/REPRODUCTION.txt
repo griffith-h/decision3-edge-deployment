@@ -1,0 +1,79 @@
+500ms 余量剖析与优化：复现说明（实验候选，未部署）
+
+前提
+- 与当前机器相同的 RK3576 / ARM64 Linux、RKNN runtime 2.5.0、driver 0.9.8。
+- 复用已经存在的 decision3-edge:arm64-cpu 镜像，实际由原 release/image-id.txt 固定为 sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d。不构建镜像。
+- SDK 固定 commit 2c723177a94fac65cbc036d722907ddbc91980cf；Python 3.12 / Torch 2.12.0+cpu / Transformers 5.17.0。
+- 依赖上一轮已冻结的源码目录 /opt/decision3-edge-optimized-20261017-v1、decision3-edge-matmul、decision3-edge-bridge-parallel-20261017、decision3-edge-scan-20261017、decision3-edge-remainder-20261017、decision3-edge-projection-compile-20261017，以及原模型缓存。
+- 本说明是当前工作区的实验复现补充，依赖上述实验目录；不是“只克隆已推送旧仓库即可全新安装”的独立安装指南。实验代码本轮没有自动提交或推送。
+
+边界
+原权重/12层/完整注意力非因果 mask/Delta 因果扫描不变，不反编译，不更改主机频率、驱动、线上容器或镜像。
+run.sh 在独立 --rm 容器内运行；无端口、无HTTP服务、无自动重启；CPU4..7、Torch/OMP/OpenBLAS3、OMP_THREAD_LIMIT3、8GiB内存和swap上限、/dev/dri。旧实验/模型只读挂载，新目录 /work 可写。
+不要在任何实验进程运行期间重编译或覆盖其正在使用的 .so 或 Python 文件。
+
+本机操作（项目 /Users/laji/Downloads/decision3-edge-deployment）
+1. python3 remaining-500ms-experiment/preserve_service.py before
+2. rsync -az remaining-500ms-experiment/ 192.168.1.164:/opt/decision3-edge-remaining-500ms-20261017/
+3. SSH 到板子，下面命令均在新实验目录内运行。
+4. 完成所有实验后，本机 python3 remaining-500ms-experiment/preserve_service.py after；它核对线上ID/启动时间/配置/源文件/响应，确认实验容器已移除。
+
+板子准备
+cd /opt/decision3-edge-remaining-500ms-20261017
+cp /opt/decision3-edge-projection-compile-20261017/libsafe_half_bridge.so .
+cp /opt/decision3-edge-projection-compile-20261017/libsafe_scatter_bridge.so .
+bash build_native.sh
+编译仅使用主机已有 gcc/g++，写入新实验目录；链接原 SDK，未安装或修改主机软件。
+生成的 conversion_bridge.cpp 已随实验保存；如需由生成器重新生成，在完整本地工作区执行 python3 remaining-500ms-experiment/make_conversion_bridge.py 后再同步。不要在缺少本地同名父目录的 /opt 中直接执行生成器。
+
+剖析和局部测试（串行运行，避免争抢CPU/NPU）
+bash run.sh diagnose.py > logs/diagnose.log 2>&1
+  原约510ms候选：15次无Python插桩、10次有插桩、15次无Python插桩；另一次Torch算子跟踪只作诊断。
+  输出 logs/profile.json；保存真实扫描输入 scan-inputs.pt。
+bash run.sh replay_scan.py > logs/replay-scan.log 2>&1
+  两种代数重排实现为负结果，不用于最终候选。
+bash run.sh capture_conv.py > logs/capture-conv.log 2>&1
+  保存实际卷积输入/布局到 conv-inputs.pt（仅本地实验数据，不纳入Git）。
+bash run.sh test_conv.py > logs/conv-unit.log 2>&1
+  比较原卷积与直接BTC布局，包括真实输入重放、短序列、多batch、bias、激活、非支持布局/FP32/metadata/梯度回退。
+bash run.sh test_prepare.py > logs/prepare-unit.log 2>&1
+  验证FP32归一化误差、布局/输入所有权以及状态/packed/长度/类型回退。
+bash run.sh test_conversion.py > logs/conversion-unit.log 2>&1
+  两种16位格式各遍历65536位模式，混合随机向量、向量尾部、NaN分类与输入/输出保护状态。
+bash run.sh test_bridge.py > logs/conversion-packing-unit.log 2>&1
+  合并/均衡scatter、行数切换1/115/128/129/512、bias及无bias、输出溢出整组CPU回退、输入异常、join所有worker后报错、恢复。
+
+整模型筛选
+bash run.sh screen.py > logs/screen.log 2>&1
+  baseline / conv / 显式cacheable内存+同步 / cacheable+conv。
+bash run.sh screen2.py > logs/screen2.log 2>&1
+  baseline / conv+scan preparation / 再加桥接位运算转换。
+  每种16次，逐次验证；另测7案例14问题，图片保留；不以筛选最小值替代最终成绩。
+
+最终复核
+bash run.sh final_suite.sh > logs/final-suite.log 2>&1
+  重新运行卷积/扫描前处理定向检查；20轮交替成对对照；单候选100次和7案例回归；候选再次分段剖析。
+可单独运行：
+bash run.sh final_compare.py --variant conversion-conv-prepare --stage paired --count 20
+bash run.sh final_compare.py --variant conversion-conv-prepare --stage single --count 100
+bash run.sh diagnose_candidate.py --variant conversion-conv-prepare
+
+测试口径
+- 固定原 /base/request.json 的115-token单问题，完整 system_one、并发1、预热后计时；不含模型加载、HTTP或网络。
+- 每次记录结果并校验，不删除快/慢离群值；P95为nearest-rank。
+- 成对实验同一个已加载模型、两个持久引擎，交替顺序，每个计时前一次不计时预热；与单候选100次资源条件不同。
+- 同时对照上一轮约510ms候选及更早FP32输出参考。choice一致，概率/score/noul最大绝对差<=0.01；confidence和legend不参与。7案例14问题是数值回归，不是带标签任务准确率。
+- 剖析的主线程exclusive严格闭合；worker时间单列，不叠加重叠区间。SDK时长取同步调用区间并集，含提交/驱动等待/同步，不是纯NPU计算。插桩表合计不强行凑成无插桩500ms。
+
+机制与剩余风险
+- conv_btc.c/py 直接读取NPU产出的token-major布局，输出token-major后返回原BCT视图，避免卷积前大转置；局部卷积+SiLU逐元素一致。
+- scan_prepare.c/prepared_scan.py 把BF16转换、布局调整、Q/K FP32 L2归一化和query缩放合并；继续调用同一个原生递推扫描。FP32归约次序可能产生小差异，因此仍做整模型概率回归，不称全模型逐位无损。
+- conversion_bridge.cpp 对常见正常值用NEON整数位运算做原RNE格式转换；特殊值回原浮点路径。没有新增量化或改变已有FP16/BF16边界。继承输出饱和/非有限值CPU回退。
+- 显式cacheable+手工同步和两种扫描代数重排没有收益，不启用。
+- 未达到200ms；有限回归集不能保证所有实际业务输入的概率差或任务准确率。
+
+同步结果回本机（所有实验退出后）
+rsync -az --exclude='*-inputs.pt' 192.168.1.164:/opt/decision3-edge-remaining-500ms-20261017/ remaining-500ms-experiment/
+python3 -m py_compile remaining-500ms-experiment/*.py
+for script in remaining-500ms-experiment/*.sh; do bash -n "$script"; done
+python3 remaining-500ms-experiment/summarize.py

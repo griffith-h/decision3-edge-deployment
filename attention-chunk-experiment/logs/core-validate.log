@@ -1,0 +1,55 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  55%|█████▌    | 169/305 [00:00<00:00, 1673.35it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1368.27it/s]
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffffaa13a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffffaa0d9018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffffabe0ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffffab7cf658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffffab7cfbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffffac74abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffffab1d5cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffffab1b0c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffffab1eb660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffffab1d7538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffffb4b538a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffffb6997744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffffb6997818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+EXTRA scan shape115-0 {'max_delta': 0.004837656040442284, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-1 {'max_delta': 0.0004982621118887476, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-2 {'max_delta': 0.0035990532315588464, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-3 {'max_delta': 0.0001461278630329188, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-4 {'max_delta': 0.0023470673025423328, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-5 {'max_delta': 6.26193937780517e-06, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-6 {'max_delta': 0.0011139327053681924, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-7 {'max_delta': 0.0005656720089452574, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-8 {'max_delta': 0.000931275219315908, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-9 {'max_delta': 0.005118253122083055, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-10 {'max_delta': 0.0001392695921289544, 'choices_unchanged': True, 'passed': True}
+EXTRA scan shape115-11 {'max_delta': 0.0012882326352892104, 'choices_unchanged': True, 'passed': True}
+EXTRA core shape115-0 {'max_delta': 0.8084195341552675, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-1 {'max_delta': 0.47497387108679023, 'choices_unchanged': True, 'passed': False}
+EXTRA core shape115-2 {'max_delta': 0.07688324817863323, 'choices_unchanged': True, 'passed': False}
+EXTRA core shape115-3 {'max_delta': 0.6169964436876465, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-4 {'max_delta': 0.5554738450276442, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-5 {'max_delta': 0.12088914127968853, 'choices_unchanged': True, 'passed': False}
+EXTRA core shape115-6 {'max_delta': 0.9186605567830683, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-7 {'max_delta': 0.9183502347862321, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-8 {'max_delta': 0.9212861610633828, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-9 {'max_delta': 0.10550551753866164, 'choices_unchanged': True, 'passed': False}
+EXTRA core shape115-10 {'max_delta': 0.9607101342001513, 'choices_unchanged': False, 'passed': False}
+EXTRA core shape115-11 {'max_delta': 0.7654984446065681, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-0 {'max_delta': 0.8128236734585749, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-1 {'max_delta': 0.4321819216679452, 'choices_unchanged': True, 'passed': False}
+EXTRA scan-core shape115-2 {'max_delta': 0.09555090471298855, 'choices_unchanged': True, 'passed': False}
+EXTRA scan-core shape115-3 {'max_delta': 0.5726844721508881, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-4 {'max_delta': 0.5513719821943788, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-5 {'max_delta': 0.1233827937962172, 'choices_unchanged': True, 'passed': False}
+EXTRA scan-core shape115-6 {'max_delta': 0.9156301227246607, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-7 {'max_delta': 0.9173947932511245, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-8 {'max_delta': 0.9182208607354241, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-9 {'max_delta': 0.12017152260380512, 'choices_unchanged': True, 'passed': False}
+EXTRA scan-core shape115-10 {'max_delta': 0.9665586159096325, 'choices_unchanged': False, 'passed': False}
+EXTRA scan-core shape115-11 {'max_delta': 0.7674550363417321, 'choices_unchanged': False, 'passed': False}

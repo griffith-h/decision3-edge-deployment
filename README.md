@@ -2,6 +2,16 @@
 
 RK3576 上部署 `vllm-sr/d3-edge` 的研究记录、RKNN 矩阵加速适配和独立安装文档。
 
+## 最新 graph-half 发布（2026-10-18）
+
+318.51ms 暖态方法调用候选已接入 HTTP 服务，替换原三线程版本；旧容器保留用于回退。**快路径只适用于 batch1、115 token**，其他长度/形状回退CPU融合路径，不能承诺任意请求318ms。
+
+- [最新 HTML 报告](cpu-tail-experiment/report.html)：实际LAN HTTP100次、19场景、图命中/回退、confidence勘误、发布与回滚步骤。
+- [部署操作与适用范围](cpu-tail-deployment/README.md)：先8901验收、切换8900、失败恢复、实际回滚演练和调用示例。
+- [318ms实验复现](cpu-tail-experiment/REPRODUCTION.txt)：冻结环境、源码构建、12个MLP图转换和性能对照。
+
+下方独立HTML安装手册仍是基础安装入口；最新 graph-half 升级还需要仓库源码、历史工作区及另行生成的ARM库/12个RKNN图，不能只转交基础HTML就宣称包含318ms版本。二进制和模型不纳入Git。
+
 ## 给接收方的安装文档
 
 下载并在浏览器打开 [从零安装与使用手册](d3-edge-rk3576-install-guide.html)。**只转交这一个 HTML 文件即可**：它内置全部适配源码、固定测试样本及源码初始化脚本，包含系统准备、依赖与模型下载、镜像构建、启动、调用、复现测试和排障步骤。

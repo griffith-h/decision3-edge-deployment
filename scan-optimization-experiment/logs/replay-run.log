@@ -1,0 +1,28 @@
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+SCAN_UNITS 480 passed
+REPLAY baseline 0.26043703430332243 0.0 None
+REPLAY compact 0.17692450480535626 0.0 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f0 0.14021955896168947 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f1 0.14540276140905917 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f2 0.13821116602048278 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f3 0.1196405969094485 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f4 0.11478020227514207 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t16_f5 0.09613609500229359 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f0 0.13578935898840427 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f1 0.14382511214353144 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f2 0.1534259356558323 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f3 0.13836678583174944 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f4 0.11771419737488031 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t32_f5 0.09916943800635636 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f0 0.14320465992204845 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f1 0.14995449990965426 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f2 0.3324942516628653 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f3 0.33473437489010394 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f4 0.17021201318129897 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t64_f5 0.1551852880511433 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f0 0.18394821975380182 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f1 0.19137223297730088 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f2 0.4672236735932529 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f3 0.47299298527650535 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f4 0.19926689681597054 7.62939453125e-06 {'optimized': 66, 'fallback': 0}
+REPLAY native_t128_f5 0.17966229398734868 7.62939453125e-06 {'optimized': 66, 'fallback': 0}

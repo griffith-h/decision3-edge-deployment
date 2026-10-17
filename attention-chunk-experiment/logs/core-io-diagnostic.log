@@ -1,0 +1,18 @@
+diagnostic q fmt=1 dims=1,115,256,8,
+k fmt=1 dims=1,115,256,2,
+v fmt=1 dims=1,115,256,2,
+mask fmt=1 dims=1,1,115,1,
+out fmt=0 dims=1,115,8,256,
+
+{'variant': 'diagnostic', 'mask': 'all', 'rel_l2': 1.2149200439453125, 'max_abs': 3.3223876953125}
+{'variant': 'diagnostic', 'mask': 'left', 'rel_l2': 1.2819793224334717, 'max_abs': 3.2314453125}
+{'variant': 'diagnostic', 'mask': 'last_only', 'rel_l2': 1.6042935848236084, 'max_abs': 3.30859375}
+nchw q fmt=1 dims=1,115,256,8,
+k fmt=1 dims=1,115,256,2,
+v fmt=1 dims=1,115,256,2,
+mask fmt=1 dims=1,1,115,1,
+out fmt=0 dims=1,115,8,256,
+
+{'variant': 'nchw', 'mask': 'all', 'rel_l2': 0.0058900220319628716, 'max_abs': 0.02734375}
+{'variant': 'nchw', 'mask': 'left', 'rel_l2': 0.006073225289583206, 'max_abs': 0.03125}
+{'variant': 'nchw', 'mask': 'last_only', 'rel_l2': 0.0, 'max_abs': 0.0}

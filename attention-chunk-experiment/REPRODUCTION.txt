@@ -1,0 +1,109 @@
+完整注意力融合 / 块矩阵扫描：本轮复现记录
+
+边界与前提
+- RK3576 / ARM64 Linux；原模型固定 snapshot 20c745653400d191ecacd99c4eafc0c5900dc15e；原权重、12层、非因果完整注意力和因果Delta扫描保留。
+- 基线为 remaining-500ms-experiment 的454ms候选，不是当前线上三线程版本；线上版本本轮不替换。
+- 复用已有 ARM64 CPU镜像 sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d。Torch2.12.0+cpu / Transformers5.17.0，RKNN runtime2.5.0 / driver0.9.8。
+- 依赖原 /opt/decision3-edge-optimized-20261017-v1、decision3-edge-matmul、decision3-edge-bridge-parallel-20261017、decision3-edge-scan-20261017、decision3-edge-remainder-20261017、decision3-edge-projection-compile-20261017、decision3-edge-remaining-500ms-20261017 和模型缓存。依赖均只读挂载。
+- 本记录是现有冻结实验工作区的复现补充，不能把它称作仅克隆已推送旧仓库即可执行的全新安装教程。本轮没有自动提交、推送或部署。
+- run.sh 在独立 --rm 容器运行，无端口/HTTP服务/自动重启；CPU4..7，Torch/OMP3、OMP_THREAD_LIMIT3、8GiB内存与swap限制、/dev/dri；主机频率、驱动及线上配置不变。
+
+准备
+开发机目录：/Users/laji/Downloads/decision3-edge-deployment
+python3 attention-chunk-experiment/preserve_service.py before
+同步源码到 /opt/decision3-edge-attention-chunk-20261017；不要同步 compiler-env、*.whl、*.pt 等大文件，模型和测试输入按下面捕获或单独传输。
+板子内：
+cd /opt/decision3-edge-attention-chunk-20261017
+cp /opt/decision3-edge-remaining-500ms-20261017/libsafe_half_bridge.so .
+cp /opt/decision3-edge-remaining-500ms-20261017/libsafe_scatter_bridge.so .
+bash build_native.sh
+不得在测试进程运行期间覆盖其正在使用的源码或.so。
+
+CPU扫描实现及筛选
+1. chunk_scan.c：自己编写NEON块矩阵形式，block4/8/16/32，value tile8/16/32。
+2. chunk_scan_v2.c：系数矩阵也使用矩阵乘，跳过首块零状态乘法。
+3. chunk_blas.c：使用固定镜像内NumPy捆绑的OpenBLAS ILP64，矩阵乘单线程，外层OpenMP3，避免嵌套3x3线程。
+4. chunk_blas2.c：进一步使用BLAS单位下三角求解与输出矩阵乘；比较block16/32/64/128及tile32/64/128，选择block32/tile64。
+- 不是改模型：同一递推的块内下三角系统、同一输出和状态更新方程，状态仍FP32；decay用乘积，避免除以0/下溢；保留原准备和归一化。
+- 输入不被修改，首块零状态/末块无需状态更新，最后不足一块按真实长度处理；不裁剪输入。
+- packed、非零初始/要求返回状态、长度>512、不支持形状/类型/设备/梯度回原路径。
+- NumPy的捆绑库路径和ILP64符号依赖固定镜像；升级NumPy/镜像时需重新核对，不能把这些路径称为稳定的NumPy公共API。
+
+bash run.sh test_chunk.py > logs/chunk-unit-replay.log 2>&1
+bash run.sh test_chunk_v2.py > logs/chunk-v2-unit-replay.log 2>&1
+bash run.sh test_chunk_blas.py > logs/chunk-blas-unit-replay.log 2>&1
+bash run.sh test_chunk_blas2.py > logs/chunk-blas2-unit-replay.log 2>&1
+局部重放读取上一轮 /previous/profile-candidate-inputs.pt，先用上一轮diagnose_candidate.py重新捕获可生成。C与FP64递推参考比较，含长度/维度/尾块、decay0/极小值、beta0、前缀因果、所有权和跨请求状态隔离；局部计时包含范围见脚本，不等同整模型。
+bash run.sh test_chunk_wrapper.py > logs/chunk-wrapper-unit.log 2>&1
+bash run.sh bench_chunk.py > logs/chunk-model.log 2>&1
+bench_chunk是最初BLAS1候选的20轮对照；不能与最后BLAS2候选混用。
+
+完整注意力图
+bash run.sh capture_attention.py > logs/capture-attention.log 2>&1
+得到六层实际输入/输出/权重 attention-layers.pt 及 logs/attention-reference-source.txt。模块位置为原2/5/8/9/10/11层。捕获前先预热，记录模块耗时不含随后复制/存储权重。
+把捕获文件拷回开发机新实验目录。不会上传到第三方编译服务。
+
+离线编译（已有x86 Docker环境，不构建镜像）
+使用原工具镜像 d3-rkllm-toolkit:1.3.1，固定ID sha256:abbed9aef590a8e2f565c695531e7ce57214ed626e30d5e14e317d0f4b0cfce3，--platform linux/amd64，把本目录绑定到/work。
+在/work/compiler-env创建 --system-site-packages venv，覆盖安装 torch==2.4.0+cpu（PyTorch官方CPU源），然后安装固定SDK官方rknn_toolkit2-2.5.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl。
+官方wheel与requirements由GitHub固定commit 2c723177a94fac65cbc036d722907ddbc91980cf 的 rknn-toolkit2/packages/x86_64 下载，列表保存在logs/toolkit-x86.json。
+实际工具链Torch2.4.0+cpu / ONNX1.18.0 / ORT1.26.0 / RKNN2.5.0，见安装/导入日志。继承镜像的RKLLM和TorchVision不参与本导出；其旧依赖与venv Torch版本不一致，不声称整个继承环境的pip check通过。
+下面命令在该临时Docker容器中执行；--rm退出，venv仅保存于实验目录：
+/work/compiler-env/bin/python export_attention.py --strict --layer 0
+/work/compiler-env/bin/python compile_attention.py attention-0-strict
+严格BF16舍入版本在常量折叠失败：No corresponding Numpy type for Tensor Type. bfloat16。完整错误保存在logs/compile-strict.log和对应JSON，不当作成功编译。
+for i in 0 1 2 3 4 5; do /work/compiler-env/bin/python export_attention.py --layer "$i"; /work/compiler-env/bin/python compile_attention.py "attention-$i-fp16graph"; done
+完整图包括QKV、Q/K norm、部分RoPE、GQA、非因果key mask、QK-softmax-V、gate和O投影。do_quantization=False，原权重保留；中间舍入从原混合BF16/FP32改为FP16执行，必须做整模型数值回归，不能称为无损。
+编译日志显示fuse_matmul_softmax_matmul_to_sdpa。rknn.config公共文档保存于logs/config-public-doc.txt，其non-quant float_dtype仅声明float16。
+当前图固定B1/T115；其他形状、状态、训练/梯度或不支持metadata走冻结原模块，不截断/填充真实请求来套图。
+
+保守的注意力核心备选
+/work/compiler-env/bin/python export_core.py
+/work/compiler-env/bin/python compile_attention.py attention-core
+仅融合QK-softmax-V；原投影/归一化/RoPE/gate/O投影和外围舍入保持，不能把此备选称为完整层融合。
+把所有.rknn与attention-*-replay.npz拷到板子新实验目录。
+bash run.sh probe_graph.py > logs/graph-replay.log 2>&1
+局部重放包含I/O/调度，不是纯设备计算；保留所有快慢样本，另测未来token对第一个query的影响，证明非因果路径。
+
+掩码与接口检查
+在离线Docker中：
+/work/compiler-env/bin/python export_mask_checks.py
+/work/compiler-env/bin/python export_core_masks.py
+把mask-*.npz、core-mask-*.npz同步到板子。
+bash run.sh test_graph_masks.py > logs/graph-mask-unit.log 2>&1
+bash run.sh test_core_masks.py > logs/core-mask-unit.log 2>&1
+六层x三种mask（全可见/左侧32个不可见/仅最后key可见）；核心图仅最后key可见与CPU参考逐元素相同。此处是算子/激活诊断，与分类概率0.01门槛分开。
+bash run.sh test_graph_guards.py > logs/graph-guard-unit.log 2>&1
+bash run.sh test_core_guards.py > logs/core-guard-unit.log 2>&1
+检查不支持输入/状态、全false mask、梯度、非有限值回退、错误后禁用、恢复及部分构造失败清理；mock仅验证控制流，不代替真机数值测试。
+
+已修正的接口错误
+核心图初版把RKNN优化后的NHWC属性误作调用者数组布局，导致大幅错误。core_runtime.cpp现在明确指定调用者NCHW。
+logs/core-io-diagnostic.json及对应日志保存修改前后实际属性和误差；logs/core-v1-invalid-layout.json是无效版本，不用于性能/精度结论。重跑固定版mask/整模型验证后才作判断。
+完整图原输入主要为rank3，已另外通过六层mask检查；核心IO适配问题不解释完整FP16图的扩展概率超限。
+
+整模型数值与筛选
+bash run.sh bench_variants.py > logs/variants-all.log 2>&1
+16次固定请求筛选 baseline / scan / graph / combined，另测7案例14问。筛选时延不是最终成绩。
+bash run.sh final_eval.py --stage validate > logs/final-validate.log 2>&1
+验证原7案例14问和12个额外115-token合成状态；额外状态只用于数值回归，不计入延迟。没有裁剪实际请求，不是带标签任务准确率。
+完整FP16图及组合在扩展集超出0.01门槛，故final_suite.sh按设计停止，没有为不合格版本跑正式100次。
+bash run.sh core_eval.py --stage validate > logs/core-validate-fixed.log 2>&1
+核心图修正IO后的扩展检查仍超限，记录其失败，不放宽阈值。
+
+最终合格候选复核
+bash run.sh qualified_suite.sh > logs/qualified-suite.log 2>&1
+该脚本只从完成精度检查的候选中选择；20轮按顺序轮换，计时前各预热一次，每次结果对454ms及旧FP32参考校验；再在独立进程单候选100次并测原7案例。
+实际本轮合格候选仅scan，即chunk_blas2.c/py的block32/tile64。记录每次时延和计时后的CPU/NPU频率；不剔除离群值，P95使用nearest-rank。
+辅助公开RKNN_QUERY_PERF_DETAIL性能采集尝试触发独立进程崩溃，未取得可用报告；没有把它当成已验证数据。调试脚本read_graph_profile.py/read_core_profile.py不属于最终默认验证流程。首次与增加自身边界日志后的失败均保存；边界日志显示初始化已返回，之后尚未定位到自身wrapper或SDK的哪一步。算子放置仅引用编译日志，实际速度以已完成的整模型计时为准。
+
+收尾
+测试全部退出后，在开发机：
+python3 attention-chunk-experiment/preserve_service.py after
+rsync -az --exclude='*.pt' --exclude='*.npz' --exclude='compiler-env/' --exclude='*.whl' 192.168.1.164:/opt/decision3-edge-attention-chunk-20261017/ attention-chunk-experiment/
+python3 -m py_compile attention-chunk-experiment/*.py
+for script in attention-chunk-experiment/*.sh; do bash -n "$script"; done
+python3 attention-chunk-experiment/summarize.py
+核对线上容器ID/启动时间/配置/源码/响应以及无残留实验容器。本轮没有上线新候选。
+
+备注：首次qualified-paired.json顶层variant继承CLI默认scan-core；该字段不是实际执行标签。qualified_variants/selected及全部逐条记录均明确为baseline/scan；后续脚本已改正此纯元数据标签，原始数值未修改。

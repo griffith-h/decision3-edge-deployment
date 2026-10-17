@@ -1,0 +1,80 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  43%|████▎     | 132/305 [00:00<00:00, 1310.86it/s]Loading weights:  87%|████████▋ | 264/305 [00:00<00:00, 1163.16it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1212.09it/s]
+0 cpu-std 0.35435117199085653
+0 graph-half 0.32674945215694606
+0 graph-half-a72 0.32171902200207114
+1 graph-half 0.3234714490827173
+1 graph-half-a72 0.3245625200215727
+1 cpu-std 0.3456562829669565
+2 graph-half-a72 0.3212357070297003
+2 cpu-std 0.33712461311370134
+2 graph-half 0.3197119471151382
+3 cpu-std 0.3406195940915495
+3 graph-half 0.3207499119453132
+3 graph-half-a72 0.3216793821193278
+4 graph-half 0.3186193711590022
+4 graph-half-a72 0.3221227459143847
+4 cpu-std 0.3390148179605603
+5 graph-half-a72 0.321767162065953
+5 cpu-std 0.337681848090142
+5 graph-half 0.3162625909317285
+6 cpu-std 0.33896592003293335
+6 graph-half 0.3237700939644128
+6 graph-half-a72 0.3237703100312501
+7 graph-half 0.3214569508563727
+7 graph-half-a72 0.31543467892333865
+7 cpu-std 0.3497264599427581
+8 graph-half-a72 0.2933019769843668
+8 cpu-std 0.3108667728956789
+8 graph-half 0.2927882650401443
+9 cpu-std 0.3111805720254779
+9 graph-half 0.29314016411080956
+9 graph-half-a72 0.3193399258889258
+10 graph-half 0.3153534980956465
+10 graph-half-a72 0.31472988380119205
+10 cpu-std 0.33861319604329765
+11 graph-half-a72 0.3287376200314611
+11 cpu-std 0.351395261939615
+11 graph-half 0.31792921503074467
+12 cpu-std 0.3357101851142943
+12 graph-half 0.3269828411284834
+12 graph-half-a72 0.31670019612647593
+13 graph-half 0.31775261415168643
+13 graph-half-a72 0.31579585117287934
+13 cpu-std 0.33779879193753004
+14 graph-half-a72 0.2927555930800736
+14 cpu-std 0.33513209386728704
+14 graph-half 0.3184791440144181
+15 cpu-std 0.3346702791750431
+15 graph-half 0.3165291571058333
+15 graph-half-a72 0.3150923310313374
+16 graph-half 0.2923365000169724
+16 graph-half-a72 0.3174685090780258
+16 cpu-std 0.33545894804410636
+17 graph-half-a72 0.3227706500329077
+17 cpu-std 0.34207046194933355
+17 graph-half 0.32063645706512034
+18 cpu-std 0.3120227651670575
+18 graph-half 0.29053602390922606
+18 graph-half-a72 0.3190684299916029
+19 graph-half 0.3203793109860271
+19 graph-half-a72 0.3203025769907981
+19 cpu-std 0.3380704221781343
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff7b7ca988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff7b769018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff7d49ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff7ce5f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff7ce5fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff7dddabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff7c865cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff7c840c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff7c87b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff7c867538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff861e38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff88027744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff88027818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+SELECTED graph-half {'graph-half': {'reduction_median': 0.059752237565978306, 'faster_rounds': 20}, 'graph-half-a72': {'reduction_median': 0.056461611261737654, 'faster_rounds': 18}}

@@ -1,0 +1,30 @@
+{
+  "layer": "language_model.layers.2.self_attn",
+  "strict_bf16_boundaries": true,
+  "exported": "/work/attention-0-strict.onnx",
+  "ops": [
+    "Add",
+    "Cast",
+    "Concat",
+    "Constant",
+    "Div",
+    "Gather",
+    "MatMul",
+    "Mul",
+    "Neg",
+    "ReduceMean",
+    "Reshape",
+    "Shape",
+    "Sigmoid",
+    "Slice",
+    "Softmax",
+    "Sqrt",
+    "Tile",
+    "Transpose",
+    "Unsqueeze"
+  ],
+  "cpu_reference_max_abs": 0.001953125,
+  "cpu_reference_mean_abs": 4.000162050488143e-07,
+  "cpu_reference_cosine": 1.0000008344650269,
+  "note": "activation diagnostic, not probability tolerance; non-strict changes arithmetic rounding, original weights and math/mask retained"
+}

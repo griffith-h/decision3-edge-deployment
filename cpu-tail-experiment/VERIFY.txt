@@ -1,0 +1,23 @@
+验证结果（2026-10-17，本轮未部署）
+
+ARM独立进程：
+- formal_host_suite.sh：exit0；pipeline守卫通过；20轮基线/CPU/A72；CPU100次+19场景+36复测；CPU10次剖析。
+- final_graph_comparison.py：exit0；20轮轮换CPU/graph/graph+A72，每种19场景数值验证。
+- final_graph_single.py --stage single --count 100：exit0；100次逐次比较、19场景26问题、36次额外复测通过。
+- profile_graph_final.py：exit0；前后各15次无插桩、10次插桩，主线程exclusive闭合、SDK时间区间并集、12图/6注意力融合计数验证通过。
+- 定向数学/舍入/掩码/梯度/训练/溢出/形状/权重变化/资源释放检查详见REPRODUCTION第5节及logs/*unit.json、*guards.json；负面原型日志未当作最终通过数据。
+
+开发Mac：
+python3 cpu-tail-experiment/preserve_service.py after
+PASS：容器ID/启动时间/Config/HostConfig/发布文件哈希不变，5次输出与before逐值一致，ready+healthy，无实验容器。
+python3 -m py_compile cpu-tail-experiment/*.py
+PASS。
+for f in cpu-tail-experiment/*.sh; do bash -n "$f" || exit; done
+PASS。
+python3 cpu-tail-experiment/build_report.py
+PASS：39个运行源码/ARM库/12个图产物哈希、100次样本/P95、20轮、数值门槛、分解闭合。
+HTMLParser检查26个链接，http://127.0.0.1:43991/cpu-tail-experiment/report.html HTTP200且内容匹配。
+PASS。
+
+未运行无关仓库全量测试；未测并发吞吐、冷启动、最终HTTP候选服务及标注任务准确率。
+固定115-token图加速不能泛化为任意长度延迟承诺。

@@ -1,0 +1,123 @@
+D Save log info to: /work/logs/rknn-attention-1-fp16graph.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 1![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 1![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 2![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 2![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 3![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 3![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D fold_constant remove nodes = ['/Concat_5', '/Slice_13', '/Slice_12', '/Shape_2', '/Concat_4', '/Slice_11', '/Slice_10', '/Shape_1', '/Mul_1', '/Mul', '/Div', '/Add', '/Gather', '/Shape']
+D Fixed the shape information of some tensor!
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     replace_parallel_slice_by_split: remove node = ['/Slice', '/Slice_1'], add node = ['/Slice_2sp']
+D     swap_reshape_sigmoid: remove node = ['/Reshape_1', '/Sigmoid'], add node = ['/Sigmoid', '/Reshape_1']
+D     replace_rms_norm5: remove node = ['/Mul_2', '/ReduceMean', '/Add_1', '/Sqrt', '/Div_1', '/Mul_3'], add node = ['/Slice_output_0_tp', '/ReduceMean_2rmsn', '/ReduceMean_2rmsn_tp']
+D     swap_mul_transpose: remove node = ['/Mul_4', '/Transpose', '/ReduceMean_2rmsn_tp'], add node = ['/Transpose', '/Mul_4']
+D     replace_rms_norm5: remove node = ['/Mul_5', '/ReduceMean_1', '/Add_2', '/Sqrt_1', '/Div_2', '/Mul_6'], add node = ['/Reshape_2_output_0_tp', '/ReduceMean_1_2rmsn', '/ReduceMean_1_2rmsn_tp']
+D     swap_mul_transpose: remove node = ['/Mul_7', '/Transpose_1', '/ReduceMean_1_2rmsn_tp'], add node = ['/Transpose_1', '/Mul_7']
+D     replace_parallel_slice_by_split: remove node = ['/Slice_2', '/Slice_5'], add node = ['/Slice_2_2sp']
+D     replace_parallel_slice_by_split: remove node = ['/Slice_6', '/Slice_9'], add node = ['/Slice_6_2sp']
+D     fuse_matmul_softmax_matmul_to_sdpa: remove node = ['/MatMul_3', '/Mul_12', '/Add_5', '/Softmax', '/MatMul_4'], add node = ['/Concat_1_output_0_tp', '/Concat_1_output_0_tp_rs', '/Transpose_3_output_0_rs', '/Reshape_5_output_0_tp', '/Reshape_5_output_0_tp_rs', 'mask_tp', 'mask_tp_rs', '/MatMul_4_2sdpa', '/MatMul_4_output_0_sdpa_tp', '/MatMul_4_output_0_sdpa_tp_rs']
+D     remove_reshape_before_mul: remove node = ['/Reshape_6', '/Reshape_1'], add node = ['/Mul_13_output_0-rs']
+D     fuse_transpose_reshape: remove node = ['mask_tp_rs']
+D     swap_transpose_mul: remove node = ['/Transpose_1', '/Mul_7'], add node = ['/Mul_7', '/Transpose_1']
+D     replace_parallel_slice_by_split: remove node = ['/Slice_4', '/Slice_3'], add node = ['/Slice_3_2sp']
+D     fuse_transpose_reshape: remove node = ['/Concat_1_output_0_tp_rs']
+D     replace_parallel_slice_by_split: remove node = ['/Slice_8', '/Slice_7'], add node = ['/Slice_7_2sp']
+D     fuse_transpose_reshape: remove node = ['/Reshape_5_output_0_tp_rs', '/Transpose_3_output_0_rs']
+D     fuse_transpose_reshape_transpose: remove node = ['/MatMul_4_output_0_sdpa_tp']
+D     fuse_exnorm_mul: remove node = ['/Mul_7']
+D     fuse_reshape_transpose: remove node = ['/MatMul_4_output_0_sdpa_tp_rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['x_tp#2', 'x_tp#2_rs', '/MatMul_2#1', '/MatMul_2_output_0_mm_tp', '/MatMul_2_output_0_mm_tp_rs']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze'], add node = ['/Unsqueeze_2rs']
+D     convert_neg_to_mul: remove node = ['/Neg_1'], add node = ['/Neg_1#1']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze_2'], add node = ['/Unsqueeze_2_2rs']
+D     convert_tile_to_expand: remove node = ['/Tile'], add node = ['/Tile#1']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze_3'], add node = ['/Unsqueeze_3_2rs']
+D     convert_tile_to_expand: remove node = ['/Tile_1'], add node = ['/Tile_1#1']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_5'], add node = ['/Mul_13_output_0_tp', '/Mul_13_output_0_tp_rs', '/MatMul_5#1', 'out_mm_tp', 'out_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#2-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#2', 'x_tp-rs']
+D     input_align_4D_mul: remove node = ['/Neg_1#1'], add node = ['/Neg_1#1']
+D     squeeze_nd_expand: remove node = [], add node = ['/Unsqueeze_3_output_0_rs', '/Tile_1_output_0-rs']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze_1'], add node = ['/Unsqueeze_1_2rs']
+D     squeeze_nd_expand: remove node = [], add node = ['/Unsqueeze_2_output_0_rs', '/Tile_output_0-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_13_output_0_rs', '/Mul_13_output_0_tp-rs']
+D     convert_neg_to_mul: remove node = ['/Neg'], add node = ['/Neg#1']
+D     input_align_4D_mul: remove node = ['/Neg#1'], add node = ['/Neg#1']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1', 'x_rs#2'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#2', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs']
+D     fuse_two_reshape: remove node = ['/MatMul_output_0_mm_tp_rs']
+D     merge_inner_math_op_between_split_concat: remove node = ['/Slice_3_2sp', '/Neg#1', '/Concat'], add node = ['/Slice_2_output_0_mul', '/Slice_3_2sp', '/Slice_3_output_0_concat']
+D     fuse_two_reshape: remove node = ['/Unsqueeze_2_2rs', '/Tile_output_0-rs', '/Mul_13_output_0-rs']
+D     bypass_two_reshape: remove node = ['/Mul_13_output_0_tp_rs', '/Mul_13_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#2_rs', 'x_tp#2-rs']
+D     fuse_two_reshape: remove node = ['/MatMul_2_output_0_mm_tp_rs', '/Unsqueeze_3_2rs', '/Tile_1_output_0-rs']
+D     fuse_transpose_reshape_transpose: remove node = ['/MatMul_2_output_0_mm_tp']
+D     convert_expand_to_gather_before_rs: remove node = ['/Tile_1#1'], add node = ['/Unsqueeze_3_output_0_rs_gather']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs']
+D     fuse_two_reshape: remove node = ['/MatMul_1_output_0_mm_tp_rs']
+D     merge_inner_math_op_between_split_concat: remove node = ['/Slice_7_2sp', '/Neg_1#1', '/Concat_2'], add node = ['/Slice_6_output_0_mul', '/Slice_7_2sp', '/Slice_7_output_0_concat']
+D     convert_expand_to_gather_before_rs: remove node = ['/Tile#1'], add node = ['/Unsqueeze_2_output_0_rs_gather']
+D     fuse_reshape_transpose: remove node = ['/Reshape_5']
+D     fuse_transpose_reshape_transpose: remove node = ['/MatMul_1_output_0_mm_tp']
+D     fuse_channel_shuffle_split_concat_to_gather: remove node = ['/Slice_7_2sp', '/Slice_7_output_0_concat'], add node = ['/Slice_7_output_0_concat_2gather']
+D     fuse_transpose_reshape: remove node = ['/Unsqueeze_3_output_0_rs']
+D     swap_gather_transpose: remove node = ['/Unsqueeze_3_output_0_rs_gather', '/Reshape_5_output_0_tp', '/Transpose_2'], add node = ['/Reshape_5_output_0_tp', '/Unsqueeze_3_output_0_rs_gather']
+D     merge_exmatmul_inner_perm: remove node = ['/MatMul_1#1', '/Reshape_2', '/Reshape_2_output_0_tp'], add node = ['/MatMul_1#1', '/Reshape_2#1', '/Reshape_2_output_0_tp#1']
+D     swap_mul_gather: remove node = ['/Slice_6_output_0_mul', '/Slice_7_output_0_concat_2gather'], add node = ['/Slice_7_output_0_concat_2gather', '/Slice_6_output_0_mul']
+D     fuse_reshape_transpose: remove node = ['/Reshape_5_output_0_tp']
+D     swap_reshape_gather: remove node = ['/Unsqueeze_2_output_0_rs', '/Unsqueeze_2_output_0_rs_gather', '/Reshape_4'], add node = ['/Unsqueeze_2_output_0_rs_gather', '/Unsqueeze_2_output_0_rs']
+D     swap_transpose_reshape: remove node = ['/MatMul_output_0_mm_tp', '/Reshape'], add node = ['/Reshape', '/MatMul_output_0_mm_tp']
+D     fuse_channel_shuffle_split_concat_to_gather: remove node = ['/Slice_3_2sp', '/Slice_3_output_0_concat'], add node = ['/Slice_3_output_0_concat_2gather']
+D     swap_reshape_gather: remove node = ['/Reshape_3', '/Unsqueeze_3_output_0_rs_gather'], add node = ['/Unsqueeze_3_output_0_rs_gather', '/Reshape_3']
+D     fuse_reshape_transpose: remove node = ['/Unsqueeze_2_output_0_rs']
+D     fuse_exmatmul_gather: remove node = ['/MatMul_2#1', '/Unsqueeze_3_output_0_rs_gather'], add node = ['/MatMul_2#1']
+D     swap_mul_gather: remove node = ['/Slice_2_output_0_mul', '/Slice_3_output_0_concat_2gather'], add node = ['/Slice_3_output_0_concat_2gather', '/Slice_2_output_0_mul']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_output_0_mm_tp', '/Transpose_4']
+D     fuse_reshape_transpose: remove node = ['/Mul_13_output_0_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/Slice_output_0_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/Transpose', '/Concat_1_output_0_tp', '/Transpose_3'], add node = ['/Unsqueeze_output_0_tp', '/Unsqueeze_1_output_0_tp']
+D     fuse_exnorm_mul: remove node = ['/Mul_4']
+D     swap_norm_transpose: remove node = ['/ReduceMean_1_2rmsn', '/Transpose_1', '/Reshape_2_output_0_tp#1'], add node = ['/Transpose_1', '/ReduceMean_1_2rmsn']
+D     merge_exmatmul_inner_perm: remove node = ['/MatMul_1#1', '/Reshape_2#1', '/Transpose_1'], add node = ['/MatMul_1#1', '/Transpose_1#1']
+D     seperate_exmatmul_rs_split: remove node = ['/MatMul#1', '/Reshape', '/Slice_2sp'], add node = ['x_tp-rs_mm', 'x_tp-rs_mm_rs', 'x_tp-rs_mm#1', 'x_tp-rs_mm#1_rs']
+D     swap_reshape_sigmoid: remove node = ['x_tp-rs_mm#1_rs', '/Sigmoid'], add node = ['/Sigmoid', 'x_tp-rs_mm#1_rs']
+D     convert_exmatmul_to_conv: remove node = ['x_tp-rs_mm'], add node = ['x_tp-rs_mm#2']
+D     convert_exmatmul_to_conv: remove node = ['x_tp-rs_mm#1'], add node = ['x_tp-rs_mm#3']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     gather_to_conv: remove node = ['/Slice_3_output_0_concat_2gather'], add node = ['/Slice_3_output_0_concat_2gather_2conv']
+D     gather_to_conv: remove node = ['/Slice_7_output_0_concat_2gather'], add node = ['/Slice_7_output_0_concat_2gather_2conv']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_5#1'], add node = ['/MatMul_5#2']
+D     fuse_mul_into_conv: remove node = ['/Slice_2_output_0_mul', '/Slice_6_output_0_mul']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+D recover_const_share ...
+D recover_const_share done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.

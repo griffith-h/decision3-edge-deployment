@@ -1,0 +1,652 @@
+{
+  "tag": "balanced-none",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "load_seconds": 18.663752930937335,
+  "case_count": 7,
+  "question_count": 14,
+  "cases": {
+    "chinese-0": {
+      "seconds": 1.6024137081112713,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.005611260526635964,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992275778368592,
+              "math": 0.000510165146199487,
+              "chat": 0.00026225701694125125
+            },
+            "confidence": 0.9938083784475822
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8759595482036303
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.10547987842447942,
+            "probabilities": {
+              "0": 0.9114823426258037,
+              "1": 0.07155543632391315,
+              "2": 0.016962221050283135
+            },
+            "confidence": 0.6883869656089365,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      }
+    },
+    "chinese-1": {
+      "seconds": 1.4903041499201208,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.00012279528861252123,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0007380948971736939,
+              "math": 0.00037034967025139314,
+              "chat": 0.9988915554325749
+            },
+            "confidence": 0.991483153910348
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002702667370493785
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.01941190093084238,
+            "probabilities": {
+              "0": 0.9833084067841253,
+              "1": 0.013971285500906979,
+              "2": 0.0027203077149677013
+            },
+            "confidence": 0.9159955915828796,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 314,
+          "output_tokens": 0
+        }
+      }
+    },
+    "english": {
+      "seconds": 1.4861613761167973,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.003434247822728942,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9099725843203372,
+              "math": 9.484965746734619e-05,
+              "other": 0.08993256602219545
+            },
+            "confidence": 0.7238823010958062
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.06361958194912726
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.19364455751446233,
+            "probabilities": {
+              "0": 0.8412697220605446,
+              "1": 0.12381599836444845,
+              "2": 0.03491427957500694
+            },
+            "confidence": 0.525595558285477,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 328,
+          "output_tokens": 0
+        }
+      }
+    },
+    "single": {
+      "seconds": 0.5132606090046465,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 3.824814245190211e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992073985209514,
+              "math": 0.0006635769130980008,
+              "chat": 0.00012902456595058792
+            },
+            "confidence": 0.9938069738994934
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    },
+    "image": {
+      "seconds": 8.067776773124933,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 0.0017557576521547678,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "image_colour": {
+            "type": "choice",
+            "choice": "other",
+            "probabilities": {
+              "red": 0.02521769928624936,
+              "green": 0.3326548390603925,
+              "blue": 0.011877891795639098,
+              "other": 0.6302495698577191
+            },
+            "confidence": 0.4210850445050932
+          },
+          "image_photo": {
+            "type": "noul",
+            "noul": 0.028428583489996686
+          }
+        },
+        "usage": {
+          "input_tokens": 347,
+          "output_tokens": 0
+        }
+      }
+    },
+    "novel-math": {
+      "seconds": 0.49951315904036164,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 2.232011897973507e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.00184705709842301,
+              "math": 0.9979303863368051,
+              "chat": 0.0002225565647719482
+            },
+            "confidence": 0.9858321987979728
+          }
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 0
+        }
+      }
+    },
+    "novel-chat": {
+      "seconds": 0.5064481149893254,
+      "comparison": {
+        "max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "comparison_vs_fp32": {
+        "max_delta": 3.582802390737506e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "response": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.00010406103778581413,
+              "math": 0.00011211588673608874,
+              "chat": 0.9997838230754781
+            },
+            "confidence": 0.9980063464262238
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      }
+    }
+  },
+  "sources": {
+    "merged_adapter.py": "e8a03b370517b3fa7cd389b8607ba9ad4428aa01cabb4fb77627827abff64b2d",
+    "scattered_adapter.py": "4bb272263c49b994bf7df037749cd43ff387efe9e405a54ef2b0c1a750cfa458",
+    "bench.py": "e821f19513e297b6e6ccac570abbcb7ac3b5d93ce29d41c67ac36180d8baf9da",
+    "scatter_runner.py": "19051e15fc2d4cf0516a8ac3051a7fb9f1e440ea3de62a8e25d1eb5163e744f4",
+    "summarize.py": "5cb243f007fe4eca13b2bda6f643ca60e1076e4c40e12baaabb7f2b906da2d72",
+    "cpp1_runner.py": "b26e80465aa3de43360078ebd9fd1b0335f888e2cd50d2ebeb575da39cd85d5d",
+    "paired.py": "beedf58cf8a58e4007574f67575c41f76dcbe0855376eef439b30555264339e6",
+    "static_runner.py": "a23c5eacf847ae34b05c37173055915b7379fc1de0b88d8a0ae4f3c7f51c3e4f",
+    "test_packing.py": "e36dfd986631f4b91d07a8e027e52ea983587eecb276590ec710609ef14c5c28",
+    "probe_groups.py": "46f8a5f3c1e3fe4d595a7097106450554e6337d8c6b354fcbbf6e125dc315f9a",
+    "compiled_regions.py": "5a750cc448376f30965f4fc428fe3bcf1e562f820ac841fa36694a8fcf6f983e",
+    "preserve_service.py": "1128e5225803bbd754922d22b775a47f4cb5cbfbcaa0780753e6d3b9af896c66",
+    "test_compile.py": "a73739398ca46b723ce8286c779b37bac9069286ca693e6665708db7b3369556",
+    "setup_helpers.py": "061babfd18cd9c7bab6f942e10dffe0a68d997d0c4eab449e34d092013539644",
+    "diagnose_compile.py": "2e8d29a39f29fbd6db13f92c1de3da6dc401c276c0753bcc756d775c4b503d5b",
+    "cache_compiler_debs.py": "abc854e758d57926d01a144090b3aa30b660723538697aac64d7dbe814c0ec33"
+  },
+  "cold_first_call_seconds": 6.53890991397202,
+  "timing": {
+    "seconds": [
+      0.5041966440621763,
+      0.49515986791811883,
+      0.5062812438700348,
+      0.49925198988057673,
+      0.5091341871302575,
+      0.5075011721346527,
+      0.5081471011508256,
+      0.5101502849720418,
+      0.5096683090087026,
+      0.5136868339031935,
+      0.5132747190073133,
+      0.5174543438479304,
+      0.47099140495993197,
+      0.4952112501487136,
+      0.5112269148230553,
+      0.49385628709569573,
+      0.5072035240009427,
+      0.5096814860589802,
+      0.5066968959290534,
+      0.5111345530021936,
+      0.5062968090642244,
+      0.5065226058941334,
+      0.5099872387945652,
+      0.5248057111166418,
+      0.5091155651025474,
+      0.4714070700574666,
+      0.5060014720074832,
+      0.5094984569586813,
+      0.5064430749043822,
+      0.5057882471010089,
+      0.506834251107648,
+      0.5086608198471367,
+      0.506685360101983,
+      0.5042255700100213,
+      0.5114131059963256,
+      0.4946964380796999,
+      0.5062277370598167,
+      0.5065670891199261,
+      0.5082688729744405,
+      0.5055300588719547,
+      0.5089219359215349,
+      0.5063908060546964,
+      0.5058049738872796,
+      0.512551223160699,
+      0.5036117481067777,
+      0.507354246918112,
+      0.5166526818647981,
+      0.5146369962021708,
+      0.5154364760965109,
+      0.5130674710962921,
+      0.5138907840009779,
+      0.5136675769463181,
+      0.5141518930904567,
+      0.5104471480008215,
+      0.5055546888615936,
+      0.46669167885556817,
+      0.4744730640668422,
+      0.5065839148592204,
+      0.5084227710030973,
+      0.5039451611228287,
+      0.5042317069601268,
+      0.5054409399162978,
+      0.5067059719003737,
+      0.5140590469818562,
+      0.5121434689499438,
+      0.5162411869969219,
+      0.5146187499631196,
+      0.5126893329434097,
+      0.5107445740140975,
+      0.5131559860892594,
+      0.5104975348804146,
+      0.5137116149999201,
+      0.5106652281247079,
+      0.5100640510208905,
+      0.5135588280390948,
+      0.5099814331624657,
+      0.5115199389401823,
+      0.5131326010450721,
+      0.5112429850269109,
+      0.5125643308274448,
+      0.5176048201974481,
+      0.4829886720981449,
+      0.5037087628152221,
+      0.5136553798802197,
+      0.5203518318012357,
+      0.5135087210219353,
+      0.5167384559754282,
+      0.4781896660570055,
+      0.5088363420218229,
+      0.514069251017645,
+      0.5160386729985476,
+      0.4849539240822196,
+      0.5111413900740445,
+      0.507450990146026,
+      0.5130542418919504,
+      0.5187776058446616,
+      0.514941229019314,
+      0.5155570420902222,
+      0.5155772001016885,
+      0.5147895019035786
+    ],
+    "count": 100,
+    "median": 0.5096748975338414,
+    "min": 0.46669167885556817,
+    "max": 0.5248057111166418,
+    "p95_nearest_rank": 0.5167384559754282
+  },
+  "every_response_checked": true,
+  "max_timed_delta": 0.0,
+  "max_timed_delta_vs_fp32": 3.824814245190211e-05,
+  "passed": true,
+  "engine_stats": {
+    "groups": 1308,
+    "shared_input_prepares": 2616,
+    "parallel_jobs": 5232,
+    "cpu_fallbacks": 0,
+    "packed_groups": 1308,
+    "packed_range_fallbacks": 0
+  },
+  "handles": 72,
+  "layout": [
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        6144,
+        2048
+      ],
+      "packed": [
+        4096,
+        4096
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    },
+    {
+      "original": [
+        4096,
+        512,
+        512
+      ],
+      "packed": [
+        2560,
+        2560
+      ],
+      "k": 1024,
+      "cores": [
+        1,
+        2
+      ]
+    }
+  ],
+  "compile_stats": {},
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000"
+  },
+  "packed_backend": "native-scatter",
+  "native_hashes": {
+    "libsafe_half_bridge.so": "f8bd5a93a41122d7444b8513ebf6d317518025c0f9da28ba253a4711b6e967e3",
+    "libsafe_scatter_bridge.so": "e5d2208b9c970475f7168f5ec2b8bee5fcb9d85e4686483196c336b73663ec46",
+    "safe_scatter_bridge.cpp": "0058e0f3108bfe9fb8f12e73b73cb965341b7646eeea5b01ce9006f0f29c1a00"
+  }
+}

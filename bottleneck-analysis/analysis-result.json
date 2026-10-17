@@ -1,0 +1,296 @@
+{
+  "verified_at_utc": "2026-10-17T11:21:42.598650+00:00",
+  "passed": true,
+  "scope": "Diagnosis only. Deployed model weights, 12 layers, attention semantics, three-thread server and settings unchanged. Fixed 115-token single-question input, concurrency 1. No response cache, no reverse engineering.",
+  "raw_model_seconds": {
+    "uninstrumented_before": {
+      "median": 0.8689911084948108,
+      "min": 0.8537569991312921,
+      "max": 0.890262319939211
+    },
+    "clock_shim_uninstrumented": {
+      "median": 0.8642960570286959,
+      "min": 0.8587760131340474,
+      "max": 0.8660187569912523
+    },
+    "uninstrumented_after": {
+      "median": 0.8510071849450469,
+      "min": 0.8382980038877577,
+      "max": 0.8578460610006005
+    }
+  },
+  "instrumented_wall_mean_seconds": 0.9002144467376638,
+  "instrumentation_caution": "Hooked attribution is about 900ms vs unhooked about 851-869ms. Do not present these phase figures as an exact partition of the earlier 859ms LAN sample. Runtime wall includes vendor SDK scheduling/synchronization, not pure NPU device compute.",
+  "partition_exclusive_seconds": {
+    "rknn_runtime_wall": 0.19937570980982855,
+    "bridge_copy_shape_and_ffi": 0.03928150577121414,
+    "adapter_conversion_validation_allocation_and_output": 0.16861476018675603,
+    "gated_delta_scan_including_triangular_solve": 0.25451791685190983,
+    "causal_conv_and_rmsnorm": 0.079508595605148,
+    "attention_sdpa_rope_and_dispatch": 0.08004594265366904,
+    "remaining_request_and_cpu": 0.07887001585913822
+  },
+  "exclusive_details_seconds": {
+    "request.prepare": 0.001810976624256,
+    "embedding": 0.0004137353680562228,
+    "module.other.Qwen3_5TextRotaryEmbedding": 0.0013055525196250528,
+    "rmsnorm": 0.033432669530157,
+    "adapter.convert_fp16": 0.026192534976871684,
+    "adapter.finite_check": 0.0735935494012665,
+    "adapter.allocate_fp32": 0.005661354458425194,
+    "adapter.bridge_ffi": 0.2386572155810427,
+    "linear.rknn": 0.06316732135019265,
+    "linear.cpu": 0.01396898867096752,
+    "causal_conv": 0.046075926074991,
+    "triangular_solve": 0.024018671771045774,
+    "scan": 0.23049924508086406,
+    "delta.elementwise_and_dispatch": 0.010562175622908399,
+    "module.other.SiLUActivation": 0.022058016242226586,
+    "mlp.elementwise_and_dispatch": 0.011836906021926552,
+    "block.residual_and_dispatch": 0.013325257459655404,
+    "rotary": 0.009407963894773275,
+    "sdpa": 0.03802725300192833,
+    "attention.elementwise_and_dispatch": 0.03130517323734239,
+    "request.run": 0.004703802638687193,
+    "request.respond": 6.605390808545053e-05,
+    "request.other": 0.00012410330236889422
+  },
+  "native_bridge_seconds": {
+    "calls": 78.0,
+    "shape_bind": 3.283168189227581e-05,
+    "input_copy": 0.007793221564497799,
+    "input_padding": 0.00035764911444857717,
+    "rknn_matmul_run": 0.19937570980982855,
+    "output_copy": 0.02662599110044539
+  },
+  "instrumented_overhead_vs_clock_shim_median_fraction": 0.04155797011552864,
+  "scan_microprofile": {
+    "sum_six_unprofiled_medians": 0.24771677097305655,
+    "sum_six_profiled_seconds": 0.3237490972969681,
+    "operators": {
+      "aten.matmul.default": {
+        "seconds": 0.10493953223340213,
+        "calls": 18
+      },
+      "aten.mul.Tensor": {
+        "seconds": 0.03754502767696977,
+        "calls": 72
+      },
+      "aten.to.dtype": {
+        "seconds": 0.029207023791968822,
+        "calls": 36
+      },
+      "aten.linalg_solve_triangular.default": {
+        "seconds": 0.027318144449964166,
+        "calls": 6
+      },
+      "aten.pad.default": {
+        "seconds": 0.014607297023758292,
+        "calls": 30
+      },
+      "aten.copy_.default": {
+        "seconds": 0.008634532103314996,
+        "calls": 6
+      },
+      "aten.exp.default": {
+        "seconds": 0.0073607186786830425,
+        "calls": 30
+      },
+      "aten.masked_fill.Scalar": {
+        "seconds": 0.005243236664682627,
+        "calls": 6
+      },
+      "aten.sum.dim_IntList": {
+        "seconds": 0.004348368151113391,
+        "calls": 12
+      },
+      "aten.sub.Tensor": {
+        "seconds": 0.0035858857445418835,
+        "calls": 12
+      },
+      "aten.transpose.int": {
+        "seconds": 0.0023145326413214207,
+        "calls": 48
+      },
+      "aten.add.Tensor": {
+        "seconds": 0.0017543507274240255,
+        "calls": 12
+      },
+      "aten.reshape.default": {
+        "seconds": 0.001555651891976595,
+        "calls": 36
+      },
+      "aten.unsqueeze.default": {
+        "seconds": 0.001517424825578928,
+        "calls": 54
+      },
+      "aten.select.int": {
+        "seconds": 0.0009360318072140217,
+        "calls": 24
+      },
+      "aten.triu.default": {
+        "seconds": 0.0007148121949285269,
+        "calls": 6
+      },
+      "aten.ones.default": {
+        "seconds": 0.0006559174507856369,
+        "calls": 6
+      },
+      "aten.rsqrt.default": {
+        "seconds": 0.0005422900430858135,
+        "calls": 12
+      },
+      "aten.slice.Tensor": {
+        "seconds": 0.0005355959292501211,
+        "calls": 12
+      },
+      "aten.empty_like.default": {
+        "seconds": 0.0004166720900684595,
+        "calls": 6
+      },
+      "aten.cumsum.default": {
+        "seconds": 0.00039386143907904625,
+        "calls": 6
+      }
+    },
+    "caution": "TorchDispatch adds about 76ms across six scan traces. Operator figures are localization evidence, not an additive raw request-time budget. All six outputs bitwise equal."
+  },
+  "core_capability": {
+    "mask_0_1_2_correct": true,
+    "combined_mask_3_rejected": true,
+    "interleaved_parallel_probe": {
+      "passed": true,
+      "scope": "Interleaved two-MatMul probe, real M115 K1024 N3584. CPU 4-7. Five warmup rounds, 30 timed rounds per variant, rotating order. No Python output scanning between rounds. Not a d3 model speedup.",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "summary": {
+        "parallel_same_core": {
+          "median": 0.0042773045133799314,
+          "min": 0.004228302976116538,
+          "max": 0.004344514105468988
+        },
+        "serial_split": {
+          "median": 0.005620947922579944,
+          "min": 0.005589497042819858,
+          "max": 0.005699249915778637
+        },
+        "parallel_split": {
+          "median": 0.003887828905135393,
+          "min": 0.0037588418927043676,
+          "max": 0.003993414109572768
+        }
+      },
+      "median_paired_serial_over_parallel_speedup": 1.451443985819413,
+      "parallel_faster_rounds": 30,
+      "outputs_exact": true
+    },
+    "incremental_split_core_over_same_core_parallel_speedup": 1.1001781759814802,
+    "caution": "Separate contexts can overlap. About 1.45x is the two-matrix microbenchmark gain vs serial split-core; about 1.10x is incremental vs same-core concurrent. This does not establish a 1.45x whole-model gain or fully attribute improvement to physical-core execution. Initial sequential-case A53 probe was unstable and is retained."
+  },
+  "counterfactuals": {
+    "profiled_seconds_if_scan_and_all_nonruntime_adapter_cost_zero": 0.4378002639277838,
+    "assumptions": "Only these two categories removed, same serial topology and all other phases unchanged. An idealized accounting exercise, not a forecast or hardware lower bound."
+  },
+  "next_candidates": [
+    {
+      "priority": 1,
+      "change": "Fuse BF16->FP16 conversion with finite/overflow validation directly into reusable RKNN A buffers; convert C FP32->BF16 with identical rounding before leaving own bridge.",
+      "evidence": "Finite validation ~74ms; input conversion ~26ms; adapter output/self ~63ms; explicit input/output copy ~35ms; allocation ~6ms.",
+      "required_checks": "Preserve BF16 rounding, NaN/Inf and FP16-overflow errors, noncontiguous tensors, unsupported dtype/shape fallback and buffer lifetime. No disabled checks or result cache."
+    },
+    {
+      "priority": 2,
+      "change": "Schedule independent projections within one layer using public MatMul contexts; compare same-core concurrency, split-core concurrency, and concatenated projections.",
+      "evidence": "Interleaved real-shape paired MatMul test 5.62ms serial ->3.89ms split concurrent; 30/30 rounds faster, exact output. Same-core concurrent already4.28ms.",
+      "required_checks": "Actual D3 output parity across original seven cases, input reuse safety, model main-thread lifecycle and CPU thread contention. Layer-to-layer dependencies remain serial."
+    },
+    {
+      "priority": 3,
+      "change": "Specialize CPU GatedDeltaNet prefill: fuse normalization/scaling/padding and layout conversions, then optimize small batched FP32 matrix multiplies.",
+      "evidence": "Six scans about248-255ms. Main operator hotspot is18 small batched matrix multiplies; six triangular solves are only about24-27ms.",
+      "required_checks": "Keep causal scan, full attention visibility, zero initial state, long-input/state fallback, masking and dtype boundaries. Do not assume scan matmuls are independent of previous layers."
+    }
+  ],
+  "two_hundred_ms_conclusion": "Another about4.3x is required from the 859ms deployed baseline. There is substantial work in own CPU/bridge code, but 200ms is unproven; current synchronous Runtime wall alone is about199ms. All major categories and NPU scheduling must improve together.",
+  "service_preservation": {
+    "verified_at_utc": "2026-10-17T11:20:49.056257+00:00",
+    "passed": true,
+    "container_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+    "started_at": "2026-10-17T11:04:28.007796263Z",
+    "id_start_time_config_and_host_config_unchanged": true,
+    "source_sha256": {
+      "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+      "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+      "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+      "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf"
+    },
+    "responses_exactly_equal": true,
+    "health": {
+      "status": "ready",
+      "model": "vllm-sr/d3-edge",
+      "max_input_tokens": null,
+      "modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "authentication": false,
+      "deployment": {
+        "release": "2026-10-17-three-thread-v1",
+        "torch_threads": 3,
+        "OMP_THREAD_LIMIT": "3",
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "chunk_size": 128,
+        "rknn_linear_layers": 78,
+        "native_stats": {
+          "native_calls": 5635,
+          "norm_calls": 4945,
+          "conv_calls": 690
+        }
+      }
+    },
+    "inference_http_seconds": [
+      0.93689825,
+      0.872980375,
+      0.8671400409999999,
+      0.8657558749999996,
+      0.8563685840000002
+    ],
+    "median": 0.8671400409999999,
+    "min": 0.8563685840000002,
+    "max": 0.93689825,
+    "remaining_test_containers": [],
+    "scope": "Final verification after all isolated profiling/capability probes completed; existing service never stopped or reconfigured."
+  },
+  "additional_latency_observation": {
+    "source": "service-preservation.json",
+    "seconds": [
+      1.1360725,
+      0.8606650419999999,
+      0.865708959,
+      0.8674075829999999,
+      0.8612196670000003
+    ],
+    "median": 0.865708959,
+    "maximum": 1.1360725,
+    "interpretation": "One first production request after an isolated test measured1.136s; retain it. Cause was not isolated. Previous warm100/100<1s does not imply idle/recovery/long-term hard latency guarantee."
+  },
+  "verification_commands": [
+    "python3 -m py_compile bottleneck-analysis/*.py",
+    "bash -n bottleneck-analysis/run-profile.sh bottleneck-analysis/run-scan.sh",
+    "bash /opt/decision3-edge-bottlenecks-20261017/run-profile.sh",
+    "bash /opt/decision3-edge-bottlenecks-20261017/run-scan.sh",
+    "isolated probe_cores.py / probe_parallel.py / probe_parallel_interleaved.py containers",
+    "python3 bottleneck-analysis/verify_preservation.py"
+  ],
+  "tests_reused": "Existing164 operator checks / seven-case model regression not rerun; no math/model optimization deployed. New tests cover instrumentation equality, six actual scan inputs, public core-mask behavior, concurrent contexts, and production preservation."
+}

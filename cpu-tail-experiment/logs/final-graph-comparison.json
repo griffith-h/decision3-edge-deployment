@@ -1,0 +1,4435 @@
+{
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "2736000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "37922",
+      "thermal_zone0": "36999",
+      "thermal_zone5": "36999",
+      "thermal_zone3": "36076",
+      "thermal_zone1": "37922",
+      "thermal_zone4": "36076"
+    }
+  },
+  "sources": {
+    "screen_prepare.py": "9ba46402b33d5f5a0893ec3e760839a9167bd7f2d590cfd09bbc37c38b1d987c",
+    "test_attention.py": "9aedd3d30a97a1eb3afaf1e582be1d4bbf14f5ae1c40040f1017eff274db6273",
+    "screen_mlp_multicore.py": "c644ed7546f960618f998aeb11862cbc1e154339def6b4f78b13ed2bece0320c",
+    "probe_gpu_build.py": "7b0251eeb66f976448f5e13fbae3da976cedfbfc7c4544ce434c62f20cd82ff9",
+    "native_bridge.cpp": "91bd616efef7fd4d69593ce832e8e0e4f48fbf47e2ee69cdb6c63c660adf4419",
+    "gpu_kernels.cl": "4af2b619ee96075c8276e8ef38bf1d58a2669e79d1d90843959a017d9acfb4e3",
+    "pipeline.py": "39148caffceb88fc7c6224ce1332a3eb35a9d09774edbdc6aaa8695f0687d660",
+    "sweep_threads.py": "7504d2764ca9a09385a037c8f61f07d55927a9a4da04432c3c7bdef08cdfa2ee",
+    "bridge_toggle.py": "b6274151088f43ed0d718d2398585598417295c779fe7aacd338f429a5faea22",
+    "probe_mlp_graph.py": "2f59d317e7efeac5ffdb5d87ebd974040c6fb4ce170707166bec129f06ba9738",
+    "probe_gpu.py": "edbe3306834f4f2bb1afefc2563eb0070e5cb5fe0eaa35c86a779106f4bae7af",
+    "gpu_client.py": "12ccc2cb06e88956a501a17e551c823a535152c1fd439b05a95ab1910e7bb520",
+    "final_graph_comparison.py": "5dcd02a66b8a2874dac08d9dca3d1eeca5a40eb8c056873726e7c9cac74226b0",
+    "test_gpu_guards.py": "224272c254c3376d8898f9ce0528ad688d541ad3b74c8ceeafac5df94270923e",
+    "cpu_attention.c": "daf3d25d14270e66f64b3d78ad99728a705c861a07509e3350fb1dd13545ed47",
+    "test_residual.py": "fee0ec9b69cd862bc4d77c86d10d885e767e6adf95b33acb25efce56f16aba63",
+    "baseline.py": "b18ed20e0ff188ebfab180bd8d502354501b67eb5918367a2be745420674d0ec",
+    "candidate.py": "1bc3a26e1f19ad438a31b9938a219eb9b8316b3e6305d2651bf14889d1f61e9c",
+    "test_mlp_graph_guards.py": "9fcaa0308c71688152ec0e384cc430152fd397c94eeadc4badf1d4ce579e0534",
+    "mlp_subgraph.py": "7a8596626ccedabef31886e47e2a1eddaf3a2459213da41b8d5234857ccead03",
+    "libnative_probe.so": "5ae52780532ea9d54d10b377c8cf453066b297ebf6b52e11a8787ae69e04a80a",
+    "mlp-4-fp16graph.rknn": "fd827eb5c07f8740f76c379b495c33207715259f5fcd94bd37cd0f7440f41a1d",
+    "liblut_bridge.so": "e554606b105510c4c893604cb11cb4ae15c2d23e6e26d8bf94ab4db65701600f",
+    "pipeline_profile.cpp": "76967c0e93ee85f49f4d9e88193cc71ac43e01b87dad750516a79a76200f5ad7",
+    "test_mlp_io.py": "f84804f73815fe6bbcd6eb2e0a6505d3deca3ca8fb69ecbeaba500bf9327e2a5",
+    "lut_ops.py": "920f45a05ab4009d24cb33a6804e9c24abd30bf9f9d94877ca782ec3540b4141",
+    "gpu_host.cpp": "a038e7ac721ae06458e342dcdbe203e65da80a10c423ba2600ea3cf41439c5bd",
+    "test_small.py": "7243a2b2d5493240d70acf133ded3f74044363aa108b5ea8444cc36589b69d38",
+    "mlp-3-fp16graph.rknn": "cd1da617c4eb691736e605e62c910b6d9b1f02fe5492eb26d664090661285a3f",
+    "cpu_backend.py": "dccb93050aa8ed2aff89fc5eebf88e7049d1a015552d9508096d529a86eb533d",
+    "mlp-11-fp16graph.rknn": "d77a42e6ba4e45a004995b24f97b56bb2160d1638a219c0f1bf37e76fc7e9240",
+    "compile_mlp.py": "3c0bca810405d109ad49b128273a519c009df4b4edf57e4b56a1fbe6e17fbe91",
+    "mlp-7-fp16graph.rknn": "1e2ba064d777f2ae67890137dd4d3e6be28f17a88174455ccb09a69a49fd02bd",
+    "mlp-9-fp16graph.rknn": "fd4b628ca0bdd95d796aaec6fa16ba6ecc2c9219ee9a13509ef8c800de85d996",
+    "make_native_bridge.py": "3de900def5c37d97d17b81c6e37f7521a273f9c5282305f80fc1fc233a7df60e",
+    "test_pipeline_guards.py": "20abeec5a2538f9bd2846b45e8750715b037a4ce472cacdc6771e7a149cfb38e",
+    "mlp-10-fp16graph.rknn": "3936b0fd119fcb84f962b7a9710297fa882b7f6aed233ed2d1acf859293a7f36",
+    "libpipeline_bridge.so": "7508081a0ac5ffa9ec30c0ab5edd2caf7bdbcd2b325e96d98038f239511ac28e",
+    "application.py": "1827241c932cd8663eff2972895b7c50f8cb1d22cbed38aa9cfc2f0c57b80d10",
+    "capture_mlp.py": "413f6b0134a838d51eae78dc8fa3e48df892b1da32d0b1df10f8f7e2b952aac3",
+    "probe_mlp_cores.py": "7197222a75173ca3d9cb3fdc18f1f37b3a8fd2d20bd2533c2de475dabe6613cd",
+    "libcpu_attention.so": "c4d79047b950062a9f3e016933e3a7ee54e75a491d974d87d185180ab91c9b62",
+    "screen_mlp_graph.py": "658fe9670d17040e1256c3943718b94b9f6468950cc2f659852726ae8e84895f",
+    "stop_gpu.py": "7db25014aaff891b71b88a6b42e0e538b26fadd7c41e190b7c2099948d1b6293",
+    "mlp-8-fp16graph.rknn": "9c10dc937817dd8a62004a3d0ff8feba42545f69a9410891ebc27fc5b5124838",
+    "gpu_worker.py": "095b48b1bcb64968ef57b2d5397e2dc2522c4648498e0676aa14809f757e9556",
+    "mlp_graph.py": "e15abdd1221e98422da68a4428210778e4ffef3b28496757cae9dfe1a88b4e22",
+    "libnative_bridge.so": "a5c265e06f70114e7d01bfd07fe4d2cd8dfeb2bfa28770a6c5e29163e09eef3a",
+    "m115_bridge.cpp": "28f0d841401ec7d437a9ada0d548388d01e43fb72a6c429d893d1e607a57d16a",
+    "libsafe_half_bridge.so": "f8bd5a93a41122d7444b8513ebf6d317518025c0f9da28ba253a4711b6e967e3",
+    "rotary.c": "e9341529a1c0cfff5bd74e0c000f9930aeb01217169190ea14cd32410472f171",
+    "screen_gpu.py": "191882ef84d81e69f1fbfcb68f29abd343020c821aa3f9cc59f00979139a9f58",
+    "test_rotary.py": "6c8603c74b77461c89e30c1ed2791db818011a5691c36d3b929e71b18f475487",
+    "choose.py": "724169b1e9558f4ccd669115e4a7d1c66f608812b41638159c6478ca56eb7bea",
+    "validate_candidate.py": "afba9546afa3310819c43dadf380f53e9e0ea133d27fd03429ab220bf48ceeba",
+    "test_lut.py": "a48b17ee69543d9e0f6c6d370ebf133a2ebc39dc98397654472a3e3904e0fa97",
+    "mlp-1-fp16graph.rknn": "e64ec9b4c4c15966ea47a27c67126b062765f91e42e42680b3078d178fb64ef0",
+    "mlp-0-fp16graph.rknn": "c485d15574d7b70cd51cc6978dceb1106be50c4edef53dc30467fedcb4406e45",
+    "screen_lut.py": "dc15a698c6b755abd7fa9610a0a6e779eb705ca42c4333297cfdff42c7ef2bd5",
+    "select_runtime.py": "5dcb09131ed8366289517a40b97a278c4462f2e2cdd95983384977c977fc4c51",
+    "profile_baseline.py": "419d2d21a67a51064d576feb0d1ae2023077c4374ff2737ab91a09c068792497",
+    "export_mlp.py": "e4dfc695d3c827cbe7fd16d5d270875d59649265624f382326bbf84ae2e53752",
+    "profile_final.py": "a20f9aa3f51d37d550ad8195fcfdcb5f5ba6dacd79285995430443b486cc5c29",
+    "attention_prepare.py": "3cd5b4d3a170701748460ccbe81a861bd62a466e9cef9bd0bf2ccda13edaf1d5",
+    "mlp_graph_runtime.cpp": "a3a4c8b055af965b65fad18308ca72d63a1f2a84936e3243a1394ea5ede9cefb",
+    "test_bridge_modes.py": "ac2defc452b8e764cc0dff82375c87d02dd037907e8eca91172c4a7592630e13",
+    "libm115_bridge.so": "fc885f1d758488d7e1471b633b45b017d5e09b31c189370f8f9360b68182d6e2",
+    "libmlp_graph_runtime.so": "f6a33a61dc41796e7dad02ee24f1f88393a4e77ea51890efe0b97e2c2330b555",
+    "pipeline_bridge.cpp": "92a8e9ef6e711274841b1e6aa4e14d7b405cf3b1da16509923bbc1878b308409",
+    "cpu_attention.py": "3e06d85feb452f8e6b0bd2580b4e455f6ac78eb6becd306f3cb4f1507db2d668",
+    "test_gpu.py": "c781bbd000f2ccc5da7391b649bfd3165b590d0e6bf985cd3ae5cbc8f0a53fd3",
+    "screen_final_options.py": "6d4e26224e86e0f2f3d50bdac83a21d775b834464d9f7b3dd510d88018f72962",
+    "screen_fusions.py": "5f90f5e93b7133cc726472faf2f8f85d4f674dedde931aa52a5c9b29614e52a1",
+    "activation_replay.py": "9fb76905b3980890da36d237d8eb4d5aed0220f8b1c9aa309e98733fd504d92f",
+    "make_mlp_io.py": "3f4a187b6e9b786f89982b609621c5b099d6a5b8fc421c1bb61aad79ee17be25",
+    "liblut_math.so": "da296c93c5c7ae6d3e26343ca8ba597cadb35c286238224aa0f26988327ddbce",
+    "screen_tail.py": "e71d92b41d4c0f6998487fae06b46f28004333ba8e6a454fe36bacd9c8acdf82",
+    "mlp-2-fp16graph.rknn": "194b24289ed99f37fae60a67e3cd20506ed94044da15d1ce62f9f0b85a65bbc1",
+    "make_pipeline.py": "2804593a64a5e366985e5ebfaa684c70aaf5839f567a392cef33388fd36a7d4f",
+    "librotary.so": "cc0b12e56642be23cbe2df5d2ef419156f8efb55331273827f5ecb14a72d841c",
+    "lut_math.c": "4e6d7f46c4c9e0582dbe39dad6dd3f213c065f1b08f14ed5ec01b36fb7e6bc2b",
+    "libsafe_scatter_bridge.so": "e5d2208b9c970475f7168f5ec2b8bee5fcb9d85e4686483196c336b73663ec46",
+    "mlp-5-fp16graph.rknn": "b11c61f69ad03c7aa85c0a2be3ad486d97de2a390ec5da1bf80852d4e7db25cf",
+    "test_bridge_lut.py": "2a6fbf3e87f6ffdcdd66b5051ab38f2f79a797d789413c8b6ab0705e0388d953",
+    "test_pipeline.py": "b9805d1420573ed8b7642042be2ff04b6414e3e6f4acfb5c7071e2cd7eaddee7",
+    "rotary.py": "78dbce0f0ce946a5f573c00c2ca1f1dd9371c37cddabf81ca57dd407cdee2ab5",
+    "lut_bridge.cpp": "b978a198aedccfa0ec80c74691045852af9333e0b48a29b1bbfc8d0974447226",
+    "debug_gpu.py": "bde088f9a1bb7c69795784bec30d647ba7b0f44005bf62ced41439ead533906c",
+    "test_attention_guards.py": "a2d48bab43e0fc20a799e5c98b0174e88df9226832151abaaba7c6c459d6033b",
+    "residual.py": "07ea4cded54a1ff15eecbf6cb14767a481e430851b4006912c69ea7dedef4085",
+    "env_probe.py": "94177b1cd2f24bfd6c82c857a57bd505989dd133db1705beee40eb817dcc6d72",
+    "screen_pipeline.py": "ffc9085ee19e8e8fb4f114864a4793a55f3d1d66af8eb337f3fdf3e29c6ec182",
+    "libgpu_host.so": "8c084b2e4664193c508beae0cdae348239475abeec35d5b7196e3ebdd4939eb6",
+    "preserve_service.py": "ff0d4a6d7007cd60b605b323f15a3f2bc523aef4c4cd48d68af183b81dbc4ba3",
+    "mlp-6-fp16graph.rknn": "48ce086bb8c69c50df72b20a17715d078a70bb7913b4b73b427d5d02ef8245dc",
+    "gpu_ops.py": "c36a7bc18689eef33b5fd72437a9211abebe1cfce35e2fb03484129e17c50252",
+    "libpipeline_profile.so": "a4905eea97a41a2ae2823cfd596930906f64ac597d3c0faffc49cabf9585b0a1",
+    "test_attention_prepare.py": "900297f321c5b4c31c4c8b957c761a057bafa201431e4ed018515a164c24a91f",
+    "screen_bridge.py": "5a5137ed295d6762deae37f0533cf0f7dfa148a03838cc969cac0e5442b722da",
+    "final_benchmark.py": "d6c842d60eb88858b007407e5a81a1ae22ee788218da93d6ebcc9cd653da11ad",
+    "probe_native.py": "80e0fc6e4bb12952ac3127dda70544dc4bbc30cffced98da7fa5ef1be37e9da0",
+    "small_linear.py": "1847030d27e39e8832dc1989bebd621bd486bbc30f6c62c6ee82f62efe2640c8",
+    "inspect_source.py": "6c198d8e214f3a4371a8c85eab7292fb97211809f9228d0e378a1836a46a536f",
+    "a72/libchunk_blas2.so": "4b94a10897270681a449f2a39c3fb8468f4f881d7df7a1bb57f5023c8943d7b8",
+    "a72/libpipeline_bridge.so": "a51ef617342375ed86d79d366074f74f360d945ff2a547088b0770571a24e773",
+    "a72/libcpu_attention.so": "4598f13e81215d2f71d76566afe5746662fbc76f4bf8d7c90dcd7403cce0d2af",
+    "a72/liblut_math.so": "6e9f61fdaff2daa684510d4d478817770eebd700121a150363a55616ffb60ef6",
+    "a72/librotary.so": "79b0b7cc3faf773e36650cedcbd2b095f5f41d3cd72de643f6b14b579863ae13",
+    "a72/libpipeline_profile.so": "2d8bb0fe7c5f2ea914641cb9b77cda55ab3896b6ee60dfa2ebcc49575ac3660c"
+  },
+  "configs": {
+    "cpu-std": {
+      "lut": "activation-mlp-norm",
+      "attention": 1,
+      "small": true,
+      "rotary": false,
+      "residual": true,
+      "attention_prepare": true,
+      "pipeline": true,
+      "threads": 3,
+      "cpu_tune": false
+    },
+    "graph-half": {
+      "lut": "activation-mlp-norm",
+      "attention": 1,
+      "small": true,
+      "rotary": false,
+      "residual": true,
+      "attention_prepare": true,
+      "pipeline": true,
+      "threads": 3,
+      "cpu_tune": false,
+      "mlp_graph": true
+    },
+    "graph-half-a72": {
+      "lut": "activation-mlp-norm",
+      "attention": 1,
+      "small": true,
+      "rotary": false,
+      "residual": true,
+      "attention_prepare": true,
+      "pipeline": true,
+      "threads": 3,
+      "cpu_tune": true,
+      "mlp_graph": true
+    }
+  },
+  "records": [
+    {
+      "round": 0,
+      "variant": "cpu-std",
+      "seconds": 0.35435117199085653,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1320000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "36999",
+          "thermal_zone0": "36999",
+          "thermal_zone5": "36999",
+          "thermal_zone3": "36076",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "36999"
+        }
+      }
+    },
+    {
+      "round": 0,
+      "variant": "graph-half",
+      "seconds": 0.32674945215694606,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "36999",
+          "thermal_zone3": "36076",
+          "thermal_zone1": "37922",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 0,
+      "variant": "graph-half-a72",
+      "seconds": 0.32171902200207114,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 1,
+      "variant": "graph-half",
+      "seconds": 0.3234714490827173,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "36999",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 1,
+      "variant": "graph-half-a72",
+      "seconds": 0.3245625200215727,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 1,
+      "variant": "cpu-std",
+      "seconds": 0.3456562829669565,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 2,
+      "variant": "graph-half-a72",
+      "seconds": 0.3212357070297003,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 2,
+      "variant": "cpu-std",
+      "seconds": 0.33712461311370134,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 2,
+      "variant": "graph-half",
+      "seconds": 0.3197119471151382,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 3,
+      "variant": "cpu-std",
+      "seconds": 0.3406195940915495,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 3,
+      "variant": "graph-half",
+      "seconds": 0.3207499119453132,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 3,
+      "variant": "graph-half-a72",
+      "seconds": 0.3216793821193278,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 4,
+      "variant": "graph-half",
+      "seconds": 0.3186193711590022,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 4,
+      "variant": "graph-half-a72",
+      "seconds": 0.3221227459143847,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 4,
+      "variant": "cpu-std",
+      "seconds": 0.3390148179605603,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 5,
+      "variant": "graph-half-a72",
+      "seconds": 0.321767162065953,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 5,
+      "variant": "cpu-std",
+      "seconds": 0.337681848090142,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 5,
+      "variant": "graph-half",
+      "seconds": 0.3162625909317285,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 6,
+      "variant": "cpu-std",
+      "seconds": 0.33896592003293335,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 6,
+      "variant": "graph-half",
+      "seconds": 0.3237700939644128,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 6,
+      "variant": "graph-half-a72",
+      "seconds": 0.3237703100312501,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 7,
+      "variant": "graph-half",
+      "seconds": 0.3214569508563727,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 7,
+      "variant": "graph-half-a72",
+      "seconds": 0.31543467892333865,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 7,
+      "variant": "cpu-std",
+      "seconds": 0.3497264599427581,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "39769",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 8,
+      "variant": "graph-half-a72",
+      "seconds": 0.2933019769843668,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 8,
+      "variant": "cpu-std",
+      "seconds": 0.3108667728956789,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 8,
+      "variant": "graph-half",
+      "seconds": 0.2927882650401443,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 9,
+      "variant": "cpu-std",
+      "seconds": 0.3111805720254779,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 9,
+      "variant": "graph-half",
+      "seconds": 0.29314016411080956,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 9,
+      "variant": "graph-half-a72",
+      "seconds": 0.3193399258889258,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 10,
+      "variant": "graph-half",
+      "seconds": 0.3153534980956465,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 10,
+      "variant": "graph-half-a72",
+      "seconds": 0.31472988380119205,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 10,
+      "variant": "cpu-std",
+      "seconds": 0.33861319604329765,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 11,
+      "variant": "graph-half-a72",
+      "seconds": 0.3287376200314611,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 11,
+      "variant": "cpu-std",
+      "seconds": 0.351395261939615,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "39769",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 11,
+      "variant": "graph-half",
+      "seconds": 0.31792921503074467,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 12,
+      "variant": "cpu-std",
+      "seconds": 0.3357101851142943,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 12,
+      "variant": "graph-half",
+      "seconds": 0.3269828411284834,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 12,
+      "variant": "graph-half-a72",
+      "seconds": 0.31670019612647593,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "37922",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 13,
+      "variant": "graph-half",
+      "seconds": 0.31775261415168643,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 13,
+      "variant": "graph-half-a72",
+      "seconds": 0.31579585117287934,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 13,
+      "variant": "cpu-std",
+      "seconds": 0.33779879193753004,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 14,
+      "variant": "graph-half-a72",
+      "seconds": 0.2927555930800736,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 14,
+      "variant": "cpu-std",
+      "seconds": 0.33513209386728704,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 14,
+      "variant": "graph-half",
+      "seconds": 0.3184791440144181,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 15,
+      "variant": "cpu-std",
+      "seconds": 0.3346702791750431,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 15,
+      "variant": "graph-half",
+      "seconds": 0.3165291571058333,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 15,
+      "variant": "graph-half-a72",
+      "seconds": 0.3150923310313374,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 16,
+      "variant": "graph-half",
+      "seconds": 0.2923365000169724,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "39769",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 16,
+      "variant": "graph-half-a72",
+      "seconds": 0.3174685090780258,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 16,
+      "variant": "cpu-std",
+      "seconds": 0.33545894804410636,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 17,
+      "variant": "graph-half-a72",
+      "seconds": 0.3227706500329077,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 17,
+      "variant": "cpu-std",
+      "seconds": 0.34207046194933355,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 17,
+      "variant": "graph-half",
+      "seconds": 0.32063645706512034,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 18,
+      "variant": "cpu-std",
+      "seconds": 0.3120227651670575,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "39769",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 18,
+      "variant": "graph-half",
+      "seconds": 0.29053602390922606,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "2736000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    },
+    {
+      "round": 18,
+      "variant": "graph-half-a72",
+      "seconds": 0.3190684299916029,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 19,
+      "variant": "graph-half",
+      "seconds": 0.3203793109860271,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 19,
+      "variant": "graph-half-a72",
+      "seconds": 0.3203025769907981,
+      "vs_442": {
+        "max_delta": 2.2479102811834295e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 3.946280199984553e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "37922",
+          "thermal_zone5": "37922",
+          "thermal_zone3": "36999",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "37922"
+        }
+      }
+    },
+    {
+      "round": 19,
+      "variant": "cpu-std",
+      "seconds": 0.3380704221781343,
+      "vs_442": {
+        "max_delta": 1.9198927551917057e-06,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "vs_fp32": {
+        "max_delta": 1.5795474046620406e-05,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "passed": true,
+      "state": {
+        "torch_threads": 3,
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "cpu_khz": "2208000",
+        "npu_hz": "950000000",
+        "numpy_blas_threads": 1,
+        "mkldnn": true,
+        "pid": 7,
+        "dmc_hz": "1968000000",
+        "gpu_hz": "300000000",
+        "thermal": {
+          "thermal_zone2": "38845",
+          "thermal_zone0": "38845",
+          "thermal_zone5": "38845",
+          "thermal_zone3": "37922",
+          "thermal_zone1": "38845",
+          "thermal_zone4": "38845"
+        }
+      }
+    }
+  ],
+  "scope": "20 rotating rounds; same72 matmul handles;12 persistent graphs; warm115 tokens; threshold .01; no HTTP",
+  "timing": {
+    "cpu-std": {
+      "seconds": [
+        0.35435117199085653,
+        0.3456562829669565,
+        0.33712461311370134,
+        0.3406195940915495,
+        0.3390148179605603,
+        0.337681848090142,
+        0.33896592003293335,
+        0.3497264599427581,
+        0.3108667728956789,
+        0.3111805720254779,
+        0.33861319604329765,
+        0.351395261939615,
+        0.3357101851142943,
+        0.33779879193753004,
+        0.33513209386728704,
+        0.3346702791750431,
+        0.33545894804410636,
+        0.34207046194933355,
+        0.3120227651670575,
+        0.3380704221781343
+      ],
+      "count": 20,
+      "median": 0.3379346070578322,
+      "min": 0.3108667728956789,
+      "max": 0.35435117199085653,
+      "p95_nearest_rank": 0.351395261939615
+    },
+    "graph-half": {
+      "seconds": [
+        0.32674945215694606,
+        0.3234714490827173,
+        0.3197119471151382,
+        0.3207499119453132,
+        0.3186193711590022,
+        0.3162625909317285,
+        0.3237700939644128,
+        0.3214569508563727,
+        0.2927882650401443,
+        0.29314016411080956,
+        0.3153534980956465,
+        0.31792921503074467,
+        0.3269828411284834,
+        0.31775261415168643,
+        0.3184791440144181,
+        0.3165291571058333,
+        0.2923365000169724,
+        0.32063645706512034,
+        0.29053602390922606,
+        0.3203793109860271
+      ],
+      "count": 20,
+      "median": 0.31854925758671016,
+      "min": 0.29053602390922606,
+      "max": 0.3269828411284834,
+      "p95_nearest_rank": 0.32674945215694606
+    },
+    "graph-half-a72": {
+      "seconds": [
+        0.32171902200207114,
+        0.3245625200215727,
+        0.3212357070297003,
+        0.3216793821193278,
+        0.3221227459143847,
+        0.321767162065953,
+        0.3237703100312501,
+        0.31543467892333865,
+        0.2933019769843668,
+        0.3193399258889258,
+        0.31472988380119205,
+        0.3287376200314611,
+        0.31670019612647593,
+        0.31579585117287934,
+        0.2927555930800736,
+        0.3150923310313374,
+        0.3174685090780258,
+        0.3227706500329077,
+        0.3190684299916029,
+        0.3203025769907981
+      ],
+      "count": 20,
+      "median": 0.31982125143986195,
+      "min": 0.2927555930800736,
+      "max": 0.3287376200314611,
+      "p95_nearest_rank": 0.3245625200215727
+    }
+  },
+  "paired": {
+    "graph-half": {
+      "reduction_median": 0.059752237565978306,
+      "faster_rounds": 20
+    },
+    "graph-half-a72": {
+      "reduction_median": 0.056461611261737654,
+      "faster_rounds": 18
+    }
+  },
+  "validation": {
+    "cpu-std": {
+      "cases": {
+        "chinese-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991947086979626,
+                  "math": 0.0005306913027958729,
+                  "chat": 0.00027459999924154844
+                },
+                "confidence": 0.993574749825315
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8743516802787781
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10342584235645369,
+                "probabilities": {
+                  "0": 0.9131984165675849,
+                  "1": 0.07017732450837637,
+                  "2": 0.016624258924038664
+                },
+                "confidence": 0.6928212624646987,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0009333975613220191,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0040033926017837285,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "chinese-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0006636826129619309,
+                  "math": 0.0003314633350523805,
+                  "chat": 0.9990048540519857
+                },
+                "confidence": 0.9922566247133878
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002736063430435609
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019357727884180668,
+                "probabilities": {
+                  "0": 0.9833146592403195,
+                  "1": 0.014012953635180313,
+                  "2": 0.002672387124500178
+                },
+                "confidence": 0.9160916169260501,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0005363882100074095,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0001474733791842122,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "english": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9097381850787222,
+                  "math": 9.696550228532522e-05,
+                  "other": 0.09016484941899253
+                },
+                "confidence": 0.7233756322030849
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.0630222349544369
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.1907542645931244,
+                "probabilities": {
+                  "0": 0.8429288864135742,
+                  "1": 0.12338796257972717,
+                  "2": 0.03368315100669861
+                },
+                "confidence": 0.5299300980090853,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0028583509079617153,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0031998485811138844,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "single": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991849458525461,
+                  "math": 0.0006775397382389826,
+                  "chat": 0.000137514409214904
+                },
+                "confidence": 0.9936451592009494
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 1.9198927551917057e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 1.5795474046620406e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "image": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.02556029126388961,
+                  "green": 0.3283098252987284,
+                  "blue": 0.012145396171167805,
+                  "other": 0.6339844872662143
+                },
+                "confidence": 0.4215584854800326
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026786460857207928
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0038864714783962695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0048350496332593695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-math": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.001866106225438577,
+                  "math": 0.9979155297507338,
+                  "chat": 0.00021836402382760024
+                },
+                "confidence": 0.9857553116985963
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 2.040601266051212e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 2.0713344964331517e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-chat": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 9.956176842291154e-05,
+                  "math": 0.00011608245502227059,
+                  "chat": 0.9997843557765548
+                },
+                "confidence": 0.9980112151326515
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 3.8039721009123438e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 1.8895711466462216e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        }
+      },
+      "extra": {
+        "shape115-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.08602803617106554,
+                  "math": 0.04220714251955171,
+                  "chat": 0.8717648213093827
+                },
+                "confidence": 0.5774090635388978
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.001744926060304186,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.010660654758473822,
+                  "math": 0.9866609474582549,
+                  "chat": 0.0026783977832712455
+                },
+                "confidence": 0.9294339637601721
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00035204041459580004,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-2": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.2565619464171803,
+                  "math": 0.6050496967904134,
+                  "chat": 0.1383883567924063
+                },
+                "confidence": 0.15646627252667134
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0030903997002511563,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-3": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9914795605250832,
+                  "math": 0.007823556081389644,
+                  "chat": 0.0006968833935270724
+                },
+                "confidence": 0.9531238864271472
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00014094749261464243,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-4": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.1890462651032676,
+                  "math": 0.07674049643233788,
+                  "chat": 0.7342132384643945
+                },
+                "confidence": 0.3275483544442517
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0015638196667919768,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-5": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.002935481473651443,
+                  "math": 0.9966403188493923,
+                  "chat": 0.0004241996769562964
+                },
+                "confidence": 0.9783685990940475
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 2.029049581164788e-05,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-6": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.6587854199539793,
+                  "math": 0.009293947611218815,
+                  "chat": 0.33192063243480185
+                },
+                "confidence": 0.3769489901904316
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.006054851261129979,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-7": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.923274224195299,
+                  "math": 0.04567168306003334,
+                  "chat": 0.0310540927446676
+                },
+                "confidence": 0.7064659827327735
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.002989287018986486,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-8": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.03547611104080505,
+                  "math": 0.013160559410045666,
+                  "chat": 0.9513633295491493
+                },
+                "confidence": 0.7971281600345482
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0014826295591447575,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-9": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.18019643023171059,
+                  "math": 0.7027550778667239,
+                  "chat": 0.11704849190156552
+                },
+                "confidence": 0.2647203928188888
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.004442673721695045,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-10": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.002143173869805807,
+                  "math": 0.0008114142710398955,
+                  "chat": 0.9970454118591543
+                },
+                "confidence": 0.9800697277418022
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0001226275862844517,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-11": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9681646047501898,
+                  "math": 0.023387603026114347,
+                  "chat": 0.008447792223695811
+                },
+                "confidence": 0.8548305225498718
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0010656425100895595,
+          "choices_unchanged": true,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "graph-half": {
+      "cases": {
+        "chinese-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991947086979626,
+                  "math": 0.0005306913027958729,
+                  "chat": 0.00027459999924154844
+                },
+                "confidence": 0.993574749825315
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8743516802787781
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10342584235645369,
+                "probabilities": {
+                  "0": 0.9131984165675849,
+                  "1": 0.07017732450837637,
+                  "2": 0.016624258924038664
+                },
+                "confidence": 0.6928212624646987,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0009333975613220191,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0040033926017837285,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "chinese-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0006636826129619309,
+                  "math": 0.0003314633350523805,
+                  "chat": 0.9990048540519857
+                },
+                "confidence": 0.9922566247133878
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002736063430435609
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019357727884180668,
+                "probabilities": {
+                  "0": 0.9833146592403195,
+                  "1": 0.014012953635180313,
+                  "2": 0.002672387124500178
+                },
+                "confidence": 0.9160916169260501,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0005363882100074095,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0001474733791842122,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "english": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9097381850787222,
+                  "math": 9.696550228532522e-05,
+                  "other": 0.09016484941899253
+                },
+                "confidence": 0.7233756322030849
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.0630222349544369
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.1907542645931244,
+                "probabilities": {
+                  "0": 0.8429288864135742,
+                  "1": 0.12338796257972717,
+                  "2": 0.03368315100669861
+                },
+                "confidence": 0.5299300980090853,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0028583509079617153,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0031998485811138844,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "single": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9992086131804994,
+                  "math": 0.0006606327264349369,
+                  "chat": 0.00013075409306566522
+                },
+                "confidence": 0.9938125022269989
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 2.2479102811834295e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.946280199984553e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "image": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.02556029126388961,
+                  "green": 0.3283098252987284,
+                  "blue": 0.012145396171167805,
+                  "other": 0.6339844872662143
+                },
+                "confidence": 0.4215584854800326
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026786460857207928
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0038864714783962695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0048350496332593695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-math": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.001866106225438577,
+                  "math": 0.9979155297507338,
+                  "chat": 0.00021836402382760024
+                },
+                "confidence": 0.9857553116985963
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 2.040601266051212e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 2.0713344964331517e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-chat": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 9.994972649650907e-05,
+                  "math": 0.00011093219580972694,
+                  "chat": 0.9997891180776938
+                },
+                "confidence": 0.9980505450843167
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 1.8995252123454875e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.7891969644210377e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        }
+      },
+      "extra": {
+        "shape115-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.08728161096536473,
+                  "math": 0.040876457655276976,
+                  "chat": 0.8718419313793583
+                },
+                "confidence": 0.5784616891941355
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0018220361302797583,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.010763542237949852,
+                  "math": 0.986551359207948,
+                  "chat": 0.0026850985541021877
+                },
+                "confidence": 0.9289743505601263
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0002424521642888644,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-2": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.2563824133986954,
+                  "math": 0.6024804890895036,
+                  "chat": 0.14113709751180106
+                },
+                "confidence": 0.15294510568662234
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0021383128427848175,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-3": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9913640502960336,
+                  "math": 0.007940738846934137,
+                  "chat": 0.0006952108570322537
+                },
+                "confidence": 0.9526192673465351
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 2.376472707014965e-05,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-4": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.1908055543899536,
+                  "math": 0.07555174827575684,
+                  "chat": 0.7336426973342896
+                },
+                "confidence": 0.3278353104738394
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.002400418770466317,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-5": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.002784777715355108,
+                  "math": 0.9968013941843777,
+                  "chat": 0.0004138281002671074
+                },
+                "confidence": 0.9792449863164924
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00014078483917379092,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-6": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.6602856602929525,
+                  "math": 0.00980235835279619,
+                  "chat": 0.32991198135425126
+                },
+                "confidence": 0.37624995802658445
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.004207136352611496,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-7": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9237194382035899,
+                  "math": 0.04500376299012414,
+                  "chat": 0.031276798806285894
+                },
+                "confidence": 0.7076114425521369
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0034345010272773813,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-8": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.035497999788777906,
+                  "math": 0.014231728963314852,
+                  "chat": 0.9502702712479072
+                },
+                "confidence": 0.7929281093185881
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0022274780272284467,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-9": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.19103718515624052,
+                  "math": 0.6975412032582314,
+                  "chat": 0.11142161158552809
+                },
+                "confidence": 0.26090512104831654
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00753716359798734,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-10": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.002151738996417773,
+                  "math": 0.0008701383708942469,
+                  "chat": 0.996978122632688
+                },
+                "confidence": 0.9796434933074301
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 8.584193791448059e-05,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-11": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.967122014892715,
+                  "math": 0.024100244336745607,
+                  "chat": 0.008777740770539406
+                },
+                "confidence": 0.8510074433336492
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.002108232367564411,
+          "choices_unchanged": true,
+          "passed": true
+        }
+      },
+      "passed": true
+    },
+    "graph-half-a72": {
+      "cases": {
+        "chinese-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9991947086979626,
+                  "math": 0.0005306913027958729,
+                  "chat": 0.00027459999924154844
+                },
+                "confidence": 0.993574749825315
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.8743516802787781
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.10342584235645369,
+                "probabilities": {
+                  "0": 0.9131984165675849,
+                  "1": 0.07017732450837637,
+                  "2": 0.016624258924038664
+                },
+                "confidence": 0.6928212624646987,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 344,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0009333975613220191,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0040033926017837285,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "chinese-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.0006636826129619309,
+                  "math": 0.0003314633350523805,
+                  "chat": 0.9990048540519857
+                },
+                "confidence": 0.9922566247133878
+              },
+              "programming": {
+                "type": "noul",
+                "noul": 0.0002736063430435609
+              },
+              "complexity": {
+                "type": "score",
+                "score": 0.019357727884180668,
+                "probabilities": {
+                  "0": 0.9833146592403195,
+                  "1": 0.014012953635180313,
+                  "2": 0.002672387124500178
+                },
+                "confidence": 0.9160916169260501,
+                "legend": {
+                  "0": "简单",
+                  "1": "中等",
+                  "2": "复杂"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 314,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0005363882100074095,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0001474733791842122,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "english": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "domain": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9097381850787222,
+                  "math": 9.696550228532522e-05,
+                  "other": 0.09016484941899253
+                },
+                "confidence": 0.7233756322030849
+              },
+              "reasoning": {
+                "type": "noul",
+                "noul": 0.0630222349544369
+              },
+              "difficulty": {
+                "type": "score",
+                "score": 0.1907542645931244,
+                "probabilities": {
+                  "0": 0.8429288864135742,
+                  "1": 0.12338796257972717,
+                  "2": 0.03368315100669861
+                },
+                "confidence": 0.5299300980090853,
+                "legend": {
+                  "0": "Trivial",
+                  "1": "Moderate",
+                  "2": "Hard"
+                }
+              }
+            },
+            "usage": {
+              "input_tokens": 328,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0028583509079617153,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0031998485811138844,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "single": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9992086131804994,
+                  "math": 0.0006606327264349369,
+                  "chat": 0.00013075409306566522
+                },
+                "confidence": 0.9938125022269989
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 2.2479102811834295e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.946280199984553e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "image": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "image_colour": {
+                "type": "choice",
+                "choice": "other",
+                "probabilities": {
+                  "red": 0.02556029126388961,
+                  "green": 0.3283098252987284,
+                  "blue": 0.012145396171167805,
+                  "other": 0.6339844872662143
+                },
+                "confidence": 0.4215584854800326
+              },
+              "image_photo": {
+                "type": "noul",
+                "noul": 0.026786460857207928
+              }
+            },
+            "usage": {
+              "input_tokens": 347,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 0.0038864714783962695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 0.0048350496332593695,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-math": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.001866106225438577,
+                  "math": 0.9979155297507338,
+                  "chat": 0.00021836402382760024
+                },
+                "confidence": 0.9857553116985963
+              }
+            },
+            "usage": {
+              "input_tokens": 117,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 2.040601266051212e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 2.0713344964331517e-05,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        },
+        "novel-chat": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 9.994972649650907e-05,
+                  "math": 0.00011093219580972694,
+                  "chat": 0.9997891180776938
+                },
+                "confidence": 0.9980505450843167
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "vs_442": {
+            "max_delta": 1.8995252123454875e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "vs_fp32": {
+            "max_delta": 3.7891969644210377e-06,
+            "choices_unchanged": true,
+            "passed": true
+          },
+          "passed": true
+        }
+      },
+      "extra": {
+        "shape115-0": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.08728161096536473,
+                  "math": 0.040876457655276976,
+                  "chat": 0.8718419313793583
+                },
+                "confidence": 0.5784616891941355
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0018220361302797583,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-1": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.010763542237949852,
+                  "math": 0.986551359207948,
+                  "chat": 0.0026850985541021877
+                },
+                "confidence": 0.9289743505601263
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0002424521642888644,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-2": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.2563824133986954,
+                  "math": 0.6024804890895036,
+                  "chat": 0.14113709751180106
+                },
+                "confidence": 0.15294510568662234
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0021383128427848175,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-3": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9913640502960336,
+                  "math": 0.007940738846934137,
+                  "chat": 0.0006952108570322537
+                },
+                "confidence": 0.9526192673465351
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 2.376472707014965e-05,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-4": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.1908055543899536,
+                  "math": 0.07555174827575684,
+                  "chat": 0.7336426973342896
+                },
+                "confidence": 0.3278353104738394
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.002400418770466317,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-5": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.002784777715355108,
+                  "math": 0.9968013941843777,
+                  "chat": 0.0004138281002671074
+                },
+                "confidence": 0.9792449863164924
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00014078483917379092,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-6": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.6602856602929525,
+                  "math": 0.00980235835279619,
+                  "chat": 0.32991198135425126
+                },
+                "confidence": 0.37624995802658445
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.004207136352611496,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-7": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.9237194382035899,
+                  "math": 0.04500376299012414,
+                  "chat": 0.031276798806285894
+                },
+                "confidence": 0.7076114425521369
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0034345010272773813,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-8": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.035497999788777906,
+                  "math": 0.014231728963314852,
+                  "chat": 0.9502702712479072
+                },
+                "confidence": 0.7929281093185881
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.0022274780272284467,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-9": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "math",
+                "probabilities": {
+                  "code": 0.19103718515624052,
+                  "math": 0.6975412032582314,
+                  "chat": 0.11142161158552809
+                },
+                "confidence": 0.26090512104831654
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.00753716359798734,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-10": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "chat",
+                "probabilities": {
+                  "code": 0.002151738996417773,
+                  "math": 0.0008701383708942469,
+                  "chat": 0.996978122632688
+                },
+                "confidence": 0.9796434933074301
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 8.584193791448059e-05,
+          "choices_unchanged": true,
+          "passed": true
+        },
+        "shape115-11": {
+          "response": {
+            "model": "vllm-sr/d3-edge",
+            "answers": {
+              "kind": {
+                "type": "choice",
+                "choice": "code",
+                "probabilities": {
+                  "code": 0.967122014892715,
+                  "math": 0.024100244336745607,
+                  "chat": 0.008777740770539406
+                },
+                "confidence": 0.8510074433336492
+              }
+            },
+            "usage": {
+              "input_tokens": 115,
+              "output_tokens": 0
+            }
+          },
+          "max_delta": 0.002108232367564411,
+          "choices_unchanged": true,
+          "passed": true
+        }
+      },
+      "passed": true
+    }
+  },
+  "selected": "graph-half",
+  "selected_config": {
+    "lut": "activation-mlp-norm",
+    "attention": 1,
+    "small": true,
+    "rotary": false,
+    "residual": true,
+    "attention_prepare": true,
+    "pipeline": true,
+    "threads": 3,
+    "cpu_tune": false,
+    "mlp_graph": true
+  },
+  "passed": true
+}

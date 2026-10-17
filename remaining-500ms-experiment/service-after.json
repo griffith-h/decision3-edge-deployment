@@ -1,0 +1,356 @@
+{
+  "container_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+  "started_at": "2026-10-17T11:04:28.007796263Z",
+  "config": {
+    "Hostname": "de238c160834",
+    "Domainname": "",
+    "User": "",
+    "AttachStdin": false,
+    "AttachStdout": false,
+    "AttachStderr": false,
+    "ExposedPorts": {
+      "50051/tcp": {},
+      "8080/tcp": {},
+      "8900/tcp": {},
+      "9190/tcp": {}
+    },
+    "Tty": false,
+    "OpenStdin": false,
+    "StdinOnce": false,
+    "Env": [
+      "OMP_NUM_THREADS=3",
+      "OMP_THREAD_LIMIT=3",
+      "OPENBLAS_NUM_THREADS=3",
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+      "PYTHON_VERSION=3.12.15",
+      "PYTHON_SHA256=c2c4321961fab0fb999d66e0cecf521c2ab3994c7992873ea99e306c1094fd5a",
+      "PIP_NO_CACHE_DIR=1",
+      "PIP_DISABLE_PIP_VERSION_CHECK=1",
+      "PIP_ROOT_USER_ACTION=ignore",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONUNBUFFERED=1",
+      "USER=vllm-sr",
+      "VLLM_SRUN_CACHE_DIR=/app/models/model-runtime",
+      "TRITON_CACHE_DIR=/app/models/triton",
+      "MIOPEN_USER_DB_PATH=/app/models/miopen",
+      "MIOPEN_CUSTOM_CACHE_DIR=/app/models/miopen",
+      "HF_HUB_OFFLINE=1",
+      "TRANSFORMERS_OFFLINE=1"
+    ],
+    "Cmd": [
+      "/work/server.py",
+      "--model",
+      "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e",
+      "--port",
+      "8900"
+    ],
+    "Healthcheck": {
+      "Test": [
+        "CMD-SHELL",
+        "curl --fail --silent --show-error --max-time 5 --output /dev/null http://127.0.0.1:8900/health"
+      ],
+      "Interval": 30000000000,
+      "Timeout": 10000000000,
+      "StartPeriod": 180000000000
+    },
+    "Image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+    "Volumes": {
+      "/app/models": {}
+    },
+    "WorkingDir": "/work",
+    "Entrypoint": [
+      "python",
+      "-u"
+    ],
+    "Labels": {}
+  },
+  "host_config": {
+    "Binds": null,
+    "ContainerIDFile": "",
+    "LogConfig": {
+      "Type": "json-file",
+      "Config": {
+        "max-file": "3",
+        "max-size": "10m"
+      }
+    },
+    "NetworkMode": "bridge",
+    "PortBindings": {
+      "8900/tcp": [
+        {
+          "HostIp": "192.168.1.164",
+          "HostPort": "8900"
+        }
+      ]
+    },
+    "RestartPolicy": {
+      "Name": "unless-stopped",
+      "MaximumRetryCount": 0
+    },
+    "AutoRemove": false,
+    "VolumeDriver": "",
+    "VolumesFrom": null,
+    "ConsoleSize": [
+      0,
+      0
+    ],
+    "CapAdd": null,
+    "CapDrop": null,
+    "CgroupnsMode": "private",
+    "Dns": null,
+    "DnsOptions": [],
+    "DnsSearch": [],
+    "ExtraHosts": null,
+    "GroupAdd": null,
+    "IpcMode": "private",
+    "Cgroup": "",
+    "Links": null,
+    "OomScoreAdj": 0,
+    "PidMode": "",
+    "Privileged": false,
+    "PublishAllPorts": false,
+    "ReadonlyRootfs": false,
+    "SecurityOpt": null,
+    "UTSMode": "",
+    "UsernsMode": "",
+    "ShmSize": 67108864,
+    "Runtime": "runc",
+    "Isolation": "",
+    "CpuShares": 0,
+    "Memory": 8589934592,
+    "NanoCpus": 0,
+    "CgroupParent": "",
+    "BlkioWeight": 0,
+    "BlkioWeightDevice": [],
+    "BlkioDeviceReadBps": [],
+    "BlkioDeviceWriteBps": [],
+    "BlkioDeviceReadIOps": [],
+    "BlkioDeviceWriteIOps": [],
+    "CpuPeriod": 0,
+    "CpuQuota": 0,
+    "CpuRealtimePeriod": 0,
+    "CpuRealtimeRuntime": 0,
+    "CpusetCpus": "4-7",
+    "CpusetMems": "",
+    "Devices": [
+      {
+        "PathOnHost": "/dev/dri",
+        "PathInContainer": "/dev/dri",
+        "CgroupPermissions": "rwm"
+      }
+    ],
+    "DeviceCgroupRules": null,
+    "DeviceRequests": null,
+    "MemoryReservation": 0,
+    "MemorySwap": 8589934592,
+    "MemorySwappiness": null,
+    "OomKillDisable": null,
+    "PidsLimit": null,
+    "Ulimits": [],
+    "CpuCount": 0,
+    "CpuPercent": 0,
+    "IOMaximumIOps": 0,
+    "IOMaximumBandwidth": 0,
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/opt/decision3-edge-optimized-20261017-v1",
+        "Target": "/work",
+        "ReadOnly": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/opt/decision3-edge-optimized-20261017-v1/base",
+        "Target": "/base",
+        "ReadOnly": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime",
+        "Target": "/models",
+        "ReadOnly": true
+      }
+    ],
+    "MaskedPaths": [
+      "/proc/acpi",
+      "/proc/asound",
+      "/proc/interrupts",
+      "/proc/kcore",
+      "/proc/keys",
+      "/proc/latency_stats",
+      "/proc/sched_debug",
+      "/proc/scsi",
+      "/proc/timer_list",
+      "/proc/timer_stats",
+      "/sys/devices/virtual/powercap",
+      "/sys/firmware"
+    ],
+    "ReadonlyPaths": [
+      "/proc/bus",
+      "/proc/fs",
+      "/proc/irq",
+      "/proc/sys",
+      "/proc/sysrq-trigger"
+    ],
+    "Init": true
+  },
+  "running": true,
+  "health_status": "healthy",
+  "hashes": {
+    "original-container.json": "51b02da66d320469985a3ad0bfa9e5a55f67f1130b579031a6407715dc3312f4",
+    "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf",
+    "rollback.sh": "52d9f6acda6355bc9e52bd3c8a8610c522c22f2b6ad4e17f38ad192db0ae5f67",
+    "SHA256SUMS": "6c2ec2a72207546a014dfcbb63e590c986b89dddf98f04d06da7820fa1f57bd4",
+    "image-id.txt": "eb394c71b43584af7f817f2ccdb190fde68524c1ef8a9c6927e003cdf799c422",
+    "libd3_native_norm.so": "80813bfc1c7f0b5763af536815da9691e47680a460c391de46c16166678b0592",
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "run.sh": "255b024c192743418dc99ddfe247fdcd4f0287b10c5496266885e73dbe55150c",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+    "base/sdk-manifest.json": "ea41e3153bc56bb6531a990abb3458cbb2d596fd8c0bfd0bc1982fc2e4818ba4",
+    "base/request.json": "fd315e85cafc1ba85e3067e368fa2e397dba950e5a1506b50656182bac26e17a",
+    "base/rknn_linear.py": "2cc72b3a1ba7bd440e4a4b1d3fc612bdb181ce9a67853cf7493ca25e9098c0c1",
+    "base/cpu_optimized_server.py": "060e45263bdd12955d62cdc812a592e37ae62d070a12f62dc1b4f43262fc72ab",
+    "base/libmatmul_bridge.so": "ab9437ebb49e6dfeac6a6de76c2468744a1de9b25fb97e6e8663befe92f79f41",
+    "base/sdk/librknnrt.so": "4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0"
+  },
+  "remaining_test_containers": [],
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 7497,
+        "norm_calls": 6579,
+        "conv_calls": 918
+      }
+    }
+  },
+  "verified_at_utc": "2026-10-17T13:37:32.546021+00:00",
+  "http_seconds": [
+    0.8673911670000001,
+    0.8726172080000003,
+    0.8583314159999995,
+    0.8562615420000004,
+    0.8497715000000001
+  ],
+  "median": 0.8583314159999995,
+  "responses": [
+    {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    },
+    {
+      "model": "vllm-sr/d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  ],
+  "passed": true
+}

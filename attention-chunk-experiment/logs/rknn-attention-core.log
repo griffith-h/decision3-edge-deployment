@@ -1,0 +1,53 @@
+D Save log info to: /work/logs/rknn-attention-core.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 1![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 1![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 2![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 2![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 3![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 3![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D fold_constant remove nodes = ['/Concat_1', '/Slice_3', '/Slice_2', '/Shape_1', '/Concat', '/Slice_1', '/Slice', '/Shape']
+D Fixed the shape information of some tensor!
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_matmul_softmax_matmul_to_sdpa: remove node = ['/MatMul', '/Mul', '/Add', '/Softmax', '/MatMul_1'], add node = ['q_tp', 'q_tp_rs', '/Transpose_output_0_rs', '/Reshape_1_output_0_tp', '/Reshape_1_output_0_tp_rs', 'mask_tp', 'mask_tp_rs', '/MatMul_1_2sdpa', '/MatMul_1_output_0_sdpa_tp', '/MatMul_1_output_0_sdpa_tp_rs']
+D     fuse_transpose_reshape: remove node = ['mask_tp_rs', 'q_tp_rs', '/Reshape_1_output_0_tp_rs', '/Transpose_output_0_rs']
+D     fuse_transpose_reshape_transpose: remove node = ['/MatMul_1_output_0_sdpa_tp']
+D     fuse_reshape_transpose: remove node = ['/MatMul_1_output_0_sdpa_tp_rs']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze'], add node = ['/Unsqueeze_2rs']
+D     convert_tile_to_expand: remove node = ['/Tile'], add node = ['/Tile#1']
+D     convert_unsqueeze_to_reshape: remove node = ['/Unsqueeze_1'], add node = ['/Unsqueeze_1_2rs']
+D     convert_tile_to_expand: remove node = ['/Tile_1'], add node = ['/Tile_1#1']
+D     squeeze_nd_expand: remove node = [], add node = ['/Unsqueeze_output_0_rs', '/Tile_output_0-rs']
+D     squeeze_nd_expand: remove node = [], add node = ['/Unsqueeze_1_output_0_rs', '/Tile_1_output_0-rs']
+D     fuse_two_reshape: remove node = ['/Unsqueeze_2rs', '/Tile_output_0-rs', '/Unsqueeze_1_2rs', '/Tile_1_output_0-rs']
+D     convert_expand_to_gather_before_rs: remove node = ['/Tile#1'], add node = ['/Unsqueeze_output_0_rs_gather']
+D     convert_expand_to_gather_before_rs: remove node = ['/Tile_1#1'], add node = ['/Unsqueeze_1_output_0_rs_gather']
+D     swap_reshape_gather: remove node = ['/Unsqueeze_output_0_rs', '/Unsqueeze_output_0_rs_gather', '/Reshape'], add node = ['/Unsqueeze_output_0_rs_gather', '/Unsqueeze_output_0_rs']
+D     swap_reshape_gather: remove node = ['/Unsqueeze_1_output_0_rs', '/Unsqueeze_1_output_0_rs_gather', '/Reshape_1'], add node = ['/Unsqueeze_1_output_0_rs_gather', '/Unsqueeze_1_output_0_rs']
+D     fuse_reshape_transpose: remove node = ['/Unsqueeze_1_output_0_rs']
+D     fuse_reshape_transpose: remove node = ['/Unsqueeze_output_0_rs']
+D     gather_to_conv: remove node = ['/Unsqueeze_1_output_0_rs_gather'], add node = ['/Unsqueeze_1_output_0_rs_gather_2conv']
+D     gather_to_conv: remove node = ['/Unsqueeze_output_0_rs_gather'], add node = ['/Unsqueeze_output_0_rs_gather_2conv']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.

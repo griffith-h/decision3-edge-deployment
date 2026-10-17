@@ -1,0 +1,175 @@
+{
+  "at_utc": "2026-10-17T19:23:08.249896+00:00",
+  "old_health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 49,
+        "norm_calls": 43,
+        "conv_calls": 6
+      }
+    }
+  },
+  "old_response_exact": true,
+  "old_response": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9991614487649136,
+          "math": 0.0007030417676997158,
+          "chat": 0.00013550946738658898
+        },
+        "confidence": 0.9934924631719657
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  },
+  "new_while_rolled_back": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-17T19:22:22.782882901Z",
+    "FinishedAt": "2026-10-17T19:23:14.634998296Z",
+    "Health": {
+      "Status": "unhealthy",
+      "FailingStreak": 0,
+      "Log": [
+        {
+          "Start": "2026-10-17T19:22:38.439413212Z",
+          "End": "2026-10-17T19:22:38.577470185Z",
+          "ExitCode": 7,
+          "Output": "curl: (7) Failed to connect to 127.0.0.1 port 8900 after 0 ms: Couldn't connect to server\n"
+        },
+        {
+          "Start": "2026-10-17T19:22:43.581561667Z",
+          "End": "2026-10-17T19:22:43.695636123Z",
+          "ExitCode": 7,
+          "Output": "curl: (7) Failed to connect to 127.0.0.1 port 8900 after 0 ms: Couldn't connect to server\n"
+        },
+        {
+          "Start": "2026-10-17T19:22:48.697840274Z",
+          "End": "2026-10-17T19:22:48.81692183Z",
+          "ExitCode": 7,
+          "Output": "curl: (7) Failed to connect to 127.0.0.1 port 8900 after 0 ms: Couldn't connect to server\n"
+        },
+        {
+          "Start": "2026-10-17T19:22:53.81979315Z",
+          "End": "2026-10-17T19:22:53.92670261Z",
+          "ExitCode": 7,
+          "Output": "curl: (7) Failed to connect to 127.0.0.1 port 8900 after 0 ms: Couldn't connect to server\n"
+        },
+        {
+          "Start": "2026-10-17T19:22:58.930346337Z",
+          "End": "2026-10-17T19:22:59.246162606Z",
+          "ExitCode": 0,
+          "Output": ""
+        }
+      ]
+    }
+  },
+  "new_health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-18-graph-half-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "graph_signature": [
+        1,
+        115,
+        1024
+      ],
+      "other_shapes": "CPU fused fallback",
+      "counts": {
+        "cpu": {
+          "lut": {
+            "activation": 6,
+            "mlp": 0,
+            "norm": 19,
+            "fallback": 0
+          },
+          "attention": {
+            "optimized": 6,
+            "fallback": 0,
+            "range_fallback": 0
+          },
+          "small": {
+            "optimized": 12,
+            "fallback": 0,
+            "pairs": 6
+          },
+          "residual": {
+            "optimized": 12,
+            "fallback": 0,
+            "boundary_fallback": 0
+          },
+          "attention_prepare": {
+            "optimized": 6,
+            "fallback": 0,
+            "boundary_fallback": 0
+          },
+          "pipeline": {
+            "optimized": 0,
+            "fallback": 0,
+            "range_fallback": 0,
+            "raw_calls": 0
+          }
+        },
+        "graphs": {
+          "optimized": 12,
+          "fallback": 0,
+          "errors": [],
+          "range_fallback": 0
+        }
+      },
+      "requests_completed": 0,
+      "last_request": null
+    }
+  },
+  "new_response_exact": true,
+  "passed": true
+}

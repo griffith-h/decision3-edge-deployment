@@ -1,0 +1,934 @@
+{
+  "selected": "graph-half",
+  "deployed": true,
+  "constraints": {
+    "weights_unchanged": true,
+    "original_12_layers": true,
+    "attention_semantics_unchanged": true,
+    "no_reverse_engineering": true,
+    "threshold": 0.01
+  },
+  "cpu_paired": {
+    "timing": {
+      "baseline442": {
+        "count": 20,
+        "median": 0.440080527914688,
+        "min": 0.39915198902599514,
+        "max": 0.45964657608419657,
+        "p95_nearest_rank": 0.45390615705400705
+      },
+      "cpu-std": {
+        "count": 20,
+        "median": 0.3338442095555365,
+        "min": 0.30837602308019996,
+        "max": 0.3408159741666168,
+        "p95_nearest_rank": 0.34001619508489966
+      },
+      "cpu-a72": {
+        "count": 20,
+        "median": 0.33199979504570365,
+        "min": 0.30699393595568836,
+        "max": 0.3534121080301702,
+        "p95_nearest_rank": 0.34288705000653863
+      }
+    },
+    "paired": {
+      "cpu-std": {
+        "round_reduction_median": 0.24162788907953808,
+        "faster_rounds": 20
+      },
+      "cpu-a72": {
+        "round_reduction_median": 0.24594509152394628,
+        "faster_rounds": 20
+      }
+    }
+  },
+  "graph_final_comparison": {
+    "timing": {
+      "cpu-std": {
+        "count": 20,
+        "median": 0.3379346070578322,
+        "min": 0.3108667728956789,
+        "max": 0.35435117199085653,
+        "p95_nearest_rank": 0.351395261939615
+      },
+      "graph-half": {
+        "count": 20,
+        "median": 0.31854925758671016,
+        "min": 0.29053602390922606,
+        "max": 0.3269828411284834,
+        "p95_nearest_rank": 0.32674945215694606
+      },
+      "graph-half-a72": {
+        "count": 20,
+        "median": 0.31982125143986195,
+        "min": 0.2927555930800736,
+        "max": 0.3287376200314611,
+        "p95_nearest_rank": 0.3245625200215727
+      }
+    },
+    "paired": {
+      "graph-half": {
+        "reduction_median": 0.059752237565978306,
+        "faster_rounds": 20
+      },
+      "graph-half-a72": {
+        "reduction_median": 0.056461611261737654,
+        "faster_rounds": 18
+      }
+    },
+    "selected": "graph-half"
+  },
+  "selected_single100": {
+    "count": 100,
+    "median": 0.3185088306199759,
+    "min": 0.2940877510700375,
+    "max": 0.3467476610094309,
+    "p95_nearest_rank": 0.32874885899946094
+  },
+  "numerical": {
+    "original_cases_max_vs_442": 0.0038864714783962695,
+    "original_cases_max_vs_fp32_output_reference": 0.0048350496332593695,
+    "extra_cases_max_vs_442": 0.00753716359798734,
+    "repeat_extra_max_vs_442": 0.00753716359798734
+  },
+  "profile_mean_seconds": 0.3303630719427019,
+  "profile_parts_seconds": {
+    "SDK调用/同步区间并集": 0.03401510464027524,
+    "桥接转换/分派余项": 0.0284489386016503,
+    "CPU GatedDeltaNet扫描": 0.06147538737859577,
+    "CPU完整注意力": 0.03851840435527265,
+    "MLP图API": 0.07630814737640321,
+    "归一化/残差融合": 0.021752498066052794,
+    "卷积/激活": 0.015213546715676785,
+    "注意力准备/RoPE/门控": 0.009893969423137606,
+    "其余CPU算子/调度/请求处理": 0.04473707538563759
+  },
+  "verified_runtime_hashes": {
+    "baseline.py": "b18ed20e0ff188ebfab180bd8d502354501b67eb5918367a2be745420674d0ec",
+    "application.py": "1827241c932cd8663eff2972895b7c50f8cb1d22cbed38aa9cfc2f0c57b80d10",
+    "candidate.py": "1bc3a26e1f19ad438a31b9938a219eb9b8316b3e6305d2651bf14889d1f61e9c",
+    "cpu_backend.py": "dccb93050aa8ed2aff89fc5eebf88e7049d1a015552d9508096d529a86eb533d",
+    "lut_ops.py": "920f45a05ab4009d24cb33a6804e9c24abd30bf9f9d94877ca782ec3540b4141",
+    "lut_math.c": "4e6d7f46c4c9e0582dbe39dad6dd3f213c065f1b08f14ed5ec01b36fb7e6bc2b",
+    "cpu_attention.c": "daf3d25d14270e66f64b3d78ad99728a705c861a07509e3350fb1dd13545ed47",
+    "cpu_attention.py": "3e06d85feb452f8e6b0bd2580b4e455f6ac78eb6becd306f3cb4f1507db2d668",
+    "small_linear.py": "1847030d27e39e8832dc1989bebd621bd486bbc30f6c62c6ee82f62efe2640c8",
+    "rotary.py": "78dbce0f0ce946a5f573c00c2ca1f1dd9371c37cddabf81ca57dd407cdee2ab5",
+    "rotary.c": "e9341529a1c0cfff5bd74e0c000f9930aeb01217169190ea14cd32410472f171",
+    "residual.py": "07ea4cded54a1ff15eecbf6cb14767a481e430851b4006912c69ea7dedef4085",
+    "attention_prepare.py": "3cd5b4d3a170701748460ccbe81a861bd62a466e9cef9bd0bf2ccda13edaf1d5",
+    "pipeline.py": "39148caffceb88fc7c6224ce1332a3eb35a9d09774edbdc6aaa8695f0687d660",
+    "pipeline_bridge.cpp": "92a8e9ef6e711274841b1e6aa4e14d7b405cf3b1da16509923bbc1878b308409",
+    "pipeline_profile.cpp": "76967c0e93ee85f49f4d9e88193cc71ac43e01b87dad750516a79a76200f5ad7",
+    "mlp_graph.py": "e15abdd1221e98422da68a4428210778e4ffef3b28496757cae9dfe1a88b4e22",
+    "mlp_graph_runtime.cpp": "a3a4c8b055af965b65fad18308ca72d63a1f2a84936e3243a1394ea5ede9cefb",
+    "mlp_subgraph.py": "7a8596626ccedabef31886e47e2a1eddaf3a2459213da41b8d5234857ccead03",
+    "liblut_math.so": "da296c93c5c7ae6d3e26343ca8ba597cadb35c286238224aa0f26988327ddbce",
+    "libcpu_attention.so": "c4d79047b950062a9f3e016933e3a7ee54e75a491d974d87d185180ab91c9b62",
+    "librotary.so": "cc0b12e56642be23cbe2df5d2ef419156f8efb55331273827f5ecb14a72d841c",
+    "libpipeline_bridge.so": "7508081a0ac5ffa9ec30c0ab5edd2caf7bdbcd2b325e96d98038f239511ac28e",
+    "libpipeline_profile.so": "a4905eea97a41a2ae2823cfd596930906f64ac597d3c0faffc49cabf9585b0a1",
+    "libmlp_graph_runtime.so": "f6a33a61dc41796e7dad02ee24f1f88393a4e77ea51890efe0b97e2c2330b555",
+    "libsafe_half_bridge.so": "f8bd5a93a41122d7444b8513ebf6d317518025c0f9da28ba253a4711b6e967e3",
+    "libsafe_scatter_bridge.so": "e5d2208b9c970475f7168f5ec2b8bee5fcb9d85e4686483196c336b73663ec46",
+    "mlp-0-fp16graph.rknn": "c485d15574d7b70cd51cc6978dceb1106be50c4edef53dc30467fedcb4406e45",
+    "mlp-1-fp16graph.rknn": "e64ec9b4c4c15966ea47a27c67126b062765f91e42e42680b3078d178fb64ef0",
+    "mlp-2-fp16graph.rknn": "194b24289ed99f37fae60a67e3cd20506ed94044da15d1ce62f9f0b85a65bbc1",
+    "mlp-3-fp16graph.rknn": "cd1da617c4eb691736e605e62c910b6d9b1f02fe5492eb26d664090661285a3f",
+    "mlp-4-fp16graph.rknn": "fd827eb5c07f8740f76c379b495c33207715259f5fcd94bd37cd0f7440f41a1d",
+    "mlp-5-fp16graph.rknn": "b11c61f69ad03c7aa85c0a2be3ad486d97de2a390ec5da1bf80852d4e7db25cf",
+    "mlp-6-fp16graph.rknn": "48ce086bb8c69c50df72b20a17715d078a70bb7913b4b73b427d5d02ef8245dc",
+    "mlp-7-fp16graph.rknn": "1e2ba064d777f2ae67890137dd4d3e6be28f17a88174455ccb09a69a49fd02bd",
+    "mlp-8-fp16graph.rknn": "9c10dc937817dd8a62004a3d0ff8feba42545f69a9410891ebc27fc5b5124838",
+    "mlp-9-fp16graph.rknn": "fd4b628ca0bdd95d796aaec6fa16ba6ecc2c9219ee9a13509ef8c800de85d996",
+    "mlp-10-fp16graph.rknn": "3936b0fd119fcb84f962b7a9710297fa882b7f6aed233ed2d1acf859293a7f36",
+    "mlp-11-fp16graph.rknn": "d77a42e6ba4e45a004995b24f97b56bb2160d1638a219c0f1bf37e76fc7e9240"
+  },
+  "service_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+  "service_started_at": "2026-10-17T11:04:28.007796263Z",
+  "service_http_before_median": 0.8610297089999999,
+  "service_http_after_median": 0.8777984999999999,
+  "service_preserved": true,
+  "cleanup": {
+    "workers": [],
+    "socket_absent": true,
+    "owned_ipc_removed": true
+  },
+  "confidence_audit": {
+    "cases": {
+      "chinese-0": {
+        "confidence_deltas": {
+          "kind": 0.00027949005373972824,
+          "complexity": 0.0018310392364623285
+        },
+        "max_delta": 0.0018310392364623285
+      },
+      "chinese-1": {
+        "confidence_deltas": {
+          "kind": 0.0006805019555582437,
+          "complexity": 0.001897258486222908
+        },
+        "max_delta": 0.001897258486222908
+      },
+      "english": {
+        "confidence_deltas": {
+          "domain": 0.005997375596389909,
+          "difficulty": 0.0031839703804291686
+        },
+        "max_delta": 0.005997375596389909
+      },
+      "single": {
+        "confidence_deltas": {
+          "kind": 0.0001566521300213619
+        },
+        "max_delta": 0.0001566521300213619
+      },
+      "image": {
+        "confidence_deltas": {
+          "image_colour": 0.0014001853825786892
+        },
+        "max_delta": 0.0014001853825786892
+      },
+      "novel-math": {
+        "confidence_deltas": {
+          "kind": 0.00012948332396800488
+        },
+        "max_delta": 0.00012948332396800488
+      },
+      "novel-chat": {
+        "confidence_deltas": {
+          "kind": 1.5788835582952743e-05
+        },
+        "max_delta": 1.5788835582952743e-05
+      },
+      "shape115-0": {
+        "confidence_deltas": {
+          "kind": 0.004882599881407823
+        },
+        "max_delta": 0.004882599881407823
+      },
+      "shape115-1": {
+        "confidence_deltas": {
+          "kind": 0.0011069456728343141
+        },
+        "max_delta": 0.0011069456728343141
+      },
+      "shape115-2": {
+        "confidence_deltas": {
+          "kind": 0.0004901097994410852
+        },
+        "max_delta": 0.0004901097994410852
+      },
+      "shape115-3": {
+        "confidence_deltas": {
+          "kind": 3.531406961021499e-05
+        },
+        "max_delta": 3.531406961021499e-05
+      },
+      "shape115-4": {
+        "confidence_deltas": {
+          "kind": 0.0024091609017548032
+        },
+        "max_delta": 0.0024091609017548032
+      },
+      "shape115-5": {
+        "confidence_deltas": {
+          "kind": 0.0007617069686768341
+        },
+        "max_delta": 0.0007617069686768341
+      },
+      "shape115-6": {
+        "confidence_deltas": {
+          "kind": 0.0032082377647860705
+        },
+        "max_delta": 0.0032082377647860705
+      },
+      "shape115-7": {
+        "confidence_deltas": {
+          "kind": 0.010026840188905872
+        },
+        "max_delta": 0.010026840188905872
+      },
+      "shape115-8": {
+        "confidence_deltas": {
+          "kind": 0.007315358542209549
+        },
+        "max_delta": 0.007315358542209549
+      },
+      "shape115-9": {
+        "confidence_deltas": {
+          "kind": 0.0020904296450910964
+        },
+        "max_delta": 0.0020904296450910964
+      },
+      "shape115-10": {
+        "confidence_deltas": {
+          "kind": 0.00028203038530671964
+        },
+        "max_delta": 0.00028203038530671964
+      },
+      "shape115-11": {
+        "confidence_deltas": {
+          "kind": 0.008017189546723369
+        },
+        "max_delta": 0.008017189546723369
+      }
+    },
+    "max_confidence_delta_vs_442": 0.010026840188905872,
+    "historical_compare_excluded_confidence": true,
+    "not_part_of_historical_001_gate": true,
+    "task_accuracy_not_evaluated": true
+  },
+  "deployment": {
+    "verified_at_utc": "2026-10-17T19:25:54.548504+00:00",
+    "passed": true,
+    "release": "2026-10-18-graph-half-v1",
+    "release_directory": "/opt/decision3-edge-graph-20261018-v1",
+    "endpoint": "http://192.168.1.164:8900/v1/systemone",
+    "new_container": {
+      "name": "decision3-edge-graph",
+      "id": "07577e5f9827249b3803dacef6b9b78048a008585fce285d5ec2c85cd2dade24",
+      "started_at": "2026-10-17T19:23:58.464582107Z",
+      "running": true,
+      "status": "running",
+      "health": "healthy",
+      "oom_killed": false,
+      "exit_code": 0,
+      "image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+      "restart": {
+        "Name": "unless-stopped",
+        "MaximumRetryCount": 0
+      },
+      "config_sha256": "fa0f318f4e6efef0149390a8fb9db83f14ad85502a296a7f85a98b177c4e4882",
+      "host_config_without_restart_sha256": "f44aa89c7ee846b2ea2928f8bb85042e3d6729afe323e070458b6a49d59c4048",
+      "mounts": [
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/work",
+          "destination": "/work",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/release",
+          "destination": "/release",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/release/base",
+          "destination": "/base",
+          "rw": false
+        },
+        {
+          "source": "/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime",
+          "destination": "/models",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/references",
+          "destination": "/references",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/scan",
+          "destination": "/scan",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/previous",
+          "destination": "/previous",
+          "rw": false
+        },
+        {
+          "source": "/var/lib/docker/volumes/b73b62b474ad7c5b615ee6b4df56a0abd4818dee0d514bd48122ceccf667a751/_data",
+          "destination": "/app/models",
+          "rw": true
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/service",
+          "destination": "/service",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/combined",
+          "destination": "/combined",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/remainder",
+          "destination": "/remainder",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/projection",
+          "destination": "/projection",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-graph-20261018-v1/deps/attn",
+          "destination": "/attn",
+          "rw": false
+        }
+      ],
+      "ports": {
+        "8900/tcp": [
+          {
+            "HostIp": "192.168.1.164",
+            "HostPort": "8900"
+          }
+        ]
+      }
+    },
+    "previous_container": {
+      "name": "decision3-edge-optimized",
+      "id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+      "started_at": "2026-10-17T19:23:15.355495693Z",
+      "running": false,
+      "status": "exited",
+      "health": "unhealthy",
+      "oom_killed": false,
+      "exit_code": 0,
+      "image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+      "restart": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "config_sha256": "35e8bb67a70ad6fc828354359dceacdd4a6aca3171e555ad2c407d6f5a9de262",
+      "host_config_without_restart_sha256": "8f8943967eb5f7c54ba57df69d58dffbb896c9b6dc56ac2d68f38139e6d99ff8",
+      "mounts": [
+        {
+          "source": "/opt/decision3-edge-optimized-20261017-v1",
+          "destination": "/work",
+          "rw": false
+        },
+        {
+          "source": "/opt/decision3-edge-optimized-20261017-v1/base",
+          "destination": "/base",
+          "rw": false
+        },
+        {
+          "source": "/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime",
+          "destination": "/models",
+          "rw": false
+        },
+        {
+          "source": "/var/lib/docker/volumes/cc8ab408a3757dc3eb77a756587e2209478fb90f304123984cc68fe195b981bb/_data",
+          "destination": "/app/models",
+          "rw": true
+        }
+      ],
+      "ports": {
+        "8900/tcp": [
+          {
+            "HostIp": "192.168.1.164",
+            "HostPort": "8900"
+          }
+        ]
+      }
+    },
+    "previous_config_and_files_preserved_except_restart": true,
+    "actual_rollback_and_return_passed": true,
+    "staging_removed": true,
+    "package_manifest_sha256": "54dd75d60679fac8faebaca8ff1400a6eda6f9937edab88b544747d2bfc24260",
+    "staging_timing": {
+      "count": 20,
+      "median": 0.3227318539999988,
+      "p95_nearest_rank": 0.3290337500000007,
+      "min": 0.320825499999998,
+      "max": 0.3368831659999998
+    },
+    "health": {
+      "status": "ready",
+      "model": "vllm-sr/d3-edge",
+      "max_input_tokens": null,
+      "modalities": [
+        "text",
+        "image",
+        "video"
+      ],
+      "authentication": false,
+      "deployment": {
+        "release": "2026-10-18-graph-half-v1",
+        "torch_threads": 3,
+        "OMP_THREAD_LIMIT": "3",
+        "affinity": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "graph_signature": [
+          1,
+          115,
+          1024
+        ],
+        "other_shapes": "CPU fused fallback",
+        "counts": {
+          "cpu": {
+            "lut": {
+              "activation": 768,
+              "mlp": 0,
+              "norm": 2404,
+              "fallback": 0
+            },
+            "attention": {
+              "optimized": 744,
+              "fallback": 24,
+              "range_fallback": 0
+            },
+            "small": {
+              "optimized": 1488,
+              "fallback": 0,
+              "pairs": 744
+            },
+            "residual": {
+              "optimized": 1488,
+              "fallback": 0,
+              "boundary_fallback": 0
+            },
+            "attention_prepare": {
+              "optimized": 720,
+              "fallback": 24,
+              "boundary_fallback": 0
+            },
+            "pipeline": {
+              "optimized": 60,
+              "fallback": 0,
+              "range_fallback": 0,
+              "raw_calls": 120
+            }
+          },
+          "graphs": {
+            "optimized": 1428,
+            "fallback": 60,
+            "errors": [],
+            "range_fallback": 0
+          }
+        },
+        "requests_completed": 123,
+        "last_request": {
+          "seconds": 0.3265337310731411,
+          "graph_calls": 12,
+          "graph_fallbacks": 0,
+          "input_tokens": 115
+        }
+      }
+    },
+    "http": {
+      "timing": {
+        "count": 100,
+        "median": 0.3252715209999977,
+        "p95_nearest_rank": 0.32892195800000223,
+        "min": 0.321503584000002,
+        "max": 0.3404544999999999
+      },
+      "max_delta_vs_frozen": 0.0,
+      "cases": {
+        "chinese-0": {
+          "seconds": 4.483296875000001,
+          "route": {
+            "seconds": 4.476116148056462,
+            "graph_calls": 0,
+            "graph_fallbacks": 12,
+            "input_tokens": 344
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0009333975613220191,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0018310392364623285,
+            "choices_unchanged": true
+          }
+        },
+        "chinese-1": {
+          "seconds": 1.01301125,
+          "route": {
+            "seconds": 1.0099710379727185,
+            "graph_calls": 0,
+            "graph_fallbacks": 12,
+            "input_tokens": 314
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0005363882100074095,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.001897258486222908,
+            "choices_unchanged": true
+          }
+        },
+        "english": {
+          "seconds": 1.0290398749999996,
+          "route": {
+            "seconds": 1.0259112128987908,
+            "graph_calls": 0,
+            "graph_fallbacks": 12,
+            "input_tokens": 328
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0028583509079617153,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.005997375596389909,
+            "choices_unchanged": true
+          }
+        },
+        "single": {
+          "seconds": 0.3305933750000003,
+          "route": {
+            "seconds": 0.32743800710886717,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 2.2479102811834295e-05,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0001566521300213619,
+            "choices_unchanged": true
+          }
+        },
+        "image": {
+          "seconds": 7.817523542,
+          "route": {
+            "seconds": 7.8142138288822025,
+            "graph_calls": 0,
+            "graph_fallbacks": 12,
+            "input_tokens": 347
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0038864714783962695,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0038864714783962695,
+            "choices_unchanged": true
+          }
+        },
+        "novel-math": {
+          "seconds": 0.32754762499999934,
+          "route": {
+            "seconds": 0.32437648391351104,
+            "graph_calls": 0,
+            "graph_fallbacks": 12,
+            "input_tokens": 117
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 2.040601266051212e-05,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.00012948332396800488,
+            "choices_unchanged": true
+          }
+        },
+        "novel-chat": {
+          "seconds": 0.3133305419999992,
+          "route": {
+            "seconds": 0.31036010198295116,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 1.8995252123454875e-06,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 1.5788835582952743e-05,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-0": {
+          "seconds": 0.32423795799999944,
+          "route": {
+            "seconds": 0.32112907292321324,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0018220361302797583,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.004882599881407823,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-1": {
+          "seconds": 0.32431966600000095,
+          "route": {
+            "seconds": 0.32107378891669214,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0002424521642888644,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0011069456728343141,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-2": {
+          "seconds": 0.32325654099999923,
+          "route": {
+            "seconds": 0.319812485948205,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0021383128427848175,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0021383128427848175,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-3": {
+          "seconds": 0.32642787500000026,
+          "route": {
+            "seconds": 0.32330018607899547,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 2.376472707014965e-05,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 3.531406961021499e-05,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-4": {
+          "seconds": 0.33794729100000254,
+          "route": {
+            "seconds": 0.33465483016334474,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.002400418770466317,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0024091609017548032,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-5": {
+          "seconds": 0.3256786250000019,
+          "route": {
+            "seconds": 0.3224109390284866,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.00014078483917379092,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.0007617069686768341,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-6": {
+          "seconds": 0.32250770799999984,
+          "route": {
+            "seconds": 0.3194259840529412,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.004207136352611496,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.004207136352611496,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-7": {
+          "seconds": 0.3233015419999994,
+          "route": {
+            "seconds": 0.32028604997321963,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0034345010272773813,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.010026840188905872,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-8": {
+          "seconds": 0.3239657919999992,
+          "route": {
+            "seconds": 0.32088774791918695,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.0022274780272284467,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.007315358542209549,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-9": {
+          "seconds": 0.3230895839999981,
+          "route": {
+            "seconds": 0.32015350088477135,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.00753716359798734,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.00753716359798734,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-10": {
+          "seconds": 0.3219034160000014,
+          "route": {
+            "seconds": 0.3189101298339665,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 8.584193791448059e-05,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.00028203038530671964,
+            "choices_unchanged": true
+          }
+        },
+        "shape115-11": {
+          "seconds": 0.32327370799999855,
+          "route": {
+            "seconds": 0.32012916496023536,
+            "graph_calls": 12,
+            "graph_fallbacks": 0,
+            "input_tokens": 115
+          },
+          "vs_frozen_including_confidence": {
+            "max_delta": 0.0,
+            "choices_unchanged": true
+          },
+          "vs_442_excluding_confidence": {
+            "max_delta": 0.002108232367564411,
+            "choices_unchanged": true
+          },
+          "vs_442_including_confidence": {
+            "max_delta": 0.008017189546723369,
+            "choices_unchanged": true
+          }
+        }
+      }
+    },
+    "limitations": [
+      "graph fast path B1T115 only; other shapes CPU fallback",
+      "318.51ms historical warm system_one method; current HTTP measured separately",
+      "historical .01 gate excludes confidence; confidence max difference .01002684 separately disclosed",
+      "no new labelled-task accuracy, video, concurrent-throughput or cold-start SLA evaluation"
+    ]
+  }
+}

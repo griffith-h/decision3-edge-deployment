@@ -1,0 +1,42 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  36%|███▋      | 111/305 [00:00<00:00, 1102.57it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1525.95it/s]
+TIMED balanced-none 1 0.5712303989566863
+TIMED balanced-none 2 0.5531054029706866
+TIMED balanced-none 3 0.5620191730558872
+TIMED balanced-none 4 0.5688350461423397
+TIMED balanced-none 5 0.5395629820413888
+TIMED balanced-none 6 0.5627530121710151
+TIMED balanced-none 7 0.5703902870882303
+TIMED balanced-none 8 0.5537334010004997
+TIMED balanced-none 9 0.5593775359448045
+TIMED balanced-none 10 0.5671579779591411
+TIMED balanced-none 11 0.5672925461549312
+TIMED balanced-none 12 0.5667934229131788
+TIMED balanced-none 13 0.5678011521231383
+TIMED balanced-none 14 0.5668419259600341
+TIMED balanced-none 15 0.5619831141084433
+TIMED balanced-none 16 0.558503626845777
+CASE balanced-none chinese-0 1.7441004090942442 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 0.005611260526635964, 'choices_unchanged': True, 'passed': True}
+CASE balanced-none chinese-1 1.6041533490642905 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 0.00012279528861252123, 'choices_unchanged': True, 'passed': True}
+CASE balanced-none english 1.5313292208593339 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 0.003434247822728942, 'choices_unchanged': True, 'passed': True}
+CASE balanced-none single 0.5433179009705782 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 3.824814245190211e-05, 'choices_unchanged': True, 'passed': True}
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffffab36a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffffab309018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffffad03ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffffac9ff658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffffac9ffbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffffad97abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffffac405cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffffac3e0c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffffac41b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffffac407538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffffb5d838a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffffb7bc7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffffb7bc7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+CASE balanced-none image 8.555855090962723 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 0.0017557576521547678, 'choices_unchanged': True, 'passed': True}
+CASE balanced-none novel-math 0.5674973390996456 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 2.232011897973507e-06, 'choices_unchanged': True, 'passed': True}
+CASE balanced-none novel-chat 0.5573381187859923 {'max_delta': 0.0, 'choices_unchanged': True, 'passed': True} {'max_delta': 3.582802390737506e-06, 'choices_unchanged': True, 'passed': True}

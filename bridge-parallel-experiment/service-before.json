@@ -1,0 +1,219 @@
+{
+  "verified_at_utc": "2026-10-17T11:25:52.859350+00:00",
+  "container_id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+  "started_at": "2026-10-17T11:04:28.007796263Z",
+  "config": {
+    "Hostname": "de238c160834",
+    "Domainname": "",
+    "User": "",
+    "AttachStdin": false,
+    "AttachStdout": false,
+    "AttachStderr": false,
+    "ExposedPorts": {
+      "50051/tcp": {},
+      "8080/tcp": {},
+      "8900/tcp": {},
+      "9190/tcp": {}
+    },
+    "Tty": false,
+    "OpenStdin": false,
+    "StdinOnce": false,
+    "Env": [
+      "OMP_NUM_THREADS=3",
+      "OMP_THREAD_LIMIT=3",
+      "OPENBLAS_NUM_THREADS=3",
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+      "PYTHON_VERSION=3.12.15",
+      "PYTHON_SHA256=c2c4321961fab0fb999d66e0cecf521c2ab3994c7992873ea99e306c1094fd5a",
+      "PIP_NO_CACHE_DIR=1",
+      "PIP_DISABLE_PIP_VERSION_CHECK=1",
+      "PIP_ROOT_USER_ACTION=ignore",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONUNBUFFERED=1",
+      "USER=vllm-sr",
+      "VLLM_SRUN_CACHE_DIR=/app/models/model-runtime",
+      "TRITON_CACHE_DIR=/app/models/triton",
+      "MIOPEN_USER_DB_PATH=/app/models/miopen",
+      "MIOPEN_CUSTOM_CACHE_DIR=/app/models/miopen",
+      "HF_HUB_OFFLINE=1",
+      "TRANSFORMERS_OFFLINE=1"
+    ],
+    "Cmd": [
+      "/work/server.py",
+      "--model",
+      "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e",
+      "--port",
+      "8900"
+    ],
+    "Healthcheck": {
+      "Test": [
+        "CMD-SHELL",
+        "curl --fail --silent --show-error --max-time 5 --output /dev/null http://127.0.0.1:8900/health"
+      ],
+      "Interval": 30000000000,
+      "Timeout": 10000000000,
+      "StartPeriod": 180000000000
+    },
+    "Image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+    "Volumes": {
+      "/app/models": {}
+    },
+    "WorkingDir": "/work",
+    "Entrypoint": [
+      "python",
+      "-u"
+    ],
+    "Labels": {}
+  },
+  "host_config": {
+    "Binds": null,
+    "ContainerIDFile": "",
+    "LogConfig": {
+      "Type": "json-file",
+      "Config": {
+        "max-file": "3",
+        "max-size": "10m"
+      }
+    },
+    "NetworkMode": "bridge",
+    "PortBindings": {
+      "8900/tcp": [
+        {
+          "HostIp": "192.168.1.164",
+          "HostPort": "8900"
+        }
+      ]
+    },
+    "RestartPolicy": {
+      "Name": "unless-stopped",
+      "MaximumRetryCount": 0
+    },
+    "AutoRemove": false,
+    "VolumeDriver": "",
+    "VolumesFrom": null,
+    "ConsoleSize": [
+      0,
+      0
+    ],
+    "CapAdd": null,
+    "CapDrop": null,
+    "CgroupnsMode": "private",
+    "Dns": null,
+    "DnsOptions": [],
+    "DnsSearch": [],
+    "ExtraHosts": null,
+    "GroupAdd": null,
+    "IpcMode": "private",
+    "Cgroup": "",
+    "Links": null,
+    "OomScoreAdj": 0,
+    "PidMode": "",
+    "Privileged": false,
+    "PublishAllPorts": false,
+    "ReadonlyRootfs": false,
+    "SecurityOpt": null,
+    "UTSMode": "",
+    "UsernsMode": "",
+    "ShmSize": 67108864,
+    "Runtime": "runc",
+    "Isolation": "",
+    "CpuShares": 0,
+    "Memory": 8589934592,
+    "NanoCpus": 0,
+    "CgroupParent": "",
+    "BlkioWeight": 0,
+    "BlkioWeightDevice": [],
+    "BlkioDeviceReadBps": [],
+    "BlkioDeviceWriteBps": [],
+    "BlkioDeviceReadIOps": [],
+    "BlkioDeviceWriteIOps": [],
+    "CpuPeriod": 0,
+    "CpuQuota": 0,
+    "CpuRealtimePeriod": 0,
+    "CpuRealtimeRuntime": 0,
+    "CpusetCpus": "4-7",
+    "CpusetMems": "",
+    "Devices": [
+      {
+        "PathOnHost": "/dev/dri",
+        "PathInContainer": "/dev/dri",
+        "CgroupPermissions": "rwm"
+      }
+    ],
+    "DeviceCgroupRules": null,
+    "DeviceRequests": null,
+    "MemoryReservation": 0,
+    "MemorySwap": 8589934592,
+    "MemorySwappiness": null,
+    "OomKillDisable": null,
+    "PidsLimit": null,
+    "Ulimits": [],
+    "CpuCount": 0,
+    "CpuPercent": 0,
+    "IOMaximumIOps": 0,
+    "IOMaximumBandwidth": 0,
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/opt/decision3-edge-optimized-20261017-v1",
+        "Target": "/work",
+        "ReadOnly": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/opt/decision3-edge-optimized-20261017-v1/base",
+        "Target": "/base",
+        "ReadOnly": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/root/.local/state/vllm-sr/engine/vllm-sr--d3-edge/models/model-runtime",
+        "Target": "/models",
+        "ReadOnly": true
+      }
+    ],
+    "MaskedPaths": [
+      "/proc/acpi",
+      "/proc/asound",
+      "/proc/interrupts",
+      "/proc/kcore",
+      "/proc/keys",
+      "/proc/latency_stats",
+      "/proc/sched_debug",
+      "/proc/scsi",
+      "/proc/timer_list",
+      "/proc/timer_stats",
+      "/sys/devices/virtual/powercap",
+      "/sys/firmware"
+    ],
+    "ReadonlyPaths": [
+      "/proc/bus",
+      "/proc/fs",
+      "/proc/irq",
+      "/proc/sys",
+      "/proc/sysrq-trigger"
+    ],
+    "Init": true
+  },
+  "response": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9991614487649136,
+          "math": 0.0007030417676997158,
+          "chat": 0.00013550946738658898
+        },
+        "confidence": 0.9934924631719657
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  }
+}

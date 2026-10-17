@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/work/test_gpu.py", line 18, in <module>
+    out=gpu.attention(q,k,v,m);torch.testing.assert_close(out,ref,atol=.008,rtol=.008)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/testing/_comparison.py", line 1631, in assert_close
+    raise error_metas[0].to_error(msg)
+AssertionError: Tensor-likes are not close!
+
+Mismatched elements: 256 / 256 (100.0%)
+Greatest absolute difference: inf at index (0, 0, 0, 0) (up to 0.008 allowed)
+Greatest relative difference: inf at index (0, 0, 0, 0) (up to 0.008 allowed)

@@ -1,0 +1,1541 @@
+{
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "env": {
+      "OMP_NUM_THREADS": "3",
+      "OMP_THREAD_LIMIT": "3",
+      "OMP_WAIT_POLICY": null,
+      "GOMP_SPINCOUNT": null
+    },
+    "torch": "2.12.0+cpu"
+  },
+  "source_sha256": {
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf"
+  },
+  "scope": "115 tokens, single question, concurrency 1; fresh isolated process with exact deployed kernels; no service modification.",
+  "uninstrumented_before": {
+    "seconds": [
+      0.854865524917841,
+      0.8537569991312921,
+      0.8546687660273165,
+      0.857359031913802,
+      0.854489539982751,
+      0.8752378860954195,
+      0.8743906440213323,
+      0.890262319939211,
+      0.869695354020223,
+      0.8682868629693985,
+      0.8698290351312608,
+      0.8720003680791706
+    ],
+    "median": 0.8689911084948108,
+    "min": 0.8537569991312921,
+    "max": 0.890262319939211,
+    "response": {
+      "model": "d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "clock_shim_uninstrumented": {
+    "seconds": [
+      0.8587760131340474,
+      0.8642960570286959,
+      0.8655092981643975,
+      0.8630395359359682,
+      0.8660187569912523
+    ],
+    "median": 0.8642960570286959,
+    "min": 0.8587760131340474,
+    "max": 0.8660187569912523,
+    "response": {
+      "model": "d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "instrumented": [
+    {
+      "seconds": 0.9005100410431623,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.0017984181176871061,
+          "exclusive": 0.0017984181176871061,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.00031643896363675594,
+          "exclusive": 0.00031643896363675594,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.001206598011776805,
+          "exclusive": 0.001206598011776805,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03369406261481345,
+          "exclusive": 0.03369406261481345,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.026086107129231095,
+          "exclusive": 0.026086107129231095,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07204152271151543,
+          "exclusive": 0.07204152271151543,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005626288475468755,
+          "exclusive": 0.005626288475468755,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.24227141682058573,
+          "exclusive": 0.24227141682058573,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.4108648640103638,
+          "exclusive": 0.06483952887356281,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.014107008930295706,
+          "exclusive": 0.014107008930295706,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.04539782227948308,
+          "exclusive": 0.04539782227948308,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.02397672552615404,
+          "exclusive": 0.02397672552615404,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.2523107898887247,
+          "exclusive": 0.22833406436257064,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.4417451226618141,
+          "exclusive": 0.010313069680705667,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.021615969017148018,
+          "exclusive": 0.021615969017148018,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.25611730269156396,
+          "exclusive": 0.01234827539883554,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8919945219531655,
+          "exclusive": 0.013643460581079125,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.009456740459427238,
+          "exclusive": 0.009456740459427238,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.037558595184236765,
+          "exclusive": 0.037558595184236765,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.1715926486067474,
+          "exclusive": 0.03103818604722619,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.8985213809646666,
+          "exclusive": 0.004649499896913767,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.42118975520134e-05,
+          "exclusive": 6.42118975520134e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.9005100410431623,
+          "exclusive": 0.00012603006325662136,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.2865675166249275e-05,
+        "input_copy": 0.007816256256774068,
+        "input_padding": 0.00035026995465159416,
+        "rknn_matmul_run": 0.20053700334392488,
+        "output_copy": 0.029035345185548067
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.7284020000000027,
+      "cpu_system_seconds": 0.17542100000000005,
+      "minor_faults": 25515,
+      "voluntary_switches": 630,
+      "involuntary_switches": 4
+    },
+    {
+      "seconds": 0.8953935340978205,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.0017585789319127798,
+          "exclusive": 0.0017585789319127798,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.0004189051687717438,
+          "exclusive": 0.0004189051687717438,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.0020778311882168055,
+          "exclusive": 0.0020778311882168055,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03292694338597357,
+          "exclusive": 0.03292694338597357,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.025670323753729463,
+          "exclusive": 0.025670323753729463,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07370061799883842,
+          "exclusive": 0.07370061799883842,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005586454411968589,
+          "exclusive": 0.005586454411968589,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.23950349912047386,
+          "exclusive": 0.23950349912047386,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.40692049637436867,
+          "exclusive": 0.06245960108935833,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.013849856797605753,
+          "exclusive": 0.013849856797605753,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.04639907646924257,
+          "exclusive": 0.04639907646924257,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.023971028858795762,
+          "exclusive": 0.023971028858795762,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.25114919897168875,
+          "exclusive": 0.22717817011289299,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.44035082100890577,
+          "exclusive": 0.010124000255018473,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.022076606284826994,
+          "exclusive": 0.022076606284826994,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2538498213980347,
+          "exclusive": 0.011647929437458515,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8858883776701987,
+          "exclusive": 0.013379525626078248,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.009126962861046195,
+          "exclusive": 0.009126962861046195,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.037494929507374763,
+          "exclusive": 0.037494929507374763,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.16942949406802654,
+          "exclusive": 0.0312564296182245,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.8934511849656701,
+          "exclusive": 0.004602493019774556,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.516114808619022e-05,
+          "exclusive": 6.516114808619022e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.8953935340978205,
+          "exclusive": 0.00011860905215144157,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.1721778213977814e-05,
+        "input_copy": 0.00778171862475574,
+        "input_padding": 0.0003455535043030977,
+        "rknn_matmul_run": 0.2005002584774047,
+        "output_copy": 0.026469366624951363
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.6967340000000064,
+      "cpu_system_seconds": 0.20213500000000018,
+      "minor_faults": 24536,
+      "voluntary_switches": 595,
+      "involuntary_switches": 3
+    },
+    {
+      "seconds": 0.8956452149432153,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.001772464020177722,
+          "exclusive": 0.001772464020177722,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.00041646487079560757,
+          "exclusive": 0.00041646487079560757,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.001153336139395833,
+          "exclusive": 0.001153336139395833,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03285854426212609,
+          "exclusive": 0.03285854426212609,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.025596415856853127,
+          "exclusive": 0.025596415856853127,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07295057829469442,
+          "exclusive": 0.07295057829469442,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005534558091312647,
+          "exclusive": 0.005534558091312647,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.24130548210814595,
+          "exclusive": 0.24130548210814595,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.40735881542786956,
+          "exclusive": 0.06197178107686341,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.013847000896930695,
+          "exclusive": 0.013847000896930695,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.04594782507047057,
+          "exclusive": 0.04594782507047057,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.02390393242239952,
+          "exclusive": 0.02390393242239952,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.25290372991003096,
+          "exclusive": 0.22899979748763144,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.44104368914850056,
+          "exclusive": 0.010454203002154827,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.02214315184392035,
+          "exclusive": 0.02214315184392035,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2551301398780197,
+          "exclusive": 0.01177206076681614,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8870080739725381,
+          "exclusive": 0.012877531815320253,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.008834072854369879,
+          "exclusive": 0.008834072854369879,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.03745690640062094,
+          "exclusive": 0.03745690640062094,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.16909951297566295,
+          "exclusive": 0.03101707575842738,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.8936901420820504,
+          "exclusive": 0.004649423062801361,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.362306885421276e-05,
+          "exclusive": 6.362306885421276e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.8956452149432153,
+          "exclusive": 0.00011898577213287354,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.22265550494194e-05,
+        "input_copy": 0.007747089024633169,
+        "input_padding": 0.00034671067260205746,
+        "rknn_matmul_run": 0.20250411774031818,
+        "output_copy": 0.026341238291934133
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.713809000000012,
+      "cpu_system_seconds": 0.1819279999999992,
+      "minor_faults": 24415,
+      "voluntary_switches": 591,
+      "involuntary_switches": 4
+    },
+    {
+      "seconds": 0.9144681189209223,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.0017503639683127403,
+          "exclusive": 0.0017503639683127403,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.0004199820104986429,
+          "exclusive": 0.0004199820104986429,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.00115734594874084,
+          "exclusive": 0.00115734594874084,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03402821393683553,
+          "exclusive": 0.03402821393683553,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.027060267981141806,
+          "exclusive": 0.027060267981141806,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07585072121582925,
+          "exclusive": 0.07585072121582925,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.0059955858159810305,
+          "exclusive": 0.0059955858159810305,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.23180026514455676,
+          "exclusive": 0.23180026514455676,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.4056852934882045,
+          "exclusive": 0.06497845333069563,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.014315321808680892,
+          "exclusive": 0.014315321808680892,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.04767341911792755,
+          "exclusive": 0.04767341911792755,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.02424614201299846,
+          "exclusive": 0.02424614201299846,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.2624596778769046,
+          "exclusive": 0.23821353586390615,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.45355948666110635,
+          "exclusive": 0.011053158435970545,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.02227114117704332,
+          "exclusive": 0.02227114117704332,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2525324751622975,
+          "exclusive": 0.011880212463438511,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.9055782950017601,
+          "exclusive": 0.013777937972918153,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.009857970988377929,
+          "exclusive": 0.009857970988377929,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.04075323534198105,
+          "exclusive": 0.04075323534198105,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.17643025517463684,
+          "exclusive": 0.03235888038761914,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.9125217790715396,
+          "exclusive": 0.004829988116398454,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.981100887060165e-05,
+          "exclusive": 6.981100887060165e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.9144681189209223,
+          "exclusive": 0.00012616487219929695,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.419374115765095e-05,
+        "input_copy": 0.007662373827770352,
+        "input_padding": 0.0003587631508708,
+        "rknn_matmul_run": 0.1932988076005131,
+        "output_copy": 0.02578375325538218
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.8613309999999927,
+      "cpu_system_seconds": 0.10119899999999937,
+      "minor_faults": 24580,
+      "voluntary_switches": 644,
+      "involuntary_switches": 5
+    },
+    {
+      "seconds": 0.9040419179946184,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.0018307939171791077,
+          "exclusive": 0.0018307939171791077,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.00043540913611650467,
+          "exclusive": 0.00043540913611650467,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.0012305749114602804,
+          "exclusive": 0.0012305749114602804,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.034628981025889516,
+          "exclusive": 0.034628981025889516,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.027421927778050303,
+          "exclusive": 0.027421927778050303,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07541114510968328,
+          "exclusive": 0.07541114510968328,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005850628251209855,
+          "exclusive": 0.005850628251209855,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.2336738675367087,
+          "exclusive": 0.2336738675367087,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.40757106174714863,
+          "exclusive": 0.06521349307149649,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.01380039774812758,
+          "exclusive": 0.01380039774812758,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.045284108025953174,
+          "exclusive": 0.045284108025953174,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.02400417998433113,
+          "exclusive": 0.02400417998433113,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.2526323669590056,
+          "exclusive": 0.22862818697467446,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.4384149834513664,
+          "exclusive": 0.010638632578775287,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.022467688424512744,
+          "exclusive": 0.022467688424512744,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.25485092867165804,
+          "exclusive": 0.012304962379857898,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8948998323176056,
+          "exclusive": 0.013897900935262442,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.010463803773745894,
+          "exclusive": 0.010463803773745894,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.03902023006230593,
+          "exclusive": 0.03902023006230593,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.17821561638265848,
+          "exclusive": 0.032674623653292656,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.9020055851433426,
+          "exclusive": 0.004954843781888485,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 7.186504080891609e-05,
+          "exclusive": 7.186504080891609e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.9040419179946184,
+          "exclusive": 0.0001336738932877779,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.358093090355396e-05,
+        "input_copy": 0.007840298814699054,
+        "input_padding": 0.0003591300919651985,
+        "rknn_matmul_run": 0.195133717963472,
+        "output_copy": 0.025604369584470987
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.8254970000000128,
+      "cpu_system_seconds": 0.1009809999999991,
+      "minor_faults": 24413,
+      "voluntary_switches": 656,
+      "involuntary_switches": 8
+    },
+    {
+      "seconds": 0.9047841769643128,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.0020514840725809336,
+          "exclusive": 0.0020514840725809336,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.0004655797965824604,
+          "exclusive": 0.0004655797965824604,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.0012535669375211,
+          "exclusive": 0.0012535669375211,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03316873521544039,
+          "exclusive": 0.03316873521544039,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.026128224562853575,
+          "exclusive": 0.026128224562853575,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07377856271341443,
+          "exclusive": 0.07377856271341443,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005707447649911046,
+          "exclusive": 0.005707447649911046,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.23953023157082498,
+          "exclusive": 0.23953023157082498,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.4081381345167756,
+          "exclusive": 0.06299366801977158,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.014225925784558058,
+          "exclusive": 0.014225925784558058,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.046545120887458324,
+          "exclusive": 0.046545120887458324,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.024052660912275314,
+          "exclusive": 0.024052660912275314,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.25819800375029445,
+          "exclusive": 0.23414534283801913,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.44954059086740017,
+          "exclusive": 0.010848210658878088,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.022098749177530408,
+          "exclusive": 0.022098749177530408,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2545284896623343,
+          "exclusive": 0.011829000664874911,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8954667262732983,
+          "exclusive": 0.013307507382705808,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.008912313729524612,
+          "exclusive": 0.008912313729524612,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.03761558374390006,
+          "exclusive": 0.03761558374390006,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.16899574734270573,
+          "exclusive": 0.031066144816577435,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.9025395838543773,
+          "exclusive": 0.004867006791755557,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.359000690281391e-05,
+          "exclusive": 6.359000690281391e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.9047841769643128,
+          "exclusive": 0.0001295190304517746,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.3010030165314674e-05,
+        "input_copy": 0.007819503545761108,
+        "input_padding": 0.0003511449322104454,
+        "rknn_matmul_run": 0.20010756328701973,
+        "output_copy": 0.026758324820548296
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.779654999999991,
+      "cpu_system_seconds": 0.14185799999999915,
+      "minor_faults": 24412,
+      "voluntary_switches": 609,
+      "involuntary_switches": 7
+    },
+    {
+      "seconds": 0.8959859358146787,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.00176798808388412,
+          "exclusive": 0.00176798808388412,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.0004130441229790449,
+          "exclusive": 0.0004130441229790449,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.0011973169166594744,
+          "exclusive": 0.0011973169166594744,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.03282059426419437,
+          "exclusive": 0.03282059426419437,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.025695519987493753,
+          "exclusive": 0.025695519987493753,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.0726704690605402,
+          "exclusive": 0.0726704690605402,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005557114025577903,
+          "exclusive": 0.005557114025577903,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.2414935736451298,
+          "exclusive": 0.2414935736451298,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.4069453903939575,
+          "exclusive": 0.06152871367521584,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.013790092431008816,
+          "exclusive": 0.013790092431008816,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.04544433858245611,
+          "exclusive": 0.04544433858245611,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.02403448079712689,
+          "exclusive": 0.02403448079712689,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.2539386572316289,
+          "exclusive": 0.229904176434502,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.4433044595643878,
+          "exclusive": 0.01071061217226088,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.022136821411550045,
+          "exclusive": 0.022136821411550045,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2531581276562065,
+          "exclusive": 0.01137844193726778,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8873010035604239,
+          "exclusive": 0.013201941968873143,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.00892665795981884,
+          "exclusive": 0.00892665795981884,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.03744600503705442,
+          "exclusive": 0.03744600503705442,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.1687431640457362,
+          "exclusive": 0.031029585050418973,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.8940334841609001,
+          "exclusive": 0.004653984680771828,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.533600389957428e-05,
+          "exclusive": 6.533600389957428e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.8959859358146787,
+          "exclusive": 0.00011912756599485874,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.2442621886730194e-05,
+        "input_copy": 0.007811264134943485,
+        "input_padding": 0.00035035773180425167,
+        "rknn_matmul_run": 0.20248334319330752,
+        "output_copy": 0.026436863467097282
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.6974409999999978,
+      "cpu_system_seconds": 0.19827300000000037,
+      "minor_faults": 24158,
+      "voluntary_switches": 606,
+      "involuntary_switches": 8
+    },
+    {
+      "seconds": 0.8908866341225803,
+      "timings": {
+        "request.prepare": {
+          "inclusive": 0.00175772188231349,
+          "exclusive": 0.00175772188231349,
+          "calls": 1
+        },
+        "embedding": {
+          "inclusive": 0.0004240588750690222,
+          "exclusive": 0.0004240588750690222,
+          "calls": 1
+        },
+        "module.other.Qwen3_5TextRotaryEmbedding": {
+          "inclusive": 0.0011678501032292843,
+          "exclusive": 0.0011678501032292843,
+          "calls": 1
+        },
+        "rmsnorm": {
+          "inclusive": 0.033335281535983086,
+          "exclusive": 0.033335281535983086,
+          "calls": 43
+        },
+        "adapter.convert_fp16": {
+          "inclusive": 0.02588149276562035,
+          "exclusive": 0.02588149276562035,
+          "calls": 78
+        },
+        "adapter.finite_check": {
+          "inclusive": 0.07234477810561657,
+          "exclusive": 0.07234477810561657,
+          "calls": 78
+        },
+        "adapter.allocate_fp32": {
+          "inclusive": 0.005432758945971727,
+          "exclusive": 0.005432758945971727,
+          "calls": 78
+        },
+        "adapter.bridge_ffi": {
+          "inclusive": 0.23967938870191574,
+          "exclusive": 0.23967938870191574,
+          "calls": 78
+        },
+        "linear.rknn": {
+          "inclusive": 0.4046917501837015,
+          "exclusive": 0.061353331664577127,
+          "calls": 78
+        },
+        "linear.cpu": {
+          "inclusive": 0.013816304970532656,
+          "exclusive": 0.013816304970532656,
+          "calls": 12
+        },
+        "causal_conv": {
+          "inclusive": 0.045915698166936636,
+          "exclusive": 0.045915698166936636,
+          "calls": 6
+        },
+        "triangular_solve": {
+          "inclusive": 0.023960223654285073,
+          "exclusive": 0.023960223654285073,
+          "calls": 6
+        },
+        "scan": {
+          "inclusive": 0.2525509102270007,
+          "exclusive": 0.22859068657271564,
+          "calls": 6
+        },
+        "delta.elementwise_and_dispatch": {
+          "inclusive": 0.44090041099116206,
+          "exclusive": 0.010355518199503422,
+          "calls": 6
+        },
+        "module.other.SiLUActivation": {
+          "inclusive": 0.02165400260128081,
+          "exclusive": 0.02165400260128081,
+          "calls": 12
+        },
+        "mlp.elementwise_and_dispatch": {
+          "inclusive": 0.2525995394680649,
+          "exclusive": 0.011534365126863122,
+          "calls": 12
+        },
+        "block.residual_and_dispatch": {
+          "inclusive": 0.8825760041363537,
+          "exclusive": 0.01251625339500606,
+          "calls": 12
+        },
+        "rotary": {
+          "inclusive": 0.00968518853187561,
+          "exclusive": 0.00968518853187561,
+          "calls": 6
+        },
+        "sdpa": {
+          "inclusive": 0.03687253873795271,
+          "exclusive": 0.03687253873795271,
+          "calls": 6
+        },
+        "attention.elementwise_and_dispatch": {
+          "inclusive": 0.16766546363942325,
+          "exclusive": 0.030000460566952825,
+          "calls": 6
+        },
+        "request.run": {
+          "inclusive": 0.888943362981081,
+          "exclusive": 0.00442318175919354,
+          "calls": 1
+        },
+        "request.respond": {
+          "inclusive": 6.483308970928192e-05,
+          "exclusive": 6.483308970928192e-05,
+          "calls": 1
+        },
+        "request.other": {
+          "inclusive": 0.8908866341225803,
+          "exclusive": 0.0001207161694765091,
+          "calls": 1
+        }
+      },
+      "native_bridge": {
+        "calls": 78.0,
+        "shape_bind": 3.261212259531021e-05,
+        "input_copy": 0.007867268286645412,
+        "input_padding": 0.00039926287718117237,
+        "rknn_matmul_run": 0.20044086687266827,
+        "output_copy": 0.02657866757363081
+      },
+      "linear_shapes": {
+        "linear.rknn:M115:K1024:N6144": {
+          "calls": 6,
+          "flops": 8682209280,
+          "weight_bytes_fp16": 12582912
+        },
+        "linear.rknn:M115:K1024:N2048": {
+          "calls": 6,
+          "flops": 2894069760,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.cpu:M115:K1024:N16": {
+          "calls": 12,
+          "flops": 45219840,
+          "weight_bytes_fp16": 32768
+        },
+        "linear.rknn:M115:K2048:N1024": {
+          "calls": 12,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 4194304
+        },
+        "linear.rknn:M115:K1024:N3584": {
+          "calls": 24,
+          "flops": 20258488320,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K3584:N1024": {
+          "calls": 12,
+          "flops": 10129244160,
+          "weight_bytes_fp16": 7340032
+        },
+        "linear.rknn:M115:K1024:N4096": {
+          "calls": 6,
+          "flops": 5788139520,
+          "weight_bytes_fp16": 8388608
+        },
+        "linear.rknn:M115:K1024:N512": {
+          "calls": 12,
+          "flops": 1447034880,
+          "weight_bytes_fp16": 1048576
+        }
+      },
+      "cpu_user_seconds": 1.806073000000012,
+      "cpu_system_seconds": 0.08128499999999939,
+      "minor_faults": 22247,
+      "voluntary_switches": 622,
+      "involuntary_switches": 7
+    }
+  ],
+  "instrumented_outputs_exactly_equal": true,
+  "uninstrumented_after": {
+    "seconds": [
+      0.8528639229480177,
+      0.8512198610696942,
+      0.8448667160701007,
+      0.8451055630575866,
+      0.8507945088203996,
+      0.8546053748577833,
+      0.853152183117345,
+      0.8578460610006005,
+      0.845626835944131,
+      0.8563432758674026,
+      0.8502028018701822,
+      0.8382980038877577
+    ],
+    "median": 0.8510071849450469,
+    "min": 0.8382980038877577,
+    "max": 0.8578460610006005,
+    "response": {
+      "model": "d3-edge",
+      "answers": {
+        "kind": {
+          "type": "choice",
+          "choice": "code",
+          "probabilities": {
+            "code": 0.9991614487649136,
+            "math": 0.0007030417676997158,
+            "chat": 0.00013550946738658898
+          },
+          "confidence": 0.9934924631719657
+        }
+      },
+      "usage": {
+        "input_tokens": 115,
+        "output_tokens": 0
+      }
+    }
+  },
+  "native_stats": {
+    "native_calls": 1911,
+    "norm_calls": 1677,
+    "conv_calls": 234
+  },
+  "model_parameters": 594321600,
+  "passed": true
+}

@@ -1,0 +1,27 @@
+gpu_host.cpp: In function ‘void* d3_gpu_create(const char*)’:
+gpu_host.cpp:28:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   28 |   if(!p->device)throw std::runtime_error("No GPU device");cl_int c;p->ctx=clCreateContext(nullptr,1,&p->device,nullptr,nullptr,&c);check(c,"create_context");p->queue=clCreateCommandQueue(p->ctx,p->device,0,&c);check(c,"create_queue");
+      |   ^~
+gpu_host.cpp:28:59: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   28 |   if(!p->device)throw std::runtime_error("No GPU device");cl_int c;p->ctx=clCreateContext(nullptr,1,&p->device,nullptr,nullptr,&c);check(c,"create_context");p->queue=clCreateCommandQueue(p->ctx,p->device,0,&c);check(c,"create_queue");
+      |                                                           ^~~~~~
+gpu_host.cpp: In function ‘int d3_gpu_attention(void*, const uint16_t*, const uint16_t*, const uint16_t*, const uint8_t*, uint16_t*, int, int, int, int, float)’:
+gpu_host.cpp:38:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   38 |   if(!h||T<1||T>512||H<1||H>16||KH<1||H%KH||D<1||D>256)throw std::runtime_error("Unsupported attention shape");auto*p=static_cast<D3GPU*>(h);
+      |   ^~
+gpu_host.cpp:38:112: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   38 |   if(!h||T<1||T>512||H<1||H>16||KH<1||H%KH||D<1||D>256)throw std::runtime_error("Unsupported attention shape");auto*p=static_cast<D3GPU*>(h);
+      |                                                                                                                ^~~~
+gpu_host.cpp: In function ‘int d3_gpu_scan(void*, const float*, const float*, const float*, const float*, const float*, uint16_t*, int, int, int, int)’:
+gpu_host.cpp:47:3: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   47 |   if(!h||T<1||T>512||H<1||H>32||KD<1||KD>128||VD<1||VD>128)throw std::runtime_error("Unsupported scan shape");auto*p=static_cast<D3GPU*>(h);
+      |   ^~
+gpu_host.cpp:47:111: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   47 |   if(!h||T<1||T>512||H<1||H>32||KD<1||KD>128||VD<1||VD>128)throw std::runtime_error("Unsupported scan shape");auto*p=static_cast<D3GPU*>(h);
+      |                                                                                                               ^~~~
+gpu_host.cpp:49:3: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   49 |   for(int i=0;i<6;i++)p->arg(p->scan,i,p->bufs[i]);p->arg(p->scan,6,T);p->arg(p->scan,7,H);p->arg(p->scan,8,KD);p->arg(p->scan,9,VD);
+      |   ^~~
+gpu_host.cpp:49:52: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   49 |   for(int i=0;i<6;i++)p->arg(p->scan,i,p->bufs[i]);p->arg(p->scan,6,T);p->arg(p->scan,7,H);p->arg(p->scan,8,KD);p->arg(p->scan,9,VD);
+      |                                                    ^

@@ -1,0 +1,60 @@
+{
+  "id": "de238c160834f2fcf8b1c9d8b3214b2b63aa48c257492bce0ffb3a36d2e0984f",
+  "started_at": "2026-10-17T11:04:28.007796263Z",
+  "running": true,
+  "image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "config_sha256": "35e8bb67a70ad6fc828354359dceacdd4a6aca3171e555ad2c407d6f5a9de262",
+  "host_config_without_restart_sha256": "8f8943967eb5f7c54ba57df69d58dffbb896c9b6dc56ac2d68f38139e6d99ff8",
+  "restart": {
+    "Name": "unless-stopped",
+    "MaximumRetryCount": 0
+  },
+  "source_hashes": {
+    "original-container.json": "51b02da66d320469985a3ad0bfa9e5a55f67f1130b579031a6407715dc3312f4",
+    "server.py": "40cc2cd83d826bf6e24bd3f9a5763350492ace7519a05a3bc56251224d86bfac",
+    "native_norm.c": "de86856616065b42bd500529f073240bac07a7e165a9292273a372ab721acbcf",
+    "rollback.sh": "52d9f6acda6355bc9e52bd3c8a8610c522c22f2b6ad4e17f38ad192db0ae5f67",
+    "SHA256SUMS": "6c2ec2a72207546a014dfcbb63e590c986b89dddf98f04d06da7820fa1f57bd4",
+    "image-id.txt": "eb394c71b43584af7f817f2ccdb190fde68524c1ef8a9c6927e003cdf799c422",
+    "libd3_native_norm.so": "80813bfc1c7f0b5763af536815da9691e47680a460c391de46c16166678b0592",
+    "cpu_attention_optimized.py": "293eab1f0fcbfa6bbda52159aa44caeefd7b6c57763ac63e9ec658511876c33a",
+    "run.sh": "255b024c192743418dc99ddfe247fdcd4f0287b10c5496266885e73dbe55150c",
+    "native_norm.py": "6933fc3e49f25d715f37fd1116ef319036704085bf0f83dcf272184db4078875",
+    "base/sdk-manifest.json": "ea41e3153bc56bb6531a990abb3458cbb2d596fd8c0bfd0bc1982fc2e4818ba4",
+    "base/request.json": "fd315e85cafc1ba85e3067e368fa2e397dba950e5a1506b50656182bac26e17a",
+    "base/rknn_linear.py": "2cc72b3a1ba7bd440e4a4b1d3fc612bdb181ce9a67853cf7493ca25e9098c0c1",
+    "base/cpu_optimized_server.py": "060e45263bdd12955d62cdc812a592e37ae62d070a12f62dc1b4f43262fc72ab",
+    "base/libmatmul_bridge.so": "ab9437ebb49e6dfeac6a6de76c2468744a1de9b25fb97e6e8663befe92f79f41",
+    "base/sdk/librknnrt.so": "4b6cc575bedf8952b13db4b1190fa3b3d2ac213f00be774ff6ccd19d651970c0"
+  },
+  "health": {
+    "status": "ready",
+    "model": "vllm-sr/d3-edge",
+    "max_input_tokens": null,
+    "modalities": [
+      "text",
+      "image",
+      "video"
+    ],
+    "authentication": false,
+    "deployment": {
+      "release": "2026-10-17-three-thread-v1",
+      "torch_threads": 3,
+      "OMP_THREAD_LIMIT": "3",
+      "affinity": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chunk_size": 128,
+      "rknn_linear_layers": 78,
+      "native_stats": {
+        "native_calls": 8722,
+        "norm_calls": 7654,
+        "conv_calls": 1068
+      }
+    }
+  },
+  "at_utc": "2026-10-17T19:20:08.436823+00:00"
+}

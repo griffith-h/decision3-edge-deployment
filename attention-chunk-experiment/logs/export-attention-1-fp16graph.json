@@ -1,0 +1,29 @@
+{
+  "layer": "language_model.layers.5.self_attn",
+  "strict_bf16_boundaries": false,
+  "exported": "/work/attention-1-fp16graph.onnx",
+  "ops": [
+    "Add",
+    "Concat",
+    "Constant",
+    "Div",
+    "Gather",
+    "MatMul",
+    "Mul",
+    "Neg",
+    "ReduceMean",
+    "Reshape",
+    "Shape",
+    "Sigmoid",
+    "Slice",
+    "Softmax",
+    "Sqrt",
+    "Tile",
+    "Transpose",
+    "Unsqueeze"
+  ],
+  "cpu_reference_max_abs": 0.0018496811389923096,
+  "cpu_reference_mean_abs": 0.00012142486230004579,
+  "cpu_reference_cosine": 0.9999819993972778,
+  "note": "activation diagnostic, not probability tolerance; non-strict changes arithmetic rounding, original weights and math/mask retained"
+}

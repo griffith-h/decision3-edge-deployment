@@ -1,0 +1,6 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  33%|███▎      | 102/305 [00:00<00:00, 1009.05it/s]Loading weights:  71%|███████▏  | 218/305 [00:00<00:00, 1094.41it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1183.25it/s]
+Traceback (most recent call last):
+  File "/experiment/test_readout.py", line 14, in <module>
+    actual=readout.last_layer(captured['hidden'],captured['rope'],captured['mask']);ref=captured['expected'];d=(actual.float()-ref.float()).abs();r['last_layer']={'max_hidden_delta':float(d.max()),'mean_hidden_delta':float(d.mean()),'allclose':torch.allclose(actual.float(),ref.float(),atol=.002,rtol=.008)};assert r['last_layer']['allclose']
+                                                                                                                                                                                                                                                                                                                           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError

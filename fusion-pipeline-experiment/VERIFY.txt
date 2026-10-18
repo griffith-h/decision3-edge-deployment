@@ -1,0 +1,35 @@
+第五阶段核验记录（最终验收完成，1秒目标未达成）
+仓库/板端：/Users/laji/Downloads/decision3-edge-deployment / /opt/decision3-edge-fusion-pipeline-20261018
+线上decision3-edge-graph未替换；独立decision3-fusion-pipeline-test无端口、顺序执行。
+
+已完成组件/筛选：
+- bash build.sh / build-wide.sh / build-staging.sh / build-scan.sh / build-four.sh / build-neon-scan.sh / build-conv.sh / build-mixed.sh；具体输出见logs/build*.log。
+- bash run.sh diagnose_dynamic_b.py / probe_npu_attention.py；显式sync/rebind后重复性及真实六层回放通过。K624失败及未同步错误日志/源码保留。
+- bash run.sh test_components.py / test_full_mlp.py / test_precise.py / test_split.py；包含worker等待、私有结果丢弃、整次回退、故障禁用和关闭。首次precise测试fixture遗漏backbone失败，修复后通过，旧日志保留。
+- bash run4.sh test_neon_scan.py / test_grouped.py / test_precise.py / test_readout.py / test_mixed.py。615精度MLP的第二块故障整体重算已通过；公开FP32输出dense/scatter/非有限/饱和保护及1/31/128/615/640行通过。
+- test_readout.py首版隐藏allclose(.002,.008)失败，最大隐藏差.0078125；readout-unit-initial.json/log与初始测试源码保留。后续记录原allclose仍false，独立检查.01隐藏最大界限及原全模型输出门槛；钩子旁路、首末key可达、整次logits故障重算及持续禁用通过。用户的概率/score/noul门槛未变。
+- 各screen*.py和replay*.py完整计时/输出在logs。最快但超原current门槛的模式不算合格。MLP640最终组合12组消融未胜出，未采用；其他staging/拆列/自有NEON扫描/融合扫描/卷积/双head合并的负面证据保留。
+- bash run.sh make_references.py：原runner/current新算34例，已有九例等于旧冻结current，12份不同内容均实际615 token，12份额外短请求均115 token。
+- 第一轮regress_selected.py完整运行但qualified=false，两份615内容超门槛。初版shell对qualified的断言失败，因此没有产生原计划的research-stack-sources整目录；已有selected-owner-research-stack.py和后续before-precision-sources保存实现，原JSON/日志未删。
+- 恢复BF16 MLP中间边界修复一例，matched615-1仍失败；恢复历史已用的FP32输出进一步定位双重舍入。仅MLP/仅其他投影的范围缩减在新615内容上失败，不能采用其更快延迟。
+
+计时方法：
+正式与profile分开；暖机后交错，nearest-rank P95，不删样本；同一资源银行，真实重算。哈希和线上HTTP检查仅在实验容器退出后单独执行。ablate-domains原scope字段沿用了早期pairs措辞；records实际为四模式轮转，各12次，报告按records重算。
+
+最终验收结果：
+- bash build-selected.sh：采用路径构建成功，无编译警告。
+- bash run4.sh test_mixed.py：两种输出类型10份矩阵记录、dense/scatter及有限65496近饱和回退通过，六个测试句柄销毁。
+- bash run4.sh test_selected.py：正常5层NPU注意力/11层615精度MLP/1次末层readout；模式旁路、整次logits及注意力回退、持续禁用、重复关闭及原方法恢复通过。
+- bash run4.sh final_regression.py：34例原current门槛与运行检查通过；五个代表场景的baseline受检数值与冻结记录相等。
+- bash run4.sh profile_selected.py：独立五组完整配对，10份完整输出保存；不混入正式分布。
+- bash run4.sh formal_selected.py --round N --pairs 30（N=1,2,3）：三轮180份实际新推理，90份候选全部原门槛通过。合并P50 1745.16ms、P95 1776.55ms；对照P50 2123.25ms，下降17.81%。1秒未达成；没有丢样本，基线max2346.80ms及候选max1797.03ms均保留。
+- 三轮暖态engine句柄106→106、FD1037→1037，关闭engine/native attention句柄0；RSS高水位约6.33GiB，不代表全部驱动内存。
+- bash run4.sh short_selected.py --pairs 12：115行另12组，P50 326.30→325.68ms；不计入615目标。
+- python3 fusion-pipeline-experiment/capture_artifacts.py before / after：252项板端运行源码/配置/库/图/SDK/原模型资产一致，哈希时实验进程均已退出；108份可用本地资产与板端逐项匹配。
+- python3 fusion-pipeline-experiment/preserve_service.py after：线上身份/启动时间/配置及554个发布文件SHA相同，健康、五次完整HTTP输出一致，无独立实验容器。
+- python3 fusion-pipeline-experiment/validate_records.py：重算1001条保存记录差异及正式P50/P95通过，含归档副本；排除字节相同副本后859条。两者均不是独立推理次数，副本映射及早期失败保存在validation.json。
+- confidence最大差0.01414562独立报告；原门槛只包含choice及概率/score/noul≤0.01，全部34例通过。score差不是概率差，没有业务准确率结论。
+- 报告、旧历史区、语法、shell、差异及视觉核验见logs/local-checks.log和report-visual-check.txt。没有部署、提交或推送。
+
+补充追溯：核对了cpu-tail-experiment/native_bridge.cpp、native-layout-attrs.json、bridge-screen.json的原始记录（旧native A/C顺序筛选更慢）；未只扩shape重复该路线。公开SDK的布局/类型信息仅从头文件与公开demo读取，未反编译厂商库。
+首次最终profile记录脚本把append放在candidate条件内，JSON仅5份候选；baseline十次运行日志完整，另存profile-incomplete-pairs.json/log/py。修复后独立重跑五组完整配对，新增完整output保存及每模式五次断言。该文件没有混入正式计时。

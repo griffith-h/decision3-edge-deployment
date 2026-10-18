@@ -1,0 +1,28 @@
+native_mlp.cpp: In function ‘int nm_prepare(void*, int, const uint16_t*)’:
+native_mlp.cpp:55:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   55 |  if(bad)return -2;p->prepared=rows;return 0;
+      |  ^~
+native_mlp.cpp:55:19: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   55 |  if(bad)return -2;p->prepared=rows;return 0;
+      |                   ^
+native_mlp.cpp: In function ‘int nm_fuse(void*, void*, void*, int, const uint16_t*)’:
+native_mlp.cpp:75:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   75 |  if(rawbad)return -3;if(inputbad)return -2;d->prepared=rows;return 0;
+      |  ^~
+native_mlp.cpp:75:22: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   75 |  if(rawbad)return -3;if(inputbad)return -2;d->prepared=rows;return 0;
+      |                      ^~
+native_split.cpp: In function ‘int nm_prepare(void*, int, const uint16_t*)’:
+native_split.cpp:55:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   55 |  if(bad)return -2;p->prepared=rows;return 0;
+      |  ^~
+native_split.cpp:55:19: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   55 |  if(bad)return -2;p->prepared=rows;return 0;
+      |                   ^
+native_split.cpp: In function ‘int nm_fuse_slice(void*, void*, void*, int, int, const uint16_t*)’:
+native_split.cpp:75:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   75 |  if(rawbad)return -3;if(inputbad)return -2;d->prepared=rows;return 0;
+      |  ^~
+native_split.cpp:75:22: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   75 |  if(rawbad)return -3;if(inputbad)return -2;d->prepared=rows;return 0;
+      |                      ^~

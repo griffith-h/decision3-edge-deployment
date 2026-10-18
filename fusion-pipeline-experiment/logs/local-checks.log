@@ -1,0 +1,75 @@
+[
+  {
+    "command": [
+      "python3",
+      "fusion-pipeline-experiment/validate_records.py"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"files\": {\n    \"ablate-domains.json\": 48,\n    \"ablate-mlp.json\": 24,\n    \"equivalence-before-precision.json\": 34,\n    \"final-regression.json\": 34,\n    \"formal-1.json\": 60,\n    \"formal-2.json\": 60,\n    \"formal-3.json\": 60,\n    \"profile-initial.json\": 3,\n    \"profile-projection.json\": 3,\n    \"profile-selected.json\": 10,\n    \"regression-research-stack.json\": 108,\n    \"regression.json\": 108,\n    \"screen-combined.json\": 42,\n    \"screen-domains.json\": 39,\n    \"screen-extended.json\": 30,\n    \"screen-float.json\": 26,\n    \"screen-grouped.json\": 24,\n    \"screen-npu.json\": 24,\n    \"screen-precise.json\": 16,\n    \"screen-precision615.json\": 78,\n    \"screen-readout.json\": 24,\n    \"screen-scan-options.json\": 32,\n    \"screen-split.json\": 16,\n    \"screen-staging.json\": 24,\n    \"screen-wide.json\": 16,\n    \"selected-equivalence.json\": 34,\n    \"short-formal.json\": 24\n  },\n  \"passed\": true,\n  \"formal_candidate_timing\": {\n    \"count\": 90,\n    \"median\": 1.745159643003717,\n    \"p95_nearest_rank\": 1.7765501937828958,\n    \"min\": 1.6206180730368942,\n    \"max\": 1.7970265499316156\n  },\n  \"formal_baseline_timing\": {\n    \"count\": 90,\n    \"median\": 2.1232479938771576,\n    \"p95_nearest_rank\": 2.189463481074199,\n    \"min\": 2.0294351771008223,\n    \"max\": 2.346801999025047\n  },\n  \"identical_archive_files\": {\n    \"regression.json\": \"regression-research-stack.json\",\n    \"selected-equivalence.json\": \"equivalence-before-precision.json\"\n  },\n  \"record_comparisons_excluding_identical_archives\": 859,\n  \"count_note\": \"outputs_checked counts saved-record comparisons, including identical archive copies. Neither count is a count of independent inferences; formal inference count is180, including90 candidates.\",\n  \"outputs_checked\": 1001\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "fusion-pipeline-experiment/check_report.py"
+    ],
+    "returncode": 0,
+    "stdout": "REPORT PASS 53 fifth-stage links 26 total tables\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "long-tail-experiment/check_report.py"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"passed\": true,\n  \"tables\": 26,\n  \"data_rows_per_table\": [\n    4,\n    34,\n    10,\n    4,\n    32,\n    9,\n    6,\n    5,\n    3,\n    12,\n    29,\n    9,\n    9,\n    9,\n    9,\n    3,\n    2,\n    4,\n    5,\n    8,\n    5,\n    42,\n    9,\n    4,\n    13,\n    10\n  ],\n  \"links_checked\": 145,\n  \"ids_checked\": 11,\n  \"served_bytes_equal\": null,\n  \"new_source_whitespace_check\": true\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "compileall",
+      "-q",
+      "fusion-pipeline-experiment"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": "bash -n each fusion-pipeline-experiment/*.sh",
+    "returncode": 0
+  },
+  {
+    "command": "git diff --check",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": "check saved115 records: all615-specific counters zero",
+    "returncode": 0
+  },
+  {
+    "command": "final compileall after documentation-only postprocessing",
+    "returncode": 0
+  },
+  {
+    "command": "current checker:26 tables,145 links,11 IDs,53 fifth-stage links; preview bytes equal; original audit restored",
+    "returncode": 0
+  },
+  {
+    "command": "read-only desktop visual QA; temporary local server and browser closed",
+    "returncode": 0
+  },
+  {
+    "command": "19 local runtime/benchmark inputs equal actual run snapshot",
+    "returncode": 0
+  },
+  {
+    "command": "final git diff --check",
+    "returncode": 0
+  }
+]

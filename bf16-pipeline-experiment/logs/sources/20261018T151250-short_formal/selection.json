@@ -1,0 +1,25 @@
+{
+  "route": "native_fp32_bf16_mlp_split_down",
+  "module": "accepted_owner.Owner",
+  "parent": "fifth-stage selected float_readout",
+  "scope": "B1/T615 logits only; guarded PreciseMlp",
+  "down_rows": [
+    320,
+    295
+  ],
+  "down_masks": [
+    1,
+    2
+  ],
+  "mlp_boundaries": [
+    "FP32 MatMul result to BF16",
+    "BF16 SiLU lookup",
+    "BF16 product",
+    "FP16 execution input of down",
+    "FP32 down result to BF16"
+  ],
+  "scan": "original 32-row/64-column, 4 threads; no stream adoption",
+  "other_projections": "fifth-stage normal FP32; native-layout projection rejected",
+  "goal": "615 warm method P50/P95 <1 second",
+  "gate": "original current choice unchanged, probability/score/noul abs<=0.01; confidence separate"
+}

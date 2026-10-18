@@ -1,0 +1,53 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  63%|██████▎   | 192/305 [00:00<00:00, 1907.40it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1634.50it/s]
+REFERENCE words-512 615 23.251 None
+REFERENCE single 115 3.411 None
+REFERENCE words-410 513 19.592 None
+REFERENCE words-921 1024 37.797 None
+REFERENCE natural-long 706 27.427 None
+REFERENCE batch-long 1202 43.957 None
+REFERENCE boundary-512 512 4.916 None
+REFERENCE multi-wide 680 21.685 None
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff7e49a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff7e439018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff8016ef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff7fb2f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff7fb2fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff80aaabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff7f535cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff7f510c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff7f54b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff7f537538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff88eb38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff8b257744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff8b257818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+REFERENCE image 347 7.904 None
+REFERENCE wide2-natural 586 11.366 None
+REFERENCE matched615-0 615 12.697 True
+REFERENCE matched615-1 615 12.652 True
+REFERENCE matched615-2 615 12.684 True
+REFERENCE matched615-3 615 12.667 True
+REFERENCE matched615-4 615 12.662 True
+REFERENCE matched615-5 615 13.175 True
+REFERENCE matched615-6 615 12.706 True
+REFERENCE matched615-7 615 12.719 True
+REFERENCE matched615-8 615 12.681 True
+REFERENCE matched615-9 615 12.719 True
+REFERENCE matched615-10 615 13.02 True
+REFERENCE matched615-11 615 13.218 True
+REFERENCE extra-shape115-0 115 0.336 None
+REFERENCE extra-shape115-1 115 0.327 None
+REFERENCE extra-shape115-2 115 0.299 None
+REFERENCE extra-shape115-3 115 0.298 None
+REFERENCE extra-shape115-4 115 0.319 None
+REFERENCE extra-shape115-5 115 0.326 None
+REFERENCE extra-shape115-6 115 0.324 None
+REFERENCE extra-shape115-7 115 0.323 None
+REFERENCE extra-shape115-8 115 0.322 None
+REFERENCE extra-shape115-9 115 0.338 None
+REFERENCE extra-shape115-10 115 0.323 None
+REFERENCE extra-shape115-11 115 0.325 None

@@ -1,0 +1,102 @@
+{
+  "goal_met": false,
+  "baseline": {
+    "count": 90,
+    "median": 2.1232479938771576,
+    "p95_nearest_rank": 2.189463481074199,
+    "min": 2.0294351771008223,
+    "max": 2.346801999025047
+  },
+  "candidate": {
+    "count": 90,
+    "median": 1.745159643003717,
+    "p95_nearest_rank": 1.7765501937828958,
+    "min": 1.6206180730368942,
+    "max": 1.7970265499316156
+  },
+  "reduction": 0.17807074442728288,
+  "current_maxima": {
+    "probability_max_delta": 0.00929519534111023,
+    "score_max_delta": 0.007059887048204816,
+    "noul_max_delta": 0.0030105294916077385,
+    "confidence_max_delta": 0.014145620757172184
+  },
+  "regression_cases": 34,
+  "execution": {
+    "grouped": false,
+    "selection": {
+      "wide": {
+        "median": 1.5655473975930363,
+        "passed": true
+      },
+      "grouped": {
+        "median": 1.5587339524645358,
+        "passed": true
+      }
+    },
+    "rule": "All primary current/incremental/runtime gates; require at least2% median gain over wide to add a scan variant. No samples discarded.",
+    "mode": "four",
+    "residual": false,
+    "scan_selection": {
+      "four": {
+        "median": 1.4412864905316383,
+        "passed": true,
+        "n": 8
+      },
+      "neon": {
+        "median": 1.5613262769766152,
+        "passed": true,
+        "n": 8
+      },
+      "wide": {
+        "median": 1.5617958405055106,
+        "passed": true,
+        "n": 8
+      }
+    },
+    "omp_thread_limit": 4,
+    "scope": "Frozen B1/T615 logits only for FP32/precise615/readout; original qualified paths for other shapes, short multi-batch precision repair retained.",
+    "full640": false,
+    "mlp_ablation": {
+      "False": {
+        "median": 1.455571805476211,
+        "passed": true
+      },
+      "True": {
+        "median": 1.4908616435714066,
+        "passed": true
+      }
+    },
+    "mlp_rule": "Require at least2% full-model median improvement in final combined path to retain new640 graphs; otherwise original dual-handle128+128+384.",
+    "fp32": true,
+    "fp32_domain": "all",
+    "precise615": true,
+    "precise_width": 640,
+    "readout": true,
+    "final_mode": "float_readout",
+    "domain_selection": {
+      "float": {
+        "median": 1.8405231885844842,
+        "passed": true,
+        "n": 12
+      },
+      "float_readout": {
+        "median": 1.7674147420329973,
+        "passed": true,
+        "n": 12
+      },
+      "mlponly_readout": {
+        "median": 1.6710019529564306,
+        "passed": false,
+        "n": 12
+      },
+      "projection_readout": {
+        "median": 1.5372189715271816,
+        "passed": false,
+        "n": 12
+      }
+    },
+    "domain_rule": "All13 original-current gates plus12 rotating samples/mode. Require2% median gain to add readout/domain restriction. Final34-case regression mandatory."
+  },
+  "production_unchanged": true
+}

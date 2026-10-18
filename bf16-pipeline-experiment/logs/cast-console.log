@@ -1,0 +1,334 @@
+D Save log info to: /experiment/logs/cast-bf16.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+[1;31mE[0m [1;31mbuild: Traceback (most recent call last):
+  File "rknn/api/rknn_log.py", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper
+  File "rknn/api/rknn_base.py", line 2066, in rknn.api.rknn_base.RKNNBase.build
+  File "rknn/api/graph_optimizer.py", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant
+  File "rknn/api/session.py", line 150, in rknn.api.session.Session.run
+  File "/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 322, in run
+    return self._sess.run(output_names, input_feed, run_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: No corresponding Numpy type for Tensor Type. bfloat16
+[0m
+[1;33mW[0m [1;33mbuild: ===================== WARN(2) =====================[0m
+[1;31mE[0m [1;31mrknn-toolkit2 version: 2.5.0[0m
+CAST {'mode': 'bf16', 'config': 0, 'load': 0, 'error': 'Traceback (most recent call last):\n  File "rknn/api/rknn_log.py", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File "rknn/api/rknn_base.py", line 2066, in rknn.api.rknn_base.RKNNBase.build\n  File "rknn/api/graph_optimizer.py", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant\n  File "rknn/api/session.py", line 150, in rknn.api.session.Session.run\n  File "/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 322, in run\n    return self._sess.run(output_names, input_feed, run_options)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: No corresponding Numpy type for Tensor Type. bfloat16\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File "/experiment/probe_cast.py", line 24, in <module>\n    rec[\'build\']=r.build(do_quantization=False)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/work/compiler-env/lib/python3.12/site-packages/rknn/api/rknn.py", line 203, in build\n    return self.rknn_base.build(do_quantization=do_quantization, dataset=dataset, expand_batch_size=rknn_batch_size, auto_hybrid=auto_hybrid)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "rknn/api/rknn_log.py", line 349, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File "rknn/api/rknn_log.py", line 95, in rknn.api.rknn_log.RKNNLog.e\nValueError: Traceback (most recent call last):\n  File "rknn/api/rknn_log.py", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File "rknn/api/rknn_base.py", line 2066, in rknn.api.rknn_base.RKNNBase.build\n  File "rknn/api/graph_optimizer.py", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant\n  File "rknn/api/session.py", line 150, in rknn.api.session.Session.run\n  File "/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 322, in run\n    return self._sess.run(output_names, input_feed, run_options)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: No corresponding Numpy type for Tensor Type. bfloat16\n\n'}
+D Save log info to: /experiment/logs/cast-half.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: Please note that some float16/float64 data types in the model have been modified to float32![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     remove_invalid_cast: remove node = ['intermediate']
+D     unsqueeze_to_4d_cast: remove node = [], add node = ['x_rs', 'y-rs']
+D     remove_invalid_cast: remove node = ['y']
+D     fuse_two_reshape: remove node = ['x_rs']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [14:21:36.902] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [14:21:36.914] RKNN is invoked
+D RKNN: [14:21:36.933] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [14:21:36.934] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [14:21:36.934] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [14:21:36.934] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [14:21:36.934] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [14:21:36.935] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [14:21:36.935] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [14:21:36.935] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [14:21:36.936] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [14:21:36.936] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [14:21:36.936] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [14:21:36.936] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [14:21:36.936] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [14:21:36.936] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [14:21:36.936] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [14:21:36.936] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [14:21:36.936] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [14:21:36.936] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [14:21:36.937] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [14:21:36.937] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [14:21:36.937] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [14:21:36.937] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [14:21:36.937] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [14:21:36.937] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [14:21:36.937] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [14:21:36.938] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [14:21:36.938] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [14:21:36.938] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [14:21:36.938] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [14:21:36.939] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [14:21:36.939] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [14:21:36.939] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [14:21:36.939] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [14:21:36.940] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [14:21:36.940] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [14:21:36.940] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [14:21:36.940] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [14:21:36.940] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [14:21:36.941] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [14:21:36.941] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [14:21:36.941] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [14:21:36.941] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [14:21:36.941] >>>>>> start: OpEmit
+D RKNN: [14:21:36.947] <<<<<<<< end: OpEmit
+D RKNN: [14:21:36.947] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [14:21:36.947] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [14:21:36.948] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [14:21:36.949] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [14:21:36.950] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [14:21:36.950] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [14:21:36.951] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [14:21:36.951] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [14:21:36.951] >>>>>> start: OpEmit
+D RKNN: [14:21:36.955] finish initComputeZoneMap
+D RKNN: [14:21:36.962] <<<<<<<< end: OpEmit
+D RKNN: [14:21:36.962] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [14:21:36.962] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [14:21:36.962] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [14:21:36.962] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [14:21:36.964] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [14:21:36.964] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [14:21:36.965] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [14:21:36.965] Warning: Tensor y-rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:36.965] Warning: Tensor y-rs_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [14:21:36.965] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [14:21:36.965] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [14:21:36.965] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [14:21:36.965] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [14:21:36.973] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [14:21:36.974] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [14:21:36.982] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:36.982]                                                             Network Layer Information Table                                                            
+D RKNN: [14:21:36.982] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:36.982] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [14:21:36.982] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:36.982] 0    InputOperator      FLOAT16  CPU    \                                        (1,128,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [14:21:36.982] 1    Reshape            FLOAT16  NPU    (1,128,1024),(3)                         (1,128,1024)           0/0/0                                 256          Reshape:y-rs    
+D RKNN: [14:21:36.982] 2    OutputOperator     FLOAT16  CPU    (1,128,1024)                             \                      0/0/0                                 256          OutputOperator:y
+D RKNN: [14:21:36.982] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:36.982] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [14:21:36.983] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [14:21:36.984] Export RKNN model to /tmp/tmpehl2s5ei/check.rknn
+D RKNN: [14:21:36.991] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [14:21:36.991] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [14:21:36.992] -----------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:36.992]                                        Feature Tensor Information Table                           
+D RKNN: [14:21:36.992] -------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:36.992] ID  User           Tensor        DataType  DataFormat   OrigShape    NativeShape     |     [Start       End)       Size
+D RKNN: [14:21:36.992] -------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:36.992] 1   Reshape        x             FLOAT16   UNDEFINED    (1,128,1024) (1,128,1024)    | 0x00000000 0x00040000 0x00040000
+D RKNN: [14:21:36.992] 2   OutputOperator y             FLOAT16   UNDEFINED    (1,128,1024) (1,128,1024)    | 0x00040040*0x00080040 0x00040000
+D RKNN: [14:21:36.992] -------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:36.992] ------------------------------------------------------------------------------
+D RKNN: [14:21:36.992]                           Const Tensor Information Table         
+D RKNN: [14:21:36.992] --------------------------------------------+---------------------------------
+D RKNN: [14:21:36.992] ID  User    Tensor   DataType  OrigShape    |     [Start       End)       Size
+D RKNN: [14:21:36.992] --------------------------------------------+---------------------------------
+D RKNN: [14:21:36.992] 1   Reshape y-rs_i1  INT64     (3)          | 0x00000000 0x00000018 0x00000018
+D RKNN: [14:21:36.992] --------------------------------------------+---------------------------------
+D RKNN: [14:21:36.993] ----------------------------------------
+D RKNN: [14:21:36.993] Total Internal Memory Size: 512.062KB
+D RKNN: [14:21:36.993] Total Weight Memory Size: 0.0625KB
+D RKNN: [14:21:36.993] ----------------------------------------
+D RKNN: [14:21:36.993] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+CAST {'mode': 'half', 'config': 0, 'load': 0, 'build': 0, 'export': 0}
+D Save log info to: /experiment/logs/cast-round.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     eliminate_mul_redundancy_const_dim: remove node = ['scaled'], add node = ['scaled']
+D     eliminate_div_redundancy_const_dim: remove node = ['y'], add node = ['y']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['x_rs', 'scaled-rs']
+D     convert_div_to_mul: remove node = ['y'], add node = ['y_2mul']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['rounded_rs', 'y-rs']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+D recover_const_share ...
+D recover_const_share done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [14:21:37.075] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [14:21:37.075] RKNN is invoked
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [14:21:37.077] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [14:21:37.077] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [14:21:37.077] >>>>>> start: OpEmit
+D RKNN: [14:21:37.078] <<<<<<<< end: OpEmit
+D RKNN: [14:21:37.078] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [14:21:37.078] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [14:21:37.078] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [14:21:37.079] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [14:21:37.079] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [14:21:37.079] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [14:21:37.079] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [14:21:37.079] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [14:21:37.079] >>>>>> start: OpEmit
+D RKNN: [14:21:37.079] finish initComputeZoneMap
+D RKNN: [14:21:37.088] finish initComputeZoneMap
+D RKNN: [14:21:37.089] finish initComputeZoneMap
+D RKNN: [14:21:37.090] finish initComputeZoneMap
+D RKNN: [14:21:37.090] <<<<<<<< end: OpEmit
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [14:21:37.090] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [14:21:37.090] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [14:21:37.090] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [14:21:37.090] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor scaled-rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor scaled-rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor rounded_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor rounded_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor y-rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [14:21:37.090] Warning: Tensor y-rs_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [14:21:37.090] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [14:21:37.090] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [14:21:37.090] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [14:21:37.091] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [14:21:37.091] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [14:21:37.091] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:37.091]                                                             Network Layer Information Table                                                            
+D RKNN: [14:21:37.091] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:37.091] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [14:21:37.091] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:37.091] 0    InputOperator      FLOAT16  CPU    \                                        (1,128,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [14:21:37.091] 1    Reshape            FLOAT16  NPU    (1,128,1024),(4)                         (1,128,1,1024)         0/0/0                                 256          Reshape:x_rs    
+D RKNN: [14:21:37.091] 2    Mul                FLOAT16  NPU    (1,128,1,1024),(1,1,1,1)                 (1,128,1,1024)         0/0/0                                 256          Mul:scaled      
+D RKNN: [14:21:37.091] 3    Reshape            FLOAT16  NPU    (1,128,1,1024),(3)                       (1,128,1024)           0/0/0                                 256          Reshape:scaled-rs
+D RKNN: [14:21:37.091] 4    Round              FLOAT16  CPU    (1,128,1024)                             (1,128,1024)           0/0/0                                 256          Round:rounded   
+D RKNN: [14:21:37.091] 5    Reshape            FLOAT16  NPU    (1,128,1024),(4)                         (1,128,1,1024)         0/0/0                                 256          Reshape:rounded_rs
+D RKNN: [14:21:37.091] 6    Mul                FLOAT16  NPU    (1,128,1,1024),(1,1,1,1)                 (1,128,1,1024)         0/0/0                                 256          Mul:y_2mul      
+D RKNN: [14:21:37.091] 7    Reshape            FLOAT16  NPU    (1,128,1,1024),(3)                       (1,128,1024)           0/0/0                                 256          Reshape:y-rs    
+D RKNN: [14:21:37.091] 8    OutputOperator     FLOAT16  CPU    (1,128,1024)                             \                      0/0/0                                 256          OutputOperator:y
+D RKNN: [14:21:37.091] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:37.091] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [14:21:37.091] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [14:21:37.091] Export RKNN model to /tmp/tmpev5ofh9o/check.rknn
+D RKNN: [14:21:37.092] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [14:21:37.092] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [14:21:37.092] ---------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [14:21:37.092]                                            Feature Tensor Information Table                                
+D RKNN: [14:21:37.092] -----------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] ID  User           Tensor                DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [14:21:37.092] -----------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] 1   Reshape        x                     FLOAT16   UNDEFINED    (1,128,1024)   (1,128,1024)    | 0x00000000 0x00040000 0x00040000
+D RKNN: [14:21:37.092] 1   Reshape        x_exSecondary         FLOAT16   NC1HWC2      (1,128,1024)   (1,64,1024,1,8) | 0x00040000 0x00080000 0x00040000
+D RKNN: [14:21:37.092] 2   Mul            x_rs                  FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00080000*0x000c0000 0x00040000
+D RKNN: [14:21:37.092] 3   Reshape        scaled-rs             FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00000000 0x00040000 0x00040000
+D RKNN: [14:21:37.092] 3   Reshape        scaled-rs_exSecondary FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00040000 0x00080000 0x00040000
+D RKNN: [14:21:37.092] 4   Round          scaled                FLOAT16   UNDEFINED    (1,128,1024)   (1,128,1024)    | 0x00080000*0x000c0000 0x00040000
+D RKNN: [14:21:37.092] 5   Reshape        rounded               FLOAT16   UNDEFINED    (1,128,1024)   (1,128,1024)    | 0x00000000 0x00040000 0x00040000
+D RKNN: [14:21:37.092] 5   Reshape        rounded_exSecondary   FLOAT16   NC1HWC2      (1,128,1024)   (1,64,1024,1,8) | 0x00040000 0x00080000 0x00040000
+D RKNN: [14:21:37.092] 6   Mul            rounded_rs            FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00080000*0x000c0000 0x00040000
+D RKNN: [14:21:37.092] 7   Reshape        y-rs                  FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00000000 0x00040000 0x00040000
+D RKNN: [14:21:37.092] 7   Reshape        y-rs_exSecondary      FLOAT16   NC1HWC2      (1,128,1,1024) (1,64,1,1024,8) | 0x00040000 0x00080000 0x00040000
+D RKNN: [14:21:37.092] 8   OutputOperator y                     FLOAT16   UNDEFINED    (1,128,1024)   (1,128,1024)    | 0x00080000*0x000c0000 0x00040000
+D RKNN: [14:21:37.092] -----------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] -----------------------------------------------------------------------------------
+D RKNN: [14:21:37.092]                            Const Tensor Information Table           
+D RKNN: [14:21:37.092] -------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] ID  User    Tensor        DataType  OrigShape    |     [Start       End)       Size
+D RKNN: [14:21:37.092] -------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] 1   Reshape x_rs_i1       INT64     (4)          | 0x00000040 0x00000060 0x00000020
+D RKNN: [14:21:37.092] 2   Mul     scale         FLOAT     (1,1,1,1)    | 0x00000000 0x00000040 0x00000040
+D RKNN: [14:21:37.092] 3   Reshape scaled-rs_i1  INT64     (3)          | 0x00000080 0x00000098 0x00000018
+D RKNN: [14:21:37.092] 5   Reshape rounded_rs_i1 INT64     (4)          | 0x00000100 0x00000120 0x00000020
+D RKNN: [14:21:37.092] 6   Mul     y_2mul_i1     FLOAT     (1,1,1,1)    | 0x000000c0 0x00000100 0x00000040
+D RKNN: [14:21:37.092] 7   Reshape y-rs_i1       INT64     (3)          | 0x00000140 0x00000158 0x00000018
+D RKNN: [14:21:37.092] -------------------------------------------------+---------------------------------
+D RKNN: [14:21:37.092] ----------------------------------------
+D RKNN: [14:21:37.092] Total Internal Memory Size: 768KB
+D RKNN: [14:21:37.092] Total Weight Memory Size: 1.375KB
+D RKNN: [14:21:37.092] ----------------------------------------
+D RKNN: [14:21:37.092] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+CAST {'mode': 'round', 'config': 0, 'load': 0, 'build': 0, 'export': 0}

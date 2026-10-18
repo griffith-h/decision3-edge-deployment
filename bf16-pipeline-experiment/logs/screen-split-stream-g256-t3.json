@@ -1,0 +1,3948 @@
+{
+  "group": 256,
+  "threads": 3,
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "35153",
+      "thermal_zone0": "35153",
+      "thermal_zone5": "35153",
+      "thermal_zone3": "35153",
+      "thermal_zone1": "36999",
+      "thermal_zone4": "35153"
+    }
+  },
+  "records": [
+    {
+      "pair": 0,
+      "mode": "baseline",
+      "seconds": 1.7522826800122857,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 0,
+      "mode": "native",
+      "seconds": 1.6189830428920686,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 0,
+      "mode": "stream",
+      "seconds": 1.7032589688897133,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 1,
+      "mode": "stream",
+      "seconds": 1.5364875430241227,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 1,
+      "mode": "native",
+      "seconds": 1.6105154701508582,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 1,
+      "mode": "baseline",
+      "seconds": 1.6863620257936418,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 2,
+      "mode": "baseline",
+      "seconds": 1.7346142551396042,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 2,
+      "mode": "native",
+      "seconds": 1.6004193138796836,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 2,
+      "mode": "stream",
+      "seconds": 1.686472644098103,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 3,
+      "mode": "stream",
+      "seconds": 1.660810395842418,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 3,
+      "mode": "native",
+      "seconds": 1.5535339571069926,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 3,
+      "mode": "baseline",
+      "seconds": 1.7068816497921944,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 4,
+      "mode": "baseline",
+      "seconds": 1.646383784012869,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 4,
+      "mode": "native",
+      "seconds": 1.548604230163619,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 4,
+      "mode": "stream",
+      "seconds": 1.6006042188964784,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 5,
+      "mode": "stream",
+      "seconds": 1.6832758549135178,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "pair": 5,
+      "mode": "native",
+      "seconds": 1.6109679508954287,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "pair": 5,
+      "mode": "baseline",
+      "seconds": 1.627895005978644,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9338039177168234,
+              "math": 0.04697682344722901,
+              "chat": 0.019219258835947623
+            },
+            "confidence": 0.741886684519239
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 50,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    }
+  ],
+  "completed": true,
+  "warmups": [
+    {
+      "mode": "baseline",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 0,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "mode": "baseline",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 0,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "mode": "native",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 44,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "mode": "native",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 40,
+        "wide_groups": 12,
+        "chunks": 23,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 1024)": 12,
+          "(1, 615, 2048)": 11
+        },
+        "native_rows": {
+          "615": 23
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 6,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 6
+          },
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 11,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 11,
+      "native_mlp_handles": 44,
+      "stream_calls": 0,
+      "stream_chunks": 0,
+      "stream_errors": []
+    },
+    {
+      "mode": "stream",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    },
+    {
+      "mode": "stream",
+      "warmup": true,
+      "vs_current": {
+        "max_delta": 0.0014058976731475617,
+        "confidence_max_delta": 0.0036443498567860777,
+        "all_numeric_max_delta": 0.0036443498567860777,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/math",
+        "probability_max_delta": 0.0014058976731475617,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "mlp": {
+        "optimized": 0,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {}
+      },
+      "projections": {
+        "bypass": 2,
+        "guard_fallback": 0,
+        "optimized_projections": 34,
+        "wide_groups": 12,
+        "chunks": 17,
+        "native_max_rows": 615,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(1, 615, 2048)": 5
+        },
+        "native_rows": {
+          "615": 17
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 5,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 5,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {
+            "615": 5
+          },
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 0,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 0,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 5,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 5,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 1,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 70,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 23,
+      "native_mlp_handles": 50,
+      "stream_calls": 6,
+      "stream_chunks": 18,
+      "stream_errors": []
+    }
+  ],
+  "handles_before": 70,
+  "timing": {
+    "baseline": {
+      "seconds": [
+        1.7522826800122857,
+        1.6863620257936418,
+        1.7346142551396042,
+        1.7068816497921944,
+        1.646383784012869,
+        1.627895005978644
+      ],
+      "count": 6,
+      "median": 1.696621837792918,
+      "min": 1.627895005978644,
+      "max": 1.7522826800122857,
+      "p95_nearest_rank": 1.7522826800122857
+    },
+    "native": {
+      "seconds": [
+        1.6189830428920686,
+        1.6105154701508582,
+        1.6004193138796836,
+        1.5535339571069926,
+        1.548604230163619,
+        1.6109679508954287
+      ],
+      "count": 6,
+      "median": 1.6054673920152709,
+      "min": 1.548604230163619,
+      "max": 1.6189830428920686,
+      "p95_nearest_rank": 1.6189830428920686
+    },
+    "stream": {
+      "seconds": [
+        1.7032589688897133,
+        1.5364875430241227,
+        1.686472644098103,
+        1.660810395842418,
+        1.6006042188964784,
+        1.6832758549135178
+      ],
+      "count": 6,
+      "median": 1.672043125377968,
+      "min": 1.5364875430241227,
+      "max": 1.7032589688897133,
+      "p95_nearest_rank": 1.7032589688897133
+    }
+  },
+  "handles_after_close": 0,
+  "native_after_close": 0,
+  "consumer_joined": true
+}

@@ -1,0 +1,1719 @@
+D Save log info to: /experiment/logs/rknn-mlp-1-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 370.06it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:21.611] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:21.629] RKNN is invoked
+D RKNN: [12:30:21.665] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:21.666] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:21.667] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:21.667] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:21.667] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:21.668] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:21.668] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:21.668] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:21.668] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:21.668] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:21.668] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:21.669] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:21.669] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:21.669] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:21.669] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:21.669] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:21.669] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:21.670] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:21.670] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:21.670] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:21.670] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:21.671] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:21.671] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:21.671] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:21.672] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:21.672] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:21.672] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:21.672] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:21.672] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:21.672] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:21.673] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:21.673] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:21.673] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:21.676] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:21.676] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:21.676] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:21.676] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:21.676] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:21.677] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:21.677] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:21.677] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:21.677] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:21.677] >>>>>> start: OpEmit
+D RKNN: [12:30:21.683] <<<<<<<< end: OpEmit
+D RKNN: [12:30:21.683] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:21.683] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:21.683] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:21.685] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:21.685] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:21.686] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:21.686] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:21.686] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:21.686] >>>>>> start: OpEmit
+D RKNN: [12:30:21.690] finish initComputeZoneMap
+D RKNN: [12:30:21.696] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:21.696] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:21.723] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:21.723] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:21.723] finish initComputeZoneMap
+D RKNN: [12:30:21.724] <<<<<<<< end: OpEmit
+D RKNN: [12:30:21.724] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:21.724] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:21.724] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:21.724] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:21.727] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:21.727] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:21.727] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:21.797] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:21.797] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:21.797] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:21.797] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:21.797] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:21.797] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:21.829] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:21.830] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:21.830] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:21.830] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:21.842] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:21.842] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:21.854] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.854]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:21.854] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.854] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:21.854] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.854] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:21.854] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:21.854] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:21.854] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:21.854] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:21.854] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:21.854] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:21.854] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:21.854] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:21.854] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:21.854] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:21.854] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.854] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:21.855] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:21.855] Export RKNN model to /tmp/tmp56jwj9pv/check.rknn
+D RKNN: [12:30:21.873] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:21.873] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:21.874] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.874]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:21.874] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.874] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:21.874] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.874] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:21.874] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:21.874] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:21.874] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:21.874] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:21.874] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:21.874] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:21.874] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:21.874] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:21.874] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:21.874] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:21.874] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:21.874] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:21.874] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:21.874] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.874] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:21.874]                                   Const Tensor Information Table                      
+D RKNN: [12:30:21.874] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.874] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:21.874] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.874] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:21.874] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:21.874] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:21.874] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:21.874] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:21.874] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:21.874] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:21.874] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:21.875] ----------------------------------------
+D RKNN: [12:30:21.875] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:21.875] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:21.875] ----------------------------------------
+D RKNN: [12:30:21.875] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-1-rows640', 'rows': 640, 'layer': 1, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 3.257068032005918}
+D Save log info to: /experiment/logs/rknn-mlp-2-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 417.81it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:23.943] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:23.953] RKNN is invoked
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:23.971] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:23.971] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:23.971] >>>>>> start: OpEmit
+D RKNN: [12:30:23.972] <<<<<<<< end: OpEmit
+D RKNN: [12:30:23.972] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:23.972] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:23.972] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:23.972] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:23.972] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:23.972] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:23.972] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:23.972] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:23.972] >>>>>> start: OpEmit
+D RKNN: [12:30:23.972] finish initComputeZoneMap
+D RKNN: [12:30:23.972] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:23.972] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:23.973] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:23.973] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:23.974] finish initComputeZoneMap
+D RKNN: [12:30:23.974] <<<<<<<< end: OpEmit
+D RKNN: [12:30:23.974] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:23.974] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:23.974] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:23.974] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:23.974] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:23.974] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:23.974] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:24.042] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:24.043] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:24.043] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:24.043] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:24.043] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:24.043] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:24.077] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:24.077] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:24.077] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:24.077] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:24.080] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:24.080] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:24.082] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.082]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:24.082] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.082] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:24.082] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.082] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:24.082] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:24.082] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:24.082] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:24.082] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:24.082] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:24.082] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:24.082] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:24.082] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:24.082] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:24.082] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:24.082] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.082] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:24.082] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:24.082] Export RKNN model to /tmp/tmpfjhtvqax/check.rknn
+D RKNN: [12:30:24.092] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:24.092] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:24.092] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.092]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:24.092] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:24.092] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:24.092] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:24.092] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:24.092] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:24.092] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:24.092] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:24.092] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:24.092] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:24.092] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:24.092] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:24.092] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:24.092] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:24.092] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:24.092] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:24.092] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:24.092]                                   Const Tensor Information Table                      
+D RKNN: [12:30:24.092] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:24.092] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:24.092] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:24.092] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:24.092] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:24.092] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:24.092] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:24.092] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:24.092] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:24.092] ----------------------------------------
+D RKNN: [12:30:24.092] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:24.092] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:24.092] ----------------------------------------
+D RKNN: [12:30:24.092] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-2-rows640', 'rows': 640, 'layer': 2, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.1970233479951276}
+D Save log info to: /experiment/logs/rknn-mlp-3-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 468.41it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:26.098] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:26.108] RKNN is invoked
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:26.127] >>>>>> start: OpEmit
+D RKNN: [12:30:26.127] <<<<<<<< end: OpEmit
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:26.127] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:26.127] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:26.128] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:26.128] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:26.128] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:26.128] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:26.128] >>>>>> start: OpEmit
+D RKNN: [12:30:26.128] finish initComputeZoneMap
+D RKNN: [12:30:26.128] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:26.128] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:26.129] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:26.129] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:26.130] finish initComputeZoneMap
+D RKNN: [12:30:26.130] <<<<<<<< end: OpEmit
+D RKNN: [12:30:26.130] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:26.130] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:26.130] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:26.130] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:26.130] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:26.130] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:26.130] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:26.198] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:26.198] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:26.198] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:26.198] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:26.198] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:26.198] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:26.231] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:26.231] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:26.231] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:26.231] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:26.234] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:26.234] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:26.237] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.237]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:26.237] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.237] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:26.237] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.237] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:26.237] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:26.237] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:26.237] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:26.237] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:26.237] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:26.237] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:26.237] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:26.237] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:26.237] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:26.237] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:26.237] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.237] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:26.237] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:26.237] Export RKNN model to /tmp/tmp_f1djdfr/check.rknn
+D RKNN: [12:30:26.249] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:26.249] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:26.249] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.249]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:26.249] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:26.249] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:26.249] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:26.249] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:26.249] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:26.249] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:26.249] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:26.249] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:26.249] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:26.249] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:26.249] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:26.249] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:26.249] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:26.249] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:26.249] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:26.249] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:26.249]                                   Const Tensor Information Table                      
+D RKNN: [12:30:26.249] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:26.249] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:26.249] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:26.249] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:26.249] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:26.249] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:26.249] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:26.249] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:26.249] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:26.249] ----------------------------------------
+D RKNN: [12:30:26.249] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:26.249] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:26.249] ----------------------------------------
+D RKNN: [12:30:26.249] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-3-rows640', 'rows': 640, 'layer': 3, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.1427145040070172}
+D Save log info to: /experiment/logs/rknn-mlp-4-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 464.97it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:28.182] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:28.191] RKNN is invoked
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:28.209] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:28.209] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:28.210] >>>>>> start: OpEmit
+D RKNN: [12:30:28.210] <<<<<<<< end: OpEmit
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:28.210] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:28.210] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:28.210] >>>>>> start: OpEmit
+D RKNN: [12:30:28.210] finish initComputeZoneMap
+D RKNN: [12:30:28.210] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:28.210] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:28.212] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:28.212] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:28.212] finish initComputeZoneMap
+D RKNN: [12:30:28.212] <<<<<<<< end: OpEmit
+D RKNN: [12:30:28.212] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:28.212] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:28.212] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:28.212] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:28.212] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:28.212] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:28.212] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:28.275] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:28.275] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:28.275] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:28.275] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:28.275] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:28.275] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:28.307] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:28.307] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:28.307] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:28.307] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:28.309] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:28.309] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:28.312] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.312]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:28.312] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.312] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:28.312] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.312] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:28.312] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:28.312] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:28.312] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:28.312] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:28.312] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:28.312] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:28.312] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:28.312] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:28.312] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:28.312] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:28.312] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.312] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:28.312] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:28.312] Export RKNN model to /tmp/tmpvs5p223f/check.rknn
+D RKNN: [12:30:28.326] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:28.326] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:28.326] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.326]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:28.326] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:28.326] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:28.326] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:28.326] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:28.326] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:28.326] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:28.326] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:28.326] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:28.326] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:28.326] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:28.326] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:28.326] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:28.326] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:28.326] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:28.326] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:28.326] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:28.326]                                   Const Tensor Information Table                      
+D RKNN: [12:30:28.326] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:28.326] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:28.326] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:28.326] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:28.326] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:28.326] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:28.326] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:28.326] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:28.326] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:28.326] ----------------------------------------
+D RKNN: [12:30:28.326] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:28.326] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:28.326] ----------------------------------------
+D RKNN: [12:30:28.326] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-4-rows640', 'rows': 640, 'layer': 4, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.0682987269974547}
+D Save log info to: /experiment/logs/rknn-mlp-6-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 413.15it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I RKNN: [12:30:30.275] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:30.286] RKNN is invoked
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:30.306] >>>>>> start: OpEmit
+D RKNN: [12:30:30.306] <<<<<<<< end: OpEmit
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:30.306] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:30.306] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:30.307] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:30.307] >>>>>> start: OpEmit
+D RKNN: [12:30:30.307] finish initComputeZoneMap
+D RKNN: [12:30:30.307] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:30.307] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:30.308] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:30.308] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:30.308] finish initComputeZoneMap
+D RKNN: [12:30:30.308] <<<<<<<< end: OpEmit
+D RKNN: [12:30:30.308] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:30.308] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:30.308] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:30.308] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:30.309] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:30.309] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:30.309] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:30.370] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:30.370] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:30.370] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:30.370] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:30.370] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:30.370] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:30.401] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:30.401] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:30.401] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:30.401] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:30.404] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:30.404] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:30.406] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.406]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:30.406] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.406] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:30.406] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.406] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:30.406] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:30.406] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:30.406] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:30.406] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:30.406] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:30.406] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:30.406] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:30.406] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:30.406] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:30.406] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:30.406] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.406] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:30.406] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:30.406] Export RKNN model to /tmp/tmpfn7vz4d2/check.rknn
+D RKNN: [12:30:30.416] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:30.416] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:30.417] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.417]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:30.417] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:30.417] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:30.417] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:30.417] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:30.417] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:30.417] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:30.417] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:30.417] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:30.417] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:30.417] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:30.417] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:30.417] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:30.417] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:30.417] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:30.417] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:30.417] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:30.417]                                   Const Tensor Information Table                      
+D RKNN: [12:30:30.417] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:30.417] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:30.417] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:30.417] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:30.417] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:30.417] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:30.417] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:30.417] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:30.417] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:30.417] ----------------------------------------
+D RKNN: [12:30:30.417] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:30.417] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:30.417] ----------------------------------------
+D RKNN: [12:30:30.417] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-6-rows640', 'rows': 640, 'layer': 6, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.072786012009601}
+D Save log info to: /experiment/logs/rknn-mlp-7-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 413.88it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I RKNN: [12:30:32.363] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:32.370] RKNN is invoked
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:32.387] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:32.387] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:32.387] >>>>>> start: OpEmit
+D RKNN: [12:30:32.388] <<<<<<<< end: OpEmit
+D RKNN: [12:30:32.388] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:32.388] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:32.388] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:32.388] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:32.388] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:32.388] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:32.388] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:32.388] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:32.388] >>>>>> start: OpEmit
+D RKNN: [12:30:32.388] finish initComputeZoneMap
+D RKNN: [12:30:32.388] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:32.388] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:32.389] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:32.389] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:32.390] finish initComputeZoneMap
+D RKNN: [12:30:32.390] <<<<<<<< end: OpEmit
+D RKNN: [12:30:32.390] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:32.390] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:32.390] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:32.390] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:32.390] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:32.390] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:32.390] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:32.452] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:32.452] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:32.452] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:32.452] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:32.452] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:32.452] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:32.484] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:32.484] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:32.484] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:32.484] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:32.486] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:32.486] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:32.489] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.489]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:32.489] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.489] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:32.489] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.489] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:32.489] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:32.489] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:32.489] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:32.489] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:32.489] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:32.489] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:32.489] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:32.489] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:32.489] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:32.489] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:32.489] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.489] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:32.489] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:32.489] Export RKNN model to /tmp/tmp2yfdg7rz/check.rknn
+D RKNN: [12:30:32.501] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:32.501] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:32.501] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.501]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:32.501] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:32.501] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:32.501] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:32.501] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:32.501] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:32.501] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:32.501] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:32.501] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:32.501] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:32.501] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:32.501] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:32.501] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:32.501] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:32.501] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:32.501] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:32.501] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:32.501]                                   Const Tensor Information Table                      
+D RKNN: [12:30:32.501] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:32.501] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:32.501] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:32.501] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:32.501] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:32.501] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:32.501] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:32.501] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:32.501] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:32.501] ----------------------------------------
+D RKNN: [12:30:32.501] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:32.501] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:32.501] ----------------------------------------
+D RKNN: [12:30:32.501] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-7-rows640', 'rows': 640, 'layer': 7, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.0718695139948977}
+D Save log info to: /experiment/logs/rknn-mlp-8-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 541.41it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:34.393] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:34.405] RKNN is invoked
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:34.425] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:34.425] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:34.425] >>>>>> start: OpEmit
+D RKNN: [12:30:34.426] <<<<<<<< end: OpEmit
+D RKNN: [12:30:34.426] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:34.426] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:34.426] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:34.426] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:34.426] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:34.426] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:34.426] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:34.426] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:34.426] >>>>>> start: OpEmit
+D RKNN: [12:30:34.426] finish initComputeZoneMap
+D RKNN: [12:30:34.426] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:34.426] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:34.427] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:34.427] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:34.428] finish initComputeZoneMap
+D RKNN: [12:30:34.428] <<<<<<<< end: OpEmit
+D RKNN: [12:30:34.428] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:34.428] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:34.428] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:34.428] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:34.428] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:34.428] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:34.428] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:34.498] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:34.498] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:34.498] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:34.498] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:34.498] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:34.498] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:34.536] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:34.536] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:34.536] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:34.536] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:34.540] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:34.540] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:34.543] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.543]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:34.543] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.543] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:34.543] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.543] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:34.543] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:34.543] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:34.543] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:34.543] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:34.543] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:34.543] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:34.543] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:34.543] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:34.543] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:34.543] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:34.543] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.543] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:34.543] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:34.543] Export RKNN model to /tmp/tmp4x0gdvsq/check.rknn
+D RKNN: [12:30:34.568] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:34.568] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:34.568] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.568]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:34.568] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:34.568] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:34.568] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:34.568] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:34.568] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:34.568] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:34.568] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:34.568] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:34.568] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:34.568] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:34.568] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:34.568] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:34.568] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:34.568] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:34.568] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:34.568] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:34.568]                                   Const Tensor Information Table                      
+D RKNN: [12:30:34.568] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:34.568] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:34.568] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:34.568] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:34.568] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:34.568] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:34.568] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:34.568] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:34.568] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:34.568] ----------------------------------------
+D RKNN: [12:30:34.568] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:34.568] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:34.568] ----------------------------------------
+D RKNN: [12:30:34.568] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-8-rows640', 'rows': 640, 'layer': 8, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.0557427020103205}
+D Save log info to: /experiment/logs/rknn-mlp-9-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 631.74it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:36.518] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:36.530] RKNN is invoked
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:36.549] >>>>>> start: OpEmit
+D RKNN: [12:30:36.549] <<<<<<<< end: OpEmit
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:36.549] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:36.549] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:36.550] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:36.550] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:36.550] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:36.550] >>>>>> start: OpEmit
+D RKNN: [12:30:36.550] finish initComputeZoneMap
+D RKNN: [12:30:36.550] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:36.550] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:36.551] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:36.551] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:36.551] finish initComputeZoneMap
+D RKNN: [12:30:36.551] <<<<<<<< end: OpEmit
+D RKNN: [12:30:36.551] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:36.551] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:36.551] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:36.551] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:36.552] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:36.552] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:36.552] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:36.614] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:36.614] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:36.614] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:36.614] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:36.614] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:36.614] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:36.645] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:36.645] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:36.645] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:36.645] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:36.648] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:36.648] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:36.650] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.650]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:36.650] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.650] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:36.650] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.650] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:36.650] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:36.650] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:36.650] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:36.650] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:36.650] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:36.650] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:36.650] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:36.650] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:36.650] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:36.650] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:36.650] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.650] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:36.650] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:36.650] Export RKNN model to /tmp/tmpj51qha2x/check.rknn
+D RKNN: [12:30:36.661] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:36.661] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:36.661] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.661]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:36.661] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:36.661] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:36.661] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:36.661] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:36.661] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:36.661] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:36.661] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:36.661] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:36.661] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:36.661] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:36.661] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:36.661] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:36.661] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:36.661] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:36.661] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:36.661] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:36.661]                                   Const Tensor Information Table                      
+D RKNN: [12:30:36.661] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:36.661] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:36.661] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:36.661] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:36.661] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:36.661] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:36.661] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:36.661] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:36.661] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:36.661] ----------------------------------------
+D RKNN: [12:30:36.661] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:36.661] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:36.661] ----------------------------------------
+D RKNN: [12:30:36.661] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-9-rows640', 'rows': 640, 'layer': 9, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.0797485029906966}
+D Save log info to: /experiment/logs/rknn-mlp-10-rows640.log
+I rknn-toolkit2 version: 2.5.0
+I Loading :   0%|                                                             | 0/3 [00:00<?, ?it/s]I Loading : 100%|████████████████████████████████████████████████████| 3/3 [00:00<00:00, 693.35it/s]
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+compress=0, global_fuse=1, safe_fuse=0, output_optimize=1, op_group_sram_opt=0, op_group_nbuf_opt=0, enable_flash_attention=0, conv_eltwise_activation_fuse=1, enable_rnn_loop=1, memory_plan_strategy=BestFit, enable_core0_only_mode=0, disable_first_conv=0
+I rknn building ...
+I RKNN: [12:30:38.535] compress = 0, conv_eltwise_activation_fuse = 1, global_fuse = 1, multi-core-model-mode = 7, output_optimize = 1, layout_match = 1, enable_argb_group = 0, op_group_sram_opt = 0, enable_flash_attention = 0, op_group_nbuf_opt = 0, safe_fuse = 0, enable_core0_only_mode = 0, disable_first_conv = 0
+I RKNN: librknnc version: 2.5.0 (74ea630ce@2026-09-29T14:54:20)
+D RKNN: [12:30:38.541] RKNN is invoked
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNExtractCustomOpAttrs
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNSetOpTargetPass
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNBindNorm
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNBindNorm
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNEliminateQATDataConvert
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNConcatBypassPre
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNConvStrideFixPass
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNTileGroupConv
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNTileGroupConv
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNTileFcBatchFuse
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNAddConvBias
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNAddConvBias
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNAddConvWeightSparse
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNTileChannel
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNTileChannel
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNDuplicateWeightPass
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNInitRNNConst
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNInitRNNConst
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNPerChannelPrep
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNReplaceConstantTensorPass
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNBnQuant
+D RKNN: [12:30:38.559] <<<<<<<< end: rknn::RKNNBnQuant
+D RKNN: [12:30:38.559] >>>>>> start: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNFuseOptimizerPass
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNTurnAutoPad
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNInitCastConst
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNInitCastConst
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNMultiSurfacePass
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNSubgraphManager
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNSubgraphManager
+D RKNN: [12:30:38.560] >>>>>> start: OpEmit
+D RKNN: [12:30:38.560] <<<<<<<< end: OpEmit
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNAddFirstConv
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNAddFirstConv
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNLayoutMatchPass
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNAddSecondaryNode
+D RKNN: [12:30:38.560] >>>>>> start: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:38.560] <<<<<<<< end: rknn::RKNNAllocateConvCachePass
+D RKNN: [12:30:38.560] >>>>>> start: OpEmit
+D RKNN: [12:30:38.560] finish initComputeZoneMap
+D RKNN: [12:30:38.560] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:38.560] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:38.562] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:38.562] finish initComputeZoneMapByStepsVector
+D RKNN: [12:30:38.562] finish initComputeZoneMap
+D RKNN: [12:30:38.562] <<<<<<<< end: OpEmit
+D RKNN: [12:30:38.562] >>>>>> start: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:38.562] <<<<<<<< end: rknn::RKNNSubGraphMemoryPlanPass
+D RKNN: [12:30:38.562] >>>>>> start: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:38.562] <<<<<<<< end: rknn::RKNNProfileAnalysisPass
+D RKNN: [12:30:38.562] >>>>>> start: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:38.562] <<<<<<<< end: rknn::RKNNOperatorIdGenPass
+D RKNN: [12:30:38.562] >>>>>> start: rknn::RKNNWeightTransposePass
+W RKNN: [12:30:38.631] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:38.631] Warning: Tensor y_mm_tp_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:38.631] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:38.631] Warning: Tensor x_rs_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:38.631] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+W RKNN: [12:30:38.631] Warning: Tensor /Mul_1_output_0-rs_split_i1 need parameter qtype, type is set to float16 by default!
+D RKNN: [12:30:38.666] <<<<<<<< end: rknn::RKNNWeightTransposePass
+D RKNN: [12:30:38.666] >>>>>> start: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:38.666] <<<<<<<< end: rknn::RKNNCPUWeightTransposePass
+D RKNN: [12:30:38.666] >>>>>> start: rknn::RKNNModelBuildPass
+D RKNN: [12:30:38.669] <<<<<<<< end: rknn::RKNNModelBuildPass
+D RKNN: [12:30:38.669] >>>>>> start: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:38.671] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.671]                                                             Network Layer Information Table                                                            
+D RKNN: [12:30:38.671] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.671] ID   OpType             DataType Target InputShape                               OutputShape            Cycles(DDR/NPU/Total)    SparseRatio  RW(KB)       FullName        
+D RKNN: [12:30:38.671] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.671] 0    InputOperator      FLOAT16  CPU    \                                        (1,640,1024)           0/0/0                                 0            InputOperator:x 
+D RKNN: [12:30:38.671] 1    Reshape            FLOAT16  NPU    (1,640,1024),(4)                         (1,640,1,1024)         0/0/0                                 1280         Reshape:x_rs    
+D RKNN: [12:30:38.671] 2    Transpose          FLOAT16  NPU    (1,640,1,1024)                           (1,1024,1,640)         0/0/0                                 1280         Transpose:x_tp  
+D RKNN: [12:30:38.671] 3    ConvExSwish        FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1)           (1,3584,1,640)         1773379/4587520/4587520  0%           8448         Conv:/MatMul#2  
+D RKNN: [12:30:38.671] 4    ConvMul            FLOAT16  NPU    (1,1024,1,640),(3584,1024,1,1),...       (1,3584,1,640)         2387916/4587520/4587520  0%           12928        Conv:/MatMul_1#2_ConvMul
+D RKNN: [12:30:38.671] 5    Split              FLOAT16  NPU    (1,3584,1,640),(2)                       (1,1792,1,640),...     0/0/0                                 4480         Split:/Mul_1_output_0-rs_split
+D RKNN: [12:30:38.671] 6    Conv               FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1)           (1,1024,1,640)         974481/2293760/2293760   0%           5824         Conv:/MatMul_2#2_tile1
+D RKNN: [12:30:38.671] 7    ConvAdd            FLOAT16  NPU    (1,1792,1,640),(1024,1792,1,1),...       (1,1024,1,640)         1150063/2293760/2293760  0%           7104         Conv:/MatMul_2#2_tile0_ConvAdd
+D RKNN: [12:30:38.671] 8    Transpose          FLOAT16  NPU    (1,1024,1,640)                           (1,640,1,1024)         0/0/0                                 1280         Transpose:y_mm_tp
+D RKNN: [12:30:38.671] 9    Reshape            FLOAT16  NPU    (1,640,1,1024),(3)                       (1,640,1024)           0/0/0                                 1280         Reshape:y_mm_tp_rs
+D RKNN: [12:30:38.671] 10   OutputOperator     FLOAT16  CPU    (1,640,1024)                             \                      0/0/0                                 1280         OutputOperator:y
+D RKNN: [12:30:38.671] --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.671] <<<<<<<< end: rknn::RKNNModelRegCmdbuildPass
+D RKNN: [12:30:38.671] >>>>>> start: rknn::RKNNModelExportPass
+D RKNN: [12:30:38.671] Export RKNN model to /tmp/tmp2vphm60m/check.rknn
+D RKNN: [12:30:38.683] <<<<<<<< end: rknn::RKNNModelExportPass
+D RKNN: [12:30:38.683] >>>>>> start: rknn::RKNNMemStatisticsPass
+D RKNN: [12:30:38.683] ---------------------------------------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.683]                                              Feature Tensor Information Table                                   
+D RKNN: [12:30:38.683] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] ID  User           Tensor                      DataType  DataFormat   OrigShape      NativeShape     |     [Start       End)       Size
+D RKNN: [12:30:38.683] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] 1   Reshape        x                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:38.683] 1   Reshape        x_exSecondary               FLOAT16   NC1HWC2      (1,640,1024)   (1,320,1024,1,8) | 0x00140000 0x00280000 0x00140000
+D RKNN: [12:30:38.683] 2   Transpose      x_rs                        FLOAT16   NC1HWC2      (1,640,1,1024) (1,320,1,1024,8) | 0x00280000 0x003c0000 0x00140000
+D RKNN: [12:30:38.683] 2   Transpose      x_rs_exSecondary            FLOAT16   NC1HWC2      (1,640,1,1024) (1,640,1,1024,8) | 0x00000000 0x00280000 0x00280000
+D RKNN: [12:30:38.683] 3   ConvExSwish    x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:38.683] 4   ConvMul        x_tp-rs                     FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x003c0000 0x00500000 0x00140000
+D RKNN: [12:30:38.683] 4   ConvMul        /MatMul_output_0_mm_tp_sw   FLOAT16   NC1HWC2      (1,3584,1,640) (1,3584,1,640,8) | 0x00500000 0x00dc0000 0x008c0000
+D RKNN: [12:30:38.683] 5   Split          /Mul_1_output_0-rs          FLOAT16   NC1HWC2      (1,3584,1,640) (1,1792,1,640,8) | 0x00dc0000*0x01220000 0x00460000
+D RKNN: [12:30:38.683] 6   Conv           /Mul_1_output_0-rs_split_o1 FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00000000 0x00230000 0x00230000
+D RKNN: [12:30:38.683] 7   ConvAdd        /Mul_1_output_0-rs_split    FLOAT16   NC1HWC2      (1,1792,1,640) (1,896,1,640,8) | 0x00230000 0x00460000 0x00230000
+D RKNN: [12:30:38.683] 7   ConvAdd        y_mm_tile1_conv             FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00460000 0x005a0000 0x00140000
+D RKNN: [12:30:38.683] 8   Transpose      y_mm                        FLOAT16   NC1HWC2      (1,1024,1,640) (1,512,1,640,8) | 0x00000000 0x00140000 0x00140000
+D RKNN: [12:30:38.683] 9   Reshape        y_mm_tp                     FLOAT16   UNDEFINED    (1,640,1,1024) (1,640,1,1024)  | 0x00140040 0x00280040 0x00140000
+D RKNN: [12:30:38.683] 10  OutputOperator y                           FLOAT16   UNDEFINED    (1,640,1024)   (1,640,1024)    | 0x00000040 0x00140040 0x00140000
+D RKNN: [12:30:38.683] -----------------------------------------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] --------------------------------------------------------------------------------------------------------
+D RKNN: [12:30:38.683]                                   Const Tensor Information Table                      
+D RKNN: [12:30:38.683] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] ID  User        Tensor                      DataType  OrigShape       |     [Start       End)       Size
+D RKNN: [12:30:38.683] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] 1   Reshape     x_rs_i1                     INT64     (4)             | 0x00e00040 0x00e00060 0x00000020
+D RKNN: [12:30:38.683] 3   ConvExSwish onnx::MatMul_13             FLOAT16   (3584,1024,1,1) | 0x00000000 0x00700000 0x00700000
+D RKNN: [12:30:38.683] 4   ConvMul     onnx::MatMul_14             FLOAT16   (3584,1024,1,1) | 0x00700000 0x00e00000 0x00700000
+D RKNN: [12:30:38.683] 5   Split       /Mul_1_output_0-rs_split_i1 INT64     (2)             | 0x00e00080 0x00e00090 0x00000010
+D RKNN: [12:30:38.683] 6   Conv        /MatMul_2#2_tile1_i1        FLOAT16   (1024,1792,1,1) | 0x011800c0 0x015000c0 0x00380000
+D RKNN: [12:30:38.683] 7   ConvAdd     /MatMul_2#2_tile0_i1        FLOAT16   (1024,1792,1,1) | 0x00e000c0 0x011800c0 0x00380000
+D RKNN: [12:30:38.683] 9   Reshape     y_mm_tp_rs_i1               INT64     (3)             | 0x00e00000 0x00e00018 0x00000018
+D RKNN: [12:30:38.683] ----------------------------------------------------------------------+---------------------------------
+D RKNN: [12:30:38.683] ----------------------------------------
+D RKNN: [12:30:38.683] Total Internal Memory Size: 18560KB
+D RKNN: [12:30:38.683] Total Weight Memory Size: 21508.4KB
+D RKNN: [12:30:38.683] ----------------------------------------
+D RKNN: [12:30:38.683] <<<<<<<< end: rknn::RKNNMemStatisticsPass
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+COMPILED {'name': 'mlp-10-rows640', 'rows': 640, 'layer': 10, 'quantized': False, 'target': 'rk3576', 'weights': 'original BF16 promoted to FP32, no pruning', 'config_return': 0, 'load_return': 0, 'build_return': 0, 'export_return': 0, 'seconds': 2.0082765979896067}

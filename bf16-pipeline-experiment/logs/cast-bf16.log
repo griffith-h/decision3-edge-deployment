@@ -1,0 +1,85 @@
+D Save log info to: /experiment/logs/cast-bf16.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+[1;31mE[0m [1;31mbuild: Traceback (most recent call last):
+  File "rknn/api/rknn_log.py", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper
+  File "rknn/api/rknn_base.py", line 2066, in rknn.api.rknn_base.RKNNBase.build
+  File "rknn/api/graph_optimizer.py", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant
+  File "rknn/api/session.py", line 150, in rknn.api.session.Session.run
+  File "/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 322, in run
+    return self._sess.run(output_names, input_feed, run_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: No corresponding Numpy type for Tensor Type. bfloat16
+[0m
+[1;33mW[0m [1;33mbuild: ===================== WARN(2) =====================[0m
+[1;31mE[0m [1;31mrknn-toolkit2 version: 2.5.0[0m
+D Save log info to: /experiment/logs/cast-half.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: Please note that some float16/float64 data types in the model have been modified to float32![0m
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     remove_invalid_cast: remove node = ['intermediate']
+D     unsqueeze_to_4d_cast: remove node = [], add node = ['x_rs', 'y-rs']
+D     remove_invalid_cast: remove node = ['y']
+D     fuse_two_reshape: remove node = ['x_rs']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+D Save log info to: /experiment/logs/cast-round.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     eliminate_mul_redundancy_const_dim: remove node = ['scaled'], add node = ['scaled']
+D     eliminate_div_redundancy_const_dim: remove node = ['y'], add node = ['y']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['x_rs', 'scaled-rs']
+D     convert_div_to_mul: remove node = ['y'], add node = ['y_2mul']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['rounded_rs', 'y-rs']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+D recover_const_share ...
+D recover_const_share done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.

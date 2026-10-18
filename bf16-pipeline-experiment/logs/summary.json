@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "goal_met": false,
+  "baseline": {
+    "count": 90,
+    "median": 1.7435494129313156,
+    "min": 1.6171394418925047,
+    "max": 1.7902247668243945,
+    "p95_nearest_rank": 1.7705952969845384
+  },
+  "candidate": {
+    "count": 90,
+    "median": 1.5796211659908295,
+    "min": 1.4588784947991371,
+    "max": 1.669396252837032,
+    "p95_nearest_rank": 1.642713830107823
+  },
+  "reduction": 0.09401984579541356,
+  "pairs": 90,
+  "paired_candidate_wins": 90,
+  "paired_reduction_median": 0.08939406403702338,
+  "regression_cases": 34,
+  "regression_maxima": {
+    "probability_max_delta": 0.00929519534111023,
+    "score_max_delta": 0.007059595233858351,
+    "noul_max_delta": 0.0030105294916077385,
+    "confidence_max_delta": 0.014145620757172184
+  },
+  "max_delta_vs_previous_qualified": 4.7385150769851947e-07,
+  "formal_numeric_outputs": 180,
+  "short_numeric_outputs": 24,
+  "profile_numeric_outputs": 10,
+  "formal_rss_max_kib": 6802816,
+  "production_files_checked": 554,
+  "artifact_files_checked": 329,
+  "selection": {
+    "route": "native_fp32_bf16_mlp_split_down",
+    "module": "accepted_owner.Owner",
+    "parent": "fifth-stage selected float_readout",
+    "scope": "B1/T615 logits only; guarded PreciseMlp",
+    "down_rows": [
+      320,
+      295
+    ],
+    "down_masks": [
+      1,
+      2
+    ],
+    "mlp_boundaries": [
+      "FP32 MatMul result to BF16",
+      "BF16 SiLU lookup",
+      "BF16 product",
+      "FP16 execution input of down",
+      "FP32 down result to BF16"
+    ],
+    "scan": "original 32-row/64-column, 4 threads; no stream adoption",
+    "other_projections": "fifth-stage normal FP32; native-layout projection rejected",
+    "goal": "615 warm method P50/P95 <1 second",
+    "gate": "original current choice unchanged, probability/score/noul abs<=0.01; confidence separate",
+    "cache_policy": "Before sequential logits domain switches: retire half engine handles entering615; retire unused normal FP32 MLP controls leaving615 once native bank is resident. Keep native MLP warm."
+  },
+  "bank_lifecycle_fd_counts": [
+    6,
+    6,
+    6
+  ],
+  "runtime_fds_after_pool": {
+    "0": "/dev/null",
+    "1": "pipe:[1589455]",
+    "2": "pipe:[1589456]",
+    "4": "/dev/dri/card1",
+    "710": "/sys/devices/system/cpu/cpu0/regs/identification/midr_el1",
+    "711": "/tmp/perf-7.map"
+  },
+  "timing_exclusions": [
+    "split-mlp-initial-cold-control.json: incompletely warmed new down context, retained; entire protocol rerun"
+  ],
+  "scope": "34 fixed regression requests, no business-accuracy, concurrency, cold-start or HTTP SLA claim"
+}

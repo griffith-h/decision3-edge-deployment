@@ -1,0 +1,9 @@
+E RKNN: [12:25:07.324] rknn_matmul_create_dynamic_shape, matmul K:624 must be align with 32!
+Traceback (most recent call last):
+  File "/experiment/probe_npu_attention.py", line 16, in <module>
+    qk=create(t,d,n);pv=create(t,kk,d)
+                        ^^^^^^^^^^^^^^
+  File "/experiment/probe_npu_attention.py", line 12, in create
+    if not h:raise RuntimeError(lib.dm_error().decode())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: create returned -5

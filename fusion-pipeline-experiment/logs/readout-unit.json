@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "hidden_check_note": "Initial arbitrary allclose(.002,.008) failed at max.0078125. Shape-specific CPU/NPU MLP kernels round differently; record that unchanged allclose result, require explicit .01 hidden max bound plus unchanged original current-output gate. This is not the primary output threshold.",
+  "scope": "Private last-pooling logits only. Public encoder remains full-shape. Capture/profile excluded from formal timing.",
+  "full_candidate_reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9303760233961187,
+          "math": 0.04915794574527987,
+          "chat": 0.020466030858601398
+        },
+        "confidence": 0.731631377929937
+      }
+    },
+    "usage": {
+      "input_tokens": 615,
+      "output_tokens": 0
+    }
+  },
+  "last_layer": {
+    "max_hidden_delta": 0.0078125,
+    "mean_hidden_delta": 0.0004158616065979004,
+    "allclose": false,
+    "max_abs_bound": 0.01,
+    "within_max_abs_bound": true
+  },
+  "all615_keys_addressable": true,
+  "readout_output": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9305989707611539,
+          "math": 0.04897947963707343,
+          "chat": 0.020421549601772615
+        },
+        "confidence": 0.7322639623915089
+      }
+    },
+    "usage": {
+      "input_tokens": 615,
+      "output_tokens": 0
+    }
+  },
+  "vs_current": {
+    "max_delta": 0.0018447533280554484,
+    "confidence_max_delta": 0.005978372270943999,
+    "all_numeric_max_delta": 0.005978372270943999,
+    "choices_unchanged": true,
+    "passed": true,
+    "max_prediction_field": "/kind/probabilities/code",
+    "probability_max_delta": 0.0018447533280554484,
+    "score_max_delta": 0,
+    "noul_max_delta": 0
+  },
+  "vs_full_candidate": {
+    "max_delta": 0.00022294736503525314,
+    "confidence_max_delta": 0.0006325844615718834,
+    "all_numeric_max_delta": 0.0006325844615718834,
+    "choices_unchanged": true,
+    "passed": true,
+    "max_prediction_field": "/kind/probabilities/code",
+    "probability_max_delta": 0.00022294736503525314,
+    "score_max_delta": 0,
+    "noul_max_delta": 0
+  },
+  "hook_uses_original_full_encoder": true,
+  "whole_logits_fallback_and_persistent_disable": true,
+  "owner_closed": true
+}

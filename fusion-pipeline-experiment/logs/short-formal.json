@@ -1,0 +1,3175 @@
+{
+  "run_id": "1d2e62b32726460fa9478ce95b0ed444",
+  "container_hostname": "e219c160dd54",
+  "round": 0,
+  "pairs": 12,
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "37922",
+      "thermal_zone0": "36999",
+      "thermal_zone5": "36999",
+      "thermal_zone3": "36999",
+      "thermal_zone1": "37922",
+      "thermal_zone4": "36999"
+    }
+  },
+  "omp_thread_limit": "4",
+  "request": {
+    "id": "single",
+    "state": "\u8bf7\u5199\u4e00\u4e2a Python \u51fd\u6570\uff0c\u5408\u5e76\u4e24\u4e2a\u6709\u5e8f\u5217\u8868\u3002",
+    "questions": {
+      "kind": {
+        "type": "choice",
+        "instructions": "\u8fd9\u4e2a\u8bf7\u6c42\u5c5e\u4e8e\u54ea\u7c7b\u4efb\u52a1\uff1f",
+        "criteria": {
+          "code": "\u7f16\u7a0b\u4efb\u52a1",
+          "math": "\u6570\u5b66\u95ee\u9898",
+          "chat": "\u65e5\u5e38\u804a\u5929"
+        }
+      }
+    },
+    "baseline": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9991648123435318,
+          "math": 0.0006982751935839212,
+          "chat": 0.0001369124628842124
+        },
+        "confidence": 0.993512607365437
+      }
+    }
+  },
+  "current_reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992086131804994,
+          "math": 0.0006606327264349369,
+          "chat": 0.00013075409306566522
+        },
+        "confidence": 0.9938125022269989
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  },
+  "current_source": "logs/references.json/single fresh original runner/current, equality with prior frozen reference asserted",
+  "records": [
+    {
+      "pair": 0,
+      "mode": "baseline",
+      "seconds": 0.3185474348720163,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 0,
+      "mode": "candidate",
+      "seconds": 0.2984497370198369,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 1,
+      "mode": "candidate",
+      "seconds": 0.3151534351054579,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 1,
+      "mode": "baseline",
+      "seconds": 0.3262590270023793,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 2,
+      "mode": "baseline",
+      "seconds": 0.33647210500203073,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 2,
+      "mode": "candidate",
+      "seconds": 0.3259747219271958,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 3,
+      "mode": "candidate",
+      "seconds": 0.32555823493748903,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 3,
+      "mode": "baseline",
+      "seconds": 0.32723822887055576,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 4,
+      "mode": "baseline",
+      "seconds": 0.32572709210217,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 4,
+      "mode": "candidate",
+      "seconds": 0.32579464791342616,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 5,
+      "mode": "candidate",
+      "seconds": 0.32655928609892726,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 5,
+      "mode": "baseline",
+      "seconds": 0.32633433514274657,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 6,
+      "mode": "baseline",
+      "seconds": 0.3252184351440519,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 6,
+      "mode": "candidate",
+      "seconds": 0.32594379503279924,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 7,
+      "mode": "candidate",
+      "seconds": 0.3263823699671775,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 7,
+      "mode": "baseline",
+      "seconds": 0.32849136483855546,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 8,
+      "mode": "baseline",
+      "seconds": 0.32653264002874494,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 8,
+      "mode": "candidate",
+      "seconds": 0.32522212993353605,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 9,
+      "mode": "candidate",
+      "seconds": 0.3255009560380131,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 9,
+      "mode": "baseline",
+      "seconds": 0.33030412113294005,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 10,
+      "mode": "baseline",
+      "seconds": 0.3248527341056615,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 10,
+      "mode": "candidate",
+      "seconds": 0.3254945168737322,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 11,
+      "mode": "candidate",
+      "seconds": 0.32960310601629317,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": true,
+      "fp32_domain": "all"
+    },
+    {
+      "pair": 11,
+      "mode": "baseline",
+      "seconds": 0.3240681050810963,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": false,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 0,
+      "last_readout_errors": [],
+      "last_readout_metadata": {},
+      "fp32_contexts": 0,
+      "fp32_enabled": false,
+      "fp32_domain": "all"
+    }
+  ],
+  "completed": true,
+  "methodology": "Three warmups per mode, alternating pair order; no sample discarded, all outputs recomputed. Independent from instrumented profiles. Both modes hold identical graph/context banks. Warm model method only, no HTTP or concurrency SLA.",
+  "execution": {
+    "grouped": false,
+    "selection": {
+      "wide": {
+        "median": 1.5655473975930363,
+        "passed": true
+      },
+      "grouped": {
+        "median": 1.5587339524645358,
+        "passed": true
+      }
+    },
+    "rule": "All primary current/incremental/runtime gates; require at least2% median gain over wide to add a scan variant. No samples discarded.",
+    "mode": "four",
+    "residual": false,
+    "scan_selection": {
+      "four": {
+        "median": 1.4412864905316383,
+        "passed": true,
+        "n": 8
+      },
+      "neon": {
+        "median": 1.5613262769766152,
+        "passed": true,
+        "n": 8
+      },
+      "wide": {
+        "median": 1.5617958405055106,
+        "passed": true,
+        "n": 8
+      }
+    },
+    "omp_thread_limit": 4,
+    "scope": "Frozen B1/T615 logits only for FP32/precise615/readout; original qualified paths for other shapes, short multi-batch precision repair retained.",
+    "full640": false,
+    "mlp_ablation": {
+      "False": {
+        "median": 1.455571805476211,
+        "passed": true
+      },
+      "True": {
+        "median": 1.4908616435714066,
+        "passed": true
+      }
+    },
+    "mlp_rule": "Require at least2% full-model median improvement in final combined path to retain new640 graphs; otherwise original dual-handle128+128+384.",
+    "fp32": true,
+    "fp32_domain": "all",
+    "precise615": true,
+    "precise_width": 640,
+    "readout": true,
+    "final_mode": "float_readout",
+    "domain_selection": {
+      "float": {
+        "median": 1.8405231885844842,
+        "passed": true,
+        "n": 12
+      },
+      "float_readout": {
+        "median": 1.7674147420329973,
+        "passed": true,
+        "n": 12
+      },
+      "mlponly_readout": {
+        "median": 1.6710019529564306,
+        "passed": false,
+        "n": 12
+      },
+      "projection_readout": {
+        "median": 1.5372189715271816,
+        "passed": false,
+        "n": 12
+      }
+    },
+    "domain_rule": "All13 original-current gates plus12 rotating samples/mode. Require2% median gain to add readout/domain restriction. Final34-case regression mandatory."
+  },
+  "frozen_baseline_plans": {
+    "615": [
+      128,
+      128,
+      384
+    ],
+    "513": [
+      128,
+      128,
+      384
+    ],
+    "1024": [
+      128,
+      128,
+      384,
+      384
+    ],
+    "706": [
+      384,
+      384
+    ],
+    "1222": [
+      128,
+      384,
+      384,
+      384
+    ],
+    "512": [
+      128,
+      384
+    ],
+    "717": [
+      384,
+      384
+    ],
+    "360": [
+      384
+    ]
+  },
+  "baseline_reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992086131804994,
+          "math": 0.0006606327264349369,
+          "chat": 0.00013075409306566522
+        },
+        "confidence": 0.9938125022269989
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  },
+  "handles_before": 36,
+  "fds_before": 459,
+  "timing": {
+    "baseline": {
+      "seconds": [
+        0.3185474348720163,
+        0.3262590270023793,
+        0.33647210500203073,
+        0.32723822887055576,
+        0.32572709210217,
+        0.32633433514274657,
+        0.3252184351440519,
+        0.32849136483855546,
+        0.32653264002874494,
+        0.33030412113294005,
+        0.3248527341056615,
+        0.3240681050810963
+      ],
+      "count": 12,
+      "median": 0.32629668107256293,
+      "min": 0.3185474348720163,
+      "max": 0.33647210500203073,
+      "p95_nearest_rank": 0.33647210500203073
+    },
+    "candidate": {
+      "seconds": [
+        0.2984497370198369,
+        0.3151534351054579,
+        0.3259747219271958,
+        0.32555823493748903,
+        0.32579464791342616,
+        0.32655928609892726,
+        0.32594379503279924,
+        0.3263823699671775,
+        0.32522212993353605,
+        0.3255009560380131,
+        0.3254945168737322,
+        0.32960310601629317
+      ],
+      "count": 12,
+      "median": 0.3256764414254576,
+      "min": 0.2984497370198369,
+      "max": 0.32960310601629317,
+      "p95_nearest_rank": 0.32960310601629317
+    }
+  },
+  "handles_after": 36,
+  "fds_after": 459,
+  "rss_kib": 5420760,
+  "short_control_under_one_second_not_615_goal": true,
+  "engine_handles_after_close": 0,
+  "native_handles_after_close": 0,
+  "grouped_handles_after_close": 0,
+  "owner_closed": true,
+  "fds_after_close": 7,
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "37922",
+      "thermal_zone0": "37922",
+      "thermal_zone5": "36999",
+      "thermal_zone3": "36999",
+      "thermal_zone1": "38845",
+      "thermal_zone4": "36999"
+    }
+  }
+}

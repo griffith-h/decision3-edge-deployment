@@ -1,0 +1,3437 @@
+{
+  "run_id": "fe00a55871bf44159521eb37914c34f3",
+  "round": 1,
+  "pairs": 12,
+  "container_hostname": "9442d0aca7ac",
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "36999",
+      "thermal_zone0": "36999",
+      "thermal_zone5": "36999",
+      "thermal_zone3": "36076",
+      "thermal_zone1": "38845",
+      "thermal_zone4": "36076"
+    }
+  },
+  "records": [
+    {
+      "pair": 0,
+      "mode": "baseline",
+      "seconds": 0.31469328608363867,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 0,
+      "mode": "candidate",
+      "seconds": 0.3361661280505359,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 1,
+      "mode": "candidate",
+      "seconds": 0.33505005994811654,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 1,
+      "mode": "baseline",
+      "seconds": 0.3387992139905691,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 2,
+      "mode": "baseline",
+      "seconds": 0.3362678249832243,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 2,
+      "mode": "candidate",
+      "seconds": 0.3356565081048757,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 3,
+      "mode": "candidate",
+      "seconds": 0.33576979814097285,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 3,
+      "mode": "baseline",
+      "seconds": 0.33724639704450965,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 4,
+      "mode": "baseline",
+      "seconds": 0.33678009104914963,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 4,
+      "mode": "candidate",
+      "seconds": 0.33594174799509346,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 5,
+      "mode": "candidate",
+      "seconds": 0.3372581109870225,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 5,
+      "mode": "baseline",
+      "seconds": 0.33704297384247184,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 6,
+      "mode": "baseline",
+      "seconds": 0.3389265218283981,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 6,
+      "mode": "candidate",
+      "seconds": 0.3418032289482653,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 7,
+      "mode": "candidate",
+      "seconds": 0.3374574340414256,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 7,
+      "mode": "baseline",
+      "seconds": 0.3103244591038674,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 8,
+      "mode": "baseline",
+      "seconds": 0.3358079108875245,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 8,
+      "mode": "candidate",
+      "seconds": 0.3376903550233692,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 9,
+      "mode": "candidate",
+      "seconds": 0.3365840760525316,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 9,
+      "mode": "baseline",
+      "seconds": 0.33582682395353913,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 10,
+      "mode": "baseline",
+      "seconds": 0.33804779895581305,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 10,
+      "mode": "candidate",
+      "seconds": 0.3423341738525778,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 11,
+      "mode": "candidate",
+      "seconds": 0.34663118282333016,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    },
+    {
+      "pair": 11,
+      "mode": "baseline",
+      "seconds": 0.3384354659356177,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "vs_current": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "vs_baseline": {
+        "max_delta": 0.0,
+        "confidence_max_delta": 0.0,
+        "all_numeric_max_delta": 0.0,
+        "choices_unchanged": true,
+        "passed": true,
+        "max_prediction_field": "/kind/probabilities/code",
+        "probability_max_delta": 0.0,
+        "score_max_delta": 0,
+        "noul_max_delta": 0
+      },
+      "engine_cpu_fallbacks": 0,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 12,
+        "padded_rows": 0,
+        "shapes": {
+          "(1, 115, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 24,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 6,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "long_kernels": {
+        "attention": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        },
+        "scan": {
+          "optimized": 0,
+          "bypass": 6,
+          "guard_fallback": 0,
+          "native_fallback": 0,
+          "seconds": 0.0,
+          "lengths": {},
+          "errors": []
+        }
+      },
+      "mlp_schedule": {
+        "parallel_layers": 0,
+        "serial_layers": 12,
+        "errors": [],
+        "chunks": 0,
+        "padded_rows": 0
+      },
+      "attention_npu_calls": 0,
+      "full640_calls": 0,
+      "full640_errors": [],
+      "precise_calls": 0,
+      "precise_errors": [],
+      "precise_range_fallbacks": 0,
+      "wide_enabled": true,
+      "last_readout_calls": 0,
+      "last_readout_bypasses": 1,
+      "last_readout_errors": [],
+      "last_readout_metadata": {
+        "input_tokens": 615,
+        "kv_tokens": 615,
+        "query_rows": 1,
+        "prefix_layers": 11,
+        "final_layers": 1,
+        "total_layers": 12,
+        "scan_layers_unchanged": 6
+      },
+      "fp32_contexts": 37,
+      "fp32_enabled": true,
+      "fp32_domain": "all",
+      "native_mlp_calls": 0,
+      "native_mlp_handles": 44,
+      "cache_domain": "other",
+      "cache_last_events": [],
+      "cache_retired": {
+        "half": 0,
+        "normal_fp32_mlp": 33
+      }
+    }
+  ],
+  "completed": true,
+  "methodology": "115-token control: 3 warmups per mode after warming615 banks, alternating pair order, all samples retained; baseline is fifth-stage selected qualified candidate, not validate_mlp. No profiling or hashing during timing.",
+  "fds_before_owner": 4,
+  "long_prewarm": "Both615 controls warmed; shape-bank retirement must release unused normal MLP contexts before115.",
+  "baseline_reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992086131804994,
+          "math": 0.0006606327264349369,
+          "chat": 0.00013075409306566522
+        },
+        "confidence": 0.9938125022269989
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  },
+  "baseline_vs_fifth_regression": {
+    "max_delta": 1.5267419550824002e-09,
+    "confidence_max_delta": 1.0539186967584158e-08,
+    "all_numeric_max_delta": 1.0539186967584158e-08,
+    "choices_unchanged": true,
+    "passed": true,
+    "max_prediction_field": "/kind/probabilities/code",
+    "probability_max_delta": 1.5267419550824002e-09,
+    "score_max_delta": 0,
+    "noul_max_delta": 0
+  },
+  "original_current_reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992086131804994,
+          "math": 0.0006606327264349369,
+          "chat": 0.00013075409306566522
+        },
+        "confidence": 0.9938125022269989
+      }
+    },
+    "usage": {
+      "input_tokens": 115,
+      "output_tokens": 0
+    }
+  },
+  "handles_before": [
+    73,
+    44,
+    4
+  ],
+  "fds_before": 1151,
+  "timing": {
+    "baseline": {
+      "seconds": [
+        0.31469328608363867,
+        0.3387992139905691,
+        0.3362678249832243,
+        0.33724639704450965,
+        0.33678009104914963,
+        0.33704297384247184,
+        0.3389265218283981,
+        0.3103244591038674,
+        0.3358079108875245,
+        0.33582682395353913,
+        0.33804779895581305,
+        0.3384354659356177
+      ],
+      "count": 12,
+      "median": 0.33691153244581074,
+      "min": 0.3103244591038674,
+      "max": 0.3389265218283981,
+      "p95_nearest_rank": 0.3389265218283981
+    },
+    "candidate": {
+      "seconds": [
+        0.3361661280505359,
+        0.33505005994811654,
+        0.3356565081048757,
+        0.33576979814097285,
+        0.33594174799509346,
+        0.3372581109870225,
+        0.3418032289482653,
+        0.3374574340414256,
+        0.3376903550233692,
+        0.3365840760525316,
+        0.3423341738525778,
+        0.34663118282333016
+      ],
+      "count": 12,
+      "median": 0.33692109351977706,
+      "min": 0.33505005994811654,
+      "max": 0.34663118282333016,
+      "p95_nearest_rank": 0.34663118282333016
+    }
+  },
+  "handles_after": [
+    73,
+    44,
+    4
+  ],
+  "fds_after": 1151,
+  "rss_kib": 6797152,
+  "handles_after_close": [
+    0,
+    0,
+    0
+  ],
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "36999",
+      "thermal_zone0": "36999",
+      "thermal_zone5": "36999",
+      "thermal_zone3": "36076",
+      "thermal_zone1": "37922",
+      "thermal_zone4": "36999"
+    }
+  },
+  "fds_after_close": 7,
+  "owner_closed": true
+}

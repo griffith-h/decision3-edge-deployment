@@ -1,0 +1,22 @@
+[
+  {
+    "mode": "bf16",
+    "config": 0,
+    "load": 0,
+    "error": "Traceback (most recent call last):\n  File \"rknn/api/rknn_log.py\", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File \"rknn/api/rknn_base.py\", line 2066, in rknn.api.rknn_base.RKNNBase.build\n  File \"rknn/api/graph_optimizer.py\", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant\n  File \"rknn/api/session.py\", line 150, in rknn.api.session.Session.run\n  File \"/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py\", line 322, in run\n    return self._sess.run(output_names, input_feed, run_options)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: No corresponding Numpy type for Tensor Type. bfloat16\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/experiment/probe_cast.py\", line 24, in <module>\n    rec['build']=r.build(do_quantization=False)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/work/compiler-env/lib/python3.12/site-packages/rknn/api/rknn.py\", line 203, in build\n    return self.rknn_base.build(do_quantization=do_quantization, dataset=dataset, expand_batch_size=rknn_batch_size, auto_hybrid=auto_hybrid)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"rknn/api/rknn_log.py\", line 349, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File \"rknn/api/rknn_log.py\", line 95, in rknn.api.rknn_log.RKNNLog.e\nValueError: Traceback (most recent call last):\n  File \"rknn/api/rknn_log.py\", line 344, in rknn.api.rknn_log.error_catch_decorator.error_catch_wrapper\n  File \"rknn/api/rknn_base.py\", line 2066, in rknn.api.rknn_base.RKNNBase.build\n  File \"rknn/api/graph_optimizer.py\", line 970, in rknn.api.graph_optimizer.GraphOptimizer.fold_constant\n  File \"rknn/api/session.py\", line 150, in rknn.api.session.Session.run\n  File \"/work/compiler-env/lib/python3.12/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py\", line 322, in run\n    return self._sess.run(output_names, input_feed, run_options)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: No corresponding Numpy type for Tensor Type. bfloat16\n\n"
+  },
+  {
+    "mode": "half",
+    "config": 0,
+    "load": 0,
+    "build": 0,
+    "export": 0
+  },
+  {
+    "mode": "round",
+    "config": 0,
+    "load": 0,
+    "build": 0,
+    "export": 0
+  }
+]

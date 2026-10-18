@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "normal_counts": {
+    "mlp": {
+      "optimized": 0,
+      "fallback": 0,
+      "range_fallback": 0,
+      "errors": [],
+      "graph_calls": 0,
+      "padded_rows": 0,
+      "shapes": {}
+    },
+    "projections": {
+      "bypass": 2,
+      "guard_fallback": 0,
+      "optimized_projections": 40,
+      "wide_groups": 12,
+      "chunks": 23,
+      "native_max_rows": 615,
+      "range_fallback": 0,
+      "runtime_fallback": 0,
+      "errors": [],
+      "shapes": {
+        "(1, 615, 1024)": 12,
+        "(1, 615, 2048)": 11
+      },
+      "native_rows": {
+        "615": 23
+      },
+      "coverage": {
+        "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.0.linear_attn.in_proj_z": 1,
+        "language_model.layers.0.linear_attn.out_proj": 1,
+        "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.1.linear_attn.in_proj_z": 1,
+        "language_model.layers.1.linear_attn.out_proj": 1,
+        "language_model.layers.2.self_attn.q_proj": 1,
+        "language_model.layers.2.self_attn.k_proj": 1,
+        "language_model.layers.2.self_attn.v_proj": 1,
+        "language_model.layers.2.self_attn.o_proj": 1,
+        "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.3.linear_attn.in_proj_z": 1,
+        "language_model.layers.3.linear_attn.out_proj": 1,
+        "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.4.linear_attn.in_proj_z": 1,
+        "language_model.layers.4.linear_attn.out_proj": 1,
+        "language_model.layers.5.self_attn.q_proj": 1,
+        "language_model.layers.5.self_attn.k_proj": 1,
+        "language_model.layers.5.self_attn.v_proj": 1,
+        "language_model.layers.5.self_attn.o_proj": 1,
+        "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.6.linear_attn.in_proj_z": 1,
+        "language_model.layers.6.linear_attn.out_proj": 1,
+        "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+        "language_model.layers.7.linear_attn.in_proj_z": 1,
+        "language_model.layers.7.linear_attn.out_proj": 1,
+        "language_model.layers.8.self_attn.q_proj": 1,
+        "language_model.layers.8.self_attn.k_proj": 1,
+        "language_model.layers.8.self_attn.v_proj": 1,
+        "language_model.layers.8.self_attn.o_proj": 1,
+        "language_model.layers.9.self_attn.q_proj": 1,
+        "language_model.layers.9.self_attn.k_proj": 1,
+        "language_model.layers.9.self_attn.v_proj": 1,
+        "language_model.layers.9.self_attn.o_proj": 1,
+        "language_model.layers.10.self_attn.q_proj": 1,
+        "language_model.layers.10.self_attn.k_proj": 1,
+        "language_model.layers.10.self_attn.v_proj": 1,
+        "language_model.layers.10.self_attn.o_proj": 1,
+        "language_model.layers.11.self_attn.k_proj": 1,
+        "language_model.layers.11.self_attn.v_proj": 1
+      }
+    },
+    "attention_fusion": {
+      "optimized": 5,
+      "fallback": 0,
+      "boundary_fallback": 0
+    },
+    "fused_enabled": true,
+    "mlp_policy_fallbacks": 0,
+    "long_kernels": {
+      "attention": {
+        "optimized": 5,
+        "bypass": 0,
+        "guard_fallback": 0,
+        "native_fallback": 0,
+        "seconds": 0.0,
+        "lengths": {
+          "615": 5
+        },
+        "errors": []
+      },
+      "scan": {
+        "optimized": 6,
+        "bypass": 0,
+        "guard_fallback": 0,
+        "native_fallback": 0,
+        "seconds": 0.0,
+        "lengths": {
+          "615": 6
+        },
+        "errors": []
+      }
+    },
+    "mlp_schedule": {
+      "parallel_layers": 0,
+      "serial_layers": 0,
+      "errors": [],
+      "chunks": 0,
+      "padded_rows": 0
+    },
+    "attention_npu_calls": 5,
+    "full640_calls": 0,
+    "full640_errors": [],
+    "precise_calls": 11,
+    "precise_errors": [],
+    "precise_range_fallbacks": 0,
+    "wide_enabled": true,
+    "last_readout_calls": 1,
+    "last_readout_bypasses": 0,
+    "last_readout_errors": [],
+    "last_readout_metadata": {
+      "input_tokens": 615,
+      "kv_tokens": 615,
+      "query_rows": 1,
+      "prefix_layers": 11,
+      "final_layers": 1,
+      "total_layers": 12,
+      "scan_layers_unchanged": 6
+    },
+    "fp32_contexts": 70,
+    "fp32_enabled": true,
+    "fp32_domain": "all"
+  },
+  "vs_current": {
+    "max_delta": 0.0014058976731475617,
+    "confidence_max_delta": 0.0036443498567860777,
+    "all_numeric_max_delta": 0.0036443498567860777,
+    "choices_unchanged": true,
+    "passed": true,
+    "max_prediction_field": "/kind/probabilities/math",
+    "probability_max_delta": 0.0014058976731475617,
+    "score_max_delta": 0,
+    "noul_max_delta": 0
+  },
+  "changed_attention_mode_bypasses": true,
+  "whole_readout_fallback_persistent_disable": true,
+  "whole_attention_fallback_persistent_disable": true,
+  "closed_zero_handles": true
+}

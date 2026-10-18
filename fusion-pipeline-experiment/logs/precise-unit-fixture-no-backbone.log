@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/experiment/test_precise.py", line 35, in <module>
+    engine=Engine();table=type('Table',(),{'silu':torch.zeros(65536,dtype=torch.bfloat16)})();precise=PreciseMlp(model,engine,table);precise.enabled=True
+                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/experiment/precise_mlp.py", line 15, in __init__
+    for m in model.backbone.modules():
+             ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1967, in __getattr__
+    raise AttributeError(
+AttributeError: 'Qwen3_5MLP' object has no attribute 'backbone'

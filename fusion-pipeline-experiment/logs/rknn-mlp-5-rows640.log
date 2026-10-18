@@ -1,0 +1,92 @@
+D Save log info to: /experiment/logs/rknn-mlp-5-rows640.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.
+D Save log info to: /experiment/logs/rknn-mlp-11-rows640.log
+I rknn-toolkit2 version: 2.5.0
+[1;33mW[0m [1;33mload_onnx: The config.mean_values is None, zeros will be set for input 0![0m
+[1;33mW[0m [1;33mload_onnx: The config.std_values is None, ones will be set for input 0![0m
+D base_optimize ...
+D base_optimize done.
+D 
+D fold_constant ...
+D fold_constant done.
+D 
+D correct_ops ...
+D correct_ops done.
+D 
+D fuse_ops ...
+D fuse_ops results:
+D     fuse_sigmoid_mul_to_exswish: remove node = ['/Sigmoid', '/Mul'], add node = ['/Mul_2exswish']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul'], add node = ['x_tp', 'x_tp_rs', '/MatMul#1', '/MatMul_output_0_mm_tp', '/MatMul_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_swish: remove node = [], add node = ['/MatMul_output_0_rs', '/Mul_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_1'], add node = ['x_tp#1', 'x_tp#1_rs', '/MatMul_1#1', '/MatMul_1_output_0_mm_tp', '/MatMul_1_output_0_mm_tp_rs']
+D     unsqueeze_to_4d_mul: remove node = [], add node = ['/Mul_output_0_rs', '/MatMul_1_output_0_rs', '/Mul_1_output_0-rs']
+D     convert_matmul_to_exmatmul: remove node = ['/MatMul_2'], add node = ['/Mul_1_output_0_tp', '/Mul_1_output_0_tp_rs', '/MatMul_2#1', 'y_mm_tp', 'y_mm_tp_rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs', 'x_tp#1-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['x_rs#1', 'x_tp-rs']
+D     unsqueeze_to_4d_transpose: remove node = [], add node = ['/Mul_1_output_0_rs', '/Mul_1_output_0_tp-rs']
+D     remove_parallel_reshape: remove node = ['x_rs', 'x_rs#1'], add node = ['x_rs']
+D     remove_parallel_transpose: remove node = ['x_tp', 'x_tp#1'], add node = ['x_tp']
+D     bypass_two_reshape: remove node = ['x_tp_rs', 'x_tp-rs', '/MatMul_output_0_rs', '/MatMul_output_0_mm_tp_rs', '/Mul_output_0_rs', '/Mul_output_0-rs', '/Mul_1_output_0_rs', '/Mul_1_output_0-rs', '/Mul_1_output_0_tp_rs', '/Mul_1_output_0_tp-rs']
+D     bypass_two_reshape: remove node = ['x_tp#1_rs', 'x_tp#1-rs', '/MatMul_1_output_0_rs', '/MatMul_1_output_0_mm_tp_rs']
+D     swap_transpose_swish: remove node = ['/MatMul_output_0_mm_tp', '/Mul_2exswish'], add node = ['/Mul_2exswish', '/MatMul_output_0_mm_tp']
+D     reduce_tp_in_mesh_forward: remove node = ['/MatMul_1_output_0_mm_tp', '/MatMul_output_0_mm_tp', '/Mul_1_output_0_tp']
+D     fuse_exmatmul_mul: remove node = ['/Mul_1', '/MatMul_1#1'], add node = ['/MatMul_1#1']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul#1'], add node = ['/MatMul#2']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_1#1'], add node = ['/MatMul_1#2', '/MatMul_1#2_mul']
+D     convert_exmatmul_to_conv: remove node = ['/MatMul_2#1'], add node = ['/MatMul_2#2']
+D     tiling_conv_channelin: remove node = ['/MatMul_2#2'], add node = ['/Mul_1_output_0-rs_split', '/MatMul_2#2_tile0', '/MatMul_2#2_tile1', 'y_mm_tile0_conv_add']
+D     fold_constant ...
+D     fold_constant done.
+D fuse_ops done.
+D 
+D sparse_weight ...
+D sparse_weight done.
+D 
+[1;33mW[0m [1;33mSet temperate env rknn_compute_order=WidthFirst[0m
+I rknn building ...
+[1;33mW[0m [1;33mRestore temperate env rknn_compute_order=[0m
+I rknn building done.

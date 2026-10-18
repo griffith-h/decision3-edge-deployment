@@ -1,0 +1,74 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 129/305 [00:00<00:00, 1265.88it/s]Loading weights:  84%|████████▍ | 256/305 [00:00<00:00, 1204.10it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1385.05it/s]
+E RKNN: [15:07:03.879] failed to allocate handle, ret: -1, errno: 14, errstr: Bad address
+E RKNN: [15:07:03.883] failed to allocate handle, ret: -1, errno: 14, errstr: Bad address
+Traceback (most recent call last):
+  File "/experiment/short_formal.py", line 13, in <module>
+    for _ in range(3):app.use(mode);app.invoke(case)
+                                    ^^^^^^^^^^^^^^^^
+  File "/mlp/experiment.py", line 24, in invoke
+    def invoke(self,c):return self.model.system_one(**{k:v for k,v in c.items() if k in ('state','questions','images','videos')})
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py", line 2036, in system_one
+    probabilities, tokens = self.run(prepared)
+                            ^^^^^^^^^^^^^^^^^^
+  File "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py", line 1985, in run
+    probs = self.probabilities(sequences, counts)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py", line 1677, in probabilities
+    scaled = self.logits(sequences, counts) / self.temperature
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/experiment/fp32_owner.py", line 28, in scope
+    try:return self.scope_original(sequences,counts)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/experiment/last_readout.py", line 26, in logits
+    def logits(model,sequences,counts):return self.logits(sequences,counts)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/experiment/last_readout.py", line 84, in logits
+    if not self.good(sequences,counts):self.bypasses+=1;return self.original(sequences,counts)
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py", line 1658, in logits
+    hidden = self.encoder(embeds, mask)[:, -1]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py", line 1034, in __call__
+    hidden = layer(
+             ^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/transformers/modeling_layers.py", line 109, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/residual.py", line 24, in forward
+    else:hidden_states,_=self.self_attn(hidden_states=hidden_states,attention_mask=attention_mask,position_ids=position_ids,past_key_values=past_key_values,position_embeddings=position_embeddings,**kwargs)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/row/fused_owner.py", line 20, in conditional
+    def conditional(layer,*args,_old=old,_prepared=prepared,**kwargs):return _prepared(*args,**kwargs) if self.fused else _old(*args,**kwargs)
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/attention_prepare.py", line 28, in forward
+    outputs=engine.group(members,hidden_states);qr=outputs[id(self.q_proj)];kr=outputs[id(self.k_proj)];vr=outputs[id(self.v_proj)]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/row/fused_owner.py", line 14, in group
+    if x.numel()//x.shape[-1]<=512:return owner.engine.group(members,x)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/projection/scattered_adapter.py", line 44, in group
+    for m in packed:self.ensure(m)
+                    ^^^^^^^^^^^^^^
+  File "/experiment/fp32_owner.py", line 18, in ensure
+    if not self.float_active or (self.float_domain=='mlp' and id(module) not in self.mlp_ids) or (self.float_domain=='projections' and id(module) in self.mlp_ids):return self.ensure_original(module)
+                                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/combined/adapter.py", line 36, in ensure
+    if module._bp_handle is None:module._bp_handle=self.create(module.weight,self.core.get(id(module),0))
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/combined/adapter.py", line 31, in create
+    if not handle:raise self.error()
+                  ^^^^^^^^^^^^^^^^^^
+RuntimeError: rknn_create_mem failed

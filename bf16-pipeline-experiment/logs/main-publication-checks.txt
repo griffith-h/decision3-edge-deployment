@@ -1,0 +1,10 @@
+Main publication checks (local saved-record and static checks; no new board benchmark):
+- Both stage validate_records.py commands: exit 0, passed=true; sixth-stage goal_met=false.
+- bf16-pipeline-experiment/check_report.py: exit 0, 30 tables, 189 links checked.
+- python3 -m compileall -q bf16-pipeline-experiment fusion-pipeline-experiment: exit 0.
+- bash -n for all top-level shell scripts in both stages: exit 0.
+- Staged source/doc whitespace check excluding both logs directories: exit 0.
+- Full staged git diff --check reports 468 original whitespace notices in 18 raw log files only; raw logs preserved byte-for-byte.
+- No ignored model/binary artifacts staged; no high-confidence credential-pattern matches found.
+- origin/main and HEAD both c35feec before commit; normal main push, no force push.
+- Existing local-final-checks.txt and source snapshots retain their experiment-time state.

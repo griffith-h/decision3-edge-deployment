@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd -- "$(dirname -- "$0")"
+gcc -Wall -Wextra -O3 -fPIC -shared -fopenmp -march=armv8-a+simd -ffp-contract=off fused_conv.c -o libfused_conv.so

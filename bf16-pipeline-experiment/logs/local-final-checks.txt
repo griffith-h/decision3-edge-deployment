@@ -1,0 +1,23 @@
+Final local verification after board validation (no board inference rerun):
+
+python3 bf16-pipeline-experiment/validate_records.py
+  exit 0; passed=true; goal_met=false; 90 pairs, 34 regression cases.
+python3 bf16-pipeline-experiment/match_runtime_sources.py
+  exit 0; 28 runtime/benchmark source files match the final board manifest.
+python3 -m compileall -q bf16-pipeline-experiment
+  exit 0.
+for f in bf16-pipeline-experiment/*.sh; do bash -n "$f" || exit; done
+  exit 0.
+git diff --check
+  exit 0.
+git rev-parse --short HEAD
+  c35feec; no commit or push performed.
+python3 bf16-pipeline-experiment/check_report.py --url http://127.0.0.1:8765/mlp-length-experiment/report.html
+  exit 0; 30 tables, 12 unique IDs, 189 links checked (43 sixth-stage links),
+  served bytes equal local report, source whitespace check passed.
+
+Desktop browser visual check of #bf16-pipeline:
+  Headline and 1579.62 / 1642.71 ms / 9.40% evidence render legibly;
+  mechanism text, source links and formal paired-results table display correctly.
+  This was a local desktop viewport check, not a mobile layout or concurrency test.
+  Temporary local QA tab and HTTP server were closed after inspection.

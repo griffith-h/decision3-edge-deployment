@@ -1,0 +1,53 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  40%|████      | 122/305 [00:00<00:00, 1210.84it/s]Loading weights:  80%|████████  | 244/305 [00:00<00:00, 1088.15it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1205.32it/s]
+REGRESSION words-512 True True [('baseline', 2.149, 0.004798276620384456), ('candidate', 1.477, 0.0020677006930907016), ('candidate', 1.499, 0.0020677006930907016), ('baseline', 2.107, 0.004798276620384456), ('baseline', 2.093, 0.004798276620384456), ('candidate', 1.525, 0.0020677006930907016)]
+REGRESSION single True True [('baseline', 0.344, 0.0), ('candidate', 0.344, 0.0), ('candidate', 0.343, 0.0), ('baseline', 0.343, 0.0), ('baseline', 0.347, 0.0), ('candidate', 0.345, 0.0)]
+REGRESSION words-410 True True [('baseline', 1.857, 0.001909426355153343), ('candidate', 1.809, 0.001909426355153343), ('candidate', 1.796, 0.001909426355153343), ('baseline', 1.887, 0.001909426355153343), ('baseline', 1.886, 0.001909426355153343), ('candidate', 1.85, 0.001909426355153343)]
+REGRESSION words-921 True True [('baseline', 4.416, 0.0015981997824973115), ('candidate', 4.183, 0.0015981997824973115), ('candidate', 4.255, 0.0015981997824973115), ('baseline', 4.392, 0.0015981997824973115), ('baseline', 4.347, 0.0015981997824973115), ('candidate', 4.267, 0.0015981997824973115)]
+REGRESSION natural-long True True [('baseline', 2.685, 0.007059595233858351), ('candidate', 2.604, 0.007059595233858351), ('candidate', 2.622, 0.007059595233858351), ('baseline', 2.703, 0.007059595233858351), ('baseline', 2.666, 0.007059595233858351), ('candidate', 2.639, 0.007059595233858351)]
+REGRESSION batch-long True True [('baseline', 4.352, 0.004702856970833058), ('candidate', 4.273, 0.004702856970833058), ('candidate', 4.222, 0.004702856970833058), ('baseline', 4.452, 0.004702856970833058), ('baseline', 4.827, 0.004702856970833058), ('candidate', 4.242, 0.004702856970833058)]
+REGRESSION boundary-512 True True [('baseline', 1.66, 0.0037253942871073864), ('candidate', 1.654, 0.0037253942871073864), ('candidate', 1.63, 0.0037253942871073864), ('baseline', 1.652, 0.0037253942871073864), ('baseline', 1.635, 0.0037253942871073864), ('candidate', 1.643, 0.0037253942871073864)]
+REGRESSION multi-wide True True [('baseline', 2.123, 0.01745269963835705), ('candidate', 2.107, 0.004762348006334349), ('candidate', 2.139, 0.004762348006334349), ('baseline', 2.05, 0.01745269963835705), ('baseline', 2.088, 0.01745269963835705), ('candidate', 2.179, 0.004762348006334349)]
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff9520a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff951a9018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff96edef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff9689f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff9689fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff9781abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff962a5cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff96280c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff962bb660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff962a7538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff9fc238a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffffa1fc7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffffa1fc7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+REGRESSION image True True [('baseline', 8.011, 0.0018197263690976628), ('candidate', 7.855, 0.0018197263690976628), ('candidate', 7.685, 0.0018197263690976628), ('baseline', 7.936, 0.0018197263690976628), ('baseline', 7.681, 0.0018197263690976628), ('candidate', 7.403, 0.0018197263690976628)]
+REGRESSION wide2-natural True True [('baseline', 1.928, 0.005685329267819839), ('candidate', 1.987, 0.0030105294916077385), ('candidate', 1.986, 0.0030105294916077385), ('baseline', 1.933, 0.005685329267819839), ('baseline', 1.927, 0.005685329267819839), ('candidate', 2.067, 0.0030105294916077385)]
+REGRESSION matched615-0 True True [('baseline', 2.107, 0.010524350667702298), ('candidate', 1.415, 0.008404474373447157)]
+REGRESSION matched615-1 False True [('baseline', 2.097, 0.015737875166325632), ('candidate', 1.504, 0.020182124655839462)]
+REGRESSION matched615-2 True True [('baseline', 2.061, 0.0011881775650157689), ('candidate', 1.435, 0.00023833469698852916)]
+REGRESSION matched615-3 True True [('baseline', 2.147, 0.002838411395631124), ('candidate', 1.505, 0.007073278443567921)]
+REGRESSION matched615-4 True True [('baseline', 2.143, 0.0035511932972622784), ('candidate', 1.475, 0.006900566879087577)]
+REGRESSION matched615-5 True True [('baseline', 2.134, 0.0006588905826135916), ('candidate', 1.424, 0.000368800463633856)]
+REGRESSION matched615-6 True True [('baseline', 2.111, 0.0019611045557063715), ('candidate', 1.5, 0.0012890725384526978)]
+REGRESSION matched615-7 True True [('baseline', 2.008, 0.0061441533484465904), ('candidate', 1.488, 0.0024237972810341457)]
+REGRESSION matched615-8 True True [('baseline', 2.119, 0.0023688281215671902), ('candidate', 1.466, 0.002700822348465415)]
+REGRESSION matched615-9 False True [('baseline', 2.157, 0.021517650648741227), ('candidate', 1.519, 0.01769622191158482)]
+REGRESSION matched615-10 True True [('baseline', 2.107, 0.0012249734343861007), ('candidate', 1.503, 0.007365430142629026)]
+REGRESSION matched615-11 True True [('baseline', 2.087, 0.004973395371290712), ('candidate', 1.507, 0.004864016104097479)]
+REGRESSION extra-shape115-0 True True [('baseline', 0.335, 0.0), ('candidate', 0.339, 0.0)]
+REGRESSION extra-shape115-1 True True [('baseline', 0.323, 0.0), ('candidate', 0.334, 0.0)]
+REGRESSION extra-shape115-2 True True [('baseline', 0.335, 0.0), ('candidate', 0.333, 0.0)]
+REGRESSION extra-shape115-3 True True [('baseline', 0.334, 0.0), ('candidate', 0.335, 0.0)]
+REGRESSION extra-shape115-4 True True [('baseline', 0.332, 0.0), ('candidate', 0.333, 0.0)]
+REGRESSION extra-shape115-5 True True [('baseline', 0.32, 0.0), ('candidate', 0.303, 0.0)]
+REGRESSION extra-shape115-6 True True [('baseline', 0.336, 0.0), ('candidate', 0.337, 0.0)]
+REGRESSION extra-shape115-7 True True [('baseline', 0.304, 0.0), ('candidate', 0.316, 0.0)]
+REGRESSION extra-shape115-8 True True [('baseline', 0.328, 0.0), ('candidate', 0.334, 0.0)]
+REGRESSION extra-shape115-9 True True [('baseline', 0.302, 0.0), ('candidate', 0.314, 0.0)]
+REGRESSION extra-shape115-10 True True [('baseline', 0.302, 0.0), ('candidate', 0.32, 0.0)]
+REGRESSION extra-shape115-11 True True [('baseline', 0.338, 0.0), ('candidate', 0.565, 0.0)]

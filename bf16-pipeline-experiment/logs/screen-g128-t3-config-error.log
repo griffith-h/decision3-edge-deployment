@@ -1,0 +1,33 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  64%|██████▎   | 194/305 [00:00<00:00, 1935.98it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1769.82it/s]
+Traceback (most recent call last):
+  File "/experiment/screen_pipeline.py", line 7, in <module>
+    app=Owner();app.stream.group=a.group;app.stream.threads=a.threads
+        ^^^^^^^
+  File "/experiment/pipeline_owner.py", line 6, in __init__
+    super().__init__()
+  File "/experiment/fp32_owner.py", line 12, in __init__
+    super().__init__()
+  File "/experiment/readout_owner.py", line 6, in __init__
+    super().__init__()
+  File "/experiment/core_owner.py", line 25, in __init__
+    try:super().__init__()
+        ^^^^^^^^^^^^^^^^^^
+  File "/tail/runner.py", line 16, in __init__
+    super().__init__()
+  File "/long/owner.py", line 11, in __init__
+    super().__init__()
+  File "/row/fused_owner.py", line 8, in __init__
+    super().__init__()
+  File "/row/projected_owner.py", line 9, in __init__
+    super().__init__();self.projections=None
+    ^^^^^^^^^^^^^^^^^^
+  File "/mlp/experiment.py", line 22, in __init__
+    self.model,self.engine,self.bc,self.cleanup=load_baseline(library='/work/libpipeline_bridge.so');self.candidate=Candidate(self.model,self.engine,Tables());cfg=json.loads((P/'config.json').read_text());self.candidate.use(cfg)
+                                                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/experiment/config.json'

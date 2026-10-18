@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  32%|███▏      | 97/305 [00:00<00:00, 966.36it/s]Loading weights:  69%|██████▉   | 210/305 [00:00<00:00, 1055.71it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1225.59it/s]
+FORMAL BEGIN single
+FORMAL single [('baseline', 0.32398689165711403, True, True), ('both', 0.32448366994503886, True, True)] -0.0015333283559217925
+FORMAL BEGIN words-410
+FORMAL words-410 [('baseline', 3.1637423071078956, True, True), ('both', 2.008874849532731, True, True)] 0.3650320871521535
+FORMAL BEGIN words-512
+FORMAL words-512 [('baseline', 3.5456087621860206, True, True), ('both', 2.3964075065450743, True, True)] 0.3241195892500035
+FORMAL BEGIN words-921
+FORMAL words-921 [('baseline', 6.2571827420033514, True, True), ('both', 4.661226992611773, True, True)] 0.25505979530983036
+FORMAL BEGIN natural-long
+FORMAL natural-long [('baseline', 4.6025675679557025, True, True), ('both', 2.8562256924342364, True, True)] 0.379427754125754
+FORMAL BEGIN batch-long
+FORMAL batch-long [('baseline', 6.915382514940575, True, True), ('both', 4.718037547892891, True, True)] 0.3177474221130002
+FORMAL BEGIN boundary-512
+FORMAL boundary-512 [('baseline', 1.6330962360370904, True, True), ('both', 1.6089435189496726, True, True)] 0.014789524679835964
+FORMAL BEGIN multi-wide
+FORMAL multi-wide [('baseline', 2.0502241789363325, True, False), ('both', 2.092869400046766, True, False)] -0.02080027225732839
+FORMAL BEGIN image
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff8dbfa988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff8db99018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff8f8cef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff8f28f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff8f28fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff9020abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff8ec95cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff8ec70c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff8ecab660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff8ec97538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff986138a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff9a9b7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff9a9b7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+FORMAL image [('baseline', 7.914470234536566, True, True), ('both', 7.809071016032249, True, True)] 0.013317280295576106

@@ -1,0 +1,18 @@
+本轮验证分层（原始JSON为准）
+
+1. 公开RKNN Toolkit2 2.5.0转换：compile.sh；24个128/384静态MLP图的config/load/build/export均返回0；非量化构建，来源为原12层BF16权重，不改注意力或扫描。
+2. 独立容器 run.sh test_planned.py：依次执行基础行打包19形状、粗桶21形状、成本组合24形状及非连续、保护、整层回退、故障禁用、构造失败清理检查。
+3. run.sh probe_buckets.py：真实0/5/11层，128/384图的115行前缀输出与旧图精确一致，补零输出为零，行置换精确一致，非法输入拒绝与恢复；每组30次原始图计时。
+4. run.sh screen.py / screen_buckets.py / screen_planned.py：原7场景（含多问题、图片）及6个合成不同长度；每模式文本4次，粗桶/组合图片2次。不同阶段基线单独对照，不能跨阶段相除。
+5. run.sh formal_planned.py：9个长度每模式20次，交替先后顺序；另12个115-token自然语言请求各3组固定/候选回归。每次检查概率等<=0.01、choice一致，confidence和所有受检答案数值差异单独记录。
+6. run.sh profile_planned.py：5个长度各模式5次带包装计时，单列MLP/其他耗时。此分布不混入正式性能表。
+7. run.sh screen_long.py：补测511/512/513/615行，核对是否跨过原矩阵乘<=512上限；每模式先暖机一次，再交替实测2次；以实际usage和MLP形状为准，不推断SLA。
+8. preserve_service.py after：容器ID/启动时间/配置/发布文件哈希保持，五次HTTP响应与before完整相等，健康且无测试容器残留。
+9. validate_records.py：检查记录完整性、转换退出码、源文件与图哈希、每份计时的12层图实际命中/无回退、画像计时及线上保护。精度门槛通过情况独立报告，不将结构校验冒充精度全通过。
+10. 静态检查：python3 -m py_compile mlp-length-experiment/*.py；bash -n mlp-length-experiment/{run,compile,build_runtime}.sh；HTML本地链接与表格行/列核对。
+
+首轮粗桶单测曾发现宽度泛化后仍用115切片的问题（bucket-unit-initial-failure.log）。该错误在硬件筛选前修复，后续边界单测与整模型实验使用修复后的源码。没有影响线上服务。首次115分块执行的源文件另归档在logs/tile115-sources/，之后仅将图片场景移到末尾和泛化切片宽度，原始数据不重写。
+
+未运行全仓库测试：本轮只新增隔离实验，原运行源码和发布目录没有修改，相关验证已覆盖新增分块、图调用和回退边界。尚未做标注业务数据准确率评估、视频、多请求吞吐或其他芯片验证。所有速度都是同板当次暖机方法调用，不是端到端服务SLA。
+
+补充审计：首份service-after与制品哈希读取重叠，保留为service-after-hash-overlap.json。它只验证身份/文件/输出，不能用于性能判断；已在哈希任务完成后单独重跑after，五次完整输出和配置均保持。首尾少量HTTP计时不作为性能等价结论。

@@ -1,0 +1,26 @@
+validity.c: In function ‘d3_finite_bf16’:
+validity.c:8:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+    8 |  if(n<0)return -1;int64_t i=0;
+      |  ^~
+validity.c:8:19: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+    8 |  if(n<0)return -1;int64_t i=0;
+      |                   ^~~~~~~
+validity.c:10:2: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   10 |  for(;i<n;i++)if((x[i]&0x7fff)>=0x7f80)return 1;return 0;
+      |  ^~~
+validity.c:10:49: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   10 |  for(;i<n;i++)if((x[i]&0x7fff)>=0x7f80)return 1;return 0;
+      |                                                 ^~~~~~
+validity.c: In function ‘d3_finite_f32’:
+validity.c:13:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   13 |  if(n<0)return -1;int64_t i=0;
+      |  ^~
+validity.c:13:19: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   13 |  if(n<0)return -1;int64_t i=0;
+      |                   ^~~~~~~
+validity.c:15:2: warning: this ‘for’ clause does not guard... [-Wmisleading-indentation]
+   15 |  for(;i<n;i++)if(!isfinite(x[i]))return 1;return 0;
+      |  ^~~
+validity.c:15:43: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+   15 |  for(;i<n;i++)if(!isfinite(x[i]))return 1;return 0;
+      |                                           ^~~~~~

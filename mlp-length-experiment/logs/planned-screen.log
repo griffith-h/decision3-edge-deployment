@@ -1,0 +1,32 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  38%|███▊      | 117/305 [00:00<00:00, 1167.23it/s]Loading weights:  77%|███████▋  | 234/305 [00:00<00:00, 1139.17it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1210.34it/s]
+PLANNED chinese-0 344 [('fixed', 1083.81), ('planned', 1035.76)] 0.04433095646348817
+PLANNED chinese-1 314 [('fixed', 1046.98), ('planned', 980.05)] 0.0639295998864835
+PLANNED english 328 [('fixed', 1026.68), ('planned', 960.36)] 0.06459134266697697
+PLANNED single 115 [('fixed', 317.23), ('planned', 315.82)] 0.004453242885654296
+PLANNED novel-math 117 [('fixed', 338.89), ('planned', 330.04)] 0.02611472465460951
+PLANNED novel-chat 115 [('fixed', 316.75), ('planned', 315.71)] 0.0032905631559222437
+PLANNED words-0 105 [('fixed', 319.14), ('planned', 308.39)] 0.033692481125599305
+PLANNED words-16 119 [('fixed', 347.98), ('planned', 336.96)] 0.031664205416977675
+PLANNED words-64 167 [('fixed', 536.46), ('planned', 528.67)] 0.014522217651289693
+PLANNED words-128 231 [('fixed', 695.06), ('planned', 677.87)] 0.024724501396343967
+PLANNED words-256 359 [('fixed', 1209.8), ('planned', 1138.42)] 0.05900051329409417
+PLANNED words-400 503 [('fixed', 1660.17), ('planned', 1603.51)] 0.03413174904505123
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffff849da988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffff84979018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffff866aef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffff8606f658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffff8606fbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffff86feabcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffff85a75cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffff85a50c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffff85a8b660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffff85a77538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffff8f3f38a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffff91797744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffff91797818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+PLANNED image 347 [('fixed', 7944.28), ('planned', 7692.77)] 0.03165913199342896

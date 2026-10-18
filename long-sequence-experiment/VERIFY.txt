@@ -1,0 +1,69 @@
+验证日期：2026-10-18，RK3576，独立进程；未替换线上服务。
+
+执行命令与结果：
+
+RK主机独立目录：
+bash build.sh > logs/build.log 2>&1
+bash run.sh test_kernels.py > logs/unit.log 2>&1
+bash run.sh screen.py > logs/screen.log 2>&1
+bash run.sh formal.py --candidate both > logs/formal.log 2>&1
+
+结果：全部成功退出。首次尝试在冻结镜像内编译因缺GCC失败，保留
+logs/build-container-missing-gcc.log；改为主机现有GCC14编译，不安装软件或构建镜像。
+图片保留既有mkldnn BF16不支持、转BLAS警告；上一阶段screen.log也有相同警告。
+
+内核测试：6组完整注意力、5组扫描；覆盖512/513/615/1024/1025/2048、
+GQA、padding mask、外层非连续stride、float64扫描参照。末尾token影响
+首query、跨512扫描状态保留、2049回退、缓存/初态/最终态/未知参数/梯度
+旁路、原生失败整次回退及禁用、恢复均通过。
+
+正式计时结果（暖机模型方法，不含HTTP/排队）：
+513行：baseline 3163.74ms（n=5）→both 2008.87ms（n=20），下降36.50%。
+615行：baseline 3545.61ms（n=5）→both 2396.41ms（n=20），下降32.41%。
+1024行：baseline 6257.18ms（n=5）→both 4661.23ms（n=20），下降25.51%。
+英文长需求706行：4602.57ms（n=3）→2856.23ms（n=10），下降37.94%。
+双问题B=2、T=611、1222实际行（usage=1202）：
+6915.38ms（n=3）→4718.04ms（n=10），下降31.77%。
+
+以上长序列每次各6层注意力/扫描命中新路径，无原生/资格回退；42个大型
+非MLP投影全覆盖，每块<=512行；矩阵句柄暖机后复用。
+五组长序列相对baseline和current的原choice与概率/score/noul绝对差<=0.01
+门槛均通过。相对current的长序列概率最大差0.00622815、score最大差
+0.00705960、noul最大差0.00166603；confidence最大差0.01403546，独立报告，
+不包含在0.01通过结论中。没有对应字段的请求不当作该类型的零误差测试。
+
+正式候选108份分别有新算current与baseline参照；额外12个115-token请求各2次
+仅核对新算baseline。合计132份记录完整性校验通过，不等于全部累计精度通过。
+原multi-wide的score差0.01745270仍未通过current门槛；本阶段T=239旁路，
+其输出与baseline全数值一致，原失败保留。短请求、512边界、图片本轮新增差异为零。
+
+615行另每模式3次组件计时：扫描约1587.23→541.70ms，完整注意力
+约844.99→746.01ms；独立于正式分布。其他耗时包含NPU投影/MLP等多个部分，
+不能把差值全部归为某一个算子的瓶颈。
+
+计时后只补充scaling=None/NaN的原样回退守卫，重跑test_kernels.py通过。
+标准模型有限浮点scale分支的计算、C源码和两个.so均未变，不为该非活动分支
+重跑整套计时。计时源码SHA/旧适配器与单测、最终守卫差异分别保存于
+logs/measured-artifacts.json、logs/pre-scale-guard/、logs/scale-guard.diff。
+
+所有板端测试退出后，本机顺序执行：
+python3 long-sequence-experiment/preserve_service.py after
+python3 long-sequence-experiment/capture_artifacts.py
+python3 long-sequence-experiment/validate_records.py
+python3 long-sequence-experiment/update_report.py
+python3 -m compileall -q long-sequence-experiment
+bash -n long-sequence-experiment/run.sh long-sequence-experiment/build.sh
+python3 long-sequence-experiment/check_report.py --url http://127.0.0.1:43991/mlp-length-experiment/report.html
+git diff --check
+
+结果：after/源与二进制SHA/记录校验通过；捕获14份板端工件SHA，
+前两阶段运行源和图/库哈希与既有本机清单一致。记录清单在本机保存，
+capture_artifacts.py直接把它作为数据传给只读板端校验，不假定板端有该清单副本。
+线上ID、启动时间、配置与550个发布文件SHA不变；健康，5次固定样例完整
+HTTP输出与实验前相同；自有测试容器退出。少量HTTP时间不用于宣称性能等价。
+静态检查与HTML表格列数/锚点/相对链接检查通过；预览响应与报告文件字节相同，
+结果保存logs/html-static.json；未跟踪源码也逐文件做了git diff --no-index --check。
+
+范围：512<T<=2048为内核适配范围，2048仅内核单测；完整模型实测最长T=1024。
+上阶段投影B*T<=2048限制独立存在。未测试全部长度、视频、并发、其他芯片/SDK/模型；
+未宣称业务准确率无损或通用200ms。没有部署、提交或推送。

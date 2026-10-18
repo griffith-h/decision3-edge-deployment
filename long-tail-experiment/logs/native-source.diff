@@ -1,0 +1,115 @@
+--- long-sequence-experiment/long_attention.c
++++ tiled_attention.c
+@@ -17,35 +17,46 @@
+  float32x4_t p=vdupq_n_f32(1.0f/5040);p=vfmaq_f32(vdupq_n_f32(1.0f/720),p,z);p=vfmaq_f32(vdupq_n_f32(1.0f/120),p,z);p=vfmaq_f32(vdupq_n_f32(1.0f/24),p,z);p=vfmaq_f32(vdupq_n_f32(1.0f/6),p,z);p=vfmaq_f32(vdupq_n_f32(.5),p,z);p=vfmaq_f32(vdupq_n_f32(1),p,z);p=vfmaq_f32(vdupq_n_f32(1),p,z);
+  return vmulq_f32(p,vreinterpretq_f32_s32(vshlq_n_s32(vaddq_s32(n,vdupq_n_s32(127)),23)));
+ }
+-int d3_attention(const uint16_t*q,const uint16_t*k,const uint16_t*v,const uint8_t*mask,uint16_t*out,const int64_t*strides,int batch,int heads,int kvheads,int length,int dim,float scale,int mode){
+- if(!gemm||batch<1||heads<1||kvheads<1||heads%kvheads||length<1||length>2048||dim<1||dim>256||batch>8||heads>64||batch*heads>128)return -1;
+- int bad=0;
+- #pragma omp parallel for num_threads(3) schedule(static) reduction(|:bad)
+- for(int bh=0;bh<batch*heads;bh++){
+-  int b=bh/heads,h=bh%heads,kh=h/(heads/kvheads);size_t size=(size_t)length*dim;
+-  float*buf=(float*)malloc((4*size+(size_t)length*length)*sizeof(float));if(!buf){bad|=1;continue;}
+-  float*qq=buf,*kk=qq+size,*vv=kk+size,*yy=vv+size,*scores=yy+size;int invalid=0;
+-  for(int t=0;t<length;t++)for(int d=0;d<dim;d++){
+-   qq[t*dim+d]=bf(q[b*strides[0]+h*strides[1]+t*strides[2]+d]);
+-   kk[t*dim+d]=bf(k[b*strides[3]+kh*strides[4]+t*strides[5]+d]);
+-   vv[t*dim+d]=bf(v[b*strides[6]+kh*strides[7]+t*strides[8]+d]);
+-   if(!isfinite(qq[t*dim+d])||!isfinite(kk[t*dim+d])||!isfinite(vv[t*dim+d]))invalid=1;
++/* Every query tile still attends to ALL keys. GQA K/V conversion is shared. */
++int d3_attention_tiled(const uint16_t*q,const uint16_t*k,const uint16_t*v,const uint8_t*mask,uint16_t*out,const int64_t*strides,int batch,int heads,int kvheads,int length,int dim,float scale,int tile,int threads,int reciprocal){
++ if(!gemm||batch<1||batch>8||heads<1||heads>64||batch*heads>128||kvheads<1||heads%kvheads||length<1||length>2048||dim<1||dim>256||tile<8||tile>2048||threads<1||threads>3||(reciprocal!=0&&reciprocal!=1))return -1;
++ size_t size=(size_t)length*dim,qsize=(size_t)batch*heads*size,ksize=(size_t)batch*kvheads*size;
++ float*packed=malloc((qsize+2*ksize)*sizeof(float));if(!packed)return -2;
++ float *qq=packed,*kk=qq+qsize,*vv=kk+ksize;int bad=0;
++ int allheads=heads+2*kvheads;
++ #pragma omp parallel for num_threads(threads) schedule(static) reduction(|:bad)
++ for(int row=0;row<batch*allheads*length;row++){
++  int t=row%length,ph=(row/length)%allheads,b=row/(length*allheads),h,base;
++  const uint16_t*src;float*dst;
++  if(ph<heads){h=ph;base=0;src=q;dst=qq+((size_t)b*heads+h)*size+(size_t)t*dim;}
++  else if(ph<heads+kvheads){h=ph-heads;base=3;src=k;dst=kk+((size_t)b*kvheads+h)*size+(size_t)t*dim;}
++  else{h=ph-heads-kvheads;base=6;src=v;dst=vv+((size_t)b*kvheads+h)*size+(size_t)t*dim;}
++  src+=b*strides[base]+h*strides[base+1]+t*strides[base+2];int d=0;
++  for(;d+4<=dim;d+=4){uint32x4_t bits=vshll_n_u16(vld1_u16(src+d),16);if(vmaxvq_u32(vcgeq_u32(vandq_u32(bits,vdupq_n_u32(0x7fffffff)),vdupq_n_u32(0x7f800000))))bad|=1;vst1q_f32(dst+d,vreinterpretq_f32_u32(bits));}
++  for(;d<dim;d++){dst[d]=bf(src[d]);if(!isfinite(dst[d]))bad|=1;}
++ }
++ if(bad){free(packed);return 1;}
++ int blocks=(length+tile-1)/tile;
++ #pragma omp parallel for num_threads(threads) schedule(static) reduction(|:bad)
++ for(int job=0;job<batch*heads*blocks;job++){
++  int bh=job/blocks,b=bh/heads,h=bh%heads,kh=h/(heads/kvheads),start=(job%blocks)*tile,n=length-start;if(n>tile)n=tile;
++  float*buf=malloc(((size_t)n*length+(size_t)n*dim)*sizeof(float));if(!buf){bad|=1;continue;}
++  float*scores=buf,*yy=buf+(size_t)n*length;int invalid=0;
++  gemm(101,111,112,n,length,dim,scale,qq+(size_t)bh*size+(size_t)start*dim,dim,kk+((size_t)b*kvheads+kh)*size,dim,0,scores,length);
++  for(int i=0;i<n;i++){
++   float*s=scores+(size_t)i*length,m=-INFINITY;
++   for(int j=0;j<length;j++){if(mask&&!mask[b*length+j])s[j]=-INFINITY;if(s[j]>m)m=s[j];}
++   float sum=0;int j=0;
++   for(;j+4<=length;j+=4){float32x4_t e=exp4(vsubq_f32(vld1q_f32(s+j),vdupq_n_f32(m)));vst1q_f32(s+j,e);sum+=vaddvq_f32(e);}
++   for(;j<length;j++){s[j]=expf(s[j]-m);sum+=s[j];}
++   if(!(sum>0)||!isfinite(sum)){invalid=1;break;}
++   if(reciprocal){float inv=1/sum;j=0;for(;j+4<=length;j+=4)vst1q_f32(s+j,vmulq_n_f32(vld1q_f32(s+j),inv));for(;j<length;j++)s[j]*=inv;}
++   else for(j=0;j<length;j++)s[j]/=sum;
+   }
+   if(invalid){bad|=1;free(buf);continue;}
+-  gemm(101,111,112,length,length,dim,scale,qq,dim,kk,dim,0,scores,length);
+-  for(int t=0;t<length;t++){
+-   float*s=scores+t*length,m=-INFINITY;
+-   for(int j=0;j<length;j++){if(mask&&!mask[b*length+j])s[j]=-INFINITY;if(s[j]>m)m=s[j];}
+-   float sum=0;int j=0;
+-   if(mode){for(;j+4<=length;j+=4){float32x4_t z=vsubq_f32(vld1q_f32(s+j),vdupq_n_f32(m));float32x4_t e=exp4(z);vst1q_f32(s+j,e);sum+=vaddvq_f32(e);}}
+-   for(;j<length;j++){s[j]=expf(s[j]-m);sum+=s[j];}
+-   if(!(sum>0)||!isfinite(sum)){invalid=1;break;}
+-   for(j=0;j<length;j++)s[j]/=sum;
+-  }
+-  if(invalid){bad|=1;free(buf);continue;}
+-  gemm(101,111,111,length,dim,length,1,scores,length,vv,dim,0,yy,dim);
+-  for(int t=0;t<length;t++)for(int d=0;d<dim;d++){float f=yy[t*dim+d];if(!isfinite(f))bad|=1;out[((size_t)b*length+t)*heads*dim+h*dim+d]=rb(f);}
++  gemm(101,111,111,n,dim,length,1,scores,length,vv+((size_t)b*kvheads+kh)*size,dim,0,yy,dim);
++  for(int i=0;i<n;i++)for(int d=0;d<dim;d++){float f=yy[(size_t)i*dim+d];if(!isfinite(f))bad|=1;out[((size_t)b*length+start+i)*heads*dim+h*dim+d]=rb(f);}
+   free(buf);
+  }
+- return bad;
++ free(packed);return bad;
+ }
+--- long-sequence-experiment/long_scan.c
++++ tuned_scan.c
+@@ -1,4 +1,7 @@
+ /* Own block form of the public zero-state causal gated-delta equations. */
++#ifndef D3_THREADS
++#define D3_THREADS 3
++#endif
+ #include <arm_neon.h>
+ #include <stdint.h>
+ #include <stdlib.h>
+@@ -16,7 +19,7 @@
+  if(!gemm||!trsm||heads<=0||heads>128||length<=0||length>2048||kd<=0||kd>128||kd%4||vd<=0||vd>128||vd%4||block<2||block>128||(tile!=8&&tile!=16&&tile!=32&&tile!=64&&tile!=128))return -1;
+  int chunks=(length+block-1)/block,coeffsize=2*block*block+2*block;
+  float*coeff=calloc((size_t)heads*chunks*coeffsize,sizeof(float));if(!coeff)return -2;
+- #pragma omp parallel for num_threads(3) schedule(static)
++ #pragma omp parallel for num_threads(D3_THREADS) schedule(static) collapse(2)
+  for(int h=0;h<heads;++h)for(int cb=0;cb<chunks;++cb){
+   int start=cb*block,n=length-start;if(n>block)n=block;
+   float *c=coeff+((size_t)h*chunks+cb)*coeffsize,*u=c,*a=c+block*block,*d=c+2*block*block,*tail=d+block;
+@@ -31,7 +34,7 @@
+   accum=1;for(int j=n-1;j>=0;--j){tail[j]=accum;accum*=decay[(size_t)h*length+start+j];}
+  }
+  int tiles=(vd+tile-1)/tile;
+- #pragma omp parallel for num_threads(3) schedule(static)
++ #pragma omp parallel for num_threads(D3_THREADS) schedule(static)
+  for(int job=0;job<heads*tiles;++job){
+   int h=job/tiles,first=job%tiles*tile,width=vd-first;if(width>tile)width=tile;
+   float state[128*128] __attribute__((aligned(64)));memset(state,0,(size_t)kd*width*4);
+--- remaining-500ms-experiment/scan_fast.c
++++ recurrent_scan.c
+@@ -5,7 +5,7 @@
+ #include <math.h>
+ static inline uint16x4_t rb(float32x4_t v){uint32x4_t u=vreinterpretq_u32_f32(v);uint32x4_t r=vshrq_n_u32(vaddq_u32(vaddq_u32(u,vdupq_n_u32(0x7fff)),vandq_u32(vshrq_n_u32(u,16),vdupq_n_u32(1))),16);r=vbslq_u32(vcgtq_u32(vandq_u32(u,vdupq_n_u32(0x7fffffff)),vdupq_n_u32(0x7f800000)),vdupq_n_u32(0x7fc0),r);return vmovn_u32(r);}
+ int d3_scan_fast(const float *q,const float *k,const float *v,const float *decay,const float *beta,uint16_t *out,int heads,int length,int kd,int vd,int mode,int threads){
+- if(heads<=0||length<=0||kd<=0||kd>128||vd<=0||vd>128||vd%4||(mode!=6&&mode!=7)||threads<1||threads>3)return -1;
++ if(heads<=0||heads>128||length<=0||length>2048||kd<=0||kd>128||vd<=0||vd>128||vd%4||(mode!=6&&mode!=7)||threads<1||threads>3)return -1;
+  int tiles=(vd+15)/16;
+  #pragma omp parallel for num_threads(threads) schedule(static)
+  for(int job=0;job<heads*tiles;++job){

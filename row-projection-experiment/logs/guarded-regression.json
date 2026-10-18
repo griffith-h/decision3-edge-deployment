@@ -1,0 +1,303 @@
+{
+  "request": {
+    "id": "wide2-natural",
+    "state": "请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。请写一个 Python 函数，把两个有序列表合并成一个有序列表。",
+    "questions": {
+      "kind": {
+        "type": "choice",
+        "instructions": "这个请求属于哪类任务？",
+        "criteria": {
+          "code": "编写、解释或修复程序",
+          "math": "数学计算或证明",
+          "chat": "日常聊天和生活话题"
+        }
+      },
+      "programming": {
+        "type": "noul",
+        "instructions": "这个请求是否要求编写程序？"
+      }
+    },
+    "baseline": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992407534465768,
+          "math": 0.0005031534224754242,
+          "chat": 0.00025609313094778077
+        },
+        "confidence": 0.9939031290513372
+      },
+      "programming": {
+        "type": "noul",
+        "noul": 0.8701225052792207
+      },
+      "complexity": {
+        "type": "score",
+        "score": 0.1014327779124191,
+        "probabilities": {
+          "0": 0.914882283616913,
+          "1": 0.06880265485375493,
+          "2": 0.016315061529332084
+        },
+        "confidence": 0.6971758227789213,
+        "legend": {
+          "0": "简单",
+          "1": "中等",
+          "2": "复杂"
+        }
+      }
+    }
+  },
+  "reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9964563715297095,
+          "math": 0.0020352293182992398,
+          "chat": 0.001508399151991323
+        },
+        "confidence": 0.9763796711284352
+      },
+      "programming": {
+        "type": "noul",
+        "noul": 0.6132617179531371
+      }
+    },
+    "usage": {
+      "input_tokens": 586,
+      "output_tokens": 0
+    }
+  },
+  "records": [
+    {
+      "seconds": 11.429805557942018,
+      "max_delta": 0.0024607546348178744,
+      "confidence_max_delta": 3.304585524976922e-05,
+      "all_numeric_max_delta": 0.0024607546348178744,
+      "choices_unchanged": true,
+      "passed": true,
+      "mlp": {
+        "optimized": 0,
+        "fallback": 12,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {
+          "(2, 303, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(2, 303, 1024)": 30,
+          "(2, 303, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "94": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 6,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 12,
+      "engine_cpu_fallbacks": 36,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9964615177133741,
+              "math": 0.002044570990117423,
+              "chat": 0.001493911296508529
+            },
+            "confidence": 0.9764127169836849
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.6108009633183192
+          }
+        },
+        "usage": {
+          "input_tokens": 586,
+          "output_tokens": 0
+        }
+      }
+    },
+    {
+      "seconds": 12.192665233043954,
+      "max_delta": 0.0024607546348178744,
+      "confidence_max_delta": 3.304585524976922e-05,
+      "all_numeric_max_delta": 0.0024607546348178744,
+      "choices_unchanged": true,
+      "passed": true,
+      "mlp": {
+        "optimized": 0,
+        "fallback": 12,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {
+          "(2, 303, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(2, 303, 1024)": 30,
+          "(2, 303, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "94": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 6,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 12,
+      "engine_cpu_fallbacks": 36,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9964615177133741,
+              "math": 0.002044570990117423,
+              "chat": 0.001493911296508529
+            },
+            "confidence": 0.9764127169836849
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.6108009633183192
+          }
+        },
+        "usage": {
+          "input_tokens": 586,
+          "output_tokens": 0
+        }
+      }
+    }
+  ]
+}

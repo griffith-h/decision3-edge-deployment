@@ -1,0 +1,2821 @@
+{
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "33307",
+      "thermal_zone0": "33307",
+      "thermal_zone5": "32384",
+      "thermal_zone3": "32384",
+      "thermal_zone1": "33307",
+      "thermal_zone4": "32384"
+    }
+  },
+  "scope": "warm per-case alternating fixed115 vs tiled115; no HTTP; first shape separately recorded",
+  "cases": {
+    "chinese-0": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.0290387999266386,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0253606920596212,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0244257720187306,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0990422719623893,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0290387999266386,
+              1.0253606920596212,
+              1.0244257720187306,
+              1.0990422719623893
+            ],
+            "count": 4,
+            "median": 1.02719974599313,
+            "min": 1.0244257720187306,
+            "max": 1.0990422719623893,
+            "p95_nearest_rank": 1.0990422719623893
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 1.1115534789860249,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.1107136860955507,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0408886161167175,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.1016706267837435,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 127, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.1115534789860249,
+              1.1107136860955507,
+              1.0408886161167175,
+              1.1016706267837435
+            ],
+            "count": 4,
+            "median": 1.106192156439647,
+            "min": 1.0408886161167175,
+            "max": 1.1115534789860249,
+            "p95_nearest_rank": 1.1115534789860249
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "chinese-0",
+        "state": "请写一个 Python 函数，把两个有序列表合并成一个有序列表。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编写、解释或修复程序",
+              "math": "数学计算或证明",
+              "chat": "日常聊天和生活话题"
+            }
+          },
+          "programming": {
+            "type": "noul",
+            "instructions": "这个请求是否要求编写程序？"
+          },
+          "complexity": {
+            "type": "score",
+            "instructions": "这个请求的复杂程度是多少？",
+            "criteria": [
+              "简单",
+              "中等",
+              "复杂"
+            ]
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992407534465768,
+              "math": 0.0005031534224754242,
+              "chat": 0.00025609313094778077
+            },
+            "confidence": 0.9939031290513372
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8701225052792207
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.1014327779124191,
+            "probabilities": {
+              "0": 0.914882283616913,
+              "1": 0.06880265485375493,
+              "2": 0.016315061529332084
+            },
+            "confidence": 0.6971758227789213,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        }
+      },
+      "first_fixed_seconds": 7.42099330900237,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991947086979626,
+              "math": 0.0005306913027958729,
+              "chat": 0.00027459999924154844
+            },
+            "confidence": 0.993574749825315
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8743516802787781
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.10342584235645369,
+            "probabilities": {
+              "0": 0.9131984165675849,
+              "1": 0.07017732450837637,
+              "2": 0.016624258924038664
+            },
+            "confidence": 0.6928212624646987,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 344,
+      "reduction": -0.07690073012055199
+    },
+    "chinese-1": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.0060335430316627,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0481231689918786,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0500054450239986,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0491518981289119,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0060335430316627,
+              1.0481231689918786,
+              1.0500054450239986,
+              1.0491518981289119
+            ],
+            "count": 4,
+            "median": 1.0486375335603952,
+            "min": 1.0060335430316627,
+            "max": 1.0500054450239986,
+            "p95_nearest_rank": 1.0500054450239986
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 1.0700350562110543,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0647651699837297,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0589275998063385,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.054973681923002,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 117, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0700350562110543,
+              1.0647651699837297,
+              1.0589275998063385,
+              1.054973681923002
+            ],
+            "count": 4,
+            "median": 1.0618463848950341,
+            "min": 1.054973681923002,
+            "max": 1.0700350562110543,
+            "p95_nearest_rank": 1.0700350562110543
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "chinese-1",
+        "state": "你好，今天心情怎么样？",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编写、解释或修复程序",
+              "math": "数学计算或证明",
+              "chat": "日常聊天和生活话题"
+            }
+          },
+          "programming": {
+            "type": "noul",
+            "instructions": "这个请求是否要求编写程序？"
+          },
+          "complexity": {
+            "type": "score",
+            "instructions": "这个请求的复杂程度是多少？",
+            "criteria": [
+              "简单",
+              "中等",
+              "复杂"
+            ]
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0007201397436318482,
+              "math": 0.00036008721769970325,
+              "chat": 0.9989197730386684
+            },
+            "confidence": 0.991675122971715
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002551515976465532
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.019110443444288625,
+            "probabilities": {
+              "0": 0.9835840059958996,
+              "1": 0.013721544563912261,
+              "2": 0.0026944494401881826
+            },
+            "confidence": 0.9171034390906018,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        }
+      },
+      "first_fixed_seconds": 1.0465903100557625,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0006636826129619309,
+              "math": 0.0003314633350523805,
+              "chat": 0.9990048540519857
+            },
+            "confidence": 0.9922566247133878
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002736063430435609
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.019357727884180668,
+            "probabilities": {
+              "0": 0.9833146592403195,
+              "1": 0.014012953635180313,
+              "2": 0.002672387124500178
+            },
+            "confidence": 0.9160916169260501,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 314,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 314,
+      "reduction": -0.012596203084388469
+    },
+    "english": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.0263820451218635,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.9498006268404424,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.9541473900899291,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.0323506209533662,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0263820451218635,
+              0.9498006268404424,
+              0.9541473900899291,
+              1.0323506209533662
+            ],
+            "count": 4,
+            "median": 0.9902647176058963,
+            "min": 0.9498006268404424,
+            "max": 1.0323506209533662,
+            "p95_nearest_rank": 1.0323506209533662
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.9727047809865326,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.8884125819895416,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.8831642449367791,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.8870763608720154,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(3, 114, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.9727047809865326,
+              0.8884125819895416,
+              0.8831642449367791,
+              0.8870763608720154
+            ],
+            "count": 4,
+            "median": 0.8877444714307785,
+            "min": 0.8831642449367791,
+            "max": 0.9727047809865326,
+            "p95_nearest_rank": 0.9727047809865326
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "english",
+        "state": "Write a Python function that merges two sorted lists and explain its running time.",
+        "questions": {
+          "domain": {
+            "type": "choice",
+            "instructions": "Which domain does this request belong to?",
+            "criteria": {
+              "code": "Programming",
+              "math": "Mathematics",
+              "other": "Anything else"
+            }
+          },
+          "reasoning": {
+            "type": "noul",
+            "instructions": "Does answering this request need multi-step reasoning?"
+          },
+          "difficulty": {
+            "type": "score",
+            "instructions": "How difficult is this request?",
+            "criteria": [
+              "Trivial",
+              "Moderate",
+              "Hard"
+            ]
+          }
+        },
+        "baseline": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9059022938497119,
+              "math": 0.00010158083329922285,
+              "other": 0.09399612531698893
+            },
+            "confidence": 0.7153566085339282
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.0630309302518049
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.19148818189477718,
+            "probabilities": {
+              "0": 0.8434359933051915,
+              "1": 0.12163983149483988,
+              "2": 0.03492417519996865
+            },
+            "confidence": 0.5293824489640959,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        }
+      },
+      "first_fixed_seconds": 1.0268816901370883,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9097381850787222,
+              "math": 9.696550228532522e-05,
+              "other": 0.09016484941899253
+            },
+            "confidence": 0.7233756322030849
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.0630222349544369
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.1907542645931244,
+            "probabilities": {
+              "0": 0.8429288864135742,
+              "1": 0.12338796257972717,
+              "2": 0.03368315100669861
+            },
+            "confidence": 0.5299300980090853,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 328,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 328,
+      "reduction": 0.10352812167535852
+    },
+    "single": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.3149565979838371,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3180705108679831,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.31593857891857624,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.34487114707008004,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3149565979838371,
+              0.3180705108679831,
+              0.31593857891857624,
+              0.34487114707008004
+            ],
+            "count": 4,
+            "median": 0.31700454489327967,
+            "min": 0.3149565979838371,
+            "max": 0.34487114707008004,
+            "p95_nearest_rank": 0.34487114707008004
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.31570547609589994,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.31475761183537543,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3146571749821305,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3168554350268096,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.31570547609589994,
+              0.31475761183537543,
+              0.3146571749821305,
+              0.3168554350268096
+            ],
+            "count": 4,
+            "median": 0.3152315439656377,
+            "min": 0.3146571749821305,
+            "max": 0.3168554350268096,
+            "p95_nearest_rank": 0.3168554350268096
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "single",
+        "state": "请写一个 Python 函数，合并两个有序列表。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.3222347511909902,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 115,
+      "reduction": 0.005592982675497238
+    },
+    "image": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 7.634306950960308,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 7.483172646956518,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 8.107775969896466,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 7.464554701931775,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              7.634306950960308,
+              7.483172646956518,
+              8.107775969896466,
+              7.464554701931775
+            ],
+            "count": 4,
+            "median": 7.558739798958413,
+            "min": 7.464554701931775,
+            "max": 8.107775969896466,
+            "p95_nearest_rank": 8.107775969896466
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 7.687213306082413,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 7.77878050506115,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 7.914763124892488,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            },
+            {
+              "seconds": 7.551090320106596,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(2, 180, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              7.687213306082413,
+              7.77878050506115,
+              7.914763124892488,
+              7.551090320106596
+            ],
+            "count": 4,
+            "median": 7.732996905571781,
+            "min": 7.551090320106596,
+            "max": 7.914763124892488,
+            "p95_nearest_rank": 7.914763124892488
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "image",
+        "state": "Describe the attached image.",
+        "questions": {
+          "image_colour": {
+            "type": "choice",
+            "instructions": "Which colour dominates the image?",
+            "criteria": {
+              "red": "Red",
+              "green": "Green",
+              "blue": "Blue",
+              "other": "Anything else"
+            }
+          },
+          "image_photo": {
+            "type": "noul",
+            "instructions": "Is the image a photograph?"
+          }
+        },
+        "images": [
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg=="
+        ]
+      },
+      "first_fixed_seconds": 7.698213777970523,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "image_colour": {
+            "type": "choice",
+            "choice": "other",
+            "probabilities": {
+              "red": 0.02556029126388961,
+              "green": 0.3283098252987284,
+              "blue": 0.012145396171167805,
+              "other": 0.6339844872662143
+            },
+            "confidence": 0.4215584854800326
+          },
+          "image_photo": {
+            "type": "noul",
+            "noul": 0.026786460857207928
+          }
+        },
+        "usage": {
+          "input_tokens": 347,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 347,
+      "reduction": -0.023053724727682745
+    },
+    "novel-math": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.3130465759895742,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.33301151101477444,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.31536765792407095,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.31237117596901953,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3130465759895742,
+              0.33301151101477444,
+              0.31536765792407095,
+              0.31237117596901953
+            ],
+            "count": 4,
+            "median": 0.3142071169568226,
+            "min": 0.31237117596901953,
+            "max": 0.33301151101477444,
+            "p95_nearest_rank": 0.33301151101477444
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.3764287300873548,
+              "max_delta": 5.4223362469802165e-05,
+              "confidence_max_delta": 0.00030161151057905844,
+              "all_numeric_max_delta": 0.00030161151057905844,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.37584724300540984,
+              "max_delta": 5.4223362469802165e-05,
+              "confidence_max_delta": 0.00030161151057905844,
+              "all_numeric_max_delta": 0.00030161151057905844,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3777271891012788,
+              "max_delta": 5.4223362469802165e-05,
+              "confidence_max_delta": 0.00030161151057905844,
+              "all_numeric_max_delta": 0.00030161151057905844,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3788741030730307,
+              "max_delta": 5.4223362469802165e-05,
+              "confidence_max_delta": 0.00030161151057905844,
+              "all_numeric_max_delta": 0.00030161151057905844,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 117, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3764287300873548,
+              0.37584724300540984,
+              0.3777271891012788,
+              0.3788741030730307
+            ],
+            "count": 4,
+            "median": 0.3770779595943168,
+            "min": 0.37584724300540984,
+            "max": 0.3788741030730307,
+            "p95_nearest_rank": 0.3788741030730307
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "novel-math",
+        "state": "请计算 37 乘以 19，并检查结果。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.3203731041867286,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.001866106225438577,
+              "math": 0.9979155297507338,
+              "chat": 0.00021836402382760024
+            },
+            "confidence": 0.9857553116985963
+          }
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 117,
+      "reduction": -0.20009363010747383
+    },
+    "novel-chat": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.2919418909586966,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.32383872102946043,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.32602997100912035,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.34367491491138935,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.2919418909586966,
+              0.32383872102946043,
+              0.32602997100912035,
+              0.34367491491138935
+            ],
+            "count": 4,
+            "median": 0.3249343460192904,
+            "min": 0.2919418909586966,
+            "max": 0.34367491491138935,
+            "p95_nearest_rank": 0.34367491491138935
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.29223011108115315,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.2939379040617496,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3327546410728246,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3442429539281875,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 115, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.29223011108115315,
+              0.2939379040617496,
+              0.3327546410728246,
+              0.3442429539281875
+            ],
+            "count": 4,
+            "median": 0.3133462725672871,
+            "min": 0.29223011108115315,
+            "max": 0.3442429539281875,
+            "p95_nearest_rank": 0.3442429539281875
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "novel-chat",
+        "state": "今天下班后想和朋友散步聊天，有什么轻松的话题？",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.2929138222243637,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 9.994972649650907e-05,
+              "math": 0.00011093219580972694,
+              "chat": 0.9997891180776938
+            },
+            "confidence": 0.9980505450843167
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 115,
+      "reduction": 0.035662814946978094
+    },
+    "words-0": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.4015130428597331,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3042836678214371,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.2968521530274302,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.2936359499581158,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.4015130428597331,
+              0.3042836678214371,
+              0.2968521530274302,
+              0.2936359499581158
+            ],
+            "count": 4,
+            "median": 0.30056791042443365,
+            "min": 0.2936359499581158,
+            "max": 0.4015130428597331,
+            "p95_nearest_rank": 0.4015130428597331
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.42046066909097135,
+              "max_delta": 0.00037184560258674004,
+              "confidence_max_delta": 0.00018224031164704169,
+              "all_numeric_max_delta": 0.00037184560258674004,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.361736737890169,
+              "max_delta": 0.00037184560258674004,
+              "confidence_max_delta": 0.00018224031164704169,
+              "all_numeric_max_delta": 0.00037184560258674004,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.2854409390129149,
+              "max_delta": 0.00037184560258674004,
+              "confidence_max_delta": 0.00018224031164704169,
+              "all_numeric_max_delta": 0.00037184560258674004,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.2825272548943758,
+              "max_delta": 0.00037184560258674004,
+              "confidence_max_delta": 0.00018224031164704169,
+              "all_numeric_max_delta": 0.00037184560258674004,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 12,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 105, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.42046066909097135,
+              0.361736737890169,
+              0.2854409390129149,
+              0.2825272548943758
+            ],
+            "count": 4,
+            "median": 0.32358883845154196,
+            "min": 0.2825272548943758,
+            "max": 0.42046066909097135,
+            "p95_nearest_rank": 0.42046066909097135
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-0",
+        "state": "",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.37741599814035,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.35436377193304724,
+              "math": 0.11337580616307114,
+              "chat": 0.5322604219038816
+            },
+            "confidence": 0.13517452472885338
+          }
+        },
+        "usage": {
+          "input_tokens": 105,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 105,
+      "reduction": -0.07659143650631339
+    },
+    "words-16": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.3195660221390426,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3395225128624588,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.34482774091884494,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.3453608409035951,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3195660221390426,
+              0.3395225128624588,
+              0.34482774091884494,
+              0.3453608409035951
+            ],
+            "count": 4,
+            "median": 0.3421751268906519,
+            "min": 0.3195660221390426,
+            "max": 0.3453608409035951,
+            "p95_nearest_rank": 0.3453608409035951
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.38505779788829386,
+              "max_delta": 0.00319074155741661,
+              "confidence_max_delta": 0.0015140752194174878,
+              "all_numeric_max_delta": 0.00319074155741661,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.38367591286078095,
+              "max_delta": 0.00319074155741661,
+              "confidence_max_delta": 0.0015140752194174878,
+              "all_numeric_max_delta": 0.00319074155741661,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.4149125670082867,
+              "max_delta": 0.00319074155741661,
+              "confidence_max_delta": 0.0015140752194174878,
+              "all_numeric_max_delta": 0.00319074155741661,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.41698128706775606,
+              "max_delta": 0.00319074155741661,
+              "confidence_max_delta": 0.0015140752194174878,
+              "all_numeric_max_delta": 0.00319074155741661,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 119, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.38505779788829386,
+              0.38367591286078095,
+              0.4149125670082867,
+              0.41698128706775606
+            ],
+            "count": 4,
+            "median": 0.3999851824482903,
+            "min": 0.38367591286078095,
+            "max": 0.41698128706775606,
+            "p95_nearest_rank": 0.41698128706775606
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-16",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.3228796108160168,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.4833705163253137,
+              "math": 0.42242357449549117,
+              "chat": 0.09420590917919508
+            },
+            "confidence": 0.14623302533067872
+          }
+        },
+        "usage": {
+          "input_tokens": 119,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 119,
+      "reduction": -0.16894873710710323
+    },
+    "words-64": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.5788227370940149,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.575815716991201,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.5772236019838601,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.5831774659454823,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.5788227370940149,
+              0.575815716991201,
+              0.5772236019838601,
+              0.5831774659454823
+            ],
+            "count": 4,
+            "median": 0.5780231695389375,
+            "min": 0.575815716991201,
+            "max": 0.5831774659454823,
+            "p95_nearest_rank": 0.5831774659454823
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.5705268401652575,
+              "max_delta": 0.004651557223977254,
+              "confidence_max_delta": 0.0015313574137409969,
+              "all_numeric_max_delta": 0.004651557223977254,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.5636236569844186,
+              "max_delta": 0.004651557223977254,
+              "confidence_max_delta": 0.0015313574137409969,
+              "all_numeric_max_delta": 0.004651557223977254,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.5700255848933011,
+              "max_delta": 0.004651557223977254,
+              "confidence_max_delta": 0.0015313574137409969,
+              "all_numeric_max_delta": 0.004651557223977254,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.5750036840327084,
+              "max_delta": 0.004651557223977254,
+              "confidence_max_delta": 0.0015313574137409969,
+              "all_numeric_max_delta": 0.004651557223977254,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 24,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 167, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.5705268401652575,
+              0.5636236569844186,
+              0.5700255848933011,
+              0.5750036840327084
+            ],
+            "count": 4,
+            "median": 0.5702762125292793,
+            "min": 0.5636236569844186,
+            "max": 0.5750036840327084,
+            "p95_nearest_rank": 0.5750036840327084
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-64",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.5778947211802006,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.6212934186165026,
+              "math": 0.3174021208576621,
+              "chat": 0.06130446052583537
+            },
+            "confidence": 0.243492914434432
+          }
+        },
+        "usage": {
+          "input_tokens": 167,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 167,
+      "reduction": 0.013402502560299845
+    },
+    "words-128": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.7025189930573106,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7012053159996867,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7023440289776772,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7091928119771183,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.7025189930573106,
+              0.7012053159996867,
+              0.7023440289776772,
+              0.7091928119771183
+            ],
+            "count": 4,
+            "median": 0.7024315110174939,
+            "min": 0.7012053159996867,
+            "max": 0.7091928119771183,
+            "p95_nearest_rank": 0.7091928119771183
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 0.7656662790104747,
+              "max_delta": 0.008338593800589766,
+              "confidence_max_delta": 0.013738435888830502,
+              "all_numeric_max_delta": 0.013738435888830502,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7690765769220889,
+              "max_delta": 0.008338593800589766,
+              "confidence_max_delta": 0.013738435888830502,
+              "all_numeric_max_delta": 0.013738435888830502,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7608925378881395,
+              "max_delta": 0.008338593800589766,
+              "confidence_max_delta": 0.013738435888830502,
+              "all_numeric_max_delta": 0.013738435888830502,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            },
+            {
+              "seconds": 0.7681131430435926,
+              "max_delta": 0.008338593800589766,
+              "confidence_max_delta": 0.013738435888830502,
+              "all_numeric_max_delta": 0.013738435888830502,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 36,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 231, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.7656662790104747,
+              0.7690765769220889,
+              0.7608925378881395,
+              0.7681131430435926
+            ],
+            "count": 4,
+            "median": 0.7668897110270336,
+            "min": 0.7608925378881395,
+            "max": 0.7690765769220889,
+            "p95_nearest_rank": 0.7690765769220889
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-128",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 0.7127074990421534,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.7911653996830375,
+              "math": 0.16117511449493296,
+              "chat": 0.047659485822029626
+            },
+            "confidence": 0.43148631380824176
+          }
+        },
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 231,
+      "reduction": -0.09176439125882885
+    },
+    "words-256": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.2166473178658634,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.2235083419363946,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.2194474919233471,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.2219026829116046,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.2166473178658634,
+              1.2235083419363946,
+              1.2194474919233471,
+              1.2219026829116046
+            ],
+            "count": 4,
+            "median": 1.2206750874174759,
+            "min": 1.2166473178658634,
+            "max": 1.2235083419363946,
+            "p95_nearest_rank": 1.2235083419363946
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 1.2311337981373072,
+              "max_delta": 0.0019479950580647554,
+              "confidence_max_delta": 0.00503255102477973,
+              "all_numeric_max_delta": 0.00503255102477973,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.2408505300991237,
+              "max_delta": 0.0019479950580647554,
+              "confidence_max_delta": 0.00503255102477973,
+              "all_numeric_max_delta": 0.00503255102477973,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.2323712781071663,
+              "max_delta": 0.0019479950580647554,
+              "confidence_max_delta": 0.00503255102477973,
+              "all_numeric_max_delta": 0.00503255102477973,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.232083013979718,
+              "max_delta": 0.0019479950580647554,
+              "confidence_max_delta": 0.00503255102477973,
+              "all_numeric_max_delta": 0.00503255102477973,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 48,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 359, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.2311337981373072,
+              1.2408505300991237,
+              1.2323712781071663,
+              1.232083013979718
+            ],
+            "count": 4,
+            "median": 1.2322271460434422,
+            "min": 1.2311337981373072,
+            "max": 1.2408505300991237,
+            "p95_nearest_rank": 1.2408505300991237
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-256",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 1.1842903918586671,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.8777774939520565,
+              "math": 0.08884972102214378,
+              "chat": 0.03337278502579966
+            },
+            "confidence": 0.5967775852844328
+          }
+        },
+        "usage": {
+          "input_tokens": 359,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 359,
+      "reduction": -0.009463663791489774
+    },
+    "words-400": {
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.6768582758959383,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.6239306689240038,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.6074876179918647,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.6536982210818678,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 0,
+              "optimized": 0,
+              "fallback": 12,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.6768582758959383,
+              1.6239306689240038,
+              1.6074876179918647,
+              1.6536982210818678
+            ],
+            "count": 4,
+            "median": 1.6388144450029358,
+            "min": 1.6074876179918647,
+            "max": 1.6768582758959383,
+            "p95_nearest_rank": 1.6768582758959383
+          },
+          "passed": true
+        },
+        "tile115": {
+          "records": [
+            {
+              "seconds": 1.6876845080405474,
+              "max_delta": 0.005057347702844384,
+              "confidence_max_delta": 0.01424640605165417,
+              "all_numeric_max_delta": 0.01424640605165417,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 60,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.664095239015296,
+              "max_delta": 0.005057347702844384,
+              "confidence_max_delta": 0.01424640605165417,
+              "all_numeric_max_delta": 0.01424640605165417,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 60,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.6696302681230009,
+              "max_delta": 0.005057347702844384,
+              "confidence_max_delta": 0.01424640605165417,
+              "all_numeric_max_delta": 0.01424640605165417,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 60,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            },
+            {
+              "seconds": 1.683678223984316,
+              "max_delta": 0.005057347702844384,
+              "confidence_max_delta": 0.01424640605165417,
+              "all_numeric_max_delta": 0.01424640605165417,
+              "choices_unchanged": true,
+              "passed": true,
+              "graph_calls": 60,
+              "optimized": 12,
+              "fallback": 0,
+              "shapes": {
+                "(1, 503, 1024)": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.6876845080405474,
+              1.664095239015296,
+              1.6696302681230009,
+              1.683678223984316
+            ],
+            "count": 4,
+            "median": 1.6766542460536584,
+            "min": 1.664095239015296,
+            "max": 1.6876845080405474,
+            "p95_nearest_rank": 1.6876845080405474
+          },
+          "passed": true
+        }
+      },
+      "request": {
+        "id": "words-400",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "first_fixed_seconds": 1.6461842281278223,
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9251989305651782,
+              "math": 0.05292690988948745,
+              "chat": 0.02187415954533439
+            },
+            "confidence": 0.7168357301931235
+          }
+        },
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 503,
+      "reduction": -0.02308974098080685
+    }
+  },
+  "passed": true,
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": false,
+    "pid": 7,
+    "dmc_hz": "1320000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "40692",
+      "thermal_zone0": "40692",
+      "thermal_zone5": "40692",
+      "thermal_zone3": "39769",
+      "thermal_zone1": "40692",
+      "thermal_zone4": "38845"
+    }
+  }
+}

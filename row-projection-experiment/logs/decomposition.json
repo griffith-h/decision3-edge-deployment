@@ -1,0 +1,952 @@
+{
+  "request": {
+    "id": "multi-wide",
+    "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+    "questions": {
+      "kind": {
+        "type": "choice",
+        "instructions": "这个请求属于哪类任务？",
+        "criteria": {
+          "code": "编写、解释或修复程序",
+          "math": "数学计算或证明",
+          "chat": "日常聊天和生活话题"
+        }
+      },
+      "programming": {
+        "type": "noul",
+        "instructions": "这个请求是否要求编写程序？"
+      },
+      "complexity": {
+        "type": "score",
+        "instructions": "这个请求的复杂程度是多少？",
+        "criteria": [
+          "简单",
+          "中等",
+          "复杂"
+        ]
+      }
+    },
+    "baseline": {
+      "kind": {
+        "type": "choice",
+        "choice": "code",
+        "probabilities": {
+          "code": 0.9992407534465768,
+          "math": 0.0005031534224754242,
+          "chat": 0.00025609313094778077
+        },
+        "confidence": 0.9939031290513372
+      },
+      "programming": {
+        "type": "noul",
+        "noul": 0.8701225052792207
+      },
+      "complexity": {
+        "type": "score",
+        "score": 0.1014327779124191,
+        "probabilities": {
+          "0": 0.914882283616913,
+          "1": 0.06880265485375493,
+          "2": 0.016315061529332084
+        },
+        "confidence": 0.6971758227789213,
+        "legend": {
+          "0": "简单",
+          "1": "中等",
+          "2": "复杂"
+        }
+      }
+    }
+  },
+  "variants": {
+    "mlp_only": {
+      "seconds": 12.277577413013205,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.1400853724796781,
+              "math": 0.8073268117158148,
+              "chat": 0.05258781580450719
+            },
+            "confidence": 0.4511138006642431
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.025491739889822233
+          },
+          "complexity": {
+            "type": "score",
+            "score": 1.6907213965488312,
+            "probabilities": {
+              "0": 0.11902843380143843,
+              "1": 0.07122173584829186,
+              "2": 0.8097498303502697
+            },
+            "confidence": 0.44258269551027873,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 0
+        }
+      },
+      "max_delta": 0.013126544011722752,
+      "confidence_max_delta": 0.01338408589547746,
+      "all_numeric_max_delta": 0.01338408589547746,
+      "choices_unchanged": true,
+      "passed": false,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 24,
+        "padded_rows": 612,
+        "shapes": {
+          "(3, 239, 1024)": 12
+        },
+        "plans": {
+          "384,384": 12
+        }
+      },
+      "projections": {
+        "bypass": 42,
+        "guard_fallback": 0,
+        "optimized_projections": 0,
+        "wide_groups": 0,
+        "chunks": 0,
+        "native_max_rows": 0,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {},
+        "native_rows": {},
+        "coverage": {}
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": false,
+      "mlp_policy_fallbacks": 0,
+      "engine_cpu_fallbacks": 42,
+      "worst_fields": [
+        {
+          "path": "/complexity/confidence",
+          "reference": 0.4291986096148013,
+          "candidate": 0.44258269551027873,
+          "delta": 0.01338408589547746
+        },
+        {
+          "path": "/complexity/score",
+          "reference": 1.6775948525371085,
+          "candidate": 1.6907213965488312,
+          "delta": 0.013126544011722752
+        },
+        {
+          "path": "/complexity/probabilities/2",
+          "reference": 0.8024025856553545,
+          "candidate": 0.8097498303502697,
+          "delta": 0.0073472446949152115
+        },
+        {
+          "path": "/complexity/probabilities/0",
+          "reference": 0.124807733118246,
+          "candidate": 0.11902843380143843,
+          "delta": 0.005779299316807568
+        },
+        {
+          "path": "/kind/confidence",
+          "reference": 0.445655368209939,
+          "candidate": 0.4511138006642431,
+          "delta": 0.005458432454304107
+        },
+        {
+          "path": "/kind/probabilities/math",
+          "reference": 0.8044602604547995,
+          "candidate": 0.8073268117158148,
+          "delta": 0.0028665512610153154
+        },
+        {
+          "path": "/kind/probabilities/code",
+          "reference": 0.14192814216468322,
+          "candidate": 0.1400853724796781,
+          "delta": 0.00184276968500513
+        },
+        {
+          "path": "/complexity/probabilities/1",
+          "reference": 0.07278968122639949,
+          "candidate": 0.07122173584829186,
+          "delta": 0.0015679453781076297
+        }
+      ]
+    },
+    "chunked": {
+      "seconds": 5.173037936910987,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.14429436462788622,
+              "math": 0.800684562317827,
+              "chat": 0.055021073054286766
+            },
+            "confidence": 0.4384866726100203
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.025163490172419554
+          },
+          "complexity": {
+            "type": "score",
+            "score": 1.6950475521754655,
+            "probabilities": {
+              "0": 0.11706948193110911,
+              "1": 0.07081348396231618,
+              "2": 0.8121170341065747
+            },
+            "confidence": 0.4469238909703175,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 0
+        }
+      },
+      "max_delta": 0.01745269963835705,
+      "confidence_max_delta": 0.01772528135551621,
+      "all_numeric_max_delta": 0.01772528135551621,
+      "choices_unchanged": true,
+      "passed": false,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 24,
+        "padded_rows": 612,
+        "shapes": {
+          "(3, 239, 1024)": 12
+        },
+        "plans": {
+          "384,384": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(3, 239, 1024)": 30,
+          "(3, 239, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "205": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": false,
+      "mlp_policy_fallbacks": 0,
+      "engine_cpu_fallbacks": 0,
+      "worst_fields": [
+        {
+          "path": "/complexity/confidence",
+          "reference": 0.4291986096148013,
+          "candidate": 0.4469238909703175,
+          "delta": 0.01772528135551621
+        },
+        {
+          "path": "/complexity/score",
+          "reference": 1.6775948525371085,
+          "candidate": 1.6950475521754655,
+          "delta": 0.01745269963835705
+        },
+        {
+          "path": "/complexity/probabilities/2",
+          "reference": 0.8024025856553545,
+          "candidate": 0.8121170341065747,
+          "delta": 0.009714448451220159
+        },
+        {
+          "path": "/complexity/probabilities/0",
+          "reference": 0.124807733118246,
+          "candidate": 0.11706948193110911,
+          "delta": 0.007738251187136891
+        },
+        {
+          "path": "/kind/confidence",
+          "reference": 0.445655368209939,
+          "candidate": 0.4384866726100203,
+          "delta": 0.0071686955999187285
+        },
+        {
+          "path": "/kind/probabilities/math",
+          "reference": 0.8044602604547995,
+          "candidate": 0.800684562317827,
+          "delta": 0.0037756981369724274
+        },
+        {
+          "path": "/kind/probabilities/code",
+          "reference": 0.14192814216468322,
+          "candidate": 0.14429436462788622,
+          "delta": 0.002366222463203005
+        },
+        {
+          "path": "/complexity/probabilities/1",
+          "reference": 0.07278968122639949,
+          "candidate": 0.07081348396231618,
+          "delta": 0.0019761972640833098
+        }
+      ]
+    },
+    "linear_only": {
+      "seconds": 14.23345523304306,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.14152967877116174,
+              "math": 0.8058450191995314,
+              "chat": 0.052625302029306806
+            },
+            "confidence": 0.4487260079184521
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.026316825447438488
+          },
+          "complexity": {
+            "type": "score",
+            "score": 1.6822050931721169,
+            "probabilities": {
+              "0": 0.12334016526728622,
+              "1": 0.07111457629331087,
+              "2": 0.805545258439403
+            },
+            "confidence": 0.43537499092331244,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 0
+        }
+      },
+      "max_delta": 0.004610240635008367,
+      "confidence_max_delta": 0.00617638130851117,
+      "all_numeric_max_delta": 0.00617638130851117,
+      "choices_unchanged": true,
+      "passed": true,
+      "mlp": {
+        "optimized": 0,
+        "fallback": 12,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {
+          "(3, 239, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(3, 239, 1024)": 30,
+          "(3, 239, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "205": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 0,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": false,
+      "mlp_policy_fallbacks": 0,
+      "engine_cpu_fallbacks": 36,
+      "worst_fields": [
+        {
+          "path": "/complexity/confidence",
+          "reference": 0.4291986096148013,
+          "candidate": 0.43537499092331244,
+          "delta": 0.00617638130851117
+        },
+        {
+          "path": "/complexity/score",
+          "reference": 1.6775948525371085,
+          "candidate": 1.6822050931721169,
+          "delta": 0.004610240635008367
+        },
+        {
+          "path": "/complexity/probabilities/2",
+          "reference": 0.8024025856553545,
+          "candidate": 0.805545258439403,
+          "delta": 0.0031426727840484503
+        },
+        {
+          "path": "/kind/confidence",
+          "reference": 0.445655368209939,
+          "candidate": 0.4487260079184521,
+          "delta": 0.0030706397085130677
+        },
+        {
+          "path": "/complexity/probabilities/1",
+          "reference": 0.07278968122639949,
+          "candidate": 0.07111457629331087,
+          "delta": 0.001675104933088617
+        },
+        {
+          "path": "/complexity/probabilities/0",
+          "reference": 0.124807733118246,
+          "candidate": 0.12334016526728622,
+          "delta": 0.0014675678509597778
+        },
+        {
+          "path": "/kind/probabilities/math",
+          "reference": 0.8044602604547995,
+          "candidate": 0.8058450191995314,
+          "delta": 0.0013847587447319842
+        },
+        {
+          "path": "/kind/probabilities/chat",
+          "reference": 0.053611597380517316,
+          "candidate": 0.052625302029306806,
+          "delta": 0.0009862953512105102
+        }
+      ]
+    },
+    "fused": {
+      "seconds": 2.083075762959197,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.14429436462788622,
+              "math": 0.800684562317827,
+              "chat": 0.055021073054286766
+            },
+            "confidence": 0.4384866726100203
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.025163490172419554
+          },
+          "complexity": {
+            "type": "score",
+            "score": 1.6950475521754655,
+            "probabilities": {
+              "0": 0.11706948193110911,
+              "1": 0.07081348396231618,
+              "2": 0.8121170341065747
+            },
+            "confidence": 0.4469238909703175,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 0
+        }
+      },
+      "max_delta": 0.01745269963835705,
+      "confidence_max_delta": 0.01772528135551621,
+      "all_numeric_max_delta": 0.01772528135551621,
+      "choices_unchanged": true,
+      "passed": false,
+      "mlp": {
+        "optimized": 12,
+        "fallback": 0,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 24,
+        "padded_rows": 612,
+        "shapes": {
+          "(3, 239, 1024)": 12
+        },
+        "plans": {
+          "384,384": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(3, 239, 1024)": 30,
+          "(3, 239, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "205": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 6,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 0,
+      "engine_cpu_fallbacks": 0,
+      "worst_fields": [
+        {
+          "path": "/complexity/confidence",
+          "reference": 0.4291986096148013,
+          "candidate": 0.4469238909703175,
+          "delta": 0.01772528135551621
+        },
+        {
+          "path": "/complexity/score",
+          "reference": 1.6775948525371085,
+          "candidate": 1.6950475521754655,
+          "delta": 0.01745269963835705
+        },
+        {
+          "path": "/complexity/probabilities/2",
+          "reference": 0.8024025856553545,
+          "candidate": 0.8121170341065747,
+          "delta": 0.009714448451220159
+        },
+        {
+          "path": "/complexity/probabilities/0",
+          "reference": 0.124807733118246,
+          "candidate": 0.11706948193110911,
+          "delta": 0.007738251187136891
+        },
+        {
+          "path": "/kind/confidence",
+          "reference": 0.445655368209939,
+          "candidate": 0.4384866726100203,
+          "delta": 0.0071686955999187285
+        },
+        {
+          "path": "/kind/probabilities/math",
+          "reference": 0.8044602604547995,
+          "candidate": 0.800684562317827,
+          "delta": 0.0037756981369724274
+        },
+        {
+          "path": "/kind/probabilities/code",
+          "reference": 0.14192814216468322,
+          "candidate": 0.14429436462788622,
+          "delta": 0.002366222463203005
+        },
+        {
+          "path": "/complexity/probabilities/1",
+          "reference": 0.07278968122639949,
+          "candidate": 0.07081348396231618,
+          "delta": 0.0019761972640833098
+        }
+      ]
+    },
+    "fused_guarded": {
+      "seconds": 14.858594394056126,
+      "output": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.14152967877116174,
+              "math": 0.8058450191995314,
+              "chat": 0.052625302029306806
+            },
+            "confidence": 0.4487260079184521
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.026316825447438488
+          },
+          "complexity": {
+            "type": "score",
+            "score": 1.6822050931721169,
+            "probabilities": {
+              "0": 0.12334016526728622,
+              "1": 0.07111457629331087,
+              "2": 0.805545258439403
+            },
+            "confidence": 0.43537499092331244,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 680,
+          "output_tokens": 0
+        }
+      },
+      "max_delta": 0.004610240635008367,
+      "confidence_max_delta": 0.00617638130851117,
+      "all_numeric_max_delta": 0.00617638130851117,
+      "choices_unchanged": true,
+      "passed": true,
+      "mlp": {
+        "optimized": 0,
+        "fallback": 12,
+        "range_fallback": 0,
+        "errors": [],
+        "graph_calls": 0,
+        "padded_rows": 0,
+        "shapes": {
+          "(3, 239, 1024)": 12
+        }
+      },
+      "projections": {
+        "bypass": 0,
+        "guard_fallback": 0,
+        "optimized_projections": 42,
+        "wide_groups": 12,
+        "chunks": 48,
+        "native_max_rows": 512,
+        "range_fallback": 0,
+        "runtime_fallback": 0,
+        "errors": [],
+        "shapes": {
+          "(3, 239, 1024)": 30,
+          "(3, 239, 2048)": 12
+        },
+        "native_rows": {
+          "512": 24,
+          "205": 24
+        },
+        "coverage": {
+          "language_model.layers.0.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.0.linear_attn.in_proj_z": 1,
+          "language_model.layers.0.linear_attn.out_proj": 1,
+          "language_model.layers.1.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.1.linear_attn.in_proj_z": 1,
+          "language_model.layers.1.linear_attn.out_proj": 1,
+          "language_model.layers.2.self_attn.q_proj": 1,
+          "language_model.layers.2.self_attn.k_proj": 1,
+          "language_model.layers.2.self_attn.v_proj": 1,
+          "language_model.layers.2.self_attn.o_proj": 1,
+          "language_model.layers.3.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.3.linear_attn.in_proj_z": 1,
+          "language_model.layers.3.linear_attn.out_proj": 1,
+          "language_model.layers.4.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.4.linear_attn.in_proj_z": 1,
+          "language_model.layers.4.linear_attn.out_proj": 1,
+          "language_model.layers.5.self_attn.q_proj": 1,
+          "language_model.layers.5.self_attn.k_proj": 1,
+          "language_model.layers.5.self_attn.v_proj": 1,
+          "language_model.layers.5.self_attn.o_proj": 1,
+          "language_model.layers.6.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.6.linear_attn.in_proj_z": 1,
+          "language_model.layers.6.linear_attn.out_proj": 1,
+          "language_model.layers.7.linear_attn.in_proj_qkv": 1,
+          "language_model.layers.7.linear_attn.in_proj_z": 1,
+          "language_model.layers.7.linear_attn.out_proj": 1,
+          "language_model.layers.8.self_attn.q_proj": 1,
+          "language_model.layers.8.self_attn.k_proj": 1,
+          "language_model.layers.8.self_attn.v_proj": 1,
+          "language_model.layers.8.self_attn.o_proj": 1,
+          "language_model.layers.9.self_attn.q_proj": 1,
+          "language_model.layers.9.self_attn.k_proj": 1,
+          "language_model.layers.9.self_attn.v_proj": 1,
+          "language_model.layers.9.self_attn.o_proj": 1,
+          "language_model.layers.10.self_attn.q_proj": 1,
+          "language_model.layers.10.self_attn.k_proj": 1,
+          "language_model.layers.10.self_attn.v_proj": 1,
+          "language_model.layers.10.self_attn.o_proj": 1,
+          "language_model.layers.11.self_attn.q_proj": 1,
+          "language_model.layers.11.self_attn.k_proj": 1,
+          "language_model.layers.11.self_attn.v_proj": 1,
+          "language_model.layers.11.self_attn.o_proj": 1
+        }
+      },
+      "attention_fusion": {
+        "optimized": 0,
+        "fallback": 6,
+        "boundary_fallback": 0
+      },
+      "fused_enabled": true,
+      "mlp_policy_fallbacks": 12,
+      "engine_cpu_fallbacks": 36,
+      "worst_fields": [
+        {
+          "path": "/complexity/confidence",
+          "reference": 0.4291986096148013,
+          "candidate": 0.43537499092331244,
+          "delta": 0.00617638130851117
+        },
+        {
+          "path": "/complexity/score",
+          "reference": 1.6775948525371085,
+          "candidate": 1.6822050931721169,
+          "delta": 0.004610240635008367
+        },
+        {
+          "path": "/complexity/probabilities/2",
+          "reference": 0.8024025856553545,
+          "candidate": 0.805545258439403,
+          "delta": 0.0031426727840484503
+        },
+        {
+          "path": "/kind/confidence",
+          "reference": 0.445655368209939,
+          "candidate": 0.4487260079184521,
+          "delta": 0.0030706397085130677
+        },
+        {
+          "path": "/complexity/probabilities/1",
+          "reference": 0.07278968122639949,
+          "candidate": 0.07111457629331087,
+          "delta": 0.001675104933088617
+        },
+        {
+          "path": "/complexity/probabilities/0",
+          "reference": 0.124807733118246,
+          "candidate": 0.12334016526728622,
+          "delta": 0.0014675678509597778
+        },
+        {
+          "path": "/kind/probabilities/math",
+          "reference": 0.8044602604547995,
+          "candidate": 0.8058450191995314,
+          "delta": 0.0013847587447319842
+        },
+        {
+          "path": "/kind/probabilities/chat",
+          "reference": 0.053611597380517316,
+          "candidate": 0.052625302029306806,
+          "delta": 0.0009862953512105102
+        }
+      ]
+    }
+  },
+  "reference": {
+    "model": "vllm-sr/d3-edge",
+    "answers": {
+      "kind": {
+        "type": "choice",
+        "choice": "math",
+        "probabilities": {
+          "code": 0.14192814216468322,
+          "math": 0.8044602604547995,
+          "chat": 0.053611597380517316
+        },
+        "confidence": 0.445655368209939
+      },
+      "programming": {
+        "type": "noul",
+        "noul": 0.0259865123251514
+      },
+      "complexity": {
+        "type": "score",
+        "score": 1.6775948525371085,
+        "probabilities": {
+          "0": 0.124807733118246,
+          "1": 0.07278968122639949,
+          "2": 0.8024025856553545
+        },
+        "confidence": 0.4291986096148013,
+        "legend": {
+          "0": "简单",
+          "1": "中等",
+          "2": "复杂"
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 680,
+      "output_tokens": 0
+    }
+  },
+  "completed": true
+}

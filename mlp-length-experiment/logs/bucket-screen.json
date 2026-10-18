@@ -1,0 +1,3275 @@
+{
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "534000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "36076",
+      "thermal_zone0": "36076",
+      "thermal_zone5": "36076",
+      "thermal_zone3": "35153",
+      "thermal_zone1": "36999",
+      "thermal_zone4": "36076"
+    }
+  },
+  "scope": "4 alternating warmed repeats per mode, isolated model method; baseline is current fixed115 graph service equivalent",
+  "cases": {
+    "chinese-0": {
+      "request": {
+        "id": "chinese-0",
+        "state": "请写一个 Python 函数，把两个有序列表合并成一个有序列表。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编写、解释或修复程序",
+              "math": "数学计算或证明",
+              "chat": "日常聊天和生活话题"
+            }
+          },
+          "programming": {
+            "type": "noul",
+            "instructions": "这个请求是否要求编写程序？"
+          },
+          "complexity": {
+            "type": "score",
+            "instructions": "这个请求的复杂程度是多少？",
+            "criteria": [
+              "简单",
+              "中等",
+              "复杂"
+            ]
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992407534465768,
+              "math": 0.0005031534224754242,
+              "chat": 0.00025609313094778077
+            },
+            "confidence": 0.9939031290513372
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8701225052792207
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.1014327779124191,
+            "probabilities": {
+              "0": 0.914882283616913,
+              "1": 0.06880265485375493,
+              "2": 0.016315061529332084
+            },
+            "confidence": 0.6971758227789213,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.0306314618792385,
+              "warmup_seconds": 1.0994188447948545,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.1042280110996217,
+              "warmup_seconds": 1.0986570781096816,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.1010644040070474,
+              "warmup_seconds": 1.1024525379762053,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.0596990070771426,
+              "warmup_seconds": 1.1069754408672452,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0306314618792385,
+              1.1042280110996217,
+              1.1010644040070474,
+              1.0596990070771426
+            ],
+            "count": 4,
+            "median": 1.080381705542095,
+            "min": 1.0306314618792385,
+            "max": 1.1042280110996217,
+            "p95_nearest_rank": 1.1042280110996217
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 1.0330966599285603,
+              "warmup_seconds": 1.0126847201026976,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 36,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.0246552689932287,
+              "warmup_seconds": 1.0422366429120302,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 36,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.017723146127537,
+              "warmup_seconds": 1.0198484358843416,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 36,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.022245875094086,
+              "warmup_seconds": 1.0225118501111865,
+              "max_delta": 0.0036240143017569615,
+              "confidence_max_delta": 0.005007102507501693,
+              "all_numeric_max_delta": 0.005007102507501693,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 36,
+              "shapes": {
+                "(3, 127, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.0330966599285603,
+              1.0246552689932287,
+              1.017723146127537,
+              1.022245875094086
+            ],
+            "count": 4,
+            "median": 1.0234505720436573,
+            "min": 1.017723146127537,
+            "max": 1.0330966599285603,
+            "p95_nearest_rank": 1.0330966599285603
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991947086979626,
+              "math": 0.0005306913027958729,
+              "chat": 0.00027459999924154844
+            },
+            "confidence": 0.993574749825315
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.8743516802787781
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.10342584235645369,
+            "probabilities": {
+              "0": 0.9131984165675849,
+              "1": 0.07017732450837637,
+              "2": 0.016624258924038664
+            },
+            "confidence": 0.6928212624646987,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 344,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 344,
+      "first_fixed_seconds": 7.375882701948285,
+      "reduction": 0.05269538831173726
+    },
+    "chinese-1": {
+      "request": {
+        "id": "chinese-1",
+        "state": "你好，今天心情怎么样？",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编写、解释或修复程序",
+              "math": "数学计算或证明",
+              "chat": "日常聊天和生活话题"
+            }
+          },
+          "programming": {
+            "type": "noul",
+            "instructions": "这个请求是否要求编写程序？"
+          },
+          "complexity": {
+            "type": "score",
+            "instructions": "这个请求的复杂程度是多少？",
+            "criteria": [
+              "简单",
+              "中等",
+              "复杂"
+            ]
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0007201397436318482,
+              "math": 0.00036008721769970325,
+              "chat": 0.9989197730386684
+            },
+            "confidence": 0.991675122971715
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002551515976465532
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.019110443444288625,
+            "probabilities": {
+              "0": 0.9835840059958996,
+              "1": 0.013721544563912261,
+              "2": 0.0026944494401881826
+            },
+            "confidence": 0.9171034390906018,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.979426212143153,
+              "warmup_seconds": 0.9783764029853046,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.9770108761731535,
+              "warmup_seconds": 0.9828129920642823,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.9717746269889176,
+              "warmup_seconds": 0.97006328497082,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.0455964140128344,
+              "warmup_seconds": 1.0426990760024637,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.979426212143153,
+              0.9770108761731535,
+              0.9717746269889176,
+              1.0455964140128344
+            ],
+            "count": 4,
+            "median": 0.9782185441581532,
+            "min": 0.9717746269889176,
+            "max": 1.0455964140128344,
+            "p95_nearest_rank": 1.0455964140128344
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.905228290008381,
+              "warmup_seconds": 0.9027867729309946,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 396,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9034255761653185,
+              "warmup_seconds": 0.9017369789071381,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 396,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9605252640321851,
+              "warmup_seconds": 0.9529697189573199,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 396,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9654335661325604,
+              "warmup_seconds": 0.959885316900909,
+              "max_delta": 0.00046604475932326625,
+              "confidence_max_delta": 0.00169589987059382,
+              "all_numeric_max_delta": 0.00169589987059382,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 396,
+              "shapes": {
+                "(3, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.905228290008381,
+              0.9034255761653185,
+              0.9605252640321851,
+              0.9654335661325604
+            ],
+            "count": 4,
+            "median": 0.932876777020283,
+            "min": 0.9034255761653185,
+            "max": 0.9654335661325604,
+            "p95_nearest_rank": 0.9654335661325604
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.0006636826129619309,
+              "math": 0.0003314633350523805,
+              "chat": 0.9990048540519857
+            },
+            "confidence": 0.9922566247133878
+          },
+          "programming": {
+            "type": "noul",
+            "noul": 0.0002736063430435609
+          },
+          "complexity": {
+            "type": "score",
+            "score": 0.019357727884180668,
+            "probabilities": {
+              "0": 0.9833146592403195,
+              "1": 0.014012953635180313,
+              "2": 0.002672387124500178
+            },
+            "confidence": 0.9160916169260501,
+            "legend": {
+              "0": "简单",
+              "1": "中等",
+              "2": "复杂"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 314,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 314,
+      "first_fixed_seconds": 0.9868113601114601,
+      "reduction": 0.046351367400104815
+    },
+    "english": {
+      "request": {
+        "id": "english",
+        "state": "Write a Python function that merges two sorted lists and explain its running time.",
+        "questions": {
+          "domain": {
+            "type": "choice",
+            "instructions": "Which domain does this request belong to?",
+            "criteria": {
+              "code": "Programming",
+              "math": "Mathematics",
+              "other": "Anything else"
+            }
+          },
+          "reasoning": {
+            "type": "noul",
+            "instructions": "Does answering this request need multi-step reasoning?"
+          },
+          "difficulty": {
+            "type": "score",
+            "instructions": "How difficult is this request?",
+            "criteria": [
+              "Trivial",
+              "Moderate",
+              "Hard"
+            ]
+          }
+        },
+        "baseline": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9059022938497119,
+              "math": 0.00010158083329922285,
+              "other": 0.09399612531698893
+            },
+            "confidence": 0.7153566085339282
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.0630309302518049
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.19148818189477718,
+            "probabilities": {
+              "0": 0.8434359933051915,
+              "1": 0.12163983149483988,
+              "2": 0.03492417519996865
+            },
+            "confidence": 0.5293824489640959,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.9574271510355175,
+              "warmup_seconds": 0.960522762965411,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.0250285500660539,
+              "warmup_seconds": 1.0322471200488508,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.028521808097139,
+              "warmup_seconds": 1.025659031001851,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.0257505339104682,
+              "warmup_seconds": 1.0281745789106935,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.9574271510355175,
+              1.0250285500660539,
+              1.028521808097139,
+              1.0257505339104682
+            ],
+            "count": 4,
+            "median": 1.025389541988261,
+            "min": 0.9574271510355175,
+            "max": 1.028521808097139,
+            "p95_nearest_rank": 1.028521808097139
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.881166507024318,
+              "warmup_seconds": 0.8799893748946488,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 504,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9449344188906252,
+              "warmup_seconds": 0.9051926841493696,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 504,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9441063338890672,
+              "warmup_seconds": 0.9436685950495303,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 504,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.9465264959726483,
+              "warmup_seconds": 0.9515209509991109,
+              "max_delta": 0.0019940594779889464,
+              "confidence_max_delta": 0.0029340275677495198,
+              "all_numeric_max_delta": 0.0029340275677495198,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 504,
+              "shapes": {
+                "(3, 114, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.881166507024318,
+              0.9449344188906252,
+              0.9441063338890672,
+              0.9465264959726483
+            ],
+            "count": 4,
+            "median": 0.9445203763898462,
+            "min": 0.881166507024318,
+            "max": 0.9465264959726483,
+            "p95_nearest_rank": 0.9465264959726483
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "domain": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9097381850787222,
+              "math": 9.696550228532522e-05,
+              "other": 0.09016484941899253
+            },
+            "confidence": 0.7233756322030849
+          },
+          "reasoning": {
+            "type": "noul",
+            "noul": 0.0630222349544369
+          },
+          "difficulty": {
+            "type": "score",
+            "score": 0.1907542645931244,
+            "probabilities": {
+              "0": 0.8429288864135742,
+              "1": 0.12338796257972717,
+              "2": 0.03368315100669861
+            },
+            "confidence": 0.5299300980090853,
+            "legend": {
+              "0": "Trivial",
+              "1": "Moderate",
+              "2": "Hard"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens": 328,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 328,
+      "first_fixed_seconds": 0.9967382310424,
+      "reduction": 0.07886677432033007
+    },
+    "single": {
+      "request": {
+        "id": "single",
+        "state": "请写一个 Python 函数，合并两个有序列表。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.3179244981147349,
+              "warmup_seconds": 0.31928868615068495,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31774740805849433,
+              "warmup_seconds": 0.3160486239939928,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3206268928479403,
+              "warmup_seconds": 0.3164225989021361,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31950478395447135,
+              "warmup_seconds": 0.31791419396176934,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3179244981147349,
+              0.31774740805849433,
+              0.3206268928479403,
+              0.31950478395447135
+            ],
+            "count": 4,
+            "median": 0.3187146410346031,
+            "min": 0.31774740805849433,
+            "max": 0.3206268928479403,
+            "p95_nearest_rank": 0.3206268928479403
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.31831465591676533,
+              "warmup_seconds": 0.31866778200492263,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31760121788829565,
+              "warmup_seconds": 0.3175344301853329,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3164998269639909,
+              "warmup_seconds": 0.3160215129610151,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.316026414046064,
+              "warmup_seconds": 0.31491398299112916,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.31831465591676533,
+              0.31760121788829565,
+              0.3164998269639909,
+              0.316026414046064
+            ],
+            "count": 4,
+            "median": 0.3170505224261433,
+            "min": 0.316026414046064,
+            "max": 0.31831465591676533,
+            "p95_nearest_rank": 0.31831465591676533
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9992086131804994,
+              "math": 0.0006606327264349369,
+              "chat": 0.00013075409306566522
+            },
+            "confidence": 0.9938125022269989
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 115,
+      "first_fixed_seconds": 0.34212038898840547,
+      "reduction": 0.005221343465922401
+    },
+    "novel-math": {
+      "request": {
+        "id": "novel-math",
+        "state": "请计算 37 乘以 19，并检查结果。",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.34770809719339013,
+              "warmup_seconds": 0.34529306599870324,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.34381403401494026,
+              "warmup_seconds": 0.34172154986299574,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3453288630116731,
+              "warmup_seconds": 0.3479895801283419,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.34588595293462276,
+              "warmup_seconds": 0.34512782096862793,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.34770809719339013,
+              0.34381403401494026,
+              0.3453288630116731,
+              0.34588595293462276
+            ],
+            "count": 4,
+            "median": 0.34560740797314793,
+            "min": 0.34381403401494026,
+            "max": 0.34770809719339013,
+            "p95_nearest_rank": 0.34770809719339013
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.3265619040466845,
+              "warmup_seconds": 0.34208796615712345,
+              "max_delta": 5.421244257313449e-05,
+              "confidence_max_delta": 0.00030153965904500257,
+              "all_numeric_max_delta": 0.00030153965904500257,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 132,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.32647636416368186,
+              "warmup_seconds": 0.32733950088731945,
+              "max_delta": 5.421244257313449e-05,
+              "confidence_max_delta": 0.00030153965904500257,
+              "all_numeric_max_delta": 0.00030153965904500257,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 132,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.32494105282239616,
+              "warmup_seconds": 0.32656691293232143,
+              "max_delta": 5.421244257313449e-05,
+              "confidence_max_delta": 0.00030153965904500257,
+              "all_numeric_max_delta": 0.00030153965904500257,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 132,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.3266327518504113,
+              "warmup_seconds": 0.3286380060017109,
+              "max_delta": 5.421244257313449e-05,
+              "confidence_max_delta": 0.00030153965904500257,
+              "all_numeric_max_delta": 0.00030153965904500257,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 132,
+              "shapes": {
+                "(1, 117, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3265619040466845,
+              0.32647636416368186,
+              0.32494105282239616,
+              0.3266327518504113
+            ],
+            "count": 4,
+            "median": 0.3265191341051832,
+            "min": 0.32494105282239616,
+            "max": 0.3266327518504113,
+            "p95_nearest_rank": 0.3266327518504113
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "math",
+            "probabilities": {
+              "code": 0.0018661106397976934,
+              "math": 0.997915524711745,
+              "chat": 0.00021836464845729692
+            },
+            "confidence": 0.9857552816660754
+          }
+        },
+        "usage": {
+          "input_tokens": 117,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 117,
+      "first_fixed_seconds": 0.3418671179097146,
+      "reduction": 0.05523109003915738
+    },
+    "novel-chat": {
+      "request": {
+        "id": "novel-chat",
+        "state": "今天下班后想和朋友散步聊天，有什么轻松的话题？",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.32646815199404955,
+              "warmup_seconds": 0.31776532204821706,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3170525929890573,
+              "warmup_seconds": 0.3299126180354506,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31651916401460767,
+              "warmup_seconds": 0.31878292886540294,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31871195207349956,
+              "warmup_seconds": 0.3298729609232396,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.32646815199404955,
+              0.3170525929890573,
+              0.31651916401460767,
+              0.31871195207349956
+            ],
+            "count": 4,
+            "median": 0.31788227253127843,
+            "min": 0.31651916401460767,
+            "max": 0.32646815199404955,
+            "p95_nearest_rank": 0.32646815199404955
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.31931115686893463,
+              "warmup_seconds": 0.3180374389048666,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31616675085388124,
+              "warmup_seconds": 0.3150916260201484,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3160091298632324,
+              "warmup_seconds": 0.317037665983662,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.34338759002275765,
+              "warmup_seconds": 0.3200806397944689,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 115, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.31931115686893463,
+              0.31616675085388124,
+              0.3160091298632324,
+              0.34338759002275765
+            ],
+            "count": 4,
+            "median": 0.31773895386140794,
+            "min": 0.3160091298632324,
+            "max": 0.34338759002275765,
+            "p95_nearest_rank": 0.34338759002275765
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 9.994992290665126e-05,
+              "math": 0.00011093240676731037,
+              "chat": 0.9997891176703261
+            },
+            "confidence": 0.9980505416890141
+          }
+        },
+        "usage": {
+          "input_tokens": 115,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 115,
+      "first_fixed_seconds": 0.3200016519986093,
+      "reduction": 0.00045085455294269217
+    },
+    "words-0": {
+      "request": {
+        "id": "words-0",
+        "state": "",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.3202665881253779,
+              "warmup_seconds": 0.3333183261565864,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.32057661609724164,
+              "warmup_seconds": 0.3233172269538045,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.31863058800809085,
+              "warmup_seconds": 0.3218572710175067,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3207255450543016,
+              "warmup_seconds": 0.32293278304859996,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3202665881253779,
+              0.32057661609724164,
+              0.31863058800809085,
+              0.3207255450543016
+            ],
+            "count": 4,
+            "median": 0.32042160211130977,
+            "min": 0.31863058800809085,
+            "max": 0.3207255450543016,
+            "p95_nearest_rank": 0.3207255450543016
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.3068002979271114,
+              "warmup_seconds": 0.30768345296382904,
+              "max_delta": 0.0003718376712762428,
+              "confidence_max_delta": 0.00018219305020639176,
+              "all_numeric_max_delta": 0.0003718376712762428,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 120,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.30625923187471926,
+              "warmup_seconds": 0.3078873041085899,
+              "max_delta": 0.0003718376712762428,
+              "confidence_max_delta": 0.00018219305020639176,
+              "all_numeric_max_delta": 0.0003718376712762428,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 120,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3066690838895738,
+              "warmup_seconds": 0.3081216160207987,
+              "max_delta": 0.0003718376712762428,
+              "confidence_max_delta": 0.00018219305020639176,
+              "all_numeric_max_delta": 0.0003718376712762428,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 120,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.3072808280121535,
+              "warmup_seconds": 0.3078165831975639,
+              "max_delta": 0.0003718376712762428,
+              "confidence_max_delta": 0.00018219305020639176,
+              "all_numeric_max_delta": 0.0003718376712762428,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 120,
+              "shapes": {
+                "(1, 105, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.3068002979271114,
+              0.30625923187471926,
+              0.3066690838895738,
+              0.3072808280121535
+            ],
+            "count": 4,
+            "median": 0.3067346909083426,
+            "min": 0.30625923187471926,
+            "max": 0.3072808280121535,
+            "p95_nearest_rank": 0.3072808280121535
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "chat",
+            "probabilities": {
+              "code": 0.3543635685972177,
+              "math": 0.11337582275366387,
+              "chat": 0.5322606086491184
+            },
+            "confidence": 0.13517457666966248
+          }
+        },
+        "usage": {
+          "input_tokens": 105,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 105,
+      "first_fixed_seconds": 0.3401502468623221,
+      "reduction": 0.042715319793615314
+    },
+    "words-16": {
+      "request": {
+        "id": "words-16",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.35528806201182306,
+              "warmup_seconds": 0.35665403003804386,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.35111338505521417,
+              "warmup_seconds": 0.3503772490657866,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.34810301079414785,
+              "warmup_seconds": 0.34865718916989863,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.350240217987448,
+              "warmup_seconds": 0.3675416340120137,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.35528806201182306,
+              0.35111338505521417,
+              0.34810301079414785,
+              0.350240217987448
+            ],
+            "count": 4,
+            "median": 0.35067680152133107,
+            "min": 0.34810301079414785,
+            "max": 0.35528806201182306,
+            "p95_nearest_rank": 0.35528806201182306
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.339825133793056,
+              "warmup_seconds": 0.34301756508648396,
+              "max_delta": 0.003190521122014678,
+              "confidence_max_delta": 0.0015141802972258311,
+              "all_numeric_max_delta": 0.003190521122014678,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 108,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.3330592098645866,
+              "warmup_seconds": 0.34130277787335217,
+              "max_delta": 0.003190521122014678,
+              "confidence_max_delta": 0.0015141802972258311,
+              "all_numeric_max_delta": 0.003190521122014678,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 108,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.3837940450757742,
+              "warmup_seconds": 0.35100835119374096,
+              "max_delta": 0.003190521122014678,
+              "confidence_max_delta": 0.0015141802972258311,
+              "all_numeric_max_delta": 0.003190521122014678,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 108,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            },
+            {
+              "seconds": 0.3428353490307927,
+              "warmup_seconds": 0.3395178581122309,
+              "max_delta": 0.003190521122014678,
+              "confidence_max_delta": 0.0015141802972258311,
+              "all_numeric_max_delta": 0.003190521122014678,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 108,
+              "shapes": {
+                "(1, 119, 1024)": 12
+              },
+              "bucket_calls": {
+                "128": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.339825133793056,
+              0.3330592098645866,
+              0.3837940450757742,
+              0.3428353490307927
+            ],
+            "count": 4,
+            "median": 0.34133024141192436,
+            "min": 0.3330592098645866,
+            "max": 0.3837940450757742,
+            "p95_nearest_rank": 0.3837940450757742
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.4833707393471427,
+              "math": 0.42242334866610726,
+              "chat": 0.09420591198675006
+            },
+            "confidence": 0.14623304885586208
+          }
+        },
+        "usage": {
+          "input_tokens": 119,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 119,
+      "first_fixed_seconds": 0.35919528594240546,
+      "reduction": 0.026652918210896215
+    },
+    "words-64": {
+      "request": {
+        "id": "words-64",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.5790528859943151,
+              "warmup_seconds": 0.579434840939939,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.5791384449694306,
+              "warmup_seconds": 0.5803044999483973,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.5802644009236246,
+              "warmup_seconds": 0.5806953241117299,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.5799079700373113,
+              "warmup_seconds": 0.579445619834587,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.5790528859943151,
+              0.5791384449694306,
+              0.5802644009236246,
+              0.5799079700373113
+            ],
+            "count": 4,
+            "median": 0.5795232075033709,
+            "min": 0.5790528859943151,
+            "max": 0.5802644009236246,
+            "p95_nearest_rank": 0.5802644009236246
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.638156380970031,
+              "warmup_seconds": 0.637969478033483,
+              "max_delta": 0.004650781077223776,
+              "confidence_max_delta": 0.0015308960615431078,
+              "all_numeric_max_delta": 0.004650781077223776,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 2604,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.6395222491119057,
+              "warmup_seconds": 0.6379717399831861,
+              "max_delta": 0.004650781077223776,
+              "confidence_max_delta": 0.0015308960615431078,
+              "all_numeric_max_delta": 0.004650781077223776,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 2604,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.6374906408600509,
+              "warmup_seconds": 0.64043396897614,
+              "max_delta": 0.004650781077223776,
+              "confidence_max_delta": 0.0015308960615431078,
+              "all_numeric_max_delta": 0.004650781077223776,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 2604,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.6371725311037153,
+              "warmup_seconds": 0.6382175509352237,
+              "max_delta": 0.004650781077223776,
+              "confidence_max_delta": 0.0015308960615431078,
+              "all_numeric_max_delta": 0.004650781077223776,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 2604,
+              "shapes": {
+                "(1, 167, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.638156380970031,
+              0.6395222491119057,
+              0.6374906408600509,
+              0.6371725311037153
+            ],
+            "count": 4,
+            "median": 0.637823510915041,
+            "min": 0.6371725311037153,
+            "max": 0.6395222491119057,
+            "p95_nearest_rank": 0.6395222491119057
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.6212929898115102,
+              "math": 0.31740259178273106,
+              "chat": 0.06130441840575879
+            },
+            "confidence": 0.2434927153280334
+          }
+        },
+        "usage": {
+          "input_tokens": 167,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 167,
+      "first_fixed_seconds": 0.5795624400489032,
+      "reduction": -0.10060046372056797
+    },
+    "words-128": {
+      "request": {
+        "id": "words-128",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 0.7036709389649332,
+              "warmup_seconds": 0.7017776540014893,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.6972445079591125,
+              "warmup_seconds": 0.6993740419857204,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.696508371969685,
+              "warmup_seconds": 0.6967468620277941,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              }
+            },
+            {
+              "seconds": 0.6965138569939882,
+              "warmup_seconds": 0.6978790450375527,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.7036709389649332,
+              0.6972445079591125,
+              0.696508371969685,
+              0.6965138569939882
+            ],
+            "count": 4,
+            "median": 0.6968791824765503,
+            "min": 0.696508371969685,
+            "max": 0.7036709389649332,
+            "p95_nearest_rank": 0.7036709389649332
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 0.7658953929785639,
+              "warmup_seconds": 0.7814429157879204,
+              "max_delta": 0.008339171380606802,
+              "confidence_max_delta": 0.013739390558280662,
+              "all_numeric_max_delta": 0.013739390558280662,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 1836,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.7647713799960911,
+              "warmup_seconds": 0.7346904249861836,
+              "max_delta": 0.008339171380606802,
+              "confidence_max_delta": 0.013739390558280662,
+              "all_numeric_max_delta": 0.013739390558280662,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 1836,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.7582918568514287,
+              "warmup_seconds": 0.7555402421858162,
+              "max_delta": 0.008339171380606802,
+              "confidence_max_delta": 0.013739390558280662,
+              "all_numeric_max_delta": 0.013739390558280662,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 1836,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 0.7556924328673631,
+              "warmup_seconds": 0.7561518109869212,
+              "max_delta": 0.008339171380606802,
+              "confidence_max_delta": 0.013739390558280662,
+              "all_numeric_max_delta": 0.013739390558280662,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 1836,
+              "shapes": {
+                "(1, 231, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              0.7658953929785639,
+              0.7647713799960911,
+              0.7582918568514287,
+              0.7556924328673631
+            ],
+            "count": 4,
+            "median": 0.7615316184237599,
+            "min": 0.7556924328673631,
+            "max": 0.7658953929785639,
+            "p95_nearest_rank": 0.7658953929785639
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.7911655483655382,
+              "math": 0.1611750012898818,
+              "chat": 0.047659450344580044
+            },
+            "confidence": 0.43148656847708133
+          }
+        },
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 231,
+      "first_fixed_seconds": 0.7031745340209454,
+      "reduction": -0.09277423916933425
+    },
+    "words-256": {
+      "request": {
+        "id": "words-256",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.2434333229903132,
+              "warmup_seconds": 1.1991249360144138,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.220767938066274,
+              "warmup_seconds": 1.2201200309209526,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.1983323961030692,
+              "warmup_seconds": 1.2171556821558625,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.1889332900755107,
+              "warmup_seconds": 1.2759583301376551,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.2434333229903132,
+              1.220767938066274,
+              1.1983323961030692,
+              1.1889332900755107
+            ],
+            "count": 4,
+            "median": 1.2095501670846716,
+            "min": 1.1889332900755107,
+            "max": 1.2434333229903132,
+            "p95_nearest_rank": 1.2434333229903132
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 1.128317812923342,
+              "warmup_seconds": 1.1622919000219554,
+              "max_delta": 0.0019487241097689845,
+              "confidence_max_delta": 0.00503423980967721,
+              "all_numeric_max_delta": 0.00503423980967721,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.1363954360131174,
+              "warmup_seconds": 1.124599534086883,
+              "max_delta": 0.0019487241097689845,
+              "confidence_max_delta": 0.00503423980967721,
+              "all_numeric_max_delta": 0.00503423980967721,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.0958339220378548,
+              "warmup_seconds": 1.1540659880265594,
+              "max_delta": 0.0019487241097689845,
+              "confidence_max_delta": 0.00503423980967721,
+              "all_numeric_max_delta": 0.00503423980967721,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 1.1333342590369284,
+              "warmup_seconds": 1.1372904949821532,
+              "max_delta": 0.0019487241097689845,
+              "confidence_max_delta": 0.00503423980967721,
+              "all_numeric_max_delta": 0.00503423980967721,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 359, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.128317812923342,
+              1.1363954360131174,
+              1.0958339220378548,
+              1.1333342590369284
+            ],
+            "count": 4,
+            "median": 1.1308260359801352,
+            "min": 1.0958339220378548,
+            "max": 1.1363954360131174,
+            "p95_nearest_rank": 1.1363954360131174
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.8777772286285895,
+              "math": 0.08884994039889359,
+              "chat": 0.033372830972516886
+            },
+            "confidence": 0.5967769911710995
+          }
+        },
+        "usage": {
+          "input_tokens": 359,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 359,
+      "first_fixed_seconds": 1.2425341419875622,
+      "reduction": 0.06508546172523122
+    },
+    "words-400": {
+      "request": {
+        "id": "words-400",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        },
+        "baseline": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9991648123435318,
+              "math": 0.0006982751935839212,
+              "chat": 0.0001369124628842124
+            },
+            "confidence": 0.993512607365437
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.6010181300807744,
+              "warmup_seconds": 1.689321231096983,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.6526810850482434,
+              "warmup_seconds": 1.6709693542215973,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.6255644720513374,
+              "warmup_seconds": 1.629746361169964,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.6437401429284364,
+              "warmup_seconds": 1.6379023648332804,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.6010181300807744,
+              1.6526810850482434,
+              1.6255644720513374,
+              1.6437401429284364
+            ],
+            "count": 4,
+            "median": 1.6346523074898869,
+            "min": 1.6010181300807744,
+            "max": 1.6526810850482434,
+            "p95_nearest_rank": 1.6526810850482434
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 1.7240278981626034,
+              "warmup_seconds": 1.7167779000010341,
+              "max_delta": 0.005057275474235845,
+              "confidence_max_delta": 0.014246221061490205,
+              "all_numeric_max_delta": 0.014246221061490205,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 3180,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 24
+              }
+            },
+            {
+              "seconds": 1.7233407897874713,
+              "warmup_seconds": 1.7305530849844217,
+              "max_delta": 0.005057275474235845,
+              "confidence_max_delta": 0.014246221061490205,
+              "all_numeric_max_delta": 0.014246221061490205,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 3180,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 24
+              }
+            },
+            {
+              "seconds": 1.7720819420646876,
+              "warmup_seconds": 1.7277695729862899,
+              "max_delta": 0.005057275474235845,
+              "confidence_max_delta": 0.014246221061490205,
+              "all_numeric_max_delta": 0.014246221061490205,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 3180,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 24
+              }
+            },
+            {
+              "seconds": 1.7038599960505962,
+              "warmup_seconds": 1.718438332900405,
+              "max_delta": 0.005057275474235845,
+              "confidence_max_delta": 0.014246221061490205,
+              "all_numeric_max_delta": 0.014246221061490205,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 3180,
+              "shapes": {
+                "(1, 503, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 24
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.7240278981626034,
+              1.7233407897874713,
+              1.7720819420646876,
+              1.7038599960505962
+            ],
+            "count": 4,
+            "median": 1.7236843439750373,
+            "min": 1.7038599960505962,
+            "max": 1.7720819420646876,
+            "p95_nearest_rank": 1.7720819420646876
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9251988857589267,
+              "math": 0.05292694457920631,
+              "chat": 0.021874169661866918
+            },
+            "confidence": 0.7168356053683422
+          }
+        },
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 503,
+      "first_fixed_seconds": 1.5861321159172803,
+      "reduction": -0.0544654273433014
+    },
+    "image": {
+      "request": {
+        "id": "image",
+        "state": "Describe the attached image.",
+        "questions": {
+          "image_colour": {
+            "type": "choice",
+            "instructions": "Which colour dominates the image?",
+            "criteria": {
+              "red": "Red",
+              "green": "Green",
+              "blue": "Blue",
+              "other": "Anything else"
+            }
+          },
+          "image_photo": {
+            "type": "noul",
+            "instructions": "Is the image a photograph?"
+          }
+        },
+        "images": [
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAwCAIAAAAuKetIAAAA6ElEQVR42tXCAUYAAAAEwX1OkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJSpIkSZKkd/SOG4MFf9Gx6Cc6lnxFx7KP6FjxFh2rXqJjzVN0rHuIjg330bHpNjq2XEfHtsvo2HEeHbtOo2PPcXTsO4yOA/vRcWg3Oo5sR8exzeg4sR4dp1aj48xydJxbjI4L89FxaTY6rkxHx7XJ6LgxHh23RqPjznB03BuMjgf90fGoNzqedEfHs87oeNEeHa9ao+NNc3S8a4yO1kfHx9ro+FwdHV8ro+N7eXT8LI2O38XR8bcw+j9BJQlL/YCbYAAAAABJRU5ErkJggg=="
+        ]
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 8.045634062029421,
+              "warmup_seconds": 7.494089354062453,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(2, 180, 1024)": 12
+              }
+            },
+            {
+              "seconds": 7.521313284989446,
+              "warmup_seconds": 7.7155782538466156,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(2, 180, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              8.045634062029421,
+              7.521313284989446
+            ],
+            "count": 2,
+            "median": 7.783473673509434,
+            "min": 7.521313284989446,
+            "max": 8.045634062029421,
+            "p95_nearest_rank": 8.045634062029421
+          },
+          "passed": true
+        },
+        "bucket": {
+          "records": [
+            {
+              "seconds": 7.539689546916634,
+              "warmup_seconds": 7.6191109931096435,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 288,
+              "shapes": {
+                "(2, 180, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            },
+            {
+              "seconds": 7.735129915177822,
+              "warmup_seconds": 7.494498780928552,
+              "max_delta": 0.0018197263690976628,
+              "confidence_max_delta": 0.0019062256131456845,
+              "all_numeric_max_delta": 0.0019062256131456845,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 12,
+              "padded_rows": 288,
+              "shapes": {
+                "(2, 180, 1024)": 12
+              },
+              "bucket_calls": {
+                "384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              7.539689546916634,
+              7.735129915177822
+            ],
+            "count": 2,
+            "median": 7.637409731047228,
+            "min": 7.539689546916634,
+            "max": 7.735129915177822,
+            "p95_nearest_rank": 7.735129915177822
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "image_colour": {
+            "type": "choice",
+            "choice": "other",
+            "probabilities": {
+              "red": 0.02556029126388961,
+              "green": 0.3283098252987284,
+              "blue": 0.012145396171167805,
+              "other": 0.6339844872662143
+            },
+            "confidence": 0.4215584854800326
+          },
+          "image_photo": {
+            "type": "noul",
+            "noul": 0.026786460857207928
+          }
+        },
+        "usage": {
+          "input_tokens": 347,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 347,
+      "first_fixed_seconds": 7.834392516175285,
+      "reduction": 0.018765906918825404
+    }
+  },
+  "passed": true,
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": false,
+    "pid": 7,
+    "dmc_hz": "2736000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "40692",
+      "thermal_zone0": "39769",
+      "thermal_zone5": "39769",
+      "thermal_zone3": "38845",
+      "thermal_zone1": "40692",
+      "thermal_zone4": "39769"
+    }
+  }
+}

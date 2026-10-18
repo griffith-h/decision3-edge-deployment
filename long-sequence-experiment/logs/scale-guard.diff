@@ -1,0 +1,31 @@
+--- measured/long_kernels.py
++++ final/long_kernels.py
+@@ -6,6 +6,7 @@
+ import ctypes
+ import glob
+ import time
++import math
+ from pathlib import Path
+ import torch
+ 
+@@ -84,6 +85,7 @@
+ 
+     def attention(self, module, query, key, value, attention_mask, *args, **kwargs):
+         xs = (query, key, value)
++        scale = kwargs.get('scaling', getattr(module, 'scaling', None))
+         length = query.shape[2] if query.ndim == 4 else 0
+         good = (
+             not torch.is_grad_enabled() and not module.training and type(module) is self.qwen.Qwen3_5Attention and not args and
+@@ -91,10 +93,11 @@
+             512 < length <= 2048 and 0 < query.shape[0] <= 8 and 0 < query.shape[1] <= 64 and query.shape[0]*query.shape[1] <= 128 and 0 < query.shape[-1] <= 256 and
+             key.shape == value.shape and query.shape[0] == key.shape[0] and query.shape[2:] == key.shape[2:] and key.shape[1] > 0 and query.shape[1] % key.shape[1] == 0 and
+             attention_mask is not None and attention_mask.device.type == 'cpu' and attention_mask.dtype == torch.bool and attention_mask.shape == (query.shape[0], 1, 1, length) and bool(attention_mask.any(dim=-1).all()) and
++            isinstance(scale, (int, float)) and math.isfinite(scale) and
+             not kwargs.get('use_cache', False) and kwargs.get('dropout', 0) == 0 and not kwargs.get('is_causal', False) and
+             all(k in ('dropout', 'scaling', 'position_ids', 'use_cache', 'is_causal') or v is None for k, v in kwargs.items()))
+         return self.call('attention', good, length,
+-                         lambda: (attention(query, key, value, attention_mask.contiguous(), kwargs.get('scaling', module.scaling)), None),
++                         lambda: (attention(query, key, value, attention_mask.contiguous(), scale), None),
+                          lambda: self.original_attention(module, query, key, value, attention_mask, *args, **kwargs))
+ 
+     def scan(self, query, key, value, g, beta, chunk_size=64, initial_state=None, output_final_state=False, use_qk_l2norm_in_kernel=False, **kwargs):

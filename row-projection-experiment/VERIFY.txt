@@ -1,0 +1,46 @@
+验证日期：2026-10-18；RK3576，独立无端口进程，未替换线上服务。
+
+板端顺序执行并成功退出：
+bash run.sh test_guards.py
+bash run.sh test_native.py
+bash run.sh screen.py
+bash run.sh decompose.py
+bash run.sh screen_fused.py
+bash run.sh formal.py --candidate fused_guarded
+bash run.sh formal_fast_batch.py
+
+结果：
+- 聚焦模拟/真实NPU测试通过。覆盖分块边界、跨批次行序、分组列序、偏置、
+  非连续输入、梯度/权重/钩子保护、整组故障回退与恢复。
+- 正式保护版89份输出通过原choice与概率/score/noul绝对差<=0.01门槛；
+  confidence单独报告，最大差0.01739360，未纳入该通过结论。
+- 513行：MLP-only中位10719.17ms（n=5），候选3235.74ms（n=20），下降69.81%。
+- 615行：MLP-only中位12746.40ms（n=5），候选3588.17ms（n=20），下降71.85%。
+- 跨512多问题快路径20次：中位2033.86ms，P95 2073.25ms；choice一致，
+  概率最大差0.00971445，score最大差0.01745270，confidence最大差0.01772528。
+  原score门槛未通过，失败被保留；不能称为全部精度通过或业务准确率无损。
+- 多问题保护版保留12层原MLP，中位14620.69ms（n=5），虽通过门槛但更慢。
+- 正常跨512候选42个目标投影均覆盖；原生单次rows<=512，无新增投影范围、
+  运行或保护回退；矩阵句柄数在暖机后保持。仍有序列T>512的注意力/扫描回退。
+
+板端全部测试退出后，本机顺序执行：
+python3 row-projection-experiment/preserve_service.py after
+python3 row-projection-experiment/capture_artifacts.py
+python3 row-projection-experiment/validate_records.py
+python3 row-projection-experiment/update_report.py
+
+结果：after passed；14份板端运行源文件SHA与本机一致；validate_records passed。
+线上容器ID、启动时间、配置与550个发布文件SHA不变，健康，5次完整HTTP输出
+与实验前相同；自有实验容器已退出。首尾少量HTTP计时不用于判断性能等价。
+
+本机静态检查：
+python3 -m compileall -q row-projection-experiment
+bash -n row-projection-experiment/run.sh
+git diff --check
+另对本轮未跟踪源码逐文件执行git diff --no-index --check /dev/null <file>，通过。
+HTML解析：9张表列数一致、锚点无重复、报告相对链接存在；localhost响应与文件
+字节一致（logs/html-static.json）。浏览器查看新增阶段表格与快路径精度说明，排版可读。
+
+全部时间为模型方法暖机延迟，非HTTP/排队/并发SLA；没有标注业务数据集。
+512<B*T<=2048为扩展保护范围，完整模型只验证报告列出的输入；不外推所有长度、
+视频、并发、其他芯片、其他模型或SDK。本轮未构建镜像、部署、提交或推送。

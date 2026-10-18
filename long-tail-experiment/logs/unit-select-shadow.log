@@ -1,0 +1,24 @@
+SELECTION {'attention': {'tile': 256, 'threads': 3, 'reciprocal': 1}, 'scan': {'kind': 'original'}} {'attention': {'selected': 'q256t3r1', 'gain': 0.0629501819797964, 'reason': 'Replay-only filter; still needs end-to-end validation'}, 'scan': {'selected': 'baseline', 'best_name': 'baseline', 'gain': 0.0, 'reason': 'No passing candidate >=2% faster in component replay'}}
+Traceback (most recent call last):
+  File "/experiment/test_candidates.py", line 3, in <module>
+    import baseline
+  File "/work/baseline.py", line 4, in <module>
+    from loader import open_model,compare,stats,state as oldstate
+  File "/previous/loader.py", line 3, in <module>
+    import setup_helpers
+  File "/projection/setup_helpers.py", line 4, in <module>
+    import torch
+  File "/usr/local/lib/python3.12/site-packages/torch/__init__.py", line 54, in <module>
+    from torch._utils_internal import (
+  File "/usr/local/lib/python3.12/site-packages/torch/_utils_internal.py", line 13, in <module>
+    from torch._strobelight.compile_time_profiler import StrobelightCompileTimeProfiler
+  File "/usr/local/lib/python3.12/site-packages/torch/_strobelight/compile_time_profiler.py", line 7, in <module>
+    import subprocess
+  File "/usr/local/lib/python3.12/subprocess.py", line 119, in <module>
+    import selectors
+  File "/usr/local/lib/python3.12/selectors.py", line 290, in <module>
+    class SelectSelector(_BaseSelectorImpl):
+  File "/usr/local/lib/python3.12/selectors.py", line 317, in SelectSelector
+    _select = select.select
+              ^^^^^^^^^^^^^
+AttributeError: module 'select' has no attribute 'select'. Did you mean: 'selected'?

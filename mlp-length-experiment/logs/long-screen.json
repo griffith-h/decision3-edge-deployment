@@ -1,0 +1,825 @@
+{
+  "settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "2736000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "37922",
+      "thermal_zone0": "37922",
+      "thermal_zone5": "37922",
+      "thermal_zone3": "36999",
+      "thermal_zone1": "37922",
+      "thermal_zone4": "37922"
+    }
+  },
+  "calibration": {
+    "costs": {
+      "115": 0.0066408279817551374,
+      "128": 0.006501432042568922,
+      "384": 0.018886665115132928
+    },
+    "samples": {
+      "115": [
+        0.006627075839787722,
+        0.006624571047723293,
+        0.0066182599402964115,
+        0.006619282066822052,
+        0.006618093932047486,
+        0.006619149819016457,
+        0.006617504870519042,
+        0.00662849610671401,
+        0.006622052984312177,
+        0.006620368920266628,
+        0.006620757980272174,
+        0.006621956126764417,
+        0.006623990135267377,
+        0.0066224560141563416,
+        0.0066342041827738285,
+        0.006640827050432563,
+        0.006638104794546962,
+        0.006639505969360471,
+        0.006631589028984308,
+        0.006635199999436736,
+        0.006622249959036708,
+        0.006652361946180463,
+        0.00664220005273819,
+        0.0066408279817551374,
+        0.006642184918746352,
+        0.006667403969913721,
+        0.006640826817601919,
+        0.006644953042268753,
+        0.00665479595772922,
+        0.006652078125625849,
+        0.006655337987467647,
+        0.006654615048319101,
+        0.00664540589787066,
+        0.0066485831048339605,
+        0.006644736044108868,
+        0.006648998009040952,
+        0.006643740925937891,
+        0.006648123962804675,
+        0.006654368015006185,
+        0.006652108859270811,
+        0.006650608964264393,
+        0.006653642049059272,
+        0.006644964916631579,
+        0.006649572169408202,
+        0.006652649957686663
+      ],
+      "128": [
+        0.006505714962258935,
+        0.006497452966868877,
+        0.006499549839645624,
+        0.0065307049080729485,
+        0.006500523071736097,
+        0.0064994951244443655,
+        0.006494054105132818,
+        0.006497373105958104,
+        0.0064993679989129305,
+        0.006498852977529168,
+        0.006500761024653912,
+        0.006506538018584251,
+        0.006500499090179801,
+        0.006517102010548115,
+        0.006518587004393339,
+        0.006480608135461807,
+        0.006479118950664997,
+        0.006494595902040601,
+        0.006505676079541445,
+        0.006479204865172505,
+        0.0064889220520854,
+        0.006501432042568922,
+        0.006485633086413145,
+        0.006479752017185092,
+        0.006476928945630789,
+        0.006478392984718084,
+        0.006474409019574523,
+        0.006480742013081908,
+        0.0064750430174171925,
+        0.006504284916445613,
+        0.006531998049467802,
+        0.006526450859382749,
+        0.006527496036142111,
+        0.006522173993289471,
+        0.006525486009195447,
+        0.00652834796346724,
+        0.006519912043586373,
+        0.006522243143990636,
+        0.006525655975565314,
+        0.0065254271030426025,
+        0.006521380972117186,
+        0.006523350952193141,
+        0.0065234750509262085,
+        0.006522919982671738,
+        0.0065210380125790834
+      ],
+      "384": [
+        0.018871069885790348,
+        0.01942187501117587,
+        0.018851793138310313,
+        0.01943981205113232,
+        0.018851315136998892,
+        0.019419116899371147,
+        0.018849778920412064,
+        0.019428370986133814,
+        0.018845604034140706,
+        0.019415527116507292,
+        0.018877682043239474,
+        0.019455524161458015,
+        0.018852632027119398,
+        0.019416892901062965,
+        0.01885419897735119,
+        0.018891154089942575,
+        0.019458323949947953,
+        0.018868227023631334,
+        0.01947045116685331,
+        0.018883627140894532,
+        0.019467070000246167,
+        0.01885202107951045,
+        0.019451119005680084,
+        0.018886665115132928,
+        0.019457160960882902,
+        0.01885266602039337,
+        0.01946664904244244,
+        0.018880008021369576,
+        0.019442487973719835,
+        0.01886681094765663,
+        0.018863266101107,
+        0.019553387071937323,
+        0.018796825082972646,
+        0.01955002499744296,
+        0.018836668925359845,
+        0.019556651124730706,
+        0.0188353699631989,
+        0.019527134019881487,
+        0.01882161106914282,
+        0.019587215967476368,
+        0.018845447106286883,
+        0.019531355937942863,
+        0.018831426976248622,
+        0.019560439977794886,
+        0.017758476082235575
+      ]
+    }
+  },
+  "scope": "512 matmul row boundary, one warmup plus 2 alternating measured repeats per variant; not a percentile/SLA",
+  "cases": {
+    "words-408": {
+      "request": {
+        "id": "words-408",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.6438105090055615,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 511, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.6980222968850285,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 511, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.6438105090055615,
+              1.6980222968850285
+            ],
+            "count": 2,
+            "median": 1.670916402945295,
+            "min": 1.6438105090055615,
+            "max": 1.6980222968850285,
+            "p95_nearest_rank": 1.6980222968850285
+          },
+          "passed": true
+        },
+        "planned": {
+          "records": [
+            {
+              "seconds": 1.612753058085218,
+              "max_delta": 0.0005641681608470339,
+              "confidence_max_delta": 0.001769918667758441,
+              "all_numeric_max_delta": 0.001769918667758441,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 12,
+              "shapes": {
+                "(1, 511, 1024)": 12
+              },
+              "plans": {
+                "128,384": 12
+              }
+            },
+            {
+              "seconds": 1.640605797059834,
+              "max_delta": 0.0005641681608470339,
+              "confidence_max_delta": 0.001769918667758441,
+              "all_numeric_max_delta": 0.001769918667758441,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 12,
+              "shapes": {
+                "(1, 511, 1024)": 12
+              },
+              "plans": {
+                "128,384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.612753058085218,
+              1.640605797059834
+            ],
+            "count": 2,
+            "median": 1.626679427572526,
+            "min": 1.612753058085218,
+            "max": 1.640605797059834,
+            "p95_nearest_rank": 1.640605797059834
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9155147824373387,
+              "math": 0.0594461419701582,
+              "chat": 0.025039075592503016
+            },
+            "confidence": 0.6896665933288677
+          }
+        },
+        "usage": {
+          "input_tokens": 511,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 511,
+      "first_fixed_seconds": 7.851609162054956,
+      "first_planned_seconds": 1.634465411072597,
+      "first_check": {
+        "max_delta": 0.0005641681608470339,
+        "confidence_max_delta": 0.001769918667758441,
+        "all_numeric_max_delta": 0.001769918667758441,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "reduction": 0.026474678981421973
+    },
+    "words-409": {
+      "request": {
+        "id": "words-409",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 1.6684035020880401,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 512, 1024)": 12
+              }
+            },
+            {
+              "seconds": 1.6932876859791577,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 512, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.6684035020880401,
+              1.6932876859791577
+            ],
+            "count": 2,
+            "median": 1.680845594033599,
+            "min": 1.6684035020880401,
+            "max": 1.6932876859791577,
+            "p95_nearest_rank": 1.6932876859791577
+          },
+          "passed": true
+        },
+        "planned": {
+          "records": [
+            {
+              "seconds": 1.633761553093791,
+              "max_delta": 0.0037253942871073864,
+              "confidence_max_delta": 0.009327421846964667,
+              "all_numeric_max_delta": 0.009327421846964667,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 512, 1024)": 12
+              },
+              "plans": {
+                "128,384": 12
+              }
+            },
+            {
+              "seconds": 1.654249626910314,
+              "max_delta": 0.0037253942871073864,
+              "confidence_max_delta": 0.009327421846964667,
+              "all_numeric_max_delta": 0.009327421846964667,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 24,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 512, 1024)": 12
+              },
+              "plans": {
+                "128,384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              1.633761553093791,
+              1.654249626910314
+            ],
+            "count": 2,
+            "median": 1.6440055900020525,
+            "min": 1.633761553093791,
+            "max": 1.654249626910314,
+            "p95_nearest_rank": 1.654249626910314
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9151903987520634,
+              "math": 0.05971616150823544,
+              "chat": 0.025093439739701136
+            },
+            "confidence": 0.6888170887774973
+          }
+        },
+        "usage": {
+          "input_tokens": 512,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 512,
+      "first_fixed_seconds": 1.6250148280523717,
+      "first_planned_seconds": 1.6129879509098828,
+      "first_check": {
+        "max_delta": 0.0037253942871073864,
+        "confidence_max_delta": 0.009327421846964667,
+        "all_numeric_max_delta": 0.009327421846964667,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "reduction": 0.021917542076628105
+    },
+    "words-410": {
+      "request": {
+        "id": "words-410",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 18.73067215201445,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 513, 1024)": 12
+              }
+            },
+            {
+              "seconds": 18.539550404064357,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 513, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              18.73067215201445,
+              18.539550404064357
+            ],
+            "count": 2,
+            "median": 18.635111278039403,
+            "min": 18.539550404064357,
+            "max": 18.73067215201445,
+            "p95_nearest_rank": 18.73067215201445
+          },
+          "passed": true
+        },
+        "planned": {
+          "records": [
+            {
+              "seconds": 10.588033546926454,
+              "max_delta": 0.0011080283100285832,
+              "confidence_max_delta": 0.0025643333791511846,
+              "all_numeric_max_delta": 0.0025643333791511846,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 36,
+              "padded_rows": 1524,
+              "shapes": {
+                "(1, 513, 1024)": 12
+              },
+              "plans": {
+                "128,128,384": 12
+              }
+            },
+            {
+              "seconds": 9.964811285957694,
+              "max_delta": 0.0011080283100285832,
+              "confidence_max_delta": 0.0025643333791511846,
+              "all_numeric_max_delta": 0.0025643333791511846,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 36,
+              "padded_rows": 1524,
+              "shapes": {
+                "(1, 513, 1024)": 12
+              },
+              "plans": {
+                "128,128,384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              10.588033546926454,
+              9.964811285957694
+            ],
+            "count": 2,
+            "median": 10.276422416442074,
+            "min": 9.964811285957694,
+            "max": 10.588033546926454,
+            "p95_nearest_rank": 10.588033546926454
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9146682194621673,
+              "math": 0.06048775598769825,
+              "chat": 0.02484402455013451
+            },
+            "confidence": 0.6877223390622087
+          }
+        },
+        "usage": {
+          "input_tokens": 513,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 513,
+      "first_fixed_seconds": 18.876760171027854,
+      "first_planned_seconds": 10.501123762922361,
+      "first_check": {
+        "max_delta": 0.0011080283100285832,
+        "confidence_max_delta": 0.0025643333791511846,
+        "all_numeric_max_delta": 0.0025643333791511846,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "reduction": 0.4485451541922183
+    },
+    "words-512": {
+      "request": {
+        "id": "words-512",
+        "state": "alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha alpha",
+        "questions": {
+          "kind": {
+            "type": "choice",
+            "instructions": "这个请求属于哪类任务？",
+            "criteria": {
+              "code": "编程任务",
+              "math": "数学问题",
+              "chat": "日常聊天"
+            }
+          }
+        }
+      },
+      "variants": {
+        "fixed": {
+          "records": [
+            {
+              "seconds": 22.822738100076094,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 615, 1024)": 12
+              }
+            },
+            {
+              "seconds": 21.78095384989865,
+              "max_delta": 0.0,
+              "confidence_max_delta": 0.0,
+              "all_numeric_max_delta": 0.0,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 0,
+              "fallback": 12,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 0,
+              "padded_rows": 0,
+              "shapes": {
+                "(1, 615, 1024)": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              22.822738100076094,
+              21.78095384989865
+            ],
+            "count": 2,
+            "median": 22.301845974987373,
+            "min": 21.78095384989865,
+            "max": 22.822738100076094,
+            "p95_nearest_rank": 22.822738100076094
+          },
+          "passed": true
+        },
+        "planned": {
+          "records": [
+            {
+              "seconds": 11.805266411043704,
+              "max_delta": 0.0010823741553341593,
+              "confidence_max_delta": 0.001098603060961767,
+              "all_numeric_max_delta": 0.001098603060961767,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 36,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 615, 1024)": 12
+              },
+              "plans": {
+                "128,128,384": 12
+              }
+            },
+            {
+              "seconds": 11.805431646993384,
+              "max_delta": 0.0010823741553341593,
+              "confidence_max_delta": 0.001098603060961767,
+              "all_numeric_max_delta": 0.001098603060961767,
+              "choices_unchanged": true,
+              "passed": true,
+              "optimized": 12,
+              "fallback": 0,
+              "range_fallback": 0,
+              "errors": [],
+              "graph_calls": 36,
+              "padded_rows": 300,
+              "shapes": {
+                "(1, 615, 1024)": 12
+              },
+              "plans": {
+                "128,128,384": 12
+              }
+            }
+          ],
+          "timing": {
+            "seconds": [
+              11.805266411043704,
+              11.805431646993384
+            ],
+            "count": 2,
+            "median": 11.805349029018544,
+            "min": 11.805266411043704,
+            "max": 11.805431646993384,
+            "p95_nearest_rank": 11.805431646993384
+          },
+          "passed": true
+        }
+      },
+      "reference": {
+        "model": "vllm-sr/d3-edge",
+        "answers": {
+          "kind": {
+            "type": "choice",
+            "choice": "code",
+            "probabilities": {
+              "code": 0.9324437240892094,
+              "math": 0.04838272112037657,
+              "chat": 0.019173554790414053
+            },
+            "confidence": 0.7382423346624529
+          }
+        },
+        "usage": {
+          "input_tokens": 615,
+          "output_tokens": 0
+        }
+      },
+      "input_tokens": 615,
+      "first_fixed_seconds": 22.441245442954823,
+      "first_planned_seconds": 12.737135360948741,
+      "first_check": {
+        "max_delta": 0.0010823741553341593,
+        "confidence_max_delta": 0.001098603060961767,
+        "all_numeric_max_delta": 0.001098603060961767,
+        "choices_unchanged": true,
+        "passed": true
+      },
+      "reduction": 0.4706559698125963
+    }
+  },
+  "completed": true,
+  "passed": true,
+  "final_settings": {
+    "torch_threads": 3,
+    "affinity": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cpu_khz": "2208000",
+    "npu_hz": "950000000",
+    "numpy_blas_threads": 1,
+    "mkldnn": true,
+    "pid": 7,
+    "dmc_hz": "1968000000",
+    "gpu_hz": "300000000",
+    "thermal": {
+      "thermal_zone2": "40692",
+      "thermal_zone0": "40692",
+      "thermal_zone5": "40692",
+      "thermal_zone3": "38845",
+      "thermal_zone1": "42538",
+      "thermal_zone4": "38845"
+    }
+  }
+}

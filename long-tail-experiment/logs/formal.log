@@ -1,0 +1,38 @@
+Loading weights:   0%|          | 0/305 [00:00<?, ?it/s]Loading weights:  34%|███▍      | 105/305 [00:00<00:00, 1042.62it/s]Loading weights:  70%|███████   | 215/305 [00:00<00:00, 1075.32it/s]Loading weights: 100%|██████████| 305/305 [00:00<00:00, 1281.77it/s]
+PILOT [('baseline', 2.4327086618868634, True), ('validate_mlp', 2.09392100549303, True), ('combined', 2.081337407580577, True)] SELECTED validate_mlp
+FORMAL BEGIN words-512
+FORMAL words-512 [('baseline', 2.441378001938574, True, True), ('validate_mlp', 2.153230875963345, True, True)]
+FORMAL BEGIN single
+FORMAL single [('baseline', 0.3247385995928198, True, True), ('validate_mlp', 0.33241239946801215, True, True)]
+FORMAL BEGIN words-410
+FORMAL words-410 [('baseline', 2.0471181438770145, True, True), ('validate_mlp', 1.8817456120159477, True, True)]
+FORMAL BEGIN words-921
+FORMAL words-921 [('baseline', 4.6768559268675745, True, True), ('validate_mlp', 4.325469150906429, True, True)]
+FORMAL BEGIN natural-long
+FORMAL natural-long [('baseline', 2.863365039927885, True, True), ('validate_mlp', 2.692203037906438, True, True)]
+FORMAL BEGIN batch-long
+FORMAL batch-long [('baseline', 4.755678883986548, True, True), ('validate_mlp', 4.385503223864362, True, True)]
+FORMAL BEGIN boundary-512
+FORMAL boundary-512 [('baseline', 1.633781149983406, True, True), ('validate_mlp', 1.6402599369175732, True, True)]
+FORMAL BEGIN multi-wide
+FORMAL multi-wide [('baseline', 2.1096378690563142, True, False), ('validate_mlp', 2.0955366590060294, True, False)]
+FORMAL BEGIN image
+/models/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e/d3_runtime.py:504: UserWarning: mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support
+Exception raised from mkldnn_matmul at /pytorch/aten/src/ATen/native/mkldnn/Matmul.cpp:338 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0xc8 (0xffffb0c1a988 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: c10::detail::torchCheckFail(char const*, char const*, unsigned int, char const*) + 0x6c (0xffffb0bb9018 in /usr/local/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #2: at::native::mkldnn_matmul(at::Tensor const&, at::Tensor const&, at::Tensor const&, float, float) + 0x8f0 (0xffffb28eef70 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x19cf658 (0xffffb22af658 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: at::native::structured_addmm_out_cpu::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::Tensor const&) + 0x17c (0xffffb22afbac in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x294abcc (0xffffb322abcc in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&) + 0x1b4 (0xffffb1cb5cb4 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x364 (0xffffb1c90c24 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0x13eb660 (0xffffb1ccb660 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&) + 0x198 (0xffffb1cb7538 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x5e38a8 (0xffffbb6338a8 in /usr/local/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+<omitting python frames>
+frame #45: <unknown function> + 0x27744 (0xffffbd9d7744 in /lib/aarch64-linux-gnu/libc.so.6)
+frame #46: __libc_start_main + 0x98 (0xffffbd9d7818 in /lib/aarch64-linux-gnu/libc.so.6)
+ (Triggered internally at /pytorch/aten/src/ATen/native/LinearAlgebra.cpp:1531.)
+  out = F.linear(flat, weight.reshape(weight.shape[0], -1), self.proj.bias)
+FORMAL image [('baseline', 7.6766433959128335, True, True), ('validate_mlp', 7.553932573529892, True, True)]

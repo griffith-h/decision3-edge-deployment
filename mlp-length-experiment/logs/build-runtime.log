@@ -1,0 +1,7 @@
+row_graph_runtime.cpp: In function ‘int row_graph_run_bf16(void*, const uint16_t*, uint16_t*)’:
+row_graph_runtime.cpp:43:2: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+   43 |  if(!ok(rknn_inputs_set(p->ctx,1,&in),"half_inputs_set"))return -1;if(!ok(rknn_run(p->ctx,nullptr),"half_run"))return -1;
+      |  ^~
+row_graph_runtime.cpp:43:68: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   43 |  if(!ok(rknn_inputs_set(p->ctx,1,&in),"half_inputs_set"))return -1;if(!ok(rknn_run(p->ctx,nullptr),"half_run"))return -1;
+      |                                                                    ^~

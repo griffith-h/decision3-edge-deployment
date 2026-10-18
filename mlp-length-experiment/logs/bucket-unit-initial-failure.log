@@ -1,0 +1,6 @@
+ROW UNIT PASS 19
+Traceback (most recent call last):
+  File "/experiment/test_buckets.py", line 19, in <module>
+    x=torch.arange(batch*t*1024,dtype=torch.float32).remainder(19).reshape(batch,t,1024).bfloat16();snap=x.clone();b.reset_counts();out=m[0](x);assert torch.equal(out,x*2) and torch.equal(x,snap);assert b.counts['optimized']==1;tested.append([batch,t])
+                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

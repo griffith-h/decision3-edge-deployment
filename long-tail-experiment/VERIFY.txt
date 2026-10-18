@@ -1,0 +1,57 @@
+验证范围：RK3576、冻结d3-edge快照、三线程独立进程；不替换线上服务。
+
+已执行的板端命令（依次运行，无并发计时）：
+  bash build.sh
+  bash run.sh profile_tail.py
+  bash run.sh replay.py
+  bash run.sh choose_candidates.py
+  bash run.sh test_candidates.py
+  bash run.sh screen_tail.py
+  bash run.sh formal_tail.py
+  bash run.sh profile_selected.py
+结果以各logs/*.json的completed/passed、运行日志和validation.json为准。
+构建：主机GCC14，最终无-Wall/-Wextra警告；容器内加载自有库。
+聚焦单测：6组注意力、5组扫描、有限数/模型域和调度故障；不跑无关仓库套件。
+内核回放：12注意力+29扫描配置，每配置6层*3次，包含baseline；不属于正式端到端分布。
+初筛：5模式*4次。预选：3模式*6次，双参照精度通过后按原注意力优先规则选择。
+正式：9场景58份候选（均有交错baseline控制），额外12短请求*2次=24份，共82份。
+615行current新算且与上阶段冻结参照相等；其余正式current复用上阶段明确来源的完整输出。
+额外24份只核对baseline，vs_current为该参照别名，不计入current统计。
+精度：原0.01门槛；confidence单列。multi-wide继承原score失败，不放宽或隐藏。
+分项：首次baseline5次，捕获在单独调用；最终另做5组配对包装计时，不相加重叠的worker时间。
+
+本机收尾命令：
+  python3 long-tail-experiment/preserve_service.py after
+  python3 long-tail-experiment/capture_artifacts.py
+  python3 long-tail-experiment/validate_records.py
+  python3 -m compileall -q long-tail-experiment
+  bash -n long-tail-experiment/run.sh long-tail-experiment/build.sh
+  python3 long-tail-experiment/update_report.py
+  python3 long-tail-experiment/check_report.py --url http://127.0.0.1:43991/mlp-length-experiment/report.html
+  git diff --check
+check_report同时检查新源码空白、HTML表格列数、重复id、本地链接和预览字节一致。
+SHA核验依次进行，与计时/HTTP不重叠；本阶段未部署、提交、推送。
+
+保留失败记录：
+  build-initial-warning.log：最初C缩进警告，已修复后重新构建。
+  unit-select-shadow.log：原脚本名select.py遮蔽标准库，已改choose_candidates.py。
+  unit-adapter-shadowed-n.log：单测注入别名n被原循环变量覆盖，已改_tail_backend。
+  unit-adapter-sources/保存首次适配器；最终单测运行生成的adapted-native-unit.py也保留。
+这些属于测试脚本/构建问题；不是模型差异失败。
+
+风险与边界：只测顺序单请求，未验证线上并发、任意长度/批次或其他芯片SDK。
+重写检查仍保留有限数、模型域、shape/stride/参数及整次回退，不修改训练模型。
+615专用MLP调度不直接推广到其他长度；少量短请求计时差异不作加速结论。
+无业务标注集，不宣称业务准确率无损；RSS不包含全部驱动内存。
+
+本轮最终执行结果：
+  build.log为空，构建成功且无警告；unit.json/extra-unit.json通过。
+  formal.json completed=true；738条native回放记录、20初筛、18预选、58正式+24额外候选均检查。
+  615行20组P50：2441.3780ms -> 2153.2309ms，降低11.8026%，P95=2189.1169ms。
+  82份候选相对本轮baseline全部受检数值差0；相对current仍只有multi-wide原score门槛失败。
+  profile-selected.json completed=true：独立5组配对，见分项表，不混入正式分布。
+  service-after.json passed=true：07577e5f9827、配置/启动时间/554文件SHA不变、健康、5次完整HTTP相等、自有容器退出。
+  artifacts.json：29份运行源码/配置/ARM库SHA匹配；上三阶段依赖SHA匹配；公开SDK核心枚举核对通过。
+  validate_records.py passed=true：保存的正式/初筛/预选完整输出差异与中位数/P95重新计算通过。
+  compileall、bash -n、git diff --check通过。
+  check_report.py通过：21表、91链接、10个id、新源码空白检查、预览HTTP与本地报告字节相等。

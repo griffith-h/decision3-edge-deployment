@@ -1,0 +1,113 @@
+{
+  "formal": [
+    {
+      "id": "single",
+      "input_tokens": 115,
+      "shape": "(1, 115, 1024)",
+      "baseline_ms": 320.1925919856876,
+      "candidate_ms": 321.1476389551535,
+      "reduction": -0.002982726625694765,
+      "paired_median_reduction": -0.004284133368861909,
+      "faster_pairs": 5,
+      "verdict": "保留原115路径"
+    },
+    {
+      "id": "words-0",
+      "input_tokens": 105,
+      "shape": "(1, 105, 1024)",
+      "baseline_ms": 315.9231113968417,
+      "candidate_ms": 305.13127450831234,
+      "reduction": 0.03415969423956888,
+      "paired_median_reduction": 0.036239360749934224,
+      "faster_pairs": 20,
+      "verdict": "有收益；需业务回归"
+    },
+    {
+      "id": "novel-math",
+      "input_tokens": 117,
+      "shape": "(1, 117, 1024)",
+      "baseline_ms": 343.9869014546275,
+      "candidate_ms": 333.79057701677084,
+      "reduction": 0.02964160668542659,
+      "paired_median_reduction": 0.03306872193174826,
+      "faster_pairs": 17,
+      "verdict": "有收益；需业务回归"
+    },
+    {
+      "id": "words-16",
+      "input_tokens": 119,
+      "shape": "(1, 119, 1024)",
+      "baseline_ms": 351.7353840870783,
+      "candidate_ms": 337.02540246304125,
+      "reduction": 0.041821159569192856,
+      "paired_median_reduction": 0.0439169394263238,
+      "faster_pairs": 19,
+      "verdict": "有收益；需业务回归"
+    },
+    {
+      "id": "words-64",
+      "input_tokens": 167,
+      "shape": "(1, 167, 1024)",
+      "baseline_ms": 568.9184479415417,
+      "candidate_ms": 558.2545280922204,
+      "reduction": 0.01874419767526503,
+      "paired_median_reduction": 0.012354939449781832,
+      "faster_pairs": 19,
+      "verdict": "收益小；暂不推广"
+    },
+    {
+      "id": "words-128",
+      "input_tokens": 231,
+      "shape": "(1, 231, 1024)",
+      "baseline_ms": 694.3145280238241,
+      "candidate_ms": 681.5975609933957,
+      "reduction": 0.01831585904823818,
+      "paired_median_reduction": 0.016433138757054933,
+      "faster_pairs": 19,
+      "verdict": "收益小；暂不推广"
+    },
+    {
+      "id": "chinese-0",
+      "input_tokens": 344,
+      "shape": "(3, 127, 1024)",
+      "baseline_ms": 1097.2734430106357,
+      "candidate_ms": 1028.218659455888,
+      "reduction": 0.06293306740868454,
+      "paired_median_reduction": 0.06317564921643604,
+      "faster_pairs": 20,
+      "verdict": "有收益；需业务回归"
+    },
+    {
+      "id": "words-256",
+      "input_tokens": 359,
+      "shape": "(1, 359, 1024)",
+      "baseline_ms": 1214.5074979634956,
+      "candidate_ms": 1139.6256629377604,
+      "reduction": 0.061656132342779446,
+      "paired_median_reduction": 0.06163957328382197,
+      "faster_pairs": 20,
+      "verdict": "有收益；需业务回归"
+    },
+    {
+      "id": "words-400",
+      "input_tokens": 503,
+      "shape": "(1, 503, 1024)",
+      "baseline_ms": 1646.7036689864472,
+      "candidate_ms": 1613.8268350623548,
+      "reduction": 0.019965239978075866,
+      "paired_median_reduction": 0.022218323246559535,
+      "faster_pairs": 18,
+      "verdict": "收益小；暂不推广"
+    }
+  ],
+  "max_probability_score_noul_delta": 0.008339171380606802,
+  "max_confidence_delta": 0.01424640605165417,
+  "max_all_numeric_delta": 0.01424640605165417,
+  "choices_unchanged": true,
+  "checked_candidate_outputs": 380,
+  "all_passed": true,
+  "runtime_errors": 0,
+  "range_fallbacks": 0,
+  "long_passed": true,
+  "service_unchanged": true
+}

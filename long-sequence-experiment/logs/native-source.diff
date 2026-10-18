@@ -1,0 +1,22 @@
+--- cpu-tail-experiment/cpu_attention.c
++++ long_attention.c
+@@ -18,7 +18,7 @@
+  return vmulq_f32(p,vreinterpretq_f32_s32(vshlq_n_s32(vaddq_s32(n,vdupq_n_s32(127)),23)));
+ }
+ int d3_attention(const uint16_t*q,const uint16_t*k,const uint16_t*v,const uint8_t*mask,uint16_t*out,const int64_t*strides,int batch,int heads,int kvheads,int length,int dim,float scale,int mode){
+- if(!gemm||batch<1||heads<1||kvheads<1||heads%kvheads||length<1||length>512||dim<1)return -1;
++ if(!gemm||batch<1||heads<1||kvheads<1||heads%kvheads||length<1||length>2048||dim<1||dim>256||batch>8||heads>64||batch*heads>128)return -1;
+  int bad=0;
+  #pragma omp parallel for num_threads(3) schedule(static) reduction(|:bad)
+  for(int bh=0;bh<batch*heads;bh++){
+--- attention-chunk-experiment/chunk_blas2.c
++++ long_scan.c
+@@ -13,7 +13,7 @@
+ void d3_set_sgemm(void*fn){gemm=(sgemm_fn)fn;}
+ static void product(const float*a,const float*s,float*out,int n,int kd,int width){gemm(101,111,111,n,width,kd,1,a,kd,s,width,0,out,width);}
+ int d3_chunk_scan(const float*q,const float*k,const float*v,const float*decay,const float*beta,uint16_t*out,int heads,int length,int kd,int vd,int block,int tile){
+- if(!gemm||!trsm||heads<=0||length<=0||length>512||kd<=0||kd>128||kd%4||vd<=0||vd>128||vd%4||block<2||block>128||(tile!=8&&tile!=16&&tile!=32&&tile!=64&&tile!=128))return -1;
++ if(!gemm||!trsm||heads<=0||heads>128||length<=0||length>2048||kd<=0||kd>128||kd%4||vd<=0||vd>128||vd%4||block<2||block>128||(tile!=8&&tile!=16&&tile!=32&&tile!=64&&tile!=128))return -1;
+  int chunks=(length+block-1)/block,coeffsize=2*block*block+2*block;
+  float*coeff=calloc((size_t)heads*chunks*coeffsize,sizeof(float));if(!coeff)return -2;
+  #pragma omp parallel for num_threads(3) schedule(static)

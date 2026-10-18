@@ -1,0 +1,86 @@
+{
+  "finite": [
+    [
+      "torch.float32",
+      1
+    ],
+    [
+      "torch.float32",
+      511
+    ],
+    [
+      "torch.float32",
+      512
+    ],
+    [
+      "torch.float32",
+      513
+    ],
+    [
+      "torch.float32",
+      2048
+    ],
+    [
+      "torch.float32",
+      4097
+    ],
+    [
+      "torch.bfloat16",
+      1
+    ],
+    [
+      "torch.bfloat16",
+      511
+    ],
+    [
+      "torch.bfloat16",
+      512
+    ],
+    [
+      "torch.bfloat16",
+      513
+    ],
+    [
+      "torch.bfloat16",
+      2048
+    ],
+    [
+      "torch.bfloat16",
+      4097
+    ]
+  ],
+  "raw_domains": [
+    [
+      "torch.float32",
+      "torch.float32"
+    ],
+    [
+      "torch.float32",
+      "torch.bfloat16"
+    ],
+    [
+      "torch.bfloat16",
+      "torch.float32"
+    ],
+    [
+      "torch.bfloat16",
+      "torch.bfloat16"
+    ]
+  ],
+  "scheduler": {
+    "passed": true,
+    "counts": {
+      "parallel_layers": 1,
+      "serial_layers": 2,
+      "errors": [
+        "injected second graph call"
+      ],
+      "chunks": 3,
+      "padded_rows": 25
+    },
+    "joined_before_fallback": true,
+    "row_order_preserved": true,
+    "fault_group_disabled": true
+  },
+  "passed": true
+}

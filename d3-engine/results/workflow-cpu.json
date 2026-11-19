@@ -1,0 +1,168 @@
+{
+  "backend": "cpu",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 3,
+  "attention": "prefix_bidir",
+  "state_once": "StateOnce",
+  "permutation_average": false,
+  "model_load_s": 13.832134189084172,
+  "requests": [
+    {
+      "id": "typesafe-customer-service-access-2fa-old-number-flight-t0-triage-a990c4f9e3b5",
+      "payload_sha256": "a990c4f9e3b50671f1d36b2b248d64226a888577f0b692fa2865ae963a488c4f",
+      "question_lengths": {
+        "intent": 449,
+        "desired_outcome": 336,
+        "frustration": 336,
+        "urgency": 310,
+        "reports_unauthorized": 290,
+        "threat_legal_regulatory": 307,
+        "threat_chargeback_or_public": 289,
+        "requests_human": 282,
+        "shares_credentials": 283,
+        "issue_resolved": 296,
+        "claims_agent_error": 293
+      },
+      "state_lengths": {
+        "intent": 199,
+        "desired_outcome": 199,
+        "frustration": 199,
+        "urgency": 199,
+        "reports_unauthorized": 199,
+        "threat_legal_regulatory": 199,
+        "threat_chargeback_or_public": 199,
+        "requests_human": 199,
+        "shares_credentials": 199,
+        "issue_resolved": 199,
+        "claims_agent_error": 199
+      },
+      "expected": {
+        "intent": "account_access",
+        "desired_outcome": "replacement_or_fix",
+        "frustration": "0",
+        "urgency": "2",
+        "reports_unauthorized": false,
+        "threat_legal_regulatory": false,
+        "threat_chargeback_or_public": false,
+        "requests_human": false,
+        "shares_credentials": false,
+        "issue_resolved": false,
+        "claims_agent_error": false
+      },
+      "calls": [
+        {
+          "seconds": 2495.3507932520006,
+          "usage": {
+            "input_tokens": 1481,
+            "output_tokens": 0
+          },
+          "answers": {
+            "intent": {
+              "type": "choice",
+              "choice": "general_question",
+              "probabilities": {
+                "unauthorized_charge": 0.005047943821453995,
+                "card_declined": 0.005919267321120575,
+                "refund_request": 0.0012305385686067192,
+                "billing_dispute": 0.0011210090985440356,
+                "account_access": 0.29453959551882813,
+                "cancel_account": 0.001263739984987142,
+                "delivery_issue": 0.0009054573445510567,
+                "general_question": 0.6899724483419083
+              },
+              "confidence": 0.6615538940819383
+            },
+            "desired_outcome": {
+              "type": "choice",
+              "choice": "explanation_only",
+              "probabilities": {
+                "money_back": 0.004778864423507438,
+                "replacement_or_fix": 0.20741907177447344,
+                "explanation_only": 0.36556795971441186,
+                "speak_to_human": 0.12010581286835947,
+                "not_stated": 0.3021282912192477
+              },
+              "confidence": 0.16998977386557668
+            },
+            "frustration": {
+              "type": "score",
+              "score": 0.6152533264060812,
+              "probabilities": {
+                "0": 0.5331494429384248,
+                "1": 0.33727671090127537,
+                "2": 0.11405429708759812,
+                "3": 0.012210174961197334,
+                "4": 0.0033093741115044033
+              },
+              "confidence": 0.36486608972830925,
+              "legend": {
+                "0": "Calm and neutral; no sign of irritation.",
+                "1": "Mildly irritated; a hint of impatience or disappointment but polite.",
+                "2": "Clearly frustrated; complains about the situation or the service, expresses annoyance directly.",
+                "3": "Angry; strong language, repeated complaints, demands, or expresses distrust of the company.",
+                "4": "Hostile or abusive; insults, threats toward the assistant, profanity directed at the company or agent."
+              }
+            },
+            "urgency": {
+              "type": "score",
+              "score": 1.8505941101860697,
+              "probabilities": {
+                "0": 0.07733277429147545,
+                "1": 0.05582421622924466,
+                "2": 0.8057591344810144,
+                "3": 0.06108387499826541
+              },
+              "confidence": 0.4923099495076225,
+              "legend": {
+                "0": "No time pressure mentioned.",
+                "1": "Some inconvenience; they would like it handled soon.",
+                "2": "Pressing: a deadline, travel, a payment due, or repeated failed attempts are mentioned.",
+                "3": "Emergency: stranded, locked out with no alternative, unable to pay for essentials, or ongoing unauthorized use right now."
+              }
+            },
+            "reports_unauthorized": {
+              "type": "noul",
+              "noul": 0.09066041356339126
+            },
+            "threat_legal_regulatory": {
+              "type": "noul",
+              "noul": 0.012773244272944916
+            },
+            "threat_chargeback_or_public": {
+              "type": "noul",
+              "noul": 0.00848746618521614
+            },
+            "requests_human": {
+              "type": "noul",
+              "noul": 0.02904420737108136
+            },
+            "shares_credentials": {
+              "type": "noul",
+              "noul": 0.005818164116956542
+            },
+            "issue_resolved": {
+              "type": "noul",
+              "noul": 0.02103648199415629
+            },
+            "claims_agent_error": {
+              "type": "noul",
+              "noul": 0.16832566025299284
+            }
+          },
+          "peak_rss_bytes": 4183293952,
+          "open_fds_after_call": 4,
+          "memory.peak": 1316098048,
+          "memory.swap.current": 0
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec"
+}

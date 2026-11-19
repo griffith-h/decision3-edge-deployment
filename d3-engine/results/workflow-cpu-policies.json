@@ -1,0 +1,122 @@
+{
+  "customer-service": {
+    "case_id": "access-2fa-old-number-flight/t0",
+    "dataset_revision": "b1342f5a704587dbc465867c38c2694348ff86e4",
+    "calls": [
+      "typesafe-customer-service-access-2fa-old-number-flight-t0-triage-a990c4f9e3b5"
+    ],
+    "policies": {
+      "A": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      },
+      "B": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "set_priority",
+            "arguments": {
+              "level": "high"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      },
+      "C": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          },
+          {
+            "name": "set_priority",
+            "arguments": {
+              "level": "urgent"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      }
+    }
+  }
+}

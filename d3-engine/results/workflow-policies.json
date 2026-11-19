@@ -1,0 +1,245 @@
+{
+  "customer-service": {
+    "case_id": "access-2fa-old-number-flight/t0",
+    "dataset_revision": "b1342f5a704587dbc465867c38c2694348ff86e4",
+    "calls": [
+      "typesafe-customer-service-access-2fa-old-number-flight-t0-triage-a990c4f9e3b5"
+    ],
+    "policies": {
+      "A": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      },
+      "B": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "set_priority",
+            "arguments": {
+              "level": "high"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      },
+      "C": {
+        "actual": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "general_question"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "explain_charge_or_policy"
+            }
+          }
+        ],
+        "consensus": [
+          {
+            "name": "set_intent",
+            "arguments": {
+              "intent": "account_access"
+            }
+          },
+          {
+            "name": "respond_with",
+            "arguments": {
+              "message": "account_recovery_steps"
+            }
+          },
+          {
+            "name": "set_priority",
+            "arguments": {
+              "level": "urgent"
+            }
+          }
+        ],
+        "metrics": {
+          "exact_actions": false
+        }
+      }
+    }
+  },
+  "invoice-processing": {
+    "case_id": "ap_00000",
+    "dataset_revision": "6beeb2d2acd65c086c835022f5f4d7434114cafc",
+    "calls": [
+      "typesafe-invoice-processing-ap_00000-semantic-c99c14de6091"
+    ],
+    "policies": {
+      "startup": {
+        "actual": [
+          {
+            "name": "DUPLICATE_REVIEW",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          },
+          {
+            "name": "PROCUREMENT_REVIEW",
+            "arguments": {}
+          }
+        ],
+        "consensus": [
+          {
+            "name": "DISPUTE_LINES",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          }
+        ],
+        "metrics": {
+          "exact_actions": false,
+          "primary_action": false
+        },
+        "primary_actual": {
+          "name": "DUPLICATE_REVIEW",
+          "arguments": {}
+        },
+        "primary_consensus": {
+          "name": "DISPUTE_LINES",
+          "arguments": {}
+        }
+      },
+      "enterprise": {
+        "actual": [
+          {
+            "name": "DUPLICATE_REVIEW",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          },
+          {
+            "name": "PROCUREMENT_REVIEW",
+            "arguments": {}
+          }
+        ],
+        "consensus": [
+          {
+            "name": "DISPUTE_LINES",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          }
+        ],
+        "metrics": {
+          "exact_actions": false,
+          "primary_action": false
+        },
+        "primary_actual": {
+          "name": "DUPLICATE_REVIEW",
+          "arguments": {}
+        },
+        "primary_consensus": {
+          "name": "DISPUTE_LINES",
+          "arguments": {}
+        }
+      },
+      "high_volume_retailer": {
+        "actual": [
+          {
+            "name": "DUPLICATE_REVIEW",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          },
+          {
+            "name": "PROCUREMENT_REVIEW",
+            "arguments": {}
+          }
+        ],
+        "consensus": [
+          {
+            "name": "DISPUTE_LINES",
+            "arguments": {}
+          },
+          {
+            "name": "REQUEST_CORRECTED_INVOICE",
+            "arguments": {}
+          }
+        ],
+        "metrics": {
+          "exact_actions": false,
+          "primary_action": false
+        },
+        "primary_actual": {
+          "name": "DUPLICATE_REVIEW",
+          "arguments": {}
+        },
+        "primary_consensus": {
+          "name": "DISPUTE_LINES",
+          "arguments": {}
+        }
+      }
+    }
+  }
+}

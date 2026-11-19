@@ -1,0 +1,359 @@
+{
+  "BFCL-tool-selection:live_multiple:live_multiple_51-21-0": {
+    "payload_sha256": "c736a52e92a1c6110da340ee13dbb4c6f39e4d285c2a2d7eb6f7f9f951ccd170",
+    "questions": {
+      "tool_inventory_management": {
+        "type": "choice",
+        "instructions": "Given the complete user conversation and the published function schemas in state, mark each candidate tool yes if it should be invoked to answer the request, or no otherwise. This evaluates tool-name selection only; do not produce arguments or call ordering.\n\n\n\nCandidate tool: inventory_management",
+        "criteria": {
+          "yes": "Invoke this tool.",
+          "no": "Do not invoke this tool."
+        }
+      },
+      "tool_product_search": {
+        "type": "choice",
+        "instructions": "Given the complete user conversation and the published function schemas in state, mark each candidate tool yes if it should be invoked to answer the request, or no otherwise. This evaluates tool-name selection only; do not produce arguments or call ordering.\n\n\n\nCandidate tool: product_search",
+        "criteria": {
+          "yes": "Invoke this tool.",
+          "no": "Do not invoke this tool."
+        }
+      },
+      "tool_order_status_check": {
+        "type": "choice",
+        "instructions": "Given the complete user conversation and the published function schemas in state, mark each candidate tool yes if it should be invoked to answer the request, or no otherwise. This evaluates tool-name selection only; do not produce arguments or call ordering.\n\n\n\nCandidate tool: order_status_check",
+        "criteria": {
+          "yes": "Invoke this tool.",
+          "no": "Do not invoke this tool."
+        }
+      },
+      "tool_get_product_details": {
+        "type": "choice",
+        "instructions": "Given the complete user conversation and the published function schemas in state, mark each candidate tool yes if it should be invoked to answer the request, or no otherwise. This evaluates tool-name selection only; do not produce arguments or call ordering.\n\n\n\nCandidate tool: get_product_details",
+        "criteria": {
+          "yes": "Invoke this tool.",
+          "no": "Do not invoke this tool."
+        }
+      }
+    }
+  },
+  "home-appliance:test:juniper:09": {
+    "payload_sha256": "a22135bf96a509ece3767496159a8651cf98a3acc3f0bfafb2d9eaf296fc620a",
+    "questions": {
+      "q_0547034bd9": {
+        "criteria": {
+          "k_f724c755": "no, this device is not in the justified target set",
+          "k_fae64340": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is lounge_plug in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_0f76509c9c": {
+        "criteria": {
+          "k_284ef3fa": "no, this device is not in the justified target set",
+          "k_6c0d8d9d": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is guest_room_plug in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_144ea66674": {
+        "criteria": {
+          "k_2f335971": "no, this device is not in the justified target set",
+          "k_cb3f49c0": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is study_light in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_183cd22146": {
+        "criteria": {
+          "k_24d5951c": "yes, this device is in the justified target set",
+          "k_66628865": "no, this device is not in the justified target set"
+        },
+        "instructions": "Is galley_light in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_1ed40212da": {
+        "criteria": {
+          "k_146511a7": "no, this device is not in the justified target set",
+          "k_3ea520c4": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is lounge_light in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_37e4083e5f": {
+        "criteria": {
+          "k_7dea8f5b": "no, this device is not in the justified target set",
+          "k_94c2081e": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is galley_plug in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_56725e529c": {
+        "criteria": {
+          "k_026e59ee": "yes, this device is in the justified target set",
+          "k_e48361fa": "no, this device is not in the justified target set"
+        },
+        "instructions": "Is study_plug in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_59a7e7a12d": {
+        "criteria": {
+          "k_0500db2d": "an automation rule is saved; device properties do not change immediately",
+          "k_07c4633d": "lounge_light.brightness becomes 55",
+          "k_3591f955": "a future schedule is added; device properties do not change yet",
+          "k_7e08f62e": "lounge_light.power becomes true",
+          "k_93077940": "no device property changes",
+          "k_c56fa8ab": "lounge_light.power becomes false"
+        },
+        "instructions": "What is the concrete immediate outcome after applying the correct handling?",
+        "type": "choice"
+      },
+      "q_63c4b96c34": {
+        "criteria": {
+          "k_bd0a4884": "yes, this device is in the justified target set",
+          "k_ff320d85": "no, this device is not in the justified target set"
+        },
+        "instructions": "Is porch_plug in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_7345814404": {
+        "criteria": {
+          "k_03feefe9": "answer a state query",
+          "k_198d171a": "ask a clarifying question",
+          "k_1fadcd89": "execute available parts now",
+          "k_3ec60396": "reject as unsupported",
+          "k_6bcf86db": "make no change because already satisfied",
+          "k_afaa00a2": "schedule for later",
+          "k_c1de51ca": "execute now",
+          "k_d68aba4f": "block under household policy",
+          "k_ee293f76": "save an automation rule"
+        },
+        "instructions": "How should the assistant handle the request?",
+        "type": "choice"
+      },
+      "q_8394969b68": {
+        "criteria": {
+          "k_4e8ffa11": "no, this device is not in the justified target set",
+          "k_bbeeacda": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is lounge_speaker in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_9ae87da6b2": {
+        "criteria": {
+          "k_64955cb5": "yes, this device is in the justified target set",
+          "k_73a36951": "no, this device is not in the justified target set"
+        },
+        "instructions": "Is galley_thermostat in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_a436188729": {
+        "criteria": {
+          "k_6b037386": "guest_room_light.power is false",
+          "k_70415370": "guest_room_light.power is true",
+          "k_d1638e07": "the property is not listed"
+        },
+        "instructions": "Before handling the request, what is the listed power state of Reading Lamp in guest room?",
+        "type": "choice"
+      },
+      "q_bc5c34a4c4": {
+        "criteria": {
+          "k_1452d5ed": "not applicable or not listed",
+          "k_5769f468": "55",
+          "k_8f5cf2a4": "35"
+        },
+        "instructions": "Immediately after correct handling, what is brightness for lounge_light?",
+        "type": "choice"
+      },
+      "q_e4f8350a03": {
+        "criteria": {
+          "k_a9a43746": "no, this device is not in the justified target set",
+          "k_bab8481f": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is porch_light in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_e601eb6ed6": {
+        "criteria": {
+          "k_2002aa78": "yes, this device is in the justified target set",
+          "k_570354fb": "no, this device is not in the justified target set"
+        },
+        "instructions": "Is galley_island_light in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_ea1e0d01fc": {
+        "criteria": {
+          "k_157e0e89": "no, this device is not in the justified target set",
+          "k_491c45a3": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is study_lock in the justified device target set for this request?",
+        "type": "choice"
+      },
+      "q_f2f34f26fc": {
+        "criteria": {
+          "k_1eaca50b": "no, this device is not in the justified target set",
+          "k_3d0fea46": "yes, this device is in the justified target set"
+        },
+        "instructions": "Is guest_room_light in the justified device target set for this request?",
+        "type": "choice"
+      }
+    }
+  },
+  "ContractNLI:test:401": {
+    "payload_sha256": "631bf3e354d0f3f9982f79e1863cdb2a1ec962f6b7a02741fc233df8b09a5e88",
+    "questions": {
+      "nda-11": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall not reverse engineer any objects which embody Disclosing Party's Confidential Information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-16": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall destroy or return some Confidential Information upon the termination of Agreement.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-15": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nAgreement shall not grant Receiving Party any right to Confidential Information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-10": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall not disclose the fact that Agreement was agreed or negotiated.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-2": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nConfidential Information shall only include technical information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-1": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nAll Confidential Information shall be expressly identified by the Disclosing Party.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-19": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nSome obligations of Agreement may survive termination of Agreement.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-12": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may independently develop information similar to Confidential Information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-20": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may retain some Confidential Information even after the return or destruction of Confidential Information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-3": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nConfidential Information may include verbally conveyed information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-18": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall not solicit some of Disclosing Party's representatives.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-7": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may share some Confidential Information with some third-parties (including consultants, agents and professional advisors).",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-17": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may create a copy of some Confidential Information in some circumstances.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-8": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall notify Disclosing Party in case Receiving Party is required by law, regulation or judicial process to disclose any Confidential Information.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-13": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may acquire information similar to Confidential Information from a third party.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-5": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party may share some Confidential Information with some of Receiving Party's employees.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      },
+      "nda-4": {
+        "type": "choice",
+        "instructions": "Classify the relationship between the contract and this hypothesis:\nReceiving Party shall not use any Confidential Information for any purpose other than the purposes stated in Agreement.",
+        "criteria": {
+          "Entailment": "The contract entails the hypothesis.",
+          "Contradiction": "The contract contradicts the hypothesis.",
+          "NotMentioned": "The hypothesis is neither entailed nor contradicted by the contract."
+        }
+      }
+    }
+  }
+}

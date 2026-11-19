@@ -1,0 +1,145 @@
+{
+  "board": "NanoPi R76S (RK3576)",
+  "linux": "6.1.115-vendor-rk35xx",
+  "mem_total_kib": 16347752,
+  "rknpu_driver": "0.9.8",
+  "cpu_affinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "torch_intraop": 3,
+  "torch_interop": 1,
+  "cpu_governor": "ondemand",
+  "container_image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "container_memory_bytes": 8589934592,
+  "container_memory_plus_swap_bytes": 8589934592,
+  "network": "none",
+  "rknn_nofile": [
+    4096,
+    4096
+  ],
+  "checkpoint": "vllm-sr/d3.1-nano",
+  "revision": "71d06677f56e243042fe5d5f983804648a5689e8",
+  "model_safetensors_sha256": "93d72e7e2862a488b4950ecc668782cd2da48b196ee514ae1aa3c173fee2e4ef",
+  "readout_safetensors_sha256": "b7a500ca640cbb6d4b9a8862f9ccf5e4aa64f1d2169b9dc6b7fee3dbb4a8d971",
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec",
+  "checkpoint_runtime_sha256": "ce79977d22c2307f00c03b4c214a21b9fee0dc9ab566ac04adc76524f8380380",
+  "native_matmul_so_sha256": "b411e3c02d710ee773747cc844780ab1abd686e4aef2381f24c8f4bf58705336",
+  "state_scan_so_sha256": "677e95c2a78dfb4496bf19f44595dfdb0daecf26622df03cde5bf95e9b795c24",
+  "decision_index_revision": "f5a6e4fd85fed05e77878dfc4966d0568bfb45ec",
+  "board_directory": "/opt/d3-engine-20261119-WIFP0L",
+  "bf16_rknn_driver_sampling": {
+    "source": "/sys/kernel/debug/rknpu/load",
+    "sleep_between_host_samples_s": 1,
+    "samples": 924,
+    "active_samples": 628,
+    "per_core_peak_percent": {
+      "0": 68,
+      "1": 30
+    }
+  },
+  "same_tensor_order_probe": {
+    "input_sha256": "c736a52e92a1c6110da340ee13dbb4c6f39e4d285c2a2d7eb6f7f9f951ccd170",
+    "probe_results_sha256": "3a4f0d05e5d24f9b8660d6f853a93e25a468aa8b02982e60bb25a6e8028a6e76",
+    "small_linear_s": 0.8900784782599658,
+    "sdpa_bf16_s": 15.505342392483726,
+    "sdpa_calls": 12,
+    "sdpa_fp32_s": 2.6665964261628687,
+    "sdpa_output_max_abs": 0.125
+  },
+  "raw_results": {
+    "rknn-bf16.json": "results/rknn.json",
+    "rknn-fp32.json": "staged/results/nano.json",
+    "published-jev.json": "vllm-sr/d3.1-nano-decision-index@767d71ddb868c0c2be015ea0c5b9110cbbd86451 matched by request hash",
+    "jev-double.json": "staged/results/jev-double.json",
+    "workflow-npu.json": "staged/results/workflow-npu.json",
+    "router-npu.json": "staged/results/router-npu.json",
+    "gpu-comparison.json": "compare.py --published-jev published-jev.json jev-double.json",
+    "workflow-policies.json": "WorkflowEvals official adapters replayed with workflow-npu.json",
+    "cpu.json": [
+      "results/cpu-order.json",
+      "results/cpu-home.json",
+      "staged/results/cpu-contract.json"
+    ],
+    "cpu-comparison.json": "compare.py cpu.json rknn-fp32.json",
+    "decision-fields.json": "prepare_cases.py from frozen Decision Index records",
+    "router-cpu.json": "staged/results/router-cpu.json",
+    "router-comparison.json": "compare.py router-cpu.json router-npu.json",
+    "workflow-cpu.json": "staged/results/workflow-cpu.json",
+    "workflow-cpu-comparison.json": "compare.py --request typesafe-customer-service-access-2fa-old-number-flight-t0-triage-a990c4f9e3b5 workflow-cpu.json workflow-npu.json",
+    "workflow-cpu-policies.json": "WorkflowEvals customer-service adapter replayed with workflow-cpu.json",
+    "edge.json": "recheck/results/edge.json",
+    "home-ablations.json": "Same input against cpu-home in every trial; individual board filenames and SHA256 digests are in the trials.",
+    "checkpoint-math.json": "release/results/checkpoint-math.json",
+    "checkpoint-math-comparison.json": "compare.py cpu.json checkpoint-math.json --also-cpu router-cpu.json --also-cpu workflow-cpu.json"
+  },
+  "notes": [
+    "The official CPU and nano RKNN variants use the same read-only checkpoint. The BF16-attention run and the first CPU worker predate automatic manifest fingerprint logging; their archive fingerprint was obtained directly from that mount.",
+    "Driver samples cover the successful BF16-attention process. Both variants count successful RKNN MatMul calls per request.",
+    "The same-tensor probe returns the BF16 answer and times the two attention operations separately; its total latency is excluded from the comparison.",
+    "The packaged FP32 worker keeps a compact convolution tail. Every option and confidence matched the prior FP32 trial on all 39 Decision Index fields.",
+    "The initial CPU process completed and saved the order call, then was stopped during a subsequent home call (OOMKilled=false). The archived home and contract controls each come from their own completed worker."
+  ],
+  "jev_publisher_model_revision": "f3e3b4006ea8ee80cb95471ac27094908d4f630c",
+  "typesafe_workflow_kit_revision": "0ac3b8ad845429f0d8e064ecfb2430a47c5a25cb",
+  "router_signal_suite_revision": "fa08b2a642df30955ad2ad2206d74050c7f12b5c",
+  "historical_edge_same_home_request": {
+    "variant": "full-batch-sparse-request-scope (r078)",
+    "comparison": "different checkpoint, architecture and engine revision",
+    "decision_index_payload_sha256": "a22135bf96a509ece3767496159a8651cf98a3acc3f0bfafb2d9eaf296fc620a",
+    "seconds": 270.8216486799065,
+    "fields": 18,
+    "gold_correct": 11,
+    "input_tokens": 20051,
+    "local_evidence": "output/decision-index-audit/iterations/r078/20261020T013114-coverage-0000-full-batch-sparse-request-scope-plain/result.json",
+    "result_sha256": "fdd322561bd1cd642f92075ebc2c22e54c478dbe52f6b4d41591d9ffa616ff58"
+  },
+  "prior_worker_sha256": {
+    "cpu-order.json": "fa41dca64956a5b3f343184e0cdced16faf17e00b3b1e863f80f106f595efce5",
+    "cpu-home.json": "1a21c66a5ae00160061bcf7a2828dfc13eb1ae6a6791e8b238cb535f1f69e381",
+    "fp32.json": "2f99fdf5099311c6fd370ff0362ce74966414371aa3ed5a748681549199f2ab9",
+    "cpu-contract.json": "22c5b6aa6991662d4aa0bc54001554068c0142801af638f4646c059dfbae71ef"
+  },
+  "edge_checkpoint": {
+    "model": "vllm-sr/d3-edge",
+    "revision": "20c745653400d191ecacd99c4eafc0c5900dc15e",
+    "checkpoint_manifest_sha256": "ae5a368fc70034cd6fda5a943a85794ccf947003f65455b434229a4a09b65185",
+    "attention": "noncausal_full_attention",
+    "result_sha256": "ca4d3969168680afba7c5d277d07848fec5eca380b7cf70b987bf56209299db1"
+  },
+  "native_equivalence_checks": {
+    "core_unit_tests_passed": 9,
+    "cpu_reference_comparator_tests_passed": 4,
+    "release_unit_log": "release/results/unit.log",
+    "default_resident_worker": "release/results/stdio.jsonl",
+    "resident_reference_id": "feedback-fresh-crosswoz-000261",
+    "default_worker_received": [
+      "reference request",
+      "incomplete request",
+      "same reference request"
+    ],
+    "checkpoint_math_resident_worker": "release/results/checkpoint-stdio.jsonl",
+    "both_resident_workers_match_their_benchmark": true,
+    "checkpoint_math_customer_policy_replay_matches_cpu": true,
+    "checkpoint_math_12_request_home_equals_isolated_trial": true,
+    "source_and_worker_output_sha256": {
+      "release/src/engine.py": "2de2ba706e0b873bf9a8ecdef59e025f5eb8952b4c7d7f2a8468f554abca07e4",
+      "release/src/infer.py": "54bd7c4b3a4bb96c9ffa714076072e61e84d84a4116799a2a156bd2676e89718",
+      "release/src/bench.py": "9fae70e519fe3ef3326a2bb29e49efd5b1a21c1b476c38e84c08dfd9925905a3",
+      "release/src/state_kernels.py": "e009925884df20630011c19be8045d420407415171779463c7155766b60f753e",
+      "release/src/cpu_attention.py": "e9f4cb48a85ca500f7dffb821c8f75e7eb8a5fabe5639d8d3460839e3a35380b",
+      "release/src/test_engine.py": "5181f9ed3b7466c786733cd6b3829769a88ca4da5133e0f0fc0371ff4537b0a4",
+      "release/src/run-board.sh": "220b312b22d7b3866d6d4baca1db517153df2f86d2b0086fb00b27f77067ea1b",
+      "release/src/compare.py": "521bfea1346b2ce31fa6a861929d7073b323a1cf51e2324df0d21380175763a3",
+      "release/src/libd3_state.so": "677e95c2a78dfb4496bf19f44595dfdb0daecf26622df03cde5bf95e9b795c24",
+      "staged/native/libnative_short.so": "b411e3c02d710ee773747cc844780ab1abd686e4aef2381f24c8f4bf58705336",
+      "release/results/checkpoint-math.json": "f15b6b8e4266adce9109efb6c6392bf8186251db1eac5db7e1b219ab77528954",
+      "release/results/stdio.jsonl": "b018e3d102d5285ae442ed12f91bd12ebc5ff0eac096fc8271cf5c83ade14911",
+      "release/results/checkpoint-stdio.jsonl": "d583fab6d4498352c352fd59434902c96c2919ae586bf2156c7333298852f710"
+    },
+    "task_containers_after_verification": 0,
+    "original_edge_container_after_verification": "exited"
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "backend": "cpu",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 3,
+  "attention": "prefix_bidir",
+  "state_once": "StateOnce",
+  "permutation_average": false,
+  "model_load_s": 14.188903911970556,
+  "requests": [
+    {
+      "id": "tool_need-fresh-acebench-zh-000050",
+      "payload_sha256": "15466c0faaf515273a808f6d384a5d80af131ab51f26c80ecc69d6e008a2854a",
+      "question_lengths": {
+        "tool_need": 276
+      },
+      "state_lengths": {
+        "tool_need": 195
+      },
+      "expected": {
+        "tool_need": true
+      },
+      "calls": [
+        {
+          "seconds": 245.34049293608405,
+          "usage": {
+            "input_tokens": 276,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_need": {
+              "type": "noul",
+              "noul": 0.8246974103242931
+            }
+          },
+          "peak_rss_bytes": 3578494976,
+          "open_fds_after_call": 4,
+          "memory.peak": 734429184,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "tool_need-fresh-acebench-zh-000069",
+      "payload_sha256": "bbc20b701302363a400b24bb5aa7cb42ebeabf19ad0b9197684d927ec3ec135f",
+      "question_lengths": {
+        "tool_need": 347
+      },
+      "state_lengths": {
+        "tool_need": 266
+      },
+      "expected": {
+        "tool_need": true
+      },
+      "calls": [
+        {
+          "seconds": 305.742816117825,
+          "usage": {
+            "input_tokens": 347,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_need": {
+              "type": "noul",
+              "noul": 0.9052392120411581
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "tool_need-fresh-acebench-zh-000341",
+      "payload_sha256": "e764dbc9705a75cd534d7f1ee56e7b85893d6e8a89d2e40e721326bad1cb00b0",
+      "question_lengths": {
+        "tool_need": 253
+      },
+      "state_lengths": {
+        "tool_need": 172
+      },
+      "expected": {
+        "tool_need": false
+      },
+      "calls": [
+        {
+          "seconds": 225.7563746131491,
+          "usage": {
+            "input_tokens": 253,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_need": {
+              "type": "noul",
+              "noul": 0.8261811959960522
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "tool_need-fresh-acebench-zh-000363",
+      "payload_sha256": "66a461142549296d7e849f5bc90dc28b4be12848c143993f5d937151f31eb9c5",
+      "question_lengths": {
+        "tool_need": 328
+      },
+      "state_lengths": {
+        "tool_need": 247
+      },
+      "expected": {
+        "tool_need": false
+      },
+      "calls": [
+        {
+          "seconds": 290.06226676586084,
+          "usage": {
+            "input_tokens": 328,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_need": {
+              "type": "noul",
+              "noul": 0.9424703296734082
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "feedback-fresh-crosswoz-000261",
+      "payload_sha256": "863fa3bf37ab8b2a5c719f1e7f2e84169c418596308e944682ba40f0844378ed",
+      "question_lengths": {
+        "feedback": 218
+      },
+      "state_lengths": {
+        "feedback": 56
+      },
+      "expected": {
+        "feedback": "SAT"
+      },
+      "calls": [
+        {
+          "seconds": 197.23052579304203,
+          "usage": {
+            "input_tokens": 218,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "SAT",
+              "probabilities": {
+                "SAT": 0.9687640087832068,
+                "NEED_CLARIFICATION": 0.002425519055265792,
+                "WRONG_ANSWER": 0.0019831061397849806,
+                "WANT_DIFFERENT": 0.0019224517779467601,
+                "NO_FEEDBACK": 0.024904914243795644
+              },
+              "confidence": 0.8995430341667869
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "feedback-fresh-crosswoz-001081",
+      "payload_sha256": "b538cea74b66002cc6e76a8ff8700e8be63893e745708eff025fb7e4abce2057",
+      "question_lengths": {
+        "feedback": 228
+      },
+      "state_lengths": {
+        "feedback": 66
+      },
+      "expected": {
+        "feedback": "NO_FEEDBACK"
+      },
+      "calls": [
+        {
+          "seconds": 206.92865828005597,
+          "usage": {
+            "input_tokens": 228,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "NO_FEEDBACK",
+              "probabilities": {
+                "SAT": 0.2407179638342207,
+                "NEED_CLARIFICATION": 0.04598989453223192,
+                "WRONG_ANSWER": 0.12040168864270549,
+                "WANT_DIFFERENT": 0.16867980908529037,
+                "NO_FEEDBACK": 0.4242106439055515
+              },
+              "confidence": 0.12808542653608002
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "feedback-fresh-crosswoz-001099",
+      "payload_sha256": "c4378cb932152004ee56d90bbf081ca8cbba11ccf714378bd6dcbeac7e4e2b96",
+      "question_lengths": {
+        "feedback": 241
+      },
+      "state_lengths": {
+        "feedback": 79
+      },
+      "expected": {
+        "feedback": "NO_FEEDBACK"
+      },
+      "calls": [
+        {
+          "seconds": 217.28818042692728,
+          "usage": {
+            "input_tokens": 241,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "SAT",
+              "probabilities": {
+                "SAT": 0.5760142174958388,
+                "NEED_CLARIFICATION": 0.02303483324292209,
+                "WRONG_ANSWER": 0.02401020923251169,
+                "WANT_DIFFERENT": 0.0745095457443434,
+                "NO_FEEDBACK": 0.302431194284384
+              },
+              "confidence": 0.3480281021137466
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    },
+    {
+      "id": "feedback-fresh-crosswoz-001505",
+      "payload_sha256": "fc47859c127a4780f3e04b3ff783cbb9238271bb4d083eebc9f8ec5df7907d4c",
+      "question_lengths": {
+        "feedback": 224
+      },
+      "state_lengths": {
+        "feedback": 62
+      },
+      "expected": {
+        "feedback": "SAT"
+      },
+      "calls": [
+        {
+          "seconds": 201.5388608558569,
+          "usage": {
+            "input_tokens": 224,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "SAT",
+              "probabilities": {
+                "SAT": 0.9543401697801045,
+                "NEED_CLARIFICATION": 0.006970747506802954,
+                "WRONG_ANSWER": 0.0032994985526070726,
+                "WANT_DIFFERENT": 0.002944790420858914,
+                "NO_FEEDBACK": 0.032444793739626526
+              },
+              "confidence": 0.8592921349254322
+            }
+          },
+          "peak_rss_bytes": 3628273664,
+          "open_fds_after_call": 4,
+          "memory.peak": 765808640,
+          "memory.swap.current": 0
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec"
+}

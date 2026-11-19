@@ -1,0 +1,1283 @@
+{
+  "backend": "rknn",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 3,
+  "attention": "prefix_bidir",
+  "state_once": "StateOnce",
+  "permutation_average": false,
+  "model_load_s": 13.664978138869628,
+  "requests": [
+    {
+      "id": "typesafe-customer-service-access-2fa-old-number-flight-t0-triage-a990c4f9e3b5",
+      "payload_sha256": "a990c4f9e3b50671f1d36b2b248d64226a888577f0b692fa2865ae963a488c4f",
+      "question_lengths": {
+        "intent": 449,
+        "desired_outcome": 336,
+        "frustration": 336,
+        "urgency": 310,
+        "reports_unauthorized": 290,
+        "threat_legal_regulatory": 307,
+        "threat_chargeback_or_public": 289,
+        "requests_human": 282,
+        "shares_credentials": 283,
+        "issue_resolved": 296,
+        "claims_agent_error": 293
+      },
+      "state_lengths": {
+        "intent": 199,
+        "desired_outcome": 199,
+        "frustration": 199,
+        "urgency": 199,
+        "reports_unauthorized": 199,
+        "threat_legal_regulatory": 199,
+        "threat_chargeback_or_public": 199,
+        "requests_human": 199,
+        "shares_credentials": 199,
+        "issue_resolved": 199,
+        "claims_agent_error": 199
+      },
+      "expected": {
+        "intent": "account_access",
+        "desired_outcome": "replacement_or_fix",
+        "frustration": "0",
+        "urgency": "2",
+        "reports_unauthorized": false,
+        "threat_legal_regulatory": false,
+        "threat_chargeback_or_public": false,
+        "requests_human": false,
+        "shares_credentials": false,
+        "issue_resolved": false,
+        "claims_agent_error": false
+      },
+      "calls": [
+        {
+          "seconds": 63.09650541795418,
+          "usage": {
+            "input_tokens": 1481,
+            "output_tokens": 0
+          },
+          "answers": {
+            "intent": {
+              "type": "choice",
+              "choice": "general_question",
+              "probabilities": {
+                "unauthorized_charge": 0.0050903693734333615,
+                "card_declined": 0.006157370745201722,
+                "refund_request": 0.0012375237410836965,
+                "billing_dispute": 0.0011585300081024825,
+                "account_access": 0.2899008689117204,
+                "cancel_account": 0.001291826133570067,
+                "delivery_issue": 0.0009202593348476005,
+                "general_question": 0.6942432517520407
+              },
+              "confidence": 0.6625649761002953
+            },
+            "desired_outcome": {
+              "type": "choice",
+              "choice": "explanation_only",
+              "probabilities": {
+                "money_back": 0.004803863687707131,
+                "replacement_or_fix": 0.20798955286322923,
+                "explanation_only": 0.36193646986305167,
+                "speak_to_human": 0.12183646523004796,
+                "not_stated": 0.303433648355964
+              },
+              "confidence": 0.16839125996226745
+            },
+            "frustration": {
+              "type": "score",
+              "score": 0.6169257610770931,
+              "probabilities": {
+                "0": 0.5314747744762005,
+                "1": 0.33894119829501235,
+                "2": 0.11406687551297007,
+                "3": 0.012217795107127734,
+                "4": 0.0032993566086893483
+              },
+              "confidence": 0.36439842344047013,
+              "legend": {
+                "0": "Calm and neutral; no sign of irritation.",
+                "1": "Mildly irritated; a hint of impatience or disappointment but polite.",
+                "2": "Clearly frustrated; complains about the situation or the service, expresses annoyance directly.",
+                "3": "Angry; strong language, repeated complaints, demands, or expresses distrust of the company.",
+                "4": "Hostile or abusive; insults, threats toward the assistant, profanity directed at the company or agent."
+              }
+            },
+            "urgency": {
+              "type": "score",
+              "score": 1.847182082426815,
+              "probabilities": {
+                "0": 0.07857093097908897,
+                "1": 0.057163476092167556,
+                "2": 0.802778172451583,
+                "3": 0.061487420477160507
+              },
+              "confidence": 0.48691037728041364,
+              "legend": {
+                "0": "No time pressure mentioned.",
+                "1": "Some inconvenience; they would like it handled soon.",
+                "2": "Pressing: a deadline, travel, a payment due, or repeated failed attempts are mentioned.",
+                "3": "Emergency: stranded, locked out with no alternative, unable to pay for essentials, or ongoing unauthorized use right now."
+              }
+            },
+            "reports_unauthorized": {
+              "type": "noul",
+              "noul": 0.0890821014884584
+            },
+            "threat_legal_regulatory": {
+              "type": "noul",
+              "noul": 0.012927979764879373
+            },
+            "threat_chargeback_or_public": {
+              "type": "noul",
+              "noul": 0.008652178328889096
+            },
+            "requests_human": {
+              "type": "noul",
+              "noul": 0.028807804325818972
+            },
+            "shares_credentials": {
+              "type": "noul",
+              "noul": 0.005939548801968533
+            },
+            "issue_resolved": {
+              "type": "noul",
+              "noul": 0.02130414696086697
+            },
+            "claims_agent_error": {
+              "type": "noul",
+              "noul": 0.16533967101602276
+            }
+          },
+          "peak_rss_bytes": 6828494848,
+          "open_fds_after_call": 1229,
+          "memory.peak": 3972993024,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 2250,
+            "npu_bridge_seconds": 45.42698920238763,
+            "conv": 72,
+            "conv_seconds": 3.8709762028884143,
+            "scan_zero": 18,
+            "scan_seconds": 4.216648606816307,
+            "conv_tail_excess_backing_bytes": 43352064,
+            "sdpa_calls": 24,
+            "sdpa_fp32_s": 1.6091161770746112,
+            "state_passes": 1,
+            "state_seconds": 35.363071537110955,
+            "scan_continue": 54,
+            "question_batches": 3,
+            "question_seconds": 27.67870578286238
+          }
+        },
+        {
+          "seconds": 31.537662809947506,
+          "usage": {
+            "input_tokens": 1481,
+            "output_tokens": 0
+          },
+          "answers": {
+            "intent": {
+              "type": "choice",
+              "choice": "general_question",
+              "probabilities": {
+                "unauthorized_charge": 0.0050903693734333615,
+                "card_declined": 0.006157370745201722,
+                "refund_request": 0.0012375237410836965,
+                "billing_dispute": 0.0011585300081024825,
+                "account_access": 0.2899008689117204,
+                "cancel_account": 0.001291826133570067,
+                "delivery_issue": 0.0009202593348476005,
+                "general_question": 0.6942432517520407
+              },
+              "confidence": 0.6625649761002953
+            },
+            "desired_outcome": {
+              "type": "choice",
+              "choice": "explanation_only",
+              "probabilities": {
+                "money_back": 0.004803863687707131,
+                "replacement_or_fix": 0.20798955286322923,
+                "explanation_only": 0.36193646986305167,
+                "speak_to_human": 0.12183646523004796,
+                "not_stated": 0.303433648355964
+              },
+              "confidence": 0.16839125996226745
+            },
+            "frustration": {
+              "type": "score",
+              "score": 0.6169257610770931,
+              "probabilities": {
+                "0": 0.5314747744762005,
+                "1": 0.33894119829501235,
+                "2": 0.11406687551297007,
+                "3": 0.012217795107127734,
+                "4": 0.0032993566086893483
+              },
+              "confidence": 0.36439842344047013,
+              "legend": {
+                "0": "Calm and neutral; no sign of irritation.",
+                "1": "Mildly irritated; a hint of impatience or disappointment but polite.",
+                "2": "Clearly frustrated; complains about the situation or the service, expresses annoyance directly.",
+                "3": "Angry; strong language, repeated complaints, demands, or expresses distrust of the company.",
+                "4": "Hostile or abusive; insults, threats toward the assistant, profanity directed at the company or agent."
+              }
+            },
+            "urgency": {
+              "type": "score",
+              "score": 1.847182082426815,
+              "probabilities": {
+                "0": 0.07857093097908897,
+                "1": 0.057163476092167556,
+                "2": 0.802778172451583,
+                "3": 0.061487420477160507
+              },
+              "confidence": 0.48691037728041364,
+              "legend": {
+                "0": "No time pressure mentioned.",
+                "1": "Some inconvenience; they would like it handled soon.",
+                "2": "Pressing: a deadline, travel, a payment due, or repeated failed attempts are mentioned.",
+                "3": "Emergency: stranded, locked out with no alternative, unable to pay for essentials, or ongoing unauthorized use right now."
+              }
+            },
+            "reports_unauthorized": {
+              "type": "noul",
+              "noul": 0.0890821014884584
+            },
+            "threat_legal_regulatory": {
+              "type": "noul",
+              "noul": 0.012927979764879373
+            },
+            "threat_chargeback_or_public": {
+              "type": "noul",
+              "noul": 0.008652178328889096
+            },
+            "requests_human": {
+              "type": "noul",
+              "noul": 0.028807804325818972
+            },
+            "shares_credentials": {
+              "type": "noul",
+              "noul": 0.005939548801968533
+            },
+            "issue_resolved": {
+              "type": "noul",
+              "noul": 0.02130414696086697
+            },
+            "claims_agent_error": {
+              "type": "noul",
+              "noul": 0.16533967101602276
+            }
+          },
+          "peak_rss_bytes": 6828494848,
+          "open_fds_after_call": 1229,
+          "memory.peak": 3972993024,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 2250,
+            "npu_bridge_seconds": 13.927870469167829,
+            "conv": 72,
+            "conv_seconds": 3.8377540507353842,
+            "scan_zero": 18,
+            "scan_seconds": 4.227375840069726,
+            "conv_tail_excess_backing_bytes": 43352064,
+            "sdpa_calls": 24,
+            "sdpa_fp32_s": 1.6002769724000245,
+            "state_passes": 1,
+            "state_seconds": 3.556373053928837,
+            "scan_continue": 54,
+            "question_batches": 3,
+            "question_seconds": 27.93917371192947
+          }
+        }
+      ]
+    },
+    {
+      "id": "typesafe-invoice-processing-ap_00000-semantic-c99c14de6091",
+      "payload_sha256": "c99c14de6091a2aad3bd97d483997b2be1bc1a0bd35511f722064f9e4c44e07a",
+      "question_lengths": {
+        "statement_not_invoice": 9003,
+        "different_entity": 9026,
+        "too_ambiguous": 9141,
+        "unexplained_charges": 9071,
+        "adjustment_duplicates_line": 9002,
+        "tax_two_rates": 9059,
+        "unusual_urgency": 9108,
+        "bank_change_claimed_in_comms": 9032,
+        "price_basis": 9528,
+        "billed_above_basis": 9222,
+        "line_0_kind": 9651,
+        "line_0_scope": 10605,
+        "line_0_completion": 10289,
+        "line_0_rebilled": 9247,
+        "line_0_owner_declined": 9179,
+        "line_0_unexplained_fee": 9210,
+        "line_0_rate_differs": 9127,
+        "line_0_evidence_0": 9273,
+        "line_0_evidence_1": 9272,
+        "line_0_evidence_2": 9274,
+        "line_1_kind": 9441,
+        "line_1_scope": 10395,
+        "line_1_completion": 10079,
+        "line_1_rebilled": 9212,
+        "line_1_owner_declined": 9144,
+        "line_1_unexplained_fee": 9175,
+        "line_1_rate_differs": 9092,
+        "line_1_evidence_0": 9238,
+        "line_1_evidence_1": 9237,
+        "line_1_evidence_2": 9239,
+        "line_2_kind": 9417,
+        "line_2_scope": 10371,
+        "line_2_completion": 10055,
+        "line_2_rebilled": 9208,
+        "line_2_owner_declined": 9140,
+        "line_2_unexplained_fee": 9171,
+        "line_2_rate_differs": 9088,
+        "line_2_evidence_0": 9234,
+        "line_2_evidence_1": 9233,
+        "line_2_evidence_2": 9235,
+        "line_3_kind": 9417,
+        "line_3_scope": 10371,
+        "line_3_completion": 10055,
+        "line_3_rebilled": 9208,
+        "line_3_owner_declined": 9140,
+        "line_3_unexplained_fee": 9171,
+        "line_3_rate_differs": 9088,
+        "line_3_evidence_0": 9234,
+        "line_3_evidence_1": 9233,
+        "line_3_evidence_2": 9235,
+        "prior_0": 9510,
+        "prior_1": 9526,
+        "approval_0": 9572,
+        "retainage": 9050,
+        "discount_days": 9169
+      },
+      "state_lengths": {
+        "statement_not_invoice": 8902,
+        "different_entity": 8902,
+        "too_ambiguous": 8902,
+        "unexplained_charges": 8902,
+        "adjustment_duplicates_line": 8902,
+        "tax_two_rates": 8902,
+        "unusual_urgency": 8902,
+        "bank_change_claimed_in_comms": 8902,
+        "price_basis": 8902,
+        "billed_above_basis": 8902,
+        "line_0_kind": 8902,
+        "line_0_scope": 8902,
+        "line_0_completion": 8902,
+        "line_0_rebilled": 8902,
+        "line_0_owner_declined": 8902,
+        "line_0_unexplained_fee": 8902,
+        "line_0_rate_differs": 8902,
+        "line_0_evidence_0": 8902,
+        "line_0_evidence_1": 8902,
+        "line_0_evidence_2": 8902,
+        "line_1_kind": 8902,
+        "line_1_scope": 8902,
+        "line_1_completion": 8902,
+        "line_1_rebilled": 8902,
+        "line_1_owner_declined": 8902,
+        "line_1_unexplained_fee": 8902,
+        "line_1_rate_differs": 8902,
+        "line_1_evidence_0": 8902,
+        "line_1_evidence_1": 8902,
+        "line_1_evidence_2": 8902,
+        "line_2_kind": 8902,
+        "line_2_scope": 8902,
+        "line_2_completion": 8902,
+        "line_2_rebilled": 8902,
+        "line_2_owner_declined": 8902,
+        "line_2_unexplained_fee": 8902,
+        "line_2_rate_differs": 8902,
+        "line_2_evidence_0": 8902,
+        "line_2_evidence_1": 8902,
+        "line_2_evidence_2": 8902,
+        "line_3_kind": 8902,
+        "line_3_scope": 8902,
+        "line_3_completion": 8902,
+        "line_3_rebilled": 8902,
+        "line_3_owner_declined": 8902,
+        "line_3_unexplained_fee": 8902,
+        "line_3_rate_differs": 8902,
+        "line_3_evidence_0": 8902,
+        "line_3_evidence_1": 8902,
+        "line_3_evidence_2": 8902,
+        "prior_0": 8902,
+        "prior_1": 8902,
+        "approval_0": 8902,
+        "retainage": 8902,
+        "discount_days": 8902
+      },
+      "expected": {
+        "statement_not_invoice": false,
+        "different_entity": false,
+        "too_ambiguous": false,
+        "unexplained_charges": true,
+        "adjustment_duplicates_line": true,
+        "tax_two_rates": false,
+        "unusual_urgency": false,
+        "bank_change_claimed_in_comms": false,
+        "price_basis": "cap_only",
+        "billed_above_basis": false,
+        "line_0_kind": "work_or_goods",
+        "line_0_scope": "priced_unit",
+        "line_0_completion": "confirmed",
+        "line_0_rebilled": false,
+        "line_0_owner_declined": false,
+        "line_0_unexplained_fee": false,
+        "line_0_rate_differs": false,
+        "line_0_evidence_0": false,
+        "line_0_evidence_1": false,
+        "line_0_evidence_2": false,
+        "line_1_kind": "work_or_goods",
+        "line_1_scope": "component_also_billed",
+        "line_1_completion": "vendor_only",
+        "line_1_rebilled": false,
+        "line_1_owner_declined": false,
+        "line_1_unexplained_fee": false,
+        "line_1_rate_differs": false,
+        "line_1_evidence_0": false,
+        "line_1_evidence_1": false,
+        "line_1_evidence_2": false,
+        "line_2_kind": "work_or_goods",
+        "line_2_scope": "component_also_billed",
+        "line_2_completion": "vendor_only",
+        "line_2_rebilled": false,
+        "line_2_owner_declined": false,
+        "line_2_unexplained_fee": false,
+        "line_2_rate_differs": false,
+        "line_2_evidence_0": false,
+        "line_2_evidence_1": false,
+        "line_2_evidence_2": false,
+        "line_3_kind": "charge_on_top",
+        "line_3_scope": "not_ours",
+        "line_3_completion": "confirmed",
+        "line_3_rebilled": false,
+        "line_3_owner_declined": false,
+        "line_3_unexplained_fee": false,
+        "line_3_rate_differs": false,
+        "line_3_evidence_0": false,
+        "line_3_evidence_1": false,
+        "line_3_evidence_2": false,
+        "prior_0": "earlier_period_or_phase",
+        "prior_1": "earlier_period_or_phase",
+        "approval_0": "approves_as_billed",
+        "retainage": "none",
+        "discount_days": "none"
+      },
+      "calls": [
+        {
+          "seconds": 1225.573429368902,
+          "usage": {
+            "input_tokens": 34994,
+            "output_tokens": 0
+          },
+          "answers": {
+            "statement_not_invoice": {
+              "type": "noul",
+              "noul": 0.029837626408084735
+            },
+            "different_entity": {
+              "type": "noul",
+              "noul": 0.02745670623635851
+            },
+            "too_ambiguous": {
+              "type": "noul",
+              "noul": 0.16532013571321358
+            },
+            "unexplained_charges": {
+              "type": "noul",
+              "noul": 0.22416189980989396
+            },
+            "adjustment_duplicates_line": {
+              "type": "noul",
+              "noul": 0.6154899184551811
+            },
+            "tax_two_rates": {
+              "type": "noul",
+              "noul": 0.01796932232976403
+            },
+            "unusual_urgency": {
+              "type": "noul",
+              "noul": 0.022609403567476233
+            },
+            "bank_change_claimed_in_comms": {
+              "type": "noul",
+              "noul": 0.20270600310844172
+            },
+            "price_basis": {
+              "type": "choice",
+              "choice": "period_fee",
+              "probabilities": {
+                "total_fee": 0.005769543048837771,
+                "period_fee": 0.37315524658496135,
+                "unit_rates": 0.35480524239214734,
+                "cap_only": 0.06379992927164209,
+                "none": 0.13512764166374883,
+                "unsure": 0.06734239703866259
+              },
+              "confidence": 0.2225759743656468
+            },
+            "billed_above_basis": {
+              "type": "noul",
+              "noul": 0.48567877667185
+            },
+            "line_0_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9610204925146074,
+                "tax": 0.001012657972323816,
+                "charge_on_top": 0.029281696954347503,
+                "credit_or_discount": 0.0011815427419260378,
+                "expense_or_retainage": 0.007503609816795266
+              },
+              "confidence": 0.8799239546526312
+            },
+            "line_0_scope": {
+              "type": "choice",
+              "choice": "priced_unit",
+              "probabilities": {
+                "priced_unit": 0.835324004470468,
+                "component_also_billed": 0.034592884891589126,
+                "extra_approved": 0.02637031537625033,
+                "extra_unapproved": 0.05219107215324689,
+                "not_ours": 0.015890614619011995,
+                "unsure": 0.03563110848943369
+              },
+              "confidence": 0.6086008864974812
+            },
+            "line_0_completion": {
+              "type": "choice",
+              "choice": "confirmed",
+              "probabilities": {
+                "confirmed": 0.5494721531867981,
+                "less": 0.054213088005781174,
+                "not_done": 0.03965958580374718,
+                "vendor_only": 0.19882123172283173,
+                "none": 0.07481491565704346,
+                "unsure": 0.08301902562379837
+              },
+              "confidence": 0.25392209615331063
+            },
+            "line_0_rebilled": {
+              "type": "noul",
+              "noul": 0.37960386276245117
+            },
+            "line_0_owner_declined": {
+              "type": "noul",
+              "noul": 0.038813238223499476
+            },
+            "line_0_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.07948743611192283
+            },
+            "line_0_rate_differs": {
+              "type": "noul",
+              "noul": 0.23803902807773608
+            },
+            "line_0_evidence_0": {
+              "type": "noul",
+              "noul": 0.3550464703128794
+            },
+            "line_0_evidence_1": {
+              "type": "noul",
+              "noul": 0.34705005130320943
+            },
+            "line_0_evidence_2": {
+              "type": "noul",
+              "noul": 0.3164464235305786
+            },
+            "line_1_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9857364506914479,
+                "tax": 0.0005393840371057483,
+                "charge_on_top": 0.00951093828078612,
+                "credit_or_discount": 0.0005636570978850649,
+                "expense_or_retainage": 0.0036495698927751846
+              },
+              "confidence": 0.9458202380082126
+            },
+            "line_1_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.08188359332608962,
+                "component_also_billed": 0.06701793434261244,
+                "extra_approved": 0.059762261028707346,
+                "extra_unapproved": 0.7148818280470133,
+                "not_ours": 0.026846559368211932,
+                "unsure": 0.04960782388736537
+              },
+              "confidence": 0.41929513673521057
+            },
+            "line_1_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.028131737204703536,
+                "less": 0.030611865887699305,
+                "not_done": 0.07043409072027373,
+                "vendor_only": 0.1328922011130746,
+                "none": 0.6006077889115297,
+                "unsure": 0.13732231616271914
+              },
+              "confidence": 0.30733342917252227
+            },
+            "line_1_rebilled": {
+              "type": "noul",
+              "noul": 0.4203790598994774
+            },
+            "line_1_owner_declined": {
+              "type": "noul",
+              "noul": 0.04109170798147236
+            },
+            "line_1_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.4393722749130562
+            },
+            "line_1_rate_differs": {
+              "type": "noul",
+              "noul": 0.3197192943012504
+            },
+            "line_1_evidence_0": {
+              "type": "noul",
+              "noul": 0.3179047107696533
+            },
+            "line_1_evidence_1": {
+              "type": "noul",
+              "noul": 0.3111087474557384
+            },
+            "line_1_evidence_2": {
+              "type": "noul",
+              "noul": 0.23183239888145918
+            },
+            "line_2_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9886952221223452,
+                "tax": 0.0005980627580319696,
+                "charge_on_top": 0.007383737421899475,
+                "credit_or_discount": 0.0006311740079255875,
+                "expense_or_retainage": 0.0026918036897977406
+              },
+              "confidence": 0.9549522527261343
+            },
+            "line_2_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19025523250105814,
+                "component_also_billed": 0.11279148325587182,
+                "extra_approved": 0.06564500451868419,
+                "extra_unapproved": 0.4784578579032288,
+                "not_ours": 0.03350139919115376,
+                "unsure": 0.11934902263000327
+              },
+              "confidence": 0.18470289046579136
+            },
+            "line_2_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.024645407185462043,
+                "less": 0.020833090025288055,
+                "not_done": 0.05584632380365616,
+                "vendor_only": 0.036914996515493514,
+                "none": 0.7398721668750203,
+                "unsure": 0.12188801559507992
+              },
+              "confidence": 0.4785756015540953
+            },
+            "line_2_rebilled": {
+              "type": "noul",
+              "noul": 0.3532957049188438
+            },
+            "line_2_owner_declined": {
+              "type": "noul",
+              "noul": 0.03193091264289893
+            },
+            "line_2_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.23323804140090942
+            },
+            "line_2_rate_differs": {
+              "type": "noul",
+              "noul": 0.20781742346014714
+            },
+            "line_2_evidence_0": {
+              "type": "noul",
+              "noul": 0.31022890271120684
+            },
+            "line_2_evidence_1": {
+              "type": "noul",
+              "noul": 0.32211206323242375
+            },
+            "line_2_evidence_2": {
+              "type": "noul",
+              "noul": 0.2240537040217607
+            },
+            "line_3_kind": {
+              "type": "choice",
+              "choice": "charge_on_top",
+              "probabilities": {
+                "work_or_goods": 0.08043448779324178,
+                "tax": 0.0012804400396395307,
+                "charge_on_top": 0.9079771564866486,
+                "credit_or_discount": 0.0018175932170664303,
+                "expense_or_retainage": 0.008490322463403675
+              },
+              "confidence": 0.7819988347007996
+            },
+            "line_3_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19972030223249487,
+                "component_also_billed": 0.0786959728987225,
+                "extra_approved": 0.0699542069448767,
+                "extra_unapproved": 0.33162241185836755,
+                "not_ours": 0.06031286536714836,
+                "unsure": 0.25969424069839
+              },
+              "confidence": 0.11071648609746165
+            },
+            "line_3_completion": {
+              "type": "choice",
+              "choice": "vendor_only",
+              "probabilities": {
+                "confirmed": 0.1964666980420524,
+                "less": 0.13888468200168386,
+                "not_done": 0.08775819118812603,
+                "vendor_only": 0.35361492715951653,
+                "none": 0.10397490006890966,
+                "unsure": 0.11930060153971153
+              },
+              "confidence": 0.07129790002948677
+            },
+            "line_3_rebilled": {
+              "type": "noul",
+              "noul": 0.3774032963869991
+            },
+            "line_3_owner_declined": {
+              "type": "noul",
+              "noul": 0.034310391245985485
+            },
+            "line_3_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.8547441449913892
+            },
+            "line_3_rate_differs": {
+              "type": "noul",
+              "noul": 0.19440984725952148
+            },
+            "line_3_evidence_0": {
+              "type": "noul",
+              "noul": 0.2398659217397594
+            },
+            "line_3_evidence_1": {
+              "type": "noul",
+              "noul": 0.19409855621759425
+            },
+            "line_3_evidence_2": {
+              "type": "noul",
+              "noul": 0.27777478926702703
+            },
+            "prior_0": {
+              "type": "choice",
+              "choice": "earlier_period_or_phase",
+              "probabilities": {
+                "same_obligation": 0.38809486464598014,
+                "earlier_period_or_phase": 0.5644340404745984,
+                "unrelated": 0.00931889638705475,
+                "unsure": 0.03815219849236667
+              },
+              "confidence": 0.38084162329016624
+            },
+            "prior_1": {
+              "type": "choice",
+              "choice": "same_obligation",
+              "probabilities": {
+                "same_obligation": 0.7592129259775127,
+                "earlier_period_or_phase": 0.18990317358445996,
+                "unrelated": 0.010404112952282999,
+                "unsure": 0.04047978748574437
+              },
+              "confidence": 0.49366100653883616
+            },
+            "approval_0": {
+              "type": "choice",
+              "choice": "approves_as_billed",
+              "probabilities": {
+                "approves_as_billed": 0.8749733126019061,
+                "approves_except_lines": 0.039281797359096024,
+                "review_in_progress": 0.010833030758265019,
+                "withholds": 0.015561080813091746,
+                "unsure": 0.059350778467641016
+              },
+              "confidence": 0.6735235972203719
+            },
+            "retainage": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "5": 0.0190064591132345,
+                "10": 0.02616767222496745,
+                "15": 0.021572874939340632,
+                "none": 0.9332529937224574
+              },
+              "confidence": 0.7706940314898779
+            },
+            "discount_days": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "7": 0.05234644993036743,
+                "10": 0.03970202102924162,
+                "15": 0.04643932036801413,
+                "20": 0.009830126648732946,
+                "30": 0.010763352857120554,
+                "none": 0.8409187291665233
+              },
+              "confidence": 0.6288734597085476
+            }
+          },
+          "peak_rss_bytes": 9161682944,
+          "open_fds_after_call": 1229,
+          "memory.peak": 6225014784,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 44250,
+            "npu_bridge_seconds": 259.75424912339076,
+            "conv": 288,
+            "conv_seconds": 62.84177001612261,
+            "scan_zero": 18,
+            "scan_seconds": 87.49652919895016,
+            "conv_tail_excess_backing_bytes": 1968316416,
+            "sdpa_calls": 96,
+            "sdpa_fp32_s": 644.8526853041258,
+            "state_passes": 1,
+            "state_seconds": 236.93855693587102,
+            "scan_continue": 270,
+            "question_batches": 15,
+            "question_seconds": 982.7636013049632
+          }
+        },
+        {
+          "seconds": 1234.1567079860251,
+          "usage": {
+            "input_tokens": 34994,
+            "output_tokens": 0
+          },
+          "answers": {
+            "statement_not_invoice": {
+              "type": "noul",
+              "noul": 0.029837626408084735
+            },
+            "different_entity": {
+              "type": "noul",
+              "noul": 0.02745670623635851
+            },
+            "too_ambiguous": {
+              "type": "noul",
+              "noul": 0.16532013571321358
+            },
+            "unexplained_charges": {
+              "type": "noul",
+              "noul": 0.22416189980989396
+            },
+            "adjustment_duplicates_line": {
+              "type": "noul",
+              "noul": 0.6154899184551811
+            },
+            "tax_two_rates": {
+              "type": "noul",
+              "noul": 0.01796932232976403
+            },
+            "unusual_urgency": {
+              "type": "noul",
+              "noul": 0.022609403567476233
+            },
+            "bank_change_claimed_in_comms": {
+              "type": "noul",
+              "noul": 0.20270600310844172
+            },
+            "price_basis": {
+              "type": "choice",
+              "choice": "period_fee",
+              "probabilities": {
+                "total_fee": 0.005769543048837771,
+                "period_fee": 0.37315524658496135,
+                "unit_rates": 0.35480524239214734,
+                "cap_only": 0.06379992927164209,
+                "none": 0.13512764166374883,
+                "unsure": 0.06734239703866259
+              },
+              "confidence": 0.2225759743656468
+            },
+            "billed_above_basis": {
+              "type": "noul",
+              "noul": 0.48567877667185
+            },
+            "line_0_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9610204925146074,
+                "tax": 0.001012657972323816,
+                "charge_on_top": 0.029281696954347503,
+                "credit_or_discount": 0.0011815427419260378,
+                "expense_or_retainage": 0.007503609816795266
+              },
+              "confidence": 0.8799239546526312
+            },
+            "line_0_scope": {
+              "type": "choice",
+              "choice": "priced_unit",
+              "probabilities": {
+                "priced_unit": 0.835324004470468,
+                "component_also_billed": 0.034592884891589126,
+                "extra_approved": 0.02637031537625033,
+                "extra_unapproved": 0.05219107215324689,
+                "not_ours": 0.015890614619011995,
+                "unsure": 0.03563110848943369
+              },
+              "confidence": 0.6086008864974812
+            },
+            "line_0_completion": {
+              "type": "choice",
+              "choice": "confirmed",
+              "probabilities": {
+                "confirmed": 0.5494721531867981,
+                "less": 0.054213088005781174,
+                "not_done": 0.03965958580374718,
+                "vendor_only": 0.19882123172283173,
+                "none": 0.07481491565704346,
+                "unsure": 0.08301902562379837
+              },
+              "confidence": 0.25392209615331063
+            },
+            "line_0_rebilled": {
+              "type": "noul",
+              "noul": 0.37960386276245117
+            },
+            "line_0_owner_declined": {
+              "type": "noul",
+              "noul": 0.038813238223499476
+            },
+            "line_0_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.07948743611192283
+            },
+            "line_0_rate_differs": {
+              "type": "noul",
+              "noul": 0.23803902807773608
+            },
+            "line_0_evidence_0": {
+              "type": "noul",
+              "noul": 0.3550464703128794
+            },
+            "line_0_evidence_1": {
+              "type": "noul",
+              "noul": 0.34705005130320943
+            },
+            "line_0_evidence_2": {
+              "type": "noul",
+              "noul": 0.3164464235305786
+            },
+            "line_1_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9857364506914479,
+                "tax": 0.0005393840371057483,
+                "charge_on_top": 0.00951093828078612,
+                "credit_or_discount": 0.0005636570978850649,
+                "expense_or_retainage": 0.0036495698927751846
+              },
+              "confidence": 0.9458202380082126
+            },
+            "line_1_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.08188359332608962,
+                "component_also_billed": 0.06701793434261244,
+                "extra_approved": 0.059762261028707346,
+                "extra_unapproved": 0.7148818280470133,
+                "not_ours": 0.026846559368211932,
+                "unsure": 0.04960782388736537
+              },
+              "confidence": 0.41929513673521057
+            },
+            "line_1_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.028131737204703536,
+                "less": 0.030611865887699305,
+                "not_done": 0.07043409072027373,
+                "vendor_only": 0.1328922011130746,
+                "none": 0.6006077889115297,
+                "unsure": 0.13732231616271914
+              },
+              "confidence": 0.30733342917252227
+            },
+            "line_1_rebilled": {
+              "type": "noul",
+              "noul": 0.4203790598994774
+            },
+            "line_1_owner_declined": {
+              "type": "noul",
+              "noul": 0.04109170798147236
+            },
+            "line_1_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.4393722749130562
+            },
+            "line_1_rate_differs": {
+              "type": "noul",
+              "noul": 0.3197192943012504
+            },
+            "line_1_evidence_0": {
+              "type": "noul",
+              "noul": 0.3179047107696533
+            },
+            "line_1_evidence_1": {
+              "type": "noul",
+              "noul": 0.3111087474557384
+            },
+            "line_1_evidence_2": {
+              "type": "noul",
+              "noul": 0.23183239888145918
+            },
+            "line_2_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9886952221223452,
+                "tax": 0.0005980627580319696,
+                "charge_on_top": 0.007383737421899475,
+                "credit_or_discount": 0.0006311740079255875,
+                "expense_or_retainage": 0.0026918036897977406
+              },
+              "confidence": 0.9549522527261343
+            },
+            "line_2_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19025523250105814,
+                "component_also_billed": 0.11279148325587182,
+                "extra_approved": 0.06564500451868419,
+                "extra_unapproved": 0.4784578579032288,
+                "not_ours": 0.03350139919115376,
+                "unsure": 0.11934902263000327
+              },
+              "confidence": 0.18470289046579136
+            },
+            "line_2_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.024645407185462043,
+                "less": 0.020833090025288055,
+                "not_done": 0.05584632380365616,
+                "vendor_only": 0.036914996515493514,
+                "none": 0.7398721668750203,
+                "unsure": 0.12188801559507992
+              },
+              "confidence": 0.4785756015540953
+            },
+            "line_2_rebilled": {
+              "type": "noul",
+              "noul": 0.3532957049188438
+            },
+            "line_2_owner_declined": {
+              "type": "noul",
+              "noul": 0.03193091264289893
+            },
+            "line_2_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.23323804140090942
+            },
+            "line_2_rate_differs": {
+              "type": "noul",
+              "noul": 0.20781742346014714
+            },
+            "line_2_evidence_0": {
+              "type": "noul",
+              "noul": 0.31022890271120684
+            },
+            "line_2_evidence_1": {
+              "type": "noul",
+              "noul": 0.32211206323242375
+            },
+            "line_2_evidence_2": {
+              "type": "noul",
+              "noul": 0.2240537040217607
+            },
+            "line_3_kind": {
+              "type": "choice",
+              "choice": "charge_on_top",
+              "probabilities": {
+                "work_or_goods": 0.08043448779324178,
+                "tax": 0.0012804400396395307,
+                "charge_on_top": 0.9079771564866486,
+                "credit_or_discount": 0.0018175932170664303,
+                "expense_or_retainage": 0.008490322463403675
+              },
+              "confidence": 0.7819988347007996
+            },
+            "line_3_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19972030223249487,
+                "component_also_billed": 0.0786959728987225,
+                "extra_approved": 0.0699542069448767,
+                "extra_unapproved": 0.33162241185836755,
+                "not_ours": 0.06031286536714836,
+                "unsure": 0.25969424069839
+              },
+              "confidence": 0.11071648609746165
+            },
+            "line_3_completion": {
+              "type": "choice",
+              "choice": "vendor_only",
+              "probabilities": {
+                "confirmed": 0.1964666980420524,
+                "less": 0.13888468200168386,
+                "not_done": 0.08775819118812603,
+                "vendor_only": 0.35361492715951653,
+                "none": 0.10397490006890966,
+                "unsure": 0.11930060153971153
+              },
+              "confidence": 0.07129790002948677
+            },
+            "line_3_rebilled": {
+              "type": "noul",
+              "noul": 0.3774032963869991
+            },
+            "line_3_owner_declined": {
+              "type": "noul",
+              "noul": 0.034310391245985485
+            },
+            "line_3_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.8547441449913892
+            },
+            "line_3_rate_differs": {
+              "type": "noul",
+              "noul": 0.19440984725952148
+            },
+            "line_3_evidence_0": {
+              "type": "noul",
+              "noul": 0.2398659217397594
+            },
+            "line_3_evidence_1": {
+              "type": "noul",
+              "noul": 0.19409855621759425
+            },
+            "line_3_evidence_2": {
+              "type": "noul",
+              "noul": 0.27777478926702703
+            },
+            "prior_0": {
+              "type": "choice",
+              "choice": "earlier_period_or_phase",
+              "probabilities": {
+                "same_obligation": 0.38809486464598014,
+                "earlier_period_or_phase": 0.5644340404745984,
+                "unrelated": 0.00931889638705475,
+                "unsure": 0.03815219849236667
+              },
+              "confidence": 0.38084162329016624
+            },
+            "prior_1": {
+              "type": "choice",
+              "choice": "same_obligation",
+              "probabilities": {
+                "same_obligation": 0.7592129259775127,
+                "earlier_period_or_phase": 0.18990317358445996,
+                "unrelated": 0.010404112952282999,
+                "unsure": 0.04047978748574437
+              },
+              "confidence": 0.49366100653883616
+            },
+            "approval_0": {
+              "type": "choice",
+              "choice": "approves_as_billed",
+              "probabilities": {
+                "approves_as_billed": 0.8749733126019061,
+                "approves_except_lines": 0.039281797359096024,
+                "review_in_progress": 0.010833030758265019,
+                "withholds": 0.015561080813091746,
+                "unsure": 0.059350778467641016
+              },
+              "confidence": 0.6735235972203719
+            },
+            "retainage": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "5": 0.0190064591132345,
+                "10": 0.02616767222496745,
+                "15": 0.021572874939340632,
+                "none": 0.9332529937224574
+              },
+              "confidence": 0.7706940314898779
+            },
+            "discount_days": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "7": 0.05234644993036743,
+                "10": 0.03970202102924162,
+                "15": 0.04643932036801413,
+                "20": 0.009830126648732946,
+                "30": 0.010763352857120554,
+                "none": 0.8409187291665233
+              },
+              "confidence": 0.6288734597085476
+            }
+          },
+          "peak_rss_bytes": 9161682944,
+          "open_fds_after_call": 1229,
+          "memory.peak": 6225014784,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 44250,
+            "npu_bridge_seconds": 270.46746294223703,
+            "conv": 288,
+            "conv_seconds": 63.23519673617557,
+            "scan_zero": 18,
+            "scan_seconds": 87.41376432520337,
+            "conv_tail_excess_backing_bytes": 1968316416,
+            "sdpa_calls": 96,
+            "sdpa_fp32_s": 644.6935195263941,
+            "state_passes": 1,
+            "state_seconds": 237.9893085861113,
+            "scan_continue": 270,
+            "question_batches": 15,
+            "question_seconds": 991.9289390698541
+          }
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec",
+  "max_question_rows": 4,
+  "sdpa_precision": "fp32"
+}

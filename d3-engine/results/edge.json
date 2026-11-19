@@ -1,0 +1,213 @@
+{
+  "backend": "rknn",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 3,
+  "attention": "noncausal_full_attention",
+  "state_once": "NoneType",
+  "permutation_average": false,
+  "model_load_s": 13.402567461133003,
+  "requests": [
+    {
+      "id": "repo:short-code",
+      "payload_sha256": "d8caafcd6543b598325d69af49e90ba05ec9c327bd261c09f641f94536788965",
+      "question_lengths": {
+        "kind": 115
+      },
+      "state_lengths": {},
+      "expected": {
+        "kind": "code"
+      },
+      "calls": [
+        {
+          "seconds": 8.684863202041015,
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          },
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991779998319786,
+                "math": 0.0006839703470504134,
+                "chat": 0.00013802982097091965
+              },
+              "confidence": 0.9935983089326476
+            }
+          },
+          "peak_rss_bytes": 1865007104,
+          "open_fds_after_call": 629,
+          "memory.peak": 1282240512,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 78,
+            "npu_bridge_seconds": 6.604436893714592
+          }
+        },
+        {
+          "seconds": 2.5420130379498005,
+          "usage": {
+            "input_tokens": 115,
+            "output_tokens": 0
+          },
+          "answers": {
+            "kind": {
+              "type": "choice",
+              "choice": "code",
+              "probabilities": {
+                "code": 0.9991779998319786,
+                "math": 0.0006839703470504134,
+                "chat": 0.00013802982097091965
+              },
+              "confidence": 0.9935983089326476
+            }
+          },
+          "peak_rss_bytes": 1872674816,
+          "open_fds_after_call": 629,
+          "memory.peak": 1289555968,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 78,
+            "npu_bridge_seconds": 0.37548705213703215
+          }
+        }
+      ]
+    },
+    {
+      "id": "BFCL-tool-selection:live_multiple:live_multiple_51-21-0",
+      "payload_sha256": "c736a52e92a1c6110da340ee13dbb4c6f39e4d285c2a2d7eb6f7f9f951ccd170",
+      "question_lengths": {
+        "tool_inventory_management": 884,
+        "tool_product_search": 884,
+        "tool_order_status_check": 885,
+        "tool_get_product_details": 885
+      },
+      "state_lengths": {},
+      "expected": {
+        "tool_inventory_management": "no",
+        "tool_product_search": "no",
+        "tool_order_status_check": "yes",
+        "tool_get_product_details": "no"
+      },
+      "calls": [
+        {
+          "seconds": 85.3343765521422,
+          "usage": {
+            "input_tokens": 3538,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_inventory_management": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.059647265651659113,
+                "no": 0.9403527343483409
+              },
+              "confidence": 0.6739568986701578
+            },
+            "tool_product_search": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.023277160298839267,
+                "no": 0.9767228397011607
+              },
+              "confidence": 0.8405348455104535
+            },
+            "tool_order_status_check": {
+              "type": "choice",
+              "choice": "yes",
+              "probabilities": {
+                "yes": 0.9663455090306677,
+                "no": 0.033654490969332304
+              },
+              "confidence": 0.7875998238724813
+            },
+            "tool_get_product_details": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.11722475290298462,
+                "no": 0.8827752470970154
+              },
+              "confidence": 0.47866946315667414
+            }
+          },
+          "peak_rss_bytes": 1965109248,
+          "open_fds_after_call": 629,
+          "memory.peak": 1393197056,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 2184,
+            "npu_bridge_seconds": 9.068713606335223
+          }
+        },
+        {
+          "seconds": 87.01302165398374,
+          "usage": {
+            "input_tokens": 3538,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_inventory_management": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.059647265651659113,
+                "no": 0.9403527343483409
+              },
+              "confidence": 0.6739568986701578
+            },
+            "tool_product_search": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.023277160298839267,
+                "no": 0.9767228397011607
+              },
+              "confidence": 0.8405348455104535
+            },
+            "tool_order_status_check": {
+              "type": "choice",
+              "choice": "yes",
+              "probabilities": {
+                "yes": 0.9663455090306677,
+                "no": 0.033654490969332304
+              },
+              "confidence": 0.7875998238724813
+            },
+            "tool_get_product_details": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.11722475290298462,
+                "no": 0.8827752470970154
+              },
+              "confidence": 0.47866946315667414
+            }
+          },
+          "peak_rss_bytes": 1967161344,
+          "open_fds_after_call": 629,
+          "memory.peak": 1395576832,
+          "memory.swap.current": 0,
+          "operations": {
+            "npu_matmuls": 2184,
+            "npu_bridge_seconds": 9.122538709780201
+          }
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "ae5a368fc70034cd6fda5a943a85794ccf947003f65455b434229a4a09b65185",
+  "max_question_rows": 4,
+  "sdpa_precision": "checkpoint"
+}

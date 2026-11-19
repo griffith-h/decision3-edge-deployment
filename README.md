@@ -1,6 +1,10 @@
-# d3-edge on RK3576
+# RK3576 上的 d3-edge 部署与 d3.1-nano 实验
 
-RK3576 上部署 `vllm-sr/d3-edge` 的研究记录、RKNN 矩阵加速适配和独立安装文档。
+本仓库记录 d3-edge 服务的部署、RKNN 推理优化，以及 d3.1-nano 在同一块 RK3576 上的 CPU 和 NPU 实测。
+
+## d3.1-nano 单问题板测（2026-11-19）
+
+在 16 GB NanoPi R76S 上，同一条 115-token 中文分类请求的热态中位数从原版纯 CPU 的 **108.09 秒**降到默认前向加 NPU 的 **10.87 秒**。单问题一次前向配合 NPU 和 edge 的 CPU 算子后为 **1.53 秒（70.68×）**。三种方式均选中“编程任务”，最快方案相对原版纯 CPU 的最大选项概率差为 **0.004984 个百分点**。[计时、选项概率与复测方法](d3.1-nano-npu-test/README.md)
 
 ## 技术总结文章
 
@@ -12,7 +16,7 @@ RK3576 上部署 `vllm-sr/d3-edge` 的研究记录、RKNN 矩阵加速适配和�
 
 [多长度推理 HTML 报告](mlp-length-experiment/report.html#bf16-pipeline) 保留六轮实验。最新615 token暖态方法：上一合格候选P50 1743.55ms → 1579.62ms，候选P95 1642.71ms，P50下降9.40%；1秒目标未达成。34例原current数值门槛通过，confidence独立报告；不代表业务准确率。未部署；研究成果随本次main提交归档，适用范围和原始记录见第六阶段及 [WORK_STATUS.md](WORK_STATUS.md)。
 
-这些多长度改动尚未部署。线上仍为下述 graph-half v1；下方基础安装与历史记录中的范围须按各阶段理解。模型、编译图和ARM库仍按既有忽略规则不提交，复现命令在各实验目录的 `REPRODUCTION.md`。
+这些多长度改动均为独立实验。下述 graph-half v1 记录的是 2026-10-18 的 d3-edge 服务发布。模型、编译图和 ARM 库按各实验目录的 `REPRODUCTION.md` 单独准备。
 
 ## 全过程版本与尝试记录
 

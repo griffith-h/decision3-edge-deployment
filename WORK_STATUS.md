@@ -1,15 +1,21 @@
 # 继续工作入口
 
+## 2026-11-19 · d3.1-nano 短文本板测
+
+16 GB RK3576 上，单问题一次前向配合 RKNN 矩阵乘及 edge 的 CPU 算子，将同一条 115-token 请求的热态中位数从 108.09 秒降至 1.53 秒。与原版纯 CPU 对照，三个选项的最大概率差为 0.004984 个百分点。板测结束时，实验容器均已移除，原 `decision3-edge-graph` 容器状态为 `exited`。[实测结果、范围与复核命令](d3.1-nano-npu-test/README.md)
+
+## d3-edge 历史实验
+
 前四轮已提交；第五、第六阶段随本次main提交归档。先看 [最新HTML报告第六阶段](mlp-length-experiment/report.html#bf16-pipeline)，再按对应复现说明操作；所有数据为现有RK3576实测快照，不代表任意机器或业务输入的保证。
 
-## 线上服务与约束
+## d3-edge 服务发布记录（2026-10）
 
-- 线上仍是 `decision3-edge-graph`，`http://192.168.1.164:8900/v1/systemone`；graph-half v1，快路径适用于batch1、115 token，其余长度保留原回退。
+- 2026-10-18 发布的 `decision3-edge-graph` 使用 graph-half v1，板端接口为 `http://192.168.1.164:8900/v1/systemone`。快路径适用于 batch 1、115 token，其余长度走原回退路径。
 - 冻结发布 `/opt/decision3-edge-graph-20261018-v1`；回滚流程见 [已部署版本说明](cpu-tail-deployment/README.md)。不要将后续实验脚本当成部署脚本。
 - 最近一次保留核验见 [service-after.json](bf16-pipeline-experiment/service-after.json)：容器ID前缀 `07577e5f9827`、启动时间、Config/HostConfig与554个发布文件SHA不变，健康，5次完整HTTP输出与实验前一致。独立实验容器已退出。此处是核验时状态，后续操作前应重新检查。
 - 继续优化时保持模型权重、原12层、非因果完整注意力和扫描状态语义；不反编译厂商库，保留线上，在无端口独立进程里测试。本次提交不部署。
 
-## 本次main提交汇总
+## d3-edge 第五、第六阶段归档
 
 - 归档第五阶段`fusion-pipeline-experiment`与第六阶段`bf16-pipeline-experiment`的自有源码、配置、复现说明、正式原始JSON、失败日志和运行源码快照；二进制、模型权重及厂商SDK继续按既有规则忽略。
 - 第五阶段采用动态完整注意力融合、615行投影及精度修复，正式90次候选P50/P95为1745.16/1776.55ms；修复既有multi-wide score超门槛问题。第六阶段采用保留BF16边界的native MLP融合、320/295行并行down与长度域缓存退役，另一次独立90组对照为1743.55/1770.60ms → 1579.62/1642.71ms，P50下降9.40%。不同轮次的统计不混合。

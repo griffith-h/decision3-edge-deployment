@@ -1,0 +1,526 @@
+{
+  "board": {
+    "started_utc": "2026-11-19T07:56:19.005003+00:00",
+    "hostname": "nanopi-r76s",
+    "model": "FriendlyElec NanoPi R76S",
+    "machine": "aarch64",
+    "kernel": "6.1.115-vendor-rk35xx",
+    "host_memory_bytes_before": {
+      "MemTotal": 16740098048,
+      "MemAvailable": 16194342912,
+      "SwapFree": 8370044928
+    },
+    "governor": "ondemand",
+    "big_core_max_khz": 2208000,
+    "big_core_temp_millicelsius_before": 32384
+  },
+  "method": {
+    "input_file": "cpu-tail-deployment/request.json",
+    "timed_call": "checkpoint's official D3.system_one(state=..., questions=...) on CPU",
+    "samples": "One first call then three repeats of the same text, concurrency 1. One fresh, network-isolated container per model. Nano ran first; no two model containers ran together.",
+    "clock": "Python time.perf_counter. Calls exclude model load and local validation. Entry-to-first starts at benchmark script entry and excludes the model download and Docker startup. The OS file cache was not cleared.",
+    "peak_rss": "Linux getrusage(RUSAGE_SELF).ru_maxrss, converted from KiB to bytes; lifetime high-water mark sampled through the last inference. File-backed resident pages count toward RSS. Cgroup memory.peak is stored separately because already cached weight pages may be charged outside the container.",
+    "command_in_container": "python -u /bench/benchmark.py CHECKPOINT /bench/request.json /out/MODEL.json",
+    "container_verification": "docker inspect TEST_CONTAINER before removal; docker ps -a and docker inspect decision3-edge-graph after removal"
+  },
+  "nano_download": {
+    "repo": "vllm-sr/d3.1-nano",
+    "revision": "71d06677f56e243042fe5d5f983804648a5689e8",
+    "verified_manifest_files": 28,
+    "verified_bytes": 4454267682,
+    "model_sha256": "93d72e7e2862a488b4950ecc668782cd2da48b196ee514ae1aa3c173fee2e4ef"
+  },
+  "models": {
+    "nano": {
+      "checkpoint": "vllm-sr/d3.1-nano",
+      "revision": "71d06677f56e243042fe5d5f983804648a5689e8",
+      "architecture": {
+        "parameters": {
+          "text": 1881825088,
+          "vision": 331416576,
+          "readout": 522240,
+          "loaded": 2213763904
+        },
+        "text_layers": 24,
+        "text_hidden_size": 2048
+      },
+      "summary": {
+        "model_load_seconds": 15.4143276209943,
+        "first_call_seconds": 108.1033041930059,
+        "entry_to_first_answer_seconds": 136.96164411993232,
+        "warm_call_seconds": [
+          108.0098045419436,
+          108.09278312302195,
+          108.14698758500163
+        ],
+        "warm_median_seconds": 108.09278312302195,
+        "peak_rss_bytes": 3521404928,
+        "cgroup_peak_bytes": 972701696,
+        "code_probability": 0.9982579581734414
+      },
+      "kernel_warnings": [
+        "mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support",
+        "[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel."
+      ],
+      "container": {
+        "name": "/d31-cpu-20261119-fce9rf-nano",
+        "image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-19T07:56:19.318881675Z",
+          "FinishedAt": "2026-11-19T08:04:04.970646588Z"
+        },
+        "cmd": [
+          "-u",
+          "/bench/benchmark.py",
+          "/checkpoint",
+          "/bench/request.json",
+          "/out/nano.json"
+        ],
+        "cpuset": "4-7",
+        "memory_limit_bytes": 8589934592,
+        "memory_and_swap_limit_bytes": 8589934592,
+        "network": "none",
+        "devices": []
+      },
+      "benchmark": {
+        "runtime": {
+          "python": "3.12.15",
+          "torch": "2.12.0+cpu",
+          "transformers": "5.17.0",
+          "cpus": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "intraop_threads": 3,
+          "interop_threads": 1,
+          "batch_size": 1,
+          "attention_mode": "prefix_bidir",
+          "device": "cpu"
+        },
+        "input": {
+          "state": "请写一个 Python 函数，合并两个有序列表。",
+          "questions": {
+            "kind": {
+              "type": "choice",
+              "instructions": "这个请求属于哪类任务？",
+              "criteria": {
+                "code": "编程任务",
+                "math": "数学问题",
+                "chat": "日常聊天"
+              }
+            }
+          }
+        },
+        "calls": [
+          {
+            "phase": "first",
+            "seconds": 108.1033041930059,
+            "memory": {
+              "rss_bytes": 3504136192,
+              "peak_rss_bytes": 3519852544,
+              "memory.current": 956461056,
+              "memory.peak": 972701696,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3.1-nano",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9982579581734414,
+                    "math": 0.0012101179734819425,
+                    "chat": 0.0005319238530766274
+                  },
+                  "confidence": 0.9873666890399458
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 108.0098045419436,
+            "memory": {
+              "rss_bytes": 3508441088,
+              "peak_rss_bytes": 3521388544,
+              "memory.current": 959070208,
+              "memory.peak": 972701696,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3.1-nano",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9982579581734414,
+                    "math": 0.0012101179734819425,
+                    "chat": 0.0005319238530766274
+                  },
+                  "confidence": 0.9873666890399458
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 108.09278312302195,
+            "memory": {
+              "rss_bytes": 3507843072,
+              "peak_rss_bytes": 3521392640,
+              "memory.current": 958648320,
+              "memory.peak": 972701696,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3.1-nano",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9982579581734414,
+                    "math": 0.0012101179734819425,
+                    "chat": 0.0005319238530766274
+                  },
+                  "confidence": 0.9873666890399458
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 108.14698758500163,
+            "memory": {
+              "rss_bytes": 3508494336,
+              "peak_rss_bytes": 3521404928,
+              "memory.current": 959053824,
+              "memory.peak": 972701696,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3.1-nano",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9982579581734414,
+                    "math": 0.0012101179734819425,
+                    "chat": 0.0005319238530766274
+                  },
+                  "confidence": 0.9873666890399458
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          }
+        ],
+        "setup_before_load_seconds": 13.442716732970439,
+        "model_load_seconds": 15.4143276209943,
+        "memory_after_load": {
+          "rss_bytes": 723116032,
+          "peak_rss_bytes": 723116032,
+          "memory.current": 905957376,
+          "memory.peak": 905957376,
+          "memory.swap.current": 0
+        },
+        "entry_to_first_answer_seconds": 136.96164411993232
+      }
+    },
+    "edge": {
+      "checkpoint": "vllm-sr/d3-edge",
+      "revision": "20c745653400d191ecacd99c4eafc0c5900dc15e",
+      "architecture": {
+        "parameters": {
+          "text": 493728704,
+          "vision": 100592896,
+          "readout": 261120,
+          "loaded": 594582720
+        },
+        "text_layers": 12,
+        "text_hidden_size": 1024
+      },
+      "summary": {
+        "model_load_seconds": 13.767096986994147,
+        "first_call_seconds": 20.545603530015796,
+        "entry_to_first_answer_seconds": 43.95420745201409,
+        "warm_call_seconds": [
+          19.165479199960828,
+          19.182170510990545,
+          19.17646376299672
+        ],
+        "warm_median_seconds": 19.17646376299672,
+        "peak_rss_bytes": 1232367616,
+        "cgroup_peak_bytes": 1182642176,
+        "code_probability": 0.9991728693542068
+      },
+      "kernel_warnings": [
+        "mkldnn_matmul failed, switching to BLAS gemm:mkldnn_matmul: mkldnn_matmul bf16 path needs a cpu with bf16 support",
+        "[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.",
+        "[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel."
+      ],
+      "container": {
+        "name": "/d31-cpu-20261119-fce9rf-edge",
+        "image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+        "state": {
+          "Status": "exited",
+          "Running": false,
+          "Paused": false,
+          "Restarting": false,
+          "OOMKilled": false,
+          "Dead": false,
+          "Pid": 0,
+          "ExitCode": 0,
+          "Error": "",
+          "StartedAt": "2026-11-19T08:04:05.586931041Z",
+          "FinishedAt": "2026-11-19T08:05:50.19564748Z"
+        },
+        "cmd": [
+          "-u",
+          "/bench/benchmark.py",
+          "/checkpoint/models--vllm-sr--d3-edge/snapshots/20c745653400d191ecacd99c4eafc0c5900dc15e",
+          "/bench/request.json",
+          "/out/edge.json"
+        ],
+        "cpuset": "4-7",
+        "memory_limit_bytes": 8589934592,
+        "memory_and_swap_limit_bytes": 8589934592,
+        "network": "none",
+        "devices": []
+      },
+      "benchmark": {
+        "runtime": {
+          "python": "3.12.15",
+          "torch": "2.12.0+cpu",
+          "transformers": "5.17.0",
+          "cpus": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "intraop_threads": 3,
+          "interop_threads": 1,
+          "batch_size": 1,
+          "attention_mode": "noncausal_full_attention",
+          "device": "cpu"
+        },
+        "input": {
+          "state": "请写一个 Python 函数，合并两个有序列表。",
+          "questions": {
+            "kind": {
+              "type": "choice",
+              "instructions": "这个请求属于哪类任务？",
+              "criteria": {
+                "code": "编程任务",
+                "math": "数学问题",
+                "chat": "日常聊天"
+              }
+            }
+          }
+        },
+        "calls": [
+          {
+            "phase": "first",
+            "seconds": 20.545603530015796,
+            "memory": {
+              "rss_bytes": 1210368000,
+              "peak_rss_bytes": 1210368000,
+              "memory.current": 1162305536,
+              "memory.peak": 1163476992,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3-edge",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9991728693542068,
+                    "math": 0.0006924120846572521,
+                    "chat": 0.00013471856113591264
+                  },
+                  "confidence": 0.993569187460355
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 19.165479199960828,
+            "memory": {
+              "rss_bytes": 1211064320,
+              "peak_rss_bytes": 1232130048,
+              "memory.current": 1161363456,
+              "memory.peak": 1182642176,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3-edge",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9991728693542068,
+                    "math": 0.0006924120846572521,
+                    "chat": 0.00013471856113591264
+                  },
+                  "confidence": 0.993569187460355
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 19.182170510990545,
+            "memory": {
+              "rss_bytes": 1210626048,
+              "peak_rss_bytes": 1232130048,
+              "memory.current": 1160470528,
+              "memory.peak": 1182642176,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3-edge",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9991728693542068,
+                    "math": 0.0006924120846572521,
+                    "chat": 0.00013471856113591264
+                  },
+                  "confidence": 0.993569187460355
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          },
+          {
+            "phase": "warm",
+            "seconds": 19.17646376299672,
+            "memory": {
+              "rss_bytes": 1211052032,
+              "peak_rss_bytes": 1232367616,
+              "memory.current": 1161273344,
+              "memory.peak": 1182642176,
+              "memory.swap.current": 0
+            },
+            "response": {
+              "model": "d3-edge",
+              "answers": {
+                "kind": {
+                  "type": "choice",
+                  "choice": "code",
+                  "probabilities": {
+                    "code": 0.9991728693542068,
+                    "math": 0.0006924120846572521,
+                    "chat": 0.00013471856113591264
+                  },
+                  "confidence": 0.993569187460355
+                }
+              },
+              "usage": {
+                "input_tokens": 115,
+                "output_tokens": 0
+              }
+            }
+          }
+        ],
+        "setup_before_load_seconds": 9.640232142992318,
+        "model_load_seconds": 13.767096986994147,
+        "memory_after_load": {
+          "rss_bytes": 720596992,
+          "peak_rss_bytes": 720596992,
+          "memory.current": 683761664,
+          "memory.peak": 683761664,
+          "memory.swap.current": 0
+        },
+        "entry_to_first_answer_seconds": 43.95420745201409
+      }
+    }
+  },
+  "nano_to_edge_warm_latency_ratio": 5.636742230421018,
+  "final_state": {
+    "final_utc": "2026-11-19T08:06:22.479235+00:00",
+    "production_edge_service": "/decision3-edge-graph",
+    "production_edge_state_before": "exited",
+    "production_edge_state_after": "exited",
+    "removed_test_containers": [
+      "d31-cpu-20261119-fce9rf-nano",
+      "d31-cpu-20261119-fce9rf-edge"
+    ],
+    "test_container_names_absent_after_cleanup": true,
+    "board_model_cache": "/opt/d31-nano-cpu-20261119-FCE9rf/model",
+    "board_raw_evidence": "/opt/d31-nano-cpu-20261119-FCE9rf/results",
+    "board_free_disk_bytes_after": 3227582464,
+    "board_benchmark_sha256": "d6806835cee507eb69fcacfbf21afd7dbb54c29d9a9f4967646372af09f8a957",
+    "board_request_sha256": "fd315e85cafc1ba85e3067e368fa2e397dba950e5a1506b50656182bac26e17a",
+    "models": {
+      "nano": {
+        "parameters": {
+          "text": 1881825088,
+          "vision": 331416576,
+          "readout": 522240,
+          "loaded": 2213763904
+        },
+        "text_layers": 24,
+        "text_hidden_size": 2048
+      },
+      "edge": {
+        "parameters": {
+          "text": 493728704,
+          "vision": 100592896,
+          "readout": 261120,
+          "loaded": 594582720
+        },
+        "text_layers": 12,
+        "text_hidden_size": 1024
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "board": "NanoPi R76S (RK3576)",
+  "linux": "6.1.115-vendor-rk35xx",
+  "mem_total_kib": 16347752,
+  "rknpu_driver": "0.9.8",
+  "container_image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "revision": "71d06677f56e243042fe5d5f983804648a5689e8",
+  "model_safetensors_sha256": "93d72e7e2862a488b4950ecc668782cd2da48b196ee514ae1aa3c173fee2e4ef",
+  "readout_safetensors_sha256": "b7a500ca640cbb6d4b9a8862f9ccf5e4aa64f1d2169b9dc6b7fee3dbb4a8d971",
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec",
+  "checkpoint_runtime_sha256": "ce79977d22c2307f00c03b4c214a21b9fee0dc9ab566ac04adc76524f8380380",
+  "cpu_clusters": [
+    {
+      "model": "Cortex-A53",
+      "logical_cpus": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "max_khz": 2016000
+    },
+    {
+      "model": "Cortex-A72",
+      "logical_cpus": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "max_khz": 2208000
+    }
+  ],
+  "governor": "ondemand",
+  "rknpu_render_node": "/dev/dri/renderD129",
+  "mali_render_node": "/dev/dri/renderD130",
+  "native_libraries_sha256": {
+    "libd3_segment.so": "37dd619b9d6ca0251efaf6a2000d64591abd7b837c2610f0a61568a256716a27",
+    "libd3_tiles.so": "4e76f36399e61874453c5c11cb48ec838640137cce3801538ca6b12b644fa118",
+    "libnative_short.so": "b411e3c02d710ee773747cc844780ab1abd686e4aef2381f24c8f4bf58705336",
+    "libd3_state.so": "5ecc71cd6ef6835822f0dcf5f46b7b8ada61877714847f1f07e277679e156389"
+  },
+  "board_unit_test": {
+    "command": "python -m unittest -v test_engine",
+    "tests_run": 13,
+    "result": "OK",
+    "cases": [
+      "test_branch_padding_and_order",
+      "test_cached_conv_tail_owns_only_three_tokens",
+      "test_convolution_continuation_layout",
+      "test_decision_tail_matches_full_layer_with_partial_rope",
+      "test_default_precision_for_prefix_and_checkpoint_override",
+      "test_native_256_row_batch_and_late_range_fallback",
+      "test_one_owner_serializes_requests_and_close",
+      "test_precision_probe_preserves_mask",
+      "test_rknn_rectangular_segment_and_key_block_tail",
+      "test_scan_fork_and_continue",
+      "test_second_owner_cannot_replace_live_buffers",
+      "test_shared_prefix_padding_and_last_query",
+      "test_tiles_and_late_fallback"
+    ],
+    "test_source_sha256": "b394cd7120bab660d2e020de93731ebb82dd00652063af40af8fcc0ae8942211"
+  }
+}

@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 RUNTIME_KEYS = ("attention", "state_once", "threads", "torch", "transformers", "cpu_affinity", "checkpoint_manifest_sha256")
+REQUEST_KEYS = ("payload_sha256", "question_lengths", "state_lengths", "reversed_question_lengths", "expected")
 
 
 def combine_cpu_controls(first, others):
@@ -84,8 +85,48 @@ def verified_calls(row):
     return calls
 
 
-def summarize(cpu, candidate, request_id=None):
+def compare_engine_request(reference, candidate, request_id):
+    """Compare warm calls to the same complete request across two board engines."""
+    if reference["backend"] != "rknn" or candidate["backend"] != "rknn":
+        raise ValueError("both engine records must come from the RKNN board")
+    for key in ("checkpoint_manifest_sha256", "torch", "transformers", "attention", "state_once", "permutation_average"):
+        if reference.get(key) != candidate.get(key):
+            raise ValueError(f"different model or runtime setting {key}")
+    rows, answers, timings = [], [], {}
+    for name, run in (("reference", reference), ("candidate", candidate)):
+        found = [(i, row) for i, row in enumerate(run["requests"]) if row["id"] == request_id]
+        if len(found) != 1:
+            raise ValueError(f"expected a single {request_id} in {name}")
+        index, row = found[0]
+        calls = verified_calls(row)
+        warm = calls if index else calls[1:]
+        if not warm:
+            raise ValueError(f"no warm measurement for {request_id} in {name}")
+        rows.append(row)
+        answers.append(warm[0]["answers"])
+        timings[name] = {"cpu_affinity": run["cpu_affinity"], "threads": run["threads"],
+                         "sdpa_precision": run["sdpa_precision"], "question_rows": run["max_question_rows"],
+                         "prefix_backend": run.get("aggressive_prefix_backend"),
+                         "warm_seconds": [c["seconds"] for c in warm]}
+    if (any(rows[0].get(k) != rows[1].get(k) for k in REQUEST_KEYS)
+            or rows[0]["calls"][0]["usage"] != rows[1]["calls"][0]["usage"]):
+        raise ValueError("different request, labels or token accounting")
+    matches, diff, confidence = compare_answers(*answers)
+    errors = [abs(x) for field in diff.values() for x in field.values()]
+    score_error = max((abs(a["score"] - answers[0][k]["score"]) for k, a in answers[1].items()
+                       if a["type"] == "score"), default=0.0)
+    return {"id": request_id, "payload_sha256": rows[0]["payload_sha256"], "usage": rows[0]["calls"][0]["usage"],
+            "fields": len(answers[0]), "matched_fields": matches, "options": len(errors),
+            "options_within_one_pp": sum(e <= 0.01 for e in errors), "max_abs_probability_delta": max(errors),
+            "max_abs_confidence_delta": confidence, "max_abs_score_delta": score_error, **timings,
+            "probabilities_by_option": option_table(*answers, diff),
+            "choice_probability_gate": matches == len(answers[0]) and max(errors) <= 0.01 and score_error <= 0.01}
+
+
+def summarize(cpu, candidate, request_id=None, *, compare_cpu_schedules=False):
     for key in RUNTIME_KEYS:
+        if compare_cpu_schedules and key in ("cpu_affinity", "threads"):
+            continue
         if cpu[key] != candidate[key]:
             raise ValueError(f"different runtime setting {key}")
     if cpu.get("permutation_average", False) != candidate.get("permutation_average", False):
@@ -120,8 +161,12 @@ def summarize(cpu, candidate, request_id=None):
                 "first_s": calls[0]["seconds"], "warm_median_s": latency,
                 "gold_correct": sum(actual[k] == v for k, v in labelled.items()),
                 "process_peak_rss_gib": max(c["peak_rss_bytes"] for c in calls) / 2**30}
+        if compare_cpu_schedules:
+            item["cpu_schedule"] = {
+                label: {key: run[key] for key in ("cpu_affinity", "threads")}
+                for label, run in (("reference", cpu), ("candidate", candidate))}
         ref = refs[row["id"]]
-        for key in ("payload_sha256", "question_lengths", "state_lengths", "reversed_question_lengths", "expected"):
+        for key in REQUEST_KEYS:
             if ref.get(key) != row.get(key):
                 raise ValueError(f"different request representation {key}")
         base = ref["calls"][0]
@@ -177,14 +222,22 @@ if __name__ == "__main__":
     mode = cli.add_mutually_exclusive_group()
     mode.add_argument("--published-jev", action="store_true", help="compare to the public MI300X double-order artifact")
     mode.add_argument("--request", help="compare one named request present in both board runs")
+    mode.add_argument("--engine-request", help="compare a named request between two RKNN board runs")
     cli.add_argument("--also-cpu", action="append", type=Path, default=[], help="another disjoint CPU control file from the same runtime")
+    cli.add_argument("--compare-cpu-schedules", action="store_true",
+                     help="record both CPU sets and thread counts when evaluating a scheduling change")
     args = cli.parse_args()
     reference = json.loads(args.reference.read_text())
     candidate = json.loads(args.candidate.read_text())
+    if (args.published_jev or args.engine_request) and (args.compare_cpu_schedules or args.also_cpu):
+        cli.error("the CPU comparison options require an official CPU reference")
     if args.also_cpu:
-        if args.published_jev:
-            cli.error("--also-cpu requires a board CPU reference")
         reference = combine_cpu_controls(reference, (json.loads(p.read_text()) for p in args.also_cpu))
-    report = published_jev(reference, candidate) if args.published_jev else summarize(reference, candidate, args.request)
+    if args.published_jev:
+        report = published_jev(reference, candidate)
+    elif args.engine_request:
+        report = [compare_engine_request(reference, candidate, args.engine_request)]
+    else:
+        report = summarize(reference, candidate, args.request, compare_cpu_schedules=args.compare_cpu_schedules)
     print(json.dumps(report, indent=2))
     raise SystemExit(0 if all(r["choice_probability_gate"] for r in report) else 1)

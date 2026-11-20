@@ -2,10 +2,36 @@ import unittest
 import json
 from pathlib import Path
 
-from compare import combine_cpu_controls, compare_answers, published_jev
+from compare import combine_cpu_controls, compare_answers, compare_engine_request, published_jev, summarize
 
 
 class CompareTests(unittest.TestCase):
+    def test_engine_comparison_uses_warm_calls_and_rejects_input_changes(self):
+        path = Path(__file__).with_name("results") / "router-npu.json"
+        ref, candidate = [json.loads(path.read_text()) for _ in range(2)]
+        row = candidate["requests"][0]
+        report = compare_engine_request(ref, candidate, row["id"])
+        self.assertEqual(report["reference"]["warm_seconds"], [c["seconds"] for c in row["calls"][1:]])
+        self.assertEqual(report["matched_fields"], report["fields"])
+        self.assertEqual(report["options_within_one_pp"], report["options"])
+        row["payload_sha256"] = "different"
+        with self.assertRaisesRegex(ValueError, "different request"):
+            compare_engine_request(ref, candidate, row["id"])
+
+    def test_schedule_comparison_keeps_model_identity_and_records_both_schedules(self):
+        directory = Path(__file__).with_name("results")
+        ref = json.loads((directory / "router-cpu.json").read_text())
+        candidate = json.loads((directory / "router-npu.json").read_text())
+        candidate.update(cpu_affinity=list(range(8)), threads=8)
+        with self.assertRaisesRegex(ValueError, "runtime setting"):
+            summarize(ref, candidate)
+        report = summarize(ref, candidate, compare_cpu_schedules=True)
+        self.assertEqual(report[0]["cpu_schedule"]["reference"]["threads"], 3)
+        self.assertEqual(report[0]["cpu_schedule"]["candidate"]["cpu_affinity"], list(range(8)))
+        candidate["checkpoint_manifest_sha256"] = "wrong"
+        with self.assertRaisesRegex(ValueError, "checkpoint"):
+            summarize(ref, candidate, compare_cpu_schedules=True)
+
     def test_combining_independent_cpu_controls_checks_model_and_preserves_inputs(self):
         directory = Path(__file__).with_name("results")
         cpu = json.loads((directory / "cpu.json").read_text())

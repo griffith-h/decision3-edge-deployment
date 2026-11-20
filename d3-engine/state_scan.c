@@ -83,7 +83,7 @@ int d3_scan_state(const float *q, const float *k, const float *v, const float *d
     if (!q || !k || !v || !decay || !beta || !out || heads <= 0 || length <= 0 ||
         kd <= 0 || kd > MAX_DIM || vd <= 0 || vd > MAX_DIM)
         return -1;
-    #pragma omp parallel for num_threads(3) schedule(static)
+    #pragma omp parallel for schedule(dynamic, 1)
     for (int h = 0; h < heads; ++h) {
         size_t row = (size_t)h * length, offset = (size_t)h * kd * vd;
         scan_head(q + row*kd, k + row*kd, v + row*vd, decay + row, beta + row,

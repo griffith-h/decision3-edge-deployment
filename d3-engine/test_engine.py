@@ -12,10 +12,137 @@ from transformers.models.qwen3_5 import modeling_qwen3_5 as qwen
 
 from cpu_attention import AttentionPrecision, bind_attention
 from engine import D3Engine, QuestionBranches, TiledNPU
+from fast_prefix import FastBranches, cpu_segment
 from state_kernels import StateKernels
 
 
 class EngineTests(unittest.TestCase):
+    def test_single_pass_is_scoped_to_one_text_question_and_released_on_error(self):
+        owner = object.__new__(D3Engine)
+        owner.lock, owner.closed = threading.Lock(), False
+        owner.fast_branches = SimpleNamespace(single=False)
+        def run(*, state, questions):
+            if state == "reject":
+                raise ValueError("invalid request")
+            return owner.fast_branches.single
+        owner.model = SimpleNamespace(system_one=run, permutation_average=False)
+        one = {"route": {"type": "choice"}}
+        self.assertTrue(owner.system_one(state="", questions=one))
+        self.assertFalse(owner.system_one(state="", questions={**one, "feedback": {"type": "noul"}}))
+        self.assertFalse(owner.system_one(state="", questions={"image": {"type": "box"}}))
+        with self.assertRaises(ValueError):
+            owner.system_one(state="reject", questions=one)
+        self.assertFalse(owner.fast_branches.single)
+        owner.model.permutation_average = True
+        self.assertFalse(owner.system_one(state="", questions=one))
+
+    @torch.inference_mode()
+    def test_shared_prefix_padding_and_last_query(self):
+        torch.manual_seed(621)
+        owner = object.__new__(FastBranches)
+        owner.npu, owner.counts = None, Counter()
+        q = torch.randn(3, 4, 6, 16).bfloat16()
+        common = tuple(torch.randn(1, 2, 9, 16).bfloat16() for _ in range(2))
+        own = tuple(torch.randn(3, 2, 6, 16).bfloat16() for _ in range(2))
+        sizes = [1, 6, 4]
+        for last in (False, True):
+            qq = torch.stack([q[i, :, n-1:n] for i, n in enumerate(sizes)]) if last else q
+            actual = owner.read(qq, own, common, sizes, 0.1)
+            for b, size in enumerate(sizes):
+                keys, values = [torch.cat((c, o[b:b+1, :, :size]), 2).repeat_interleave(2, dim=1).float()
+                                for c, o in zip(common, own)]
+                count = 1 if last else size
+                ref = torch.nn.functional.scaled_dot_product_attention(qq[b:b+1, :, :count].float(),
+                                                                        keys, values, scale=0.1)
+                torch.testing.assert_close(actual[b:b+1, :, :count], ref, rtol=2e-5, atol=2e-6)
+        padding_only = owner.read(q[:1], tuple(x[:1] for x in own), common, [0], 0.1)
+        torch.testing.assert_close(padding_only, cpu_segment(q[:1], *common, 0.1)[0])
+
+    @torch.inference_mode()
+    def test_decision_tail_matches_full_layer_with_partial_rope(self):
+        from torch import nn
+        torch.manual_seed(790)
+        model_width, heads, dim = 32, 4, 8
+        projection = lambda width: nn.Linear(model_width, width, bias=False).to(torch.bfloat16)
+        attn = SimpleNamespace(head_dim=dim, scaling=0.35, q_norm=nn.Identity(), k_norm=nn.Identity(),
+                               q_proj=projection(heads * dim * 2), k_proj=projection(2*dim),
+                               v_proj=projection(2*dim), o_proj=projection(model_width))
+        owner = object.__new__(FastBranches)
+        owner.source = SimpleNamespace(qwen=qwen, language_model=SimpleNamespace(norm=nn.Identity()))
+        owner.tail = SimpleNamespace(self_attn=attn, input_layernorm=nn.Identity(),
+                                     post_attention_layernorm=nn.Identity(), mlp=projection(model_width))
+        owner.npu, owner.counts = None, Counter()
+        hidden = torch.randn(2, 7, model_width).bfloat16()
+        angles = torch.randn(2, 7, 4)
+        rope = angles.cos().bfloat16(), angles.sin().bfloat16()
+        prefix = tuple(torch.randn(1, 2, 5, dim).bfloat16() for _ in range(2))
+        present = torch.arange(7)[None] < torch.tensor([3, 7])[:, None]
+        mixed, _ = owner.attention(attn, hidden, rope, prefix, present)
+        full = hidden + mixed
+        full = full + owner.tail.mlp(full)
+        torch.testing.assert_close(owner.last(hidden, rope, [3, 7], prefix), full[[0, 1], [2, 6]],
+                                   rtol=0.008, atol=0.008)
+
+    @unittest.skipUnless(Path("/dev/dri").exists(), "needs RK3576 NPU")
+    @torch.inference_mode()
+    def test_native_256_row_batch_and_late_range_fallback(self):
+        from torch import nn
+
+        class Mlp(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.gate_proj = nn.Linear(128, 256, bias=False)
+                self.up_proj = nn.Linear(128, 256, bias=False)
+                self.down_proj = nn.Linear(256, 128, bias=False)
+                self.act_fn = nn.SiLU()
+
+            def forward(self, x):
+                return self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+        torch.manual_seed(45)
+        with torch.inference_mode(False):
+            layer = nn.Module()
+            layer.mlp = Mlp().bfloat16().eval()
+        model = SimpleNamespace(backbone=SimpleNamespace(language_model=SimpleNamespace(layers=[layer])))
+        x = torch.randn(2, 139, 128).bfloat16()
+        old = TiledNPU(model)
+        try:
+            reference = layer.mlp(x)
+        finally:
+            old.close()
+        bad = x.clone()
+        bad[-1, -1, 0] = 1e8
+        fallback = layer.mlp(bad)
+        new = TiledNPU(model, native_tiles=True)
+        try:
+            torch.testing.assert_close(layer.mlp(x), reference, rtol=0.008, atol=0.002)
+            torch.testing.assert_close(layer.mlp(bad), fallback, rtol=0, atol=0)
+            self.assertEqual(new.counts["native_tile_batches"], 1)
+            self.assertEqual(new.counts["linear_range_fallback"], 1)
+        finally:
+            new.close()
+
+    @unittest.skipUnless(Path("/dev/dri").exists(), "needs RK3576 NPU")
+    @torch.inference_mode()
+    def test_rknn_rectangular_segment_and_key_block_tail(self):
+        from prefix_rknn import RknnSegments
+        torch.manual_seed(806)
+        q = torch.randn(2, 4, 19, 256).bfloat16()
+        k, v = torch.randn(2, 1, 2, 8201, 256).bfloat16().unbind()
+        ref, ref_lse = cpu_segment(q, k, v, 0.0625)
+        with ThreadPoolExecutor(2) as pool:
+            owner = RknnSegments(pool)
+            try:
+                got, lse = owner(q, k, v, 0.0625)
+                torch.testing.assert_close(got, ref, rtol=0.02, atol=0.0004)
+                torch.testing.assert_close(lse, ref_lse, rtol=0.00005, atol=0.0004)
+                bad = q.clone()
+                bad[0, 0, 0, 0] = 1e8
+                self.assertIsNone(owner(bad, k, v, 0.0625))
+            finally:
+                owner.close()
+            self.assertEqual(owner.handles, [])
+
     def test_default_precision_for_prefix_and_checkpoint_override(self):
         class StateOnce:
             pass
@@ -37,6 +164,13 @@ class EngineTests(unittest.TestCase):
                 self.assertIsNot(model.state_once.source, source)
                 self.assertIs(model.state_once.source.qwen, source.qwen)
             self.assertIs(model.state_once, source)
+        with patch("engine.TiledNPU"), patch("fast_prefix.FastBranches") as fast:
+            with D3Engine(model, aggressive=True) as owner:
+                self.assertEqual(owner.prefix_backend, "rknn")
+                self.assertEqual(fast.call_args.args[3], "rknn")
+            with D3Engine(model, aggressive=True, prefix_backend="arm") as owner:
+                self.assertEqual(owner.prefix_backend, "arm")
+                self.assertEqual(fast.call_args.args[3], "arm")
 
     def test_second_owner_cannot_replace_live_buffers(self):
         model = SimpleNamespace(backbone_type="qwen3_5", attention_mode="noncausal_full_attention", device="cpu",

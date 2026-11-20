@@ -27,6 +27,8 @@ def main():
     precision.add_argument("--checkpoint-math", action="store_true",
                            help="keep checkpoint attention and state math, with RKNN projection and MLP")
     cli.add_argument("--permutation-average", action="store_true")
+    cli.add_argument("--aggressive", action="store_true")
+    cli.add_argument("--prefix-backend", choices=("arm", "rknn"))
     args = cli.parse_args()
     # Keep native SDK diagnostics off the machine-readable output channel.
     with os.fdopen(os.dup(sys.stdout.fileno()), "w", encoding="utf-8") as responses:
@@ -35,13 +37,14 @@ def main():
         from d3_runtime import D3
         from engine import D3Engine
 
-        torch.set_num_threads(3)
+        torch.set_num_threads(int(os.environ.get("D3_THREADS", 3)))
         torch.set_num_interop_threads(1)
         model = D3.from_pretrained(os.environ["D3_CHECKPOINT"], device="cpu", batch_size=1,
                                    permutation_average=args.permutation_average, verify="fast")
         attention = "checkpoint" if args.checkpoint_math else args.attention
         with D3Engine(model, question_rows=args.question_rows, attention=attention,
-                      checkpoint_state_kernels=args.checkpoint_math) as engine:
+                      checkpoint_state_kernels=args.checkpoint_math, aggressive=args.aggressive,
+                      prefix_backend=args.prefix_backend) as engine:
             serve_lines(engine, sys.stdin, responses)
 
 

@@ -12,7 +12,7 @@ from native_mlp import NativeMlp
 class ShortTextNPU:
     """Single inference owner. Its gate and up projections run on separate NPU cores."""
 
-    def __init__(self, model):
+    def __init__(self, model, library="libnative_short.so"):
         self.restores = []
         self.counts = Counter()
         self.rows = Counter()
@@ -23,7 +23,7 @@ class ShortTextNPU:
             core = {}
             values = torch.arange(65536, dtype=torch.int32).short().view(torch.bfloat16)
             table = SimpleNamespace(silu=torch.nn.functional.silu(values).contiguous())
-            self.kernels = NativeMlp(SimpleNamespace(core=core, pool=self.pool), table, "libnative_short.so")
+            self.kernels = NativeMlp(SimpleNamespace(core=core, pool=self.pool), table, library)
             for layer in model.backbone.language_model.layers:
                 mlp = layer.mlp
                 members = (mlp.gate_proj, mlp.up_proj, mlp.down_proj)

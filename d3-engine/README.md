@@ -2,6 +2,8 @@
 
 这里在 RK3576 上运行 d3.1-nano，按一整次 `system_one(state=..., questions=...)` 调用计时，包含分词、主干计算和决策头。对照保留输入全文、问题、选项、标签和工具定义。不同来源使用各自的验收方法。
 
+八核模式 `infer --aggressive` 在 TypeSafe 55 题发票上实测 **11 分 20 秒**，旧版同板复测为 20 分 19 秒。订单、家电、合同和客服热态分别为 14.86、39.05、50.62、23.22 秒，八条中文路由各为 2.59–4.44 秒。12 条有纯 CPU 对照的请求中，58/58 个字段判断一致，170/172 个选项相差不超过 1 个百分点。[八核整单、资源占用与逐项概率](EIGHT-CORE.md)
+
 | 来源 | 板上选取的输入 | 衡量什么 |
 | --- | --- | --- |
 | Jev 开发商 TypeSafe 的 WorkflowEvals | 按官方 `--limit 1` 规则，各取客服和发票工作流中 ID 排序第一的案例。执行官方分支与全部三套策略 | 各步骤的原始概率、整次模型调用耗时、最终动作集合与官方共识是否一致。共识由模型生成 |
@@ -107,7 +109,7 @@ python3 ../compare.py cpu.json checkpoint-math.json --also-cpu router-cpu.json -
 
 ## 下一轮的性能依据
 
-针对 55 题发票，推荐先验证分块长注意力和 K/V 复用，再决定 Mali GPU 的适用长度。候选的硬件分工、内存预算和官方用例验收线见 [RK3576 推理优化方案](RK3576-OPTIMIZATION-PLAN.md)。
+55 题发票后续采用八核、共享 K/V 和 RKNN 分块长注意力。相同输入的板测记录列出整单耗时、每核占用和逐选项差异。[八核实测](EIGHT-CORE.md) · [最初的硬件优化方案](RK3576-OPTIMIZATION-PLAN.md)
 
 - **长发票先看注意力**。55 题首次实测有 644.85 秒花在注意力，占 52.6%。其中状态的自注意力是方阵，问题读取状态和本题时是长方阵。已有 edge 实验内核的全键路径要求方阵，最大长度为 8,192。这张发票的状态段本身就有 8,902 token。下一版可以让 NPU 计算分块的 QK 与 PV，保留 FP32 的跨键块最大值、归一化分母和累加结果，并复用同一状态的 K/V。验收必须包括真值为假的屏蔽位置、最后一个不满块和不同题长。即使解决这一部分，本次调用的其余环节仍占约 581 秒。
 - **常驻服务**。在各样本最后一次 FP32 热调用中，NPU 矩阵乘与布局搬运合计占 9.56、21.94、30.03 秒，FP32 自注意力分别占 2.07、7.02、15.66 秒。可以针对同一份输入的多路投影复用转换结果，并在内存允许时实测更大的行块。对长状态，注意力可以按查询块调度，每个查询仍需访问完整的有效键。每个候选都应回到相同整单测耗时和概率。
@@ -155,6 +157,16 @@ jq -c '{state, questions}' "$lab/src/order.json" "$lab/src/home.json" |
 
 要在 nano 上保留检查点原版的状态算子和注意力，在常驻命令末尾加 `--checkpoint-math`。Python 入口等价于 `D3Engine(model, attention="checkpoint", checkpoint_state_kernels=True)`。使用基准入口复现该模式时，传 `--checkpoint-state-kernels --attention checkpoint`。
 
+### 八核专用路径
+
+`infer --aggressive` 启用 d3.1-nano 的文本专用路径。板端启动器默认开放 CPU 0–7，Torch 和 OpenMP 用 8 个线程，OpenBLAS 用 1 个线程，空闲的 OpenMP 线程采用被动等待。要仅用四个 A72 比较同一实现，额外设置 `D3_CPUS=4-7 D3_THREADS=4`。两种配置均沿用 8 GiB 容器限制、零交换和同一 RKNN 投影实现。
+
+单题、单选项顺序的请求将状态段和问题段一次送过主干，各自的注意力可见范围仍由检查点决定。多题复用每层状态的紧凑 K/V，并分别计算公共段与每题私有段的注意力。两个分布按各自的 softmax 归一化常数在 FP32 合并。最后一个全注意力层保留全文 K/V，仅计算每题最后一个有效位置的查询、输出投影、MLP 和决策读出。[前缀、掩码与读出](fast_prefix.py)
+
+投影和 MLP 使用 32、64、128、256 行的 RKNN 形状桶，原生循环一次接收整个输入张量，任一块溢出则整次算子沿用 CPU。八核模式默认用 `--prefix-backend rknn`，可显式指定 `--prefix-backend arm` 做相同实现的注意力对照。RKNN 把两个 K/V 头分别交给两个 NPU 核心，按键块累计 FP32 softmax，每个查询覆盖全部有效键。短段与末层单查询沿用 CPU。[原生投影分块](native_tiles.cpp) · [RKNN 长注意力](prefix_segment.cpp)
+
+计时命令的 `--aggressive` 与常驻入口相同。每次调用记录进程 CPU 秒数、板上各核忙碌率、温度和内存。进程 CPU 秒数除以墙钟秒数得到平均占用的核心数。单独回放真实注意力时，可先在含长发票的基准命令末尾加 `--capture-prefix /out/captures`，然后在相同容器内运行 `python /bench/probe_prefix.py /out/captures /out/prefix-probe.json`。捕获张量的那次推理另列，正式计时关闭捕获。[同张量重放](probe_prefix.py)
+
 ## RKLLM 的适配边界
 
 RKLLM 1.3.1 提供 token 输入和最后一层隐藏向量输出，D3 可以在外部接 FP32 决策头。公开 C 接口中的 `encoder_mask` 用于交叉注意力。实现这两个检查点还需要控制文本**自注意力**的可见范围、每层的真实类型，以及线性注意力的递推状态。仓库此前在同一版本上给 d3-edge 导出 `causal=false` 并实际运行，4 个 choice 只对齐 2 个，最大选项概率差 75.27 个百分点。该结果来自 edge。这里用可控制每个算子的 RKNN MatMul 实现 nano 的 NPU 路径。[官方 RKLLM 接口](https://github.com/airockchip/rknn-llm/blob/f7390530443bf84f0394255a449d7cbe81e69d1c/rkllm-runtime/Linux/librkllm_api/include/rkllm.h) · [edge 板测原始记录](../rkllm-experiment/experiment-result.json)
@@ -171,7 +183,7 @@ python3 d3-engine/prepare_cases.py output/decision-index-audit/sample-1000.jsonl
 python3 d3-engine/prepare_router_suite.py output/d3-engine/vllm output/d3-engine/router
 ```
 
-在板上用仓库的源码构建两个原生库。设置 `lab` 为独立工作目录，`checkpoint` 为固定检查点，`D3_SDK` 为含 RKNN 头文件和 `librknnrt.so` 的目录，`run_id` 为本次容器名前缀。将上一步生成的三个 JSON 放入 `$lab/src`。如果已有相同编译产物，也可以用 `D3_NATIVE` 指向其目录。[板端构建](stage-board.sh) · [RKNN 原生内核构建](../d3.1-nano-npu-test/build.sh)
+在板上用仓库源码构建 ARM 状态算子、RKNN 投影和长注意力库。设置 `lab` 为独立工作目录，`checkpoint` 为固定检查点，`D3_SDK` 为含 RKNN 头文件和 `librknnrt.so` 的目录，`run_id` 为本次容器名前缀。将上一步生成的三个 JSON 放入 `$lab/src`。如果已有相同编译产物，也可以用 `D3_NATIVE` 指向 RKNN 库目录。[板端构建](stage-board.sh) · [RKNN 原生内核构建](../d3.1-nano-npu-test/build.sh)
 
 ```sh
 export D3_SDK
@@ -197,7 +209,7 @@ bash "$lab/src/run-board.sh" "$lab" "$checkpoint" "$run_id-router-npu" rknn \
 python3 "$lab/src/compare.py" "$lab/results/router-cpu.json" "$lab/results/router-npu.json"
 ```
 
-运行器限定 CPU 4–7、Torch 3 个算子内线程、单个模型进程、容器内存 8 GiB、无容器网络，NPU 模式额外挂载 `/dev/dri` 并设置 `nofile=4096`。首轮沿用容器默认的 1,024 个文件描述符时，RKNN 在创建 DMA 缓冲区时出现 `EMFILE` 并退出。原始纯 CPU 模式只加载官方检查点。数值比较要求每题选择一致、每个选项概率差不超过 0.01，另外报告置信度差值。进程峰值 RSS 包含映射权重，在同一进程内累计。首条请求包含 NPU 权重打包，后面每条请求仍重新计算自己的状态。[测量入口](bench.py) · [容器参数](run-board.sh)
+常规模式默认使用 CPU 4–7 和 3 个 Torch 算子内线程，八核模式默认使用 CPU 0–7 和 8 个算子内线程。两者均使用单模型进程和 8 GiB 离线容器，NPU 模式额外挂载 `/dev/dri` 并设置 `nofile=4096`。首轮沿用容器默认的 1,024 个文件描述符时，RKNN 在创建 DMA 缓冲区时出现 `EMFILE` 并退出。原始纯 CPU 模式只加载官方检查点。数值比较要求每题选择一致、每个选项概率差不超过 0.01，另外报告置信度差值。进程峰值 RSS 包含映射权重，在同一进程内累计。首条请求包含 NPU 权重打包，后续每条请求重新计算自己的状态。[测量入口](bench.py) · [容器参数](run-board.sh)
 
 对照 vLLM 公布的 MI300X 结果时，在 RKNN 命令增加 `--permutation-average`，输出到独立的 `jev-double.json`。相同的选择题需获得两份分布，在原选项上逐项取均值。原版日常服务的默认值是单序。发布方用了较早的运行时，主权重、决策头和分词器与本次固定版本一致。比较脚本校验请求哈希、字段、完整选项和输入 token 计量。[发布方环境](https://huggingface.co/datasets/vllm-sr/d3.1-nano-decision-index/blob/767d71ddb868c0c2be015ea0c5b9110cbbd86451/runs/d3.1-nano/environment.json)
 

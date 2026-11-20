@@ -86,7 +86,9 @@ def main():
     runtime = None
     for path in args.results:
         run = json.loads(path.read_text())
-        settings = tuple(run.get(k) for k in ("backend", "sdpa_precision", "checkpoint_manifest_sha256", "permutation_average"))
+        settings = tuple(run.get(k) for k in (
+            "backend", "sdpa_precision", "checkpoint_manifest_sha256", "permutation_average",
+            "aggressive_prefix_backend", "max_question_rows", "state_kernels", "threads", "cpu_affinity"))
         if runtime is not None and settings != runtime:
             raise ValueError("workflow replay cannot mix model settings")
         runtime = settings

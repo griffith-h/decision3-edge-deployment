@@ -5,13 +5,13 @@ import hashlib
 import json
 import os
 import resource
+import threading
 import time
 from contextlib import ExitStack
 from pathlib import Path
 
 import torch
 import transformers
-from d3_runtime import D3
 
 
 def peak_memory():
@@ -22,6 +22,58 @@ def peak_memory():
         if path.is_file():
             mem[name] = int(path.read_text())
     return mem
+
+
+def cpu_ticks():
+    """Host-wide per-core ticks. Also record process CPU time to isolate this model's aggregate work."""
+    ticks = {}
+    for line in Path("/proc/stat").read_text().splitlines():
+        name, *values = line.split()
+        if name.startswith("cpu") and name[3:].isdigit():
+            values = list(map(int, values[:8]))
+            ticks[name] = (sum(values), values[3] + values[4])
+    return ticks
+
+
+def temperatures():
+    result = {}
+    for zone in Path("/sys/class/thermal").glob("thermal_zone*"):
+        try:
+            result[(zone / "type").read_text().strip()] = int((zone / "temp").read_text()) / 1000
+        except (OSError, ValueError):
+            continue
+    return result
+
+
+class CoreSamples:
+    """Sample real process CPU consumption and busy ticks on the cores available to it."""
+    def __init__(self):
+        self.stop = threading.Event()
+        self.worker = threading.Thread(target=self.sample, daemon=True)
+        self.allowed = {f"cpu{i}" for i in os.sched_getaffinity(0)}
+        self.process_percent = []
+        self.all_busy = 0
+
+    def sample(self):
+        wall, used, last = time.monotonic(), time.process_time(), cpu_ticks()
+        while not self.stop.wait(1):
+            now, current, ticks = time.monotonic(), time.process_time(), cpu_ticks()
+            percent = 100 * (current - used) / (now - wall)
+            self.process_percent.append(percent)
+            if percent >= 90 * len(self.allowed) and all(
+                cpu in ticks and cpu in last and ticks[cpu][0] > last[cpu][0]
+                and ticks[cpu][1] - last[cpu][1] <= 0.1 * (ticks[cpu][0] - last[cpu][0])
+                for cpu in self.allowed
+            ):
+                self.all_busy += 1
+            wall, used, last = now, current, ticks
+
+    def finish(self):
+        self.stop.set()
+        self.worker.join()
+        samples = sorted(self.process_percent)
+        return {"intervals": len(samples), "all_cores_at_least_90pct": self.all_busy,
+                "process_peak_percent": round(max(samples), 1) if samples else None}
 
 
 def main():
@@ -35,14 +87,25 @@ def main():
                      help="score original and reversed Choice options as in the released Decision Index run")
     cli.add_argument("--checkpoint-state-kernels", action="store_true",
                      help="diagnose probability differences with the checkpoint convolution and delta rule")
-    cli.add_argument("--attention", choices=("checkpoint", "probe", "fp32"), default="checkpoint",
+    cli.add_argument("--aggressive", action="store_true")
+    cli.add_argument("--prefix-backend", choices=("arm", "rknn"))
+    cli.add_argument("--capture-prefix", type=Path, help="save actual long state/question tensors for a separate replay")
+    cli.add_argument("--attention", choices=("checkpoint", "probe", "fp32"),
                      help="probe replays both CPU attentions and returns BF16; fp32 uses the alternative")
     args = cli.parse_args()
+    args.attention = args.attention or ("fp32" if args.aggressive else "checkpoint")
+    if args.aggressive and (args.backend != "rknn" or args.attention != "fp32" or args.checkpoint_state_kernels):
+        cli.error("aggressive mode requires the RKNN engine with FP32 attention")
+    if args.prefix_backend == "rknn" and not args.aggressive:
+        cli.error("--prefix-backend rknn requires --aggressive")
+    if args.capture_prefix and not args.aggressive:
+        cli.error("--capture-prefix requires --aggressive")
     if args.repeats < 1:
         cli.error("repeats must be positive")
     if args.backend == "cpu" and args.attention != "checkpoint":
         cli.error("the pure CPU control always uses the checkpoint attention")
-    torch.set_num_threads(3)
+    from d3_runtime import D3
+    torch.set_num_threads(int(os.environ.get("D3_THREADS", 3)))
     torch.set_num_interop_threads(1)
     start = time.perf_counter()
     checkpoint = Path(os.environ.get("D3_CHECKPOINT", "/checkpoint"))
@@ -50,6 +113,8 @@ def main():
                                permutation_average=args.permutation_average)
     data = {"backend": args.backend, "torch": torch.__version__, "transformers": transformers.__version__,
             "cpu_affinity": sorted(os.sched_getaffinity(0)), "threads": torch.get_num_threads(),
+            "thread_environment": {key: os.environ.get(key) for key in (
+                "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "OMP_WAIT_POLICY")},
             "attention": model.attention_mode, "state_once": type(getattr(model, "state_once", None)).__name__,
             "permutation_average": model.permutation_average, "model_load_s": time.perf_counter() - start, "requests": [],
             "checkpoint_manifest_sha256": hashlib.sha256((checkpoint / "MODEL_MANIFEST.json").read_bytes()).hexdigest()}
@@ -62,7 +127,14 @@ def main():
             from engine import D3Engine
             precision = "fp32" if args.attention == "fp32" else "checkpoint"
             engine = stack.enter_context(D3Engine(model, question_rows=args.question_rows, attention=precision,
-                                                  checkpoint_state_kernels=args.checkpoint_state_kernels))
+                                                  checkpoint_state_kernels=args.checkpoint_state_kernels,
+                                                  aggressive=args.aggressive, prefix_backend=args.prefix_backend))
+            if args.aggressive:
+                data["aggressive_prefix_backend"] = engine.prefix_backend
+                if args.capture_prefix:
+                    from probe_prefix import capture
+                    stack.enter_context(capture(engine.fast_branches, args.capture_prefix))
+                    data["prefix_capture"] = True
             data["max_question_rows"] = args.question_rows
             data["sdpa_precision"] = precision
             if args.checkpoint_state_kernels:
@@ -99,9 +171,21 @@ def main():
                 before = engine.counts.copy() if engine else {}
                 if probe is not None:
                     probe.clear()
+                initial_temp = temperatures()
+                ticks = cpu_ticks()
+                monitor = CoreSamples() if args.aggressive else None
+                if monitor:
+                    monitor.worker.start()
+                process_start = time.process_time()
                 start = time.perf_counter()
-                answer = infer(**inputs)
-                elapsed = time.perf_counter() - start
+                try:
+                    answer = infer(**inputs)
+                    elapsed = time.perf_counter() - start
+                    process_s = time.process_time() - process_start
+                finally:
+                    if monitor:
+                        sample_summary = monitor.finish()
+                after = cpu_ticks()
                 if (set(answer["answers"]) != set(inputs["questions"])
                         or any("error" in a for a in answer["answers"].values())):
                     raise ValueError(f"incomplete answers {answer}")
@@ -114,6 +198,14 @@ def main():
                         if set(map(str, answer["answers"][key]["probabilities"])) != expected_levels:
                             raise ValueError(f"incomplete rubric distribution for {key}")
                 call = {"seconds": elapsed, "usage": answer["usage"], "answers": answer["answers"], **peak_memory()}
+                call["process_cpu_seconds"] = process_s
+                if monitor:
+                    call["cpu_samples"] = sample_summary
+                call["thermal_c_before"] = initial_temp
+                call["thermal_c_after"] = temperatures()
+                call["host_cpu_busy_percent"] = {
+                    name: round(100 * (1 - (idle - ticks[name][1]) / (total - ticks[name][0])), 2)
+                    for name, (total, idle) in after.items() if name in ticks and total > ticks[name][0]}
                 if engine:
                     call["operations"] = dict(engine.counts - before)
                 if probe is not None:

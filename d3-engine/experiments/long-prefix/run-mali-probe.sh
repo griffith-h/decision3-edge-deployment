@@ -7,6 +7,11 @@ captures=$(cd "${2:?directory containing questions.pt}" && pwd)
 runtime=$(cd "${3:?extracted GPU runtime root}" && pwd)
 dest=$(cd "${4:?existing results directory}" && pwd)
 image=${5:?local image ID from the benchmark}
+shift 5
+if (( $# > 1 )) || { (( $# == 1 )) && [[ $1 != --tiled ]]; }; then
+    echo "The optional probe argument is --tiled" >&2
+    exit 2
+fi
 study=$(cd "$(dirname "$0")" && pwd)
 edge=$(cd "$study/../../../cpu-tail-experiment" && pwd)
 run=$(mktemp -d "$dest/mali-qk.XXXXXXXX")
@@ -30,5 +35,5 @@ docker run "${isolated[@]}" --name "$name-gpu" --memory 4g --memory-swap 4g --de
     -v "$runtime/usr/lib/llvm-19/lib/clang/19/include:/usr/lib/llvm-19/lib/clang/19/include:ro" \
     -v /usr/lib/aarch64-linux-gnu:/board/lib:ro --entrypoint /board/lib/ld-linux-aarch64.so.1 \
     "$image" --library-path /runtime/usr/lib/aarch64-linux-gnu:/board/lib \
-    /bench/qk /opt/kernels.cl /bench/qk.bin > "$run/mali.jsonl.partial"
+    /bench/qk /opt/kernels.cl /bench/qk.bin "$@" > "$run/mali.jsonl.partial"
 mv "$run/mali.jsonl.partial" "$run/mali.jsonl"

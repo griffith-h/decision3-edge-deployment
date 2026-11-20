@@ -2,11 +2,13 @@
 
 ## 2026-11-20 · d3.1-nano 八核结果与板端状态
 
-**最近一次整单实测**使用 16 GB NanoPi R76S，八核 CPU 负责调度、递推与短注意力，两个 RKNPU 核心参与投影和长注意力。55 题发票由同板旧引擎的 1,219.25 秒降至 678.94 和 680.44 秒，热态中位数 679.69 秒，进程峰值 RSS 8.33 GiB，容器峰值 5.60 GiB。模型进程平均使用 3.10 个 CPU 核心。离整单 10 分钟的目标仍差 79.69 秒。[八核基准、耗时与资源](d3-engine/EIGHT-CORE.md)
+**55 题整单**在 16 GB NanoPi R76S 上实测两轮 **598.32 / 599.21 秒，中位数 598.76 秒**。八核 CPU 与双核 RKNPU 按注意力形状分工，同时合并投影、减少分批填充。相对同次八核正式版的 679.15 秒节省 80.39 秒，相对最初的 1,219.25 秒节省 50.9%。进程平均使用 4.61 核，峰值 RSS 9.14 GiB，容器峰值 6.41 GiB。[各阶段实测与资源](d3-engine/EIGHT-CORE.md)
 
-12 条有原版纯 CPU 参照的公开请求共 58 个字段，选项判断全部一致，170/172 个选项的概率差在 1 个百分点内。55 题发票使用同板旧版 NPU 作为整单参照，55/55 个字段判断一致，170/171 个选项在 1 个百分点内。它对官方共识命中 45/55 个字段，三套策略的首要动作均与官方期望不同。[短套件逐项概率](d3-engine/results/eight-core/suite8-cpu.json) · [发票逐项概率](d3-engine/results/eight-core/long8-vs-previous.json) · [发票策略](d3-engine/results/eight-core/long8-policies.json)
+最快配置的发票对当前八核正式版，55 个判断相同，169/171 个选项在 1 个百分点内。对最初的同板 RKNN 引擎，55 个判断相同，171/171 个选项均在门槛内。要求对当前八核版逐项通过时，可以采用固定 3/8 分担查询、合并投影并减少分批填充的配置，中位数为 601.03 秒。三套发票策略均与最初输出相同，对官方字段共识命中 45/55，首要动作命中 0/3。[对当前正式版](d3-engine/results/long-prefix/shapes-vs-eight.json) · [对最初引擎](d3-engine/results/long-prefix/shapes-vs-previous.json) · [601.03 秒配置](d3-engine/results/long-prefix/padded-vs-eight.json) · [发票策略](d3-engine/results/eight-core/long8-policies.json)
 
-**板测暂停。** 上次在 Mali 诊断期间失去连接，随后对已知地址的局域网与 SSH 检查均未收到板子响应。失联原因、当前供电、最后一个实验容器的状态都待现场确认。此前最后确认的原 `decision3-edge-graph` 服务状态为 `exited`。恢复连接后可先核对启动日志、内存事件与容器退出状态，再决定何时继续。相同新版引擎的四核与八核发票配对、CPU/NPU 分工与合并投影的整单结果、Mali 的可核验计时均留空。[待测原型与独立复现](d3-engine/experiments/long-prefix/README.md)
+另 12 条官方请求有原版纯 CPU 参照。最快实验配置在 58/58 个字段上与 CPU 判断一致，170/172 个选项相差不超过 1 个百分点。同次八核纯 CPU 对一条 vLLM 中文客服反馈用时 135.08 秒，八核配双核 NPU 为 2.64 秒。Mali 分块 FP32 在真实发票问题段上只做 QKᵀ 就用 2.53 秒，CPU 配双核 NPU 完成整段注意力为 0.60–0.62 秒。[纯 CPU 逐项对照](d3-engine/results/long-prefix/shapes-suite-cpu.json) · [同次八核 CPU 对照](d3-engine/results/long-prefix/shapes-suite-cpu-eight-feedback.json) · [GPU 三轮实测](d3-engine/results/long-prefix/mali.jsonl)
+
+板端在 `192.168.1.165` 恢复连接，SSH 主机密钥与旧地址一致。2026-11-20 全部九个实验阶段正常退出，结束时仅原 `decision3-edge-graph` 运行，健康检查通过，实验容器和运行单元均已退出。整轮测量的启动标识一致。四个 A72 的发票中位数为 731.95 秒，开放八核后为 679.15 秒，两组 55 个判断一致，最大概率差为 0.1745 个百分点。[板端记录](d3-engine/results/long-prefix/platform.json) · [四核与八核逐项比较](d3-engine/results/long-prefix/four-vs-eight.json)
 
 ## 2026-11-19 · d3.1-nano 短文本板测
 

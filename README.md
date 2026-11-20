@@ -2,9 +2,9 @@
 
 本仓库记录 d3-edge 服务的部署、RKNN 推理优化，以及 d3.1-nano 在同一块 RK3576 上的 CPU 和 NPU 实测。
 
-d3.1-nano 的八核模式已在 16 GB RK3576 上用 TypeSafe 和 vLLM 的公开请求实测。55 题发票的热态耗时从旧版同板复测的 20 分 19 秒降至 **11 分 20 秒**，55 个字段与旧版判断一致。12 条有纯 CPU 对照的请求中，58 个字段判断全部一致，170/172 个选项的概率差在 1 个百分点内。精度优先模式在相同对照上通过 172/172 个选项。[八核实测与资源占用](d3-engine/EIGHT-CORE.md) · [引擎与逐项概率](d3-engine/README.md)
+2026-11-20，在 16 GB RK3576 上用同一张 TypeSafe 官方发票测试 d3.1-nano，55 题共 34,994 个输入 token。旧引擎耗时 1,219.25 秒，当前八核正式版热态中位数为 679.15 秒。**推荐的生产候选为八核 CPU 配双核 RKNPU**，CPU 分担 3/8 的长查询行，同时合并投影并按题长分批。它的热态中位数为 **601.03 秒**，55 个判断与八核正式版一致，171 个选项的概率差均在 1 个百分点内。仅在查询数等于键数的单序列长段中把 CPU 分担比例提高到一半后，两轮为 598.32 和 599.21 秒，中位数 **598.76 秒**，其中两个选项超过上述门槛。[完整发票的计时、内存与概率](d3-engine/EIGHT-CORE.md) · [实验补丁与复现方法](d3-engine/experiments/long-prefix/README.md)
 
-截至 2026-11-20，板端连接中断后的四核对照仍待复测。CPU 与 NPU 同时计算一段注意力、合并投影和 Mali 矩阵乘的实验源码已单独归档。现有结果可在普通电脑上用 `python3 -B d3-engine/verify_results.py` 离线复核。[项目状态](WORK_STATUS.md) · [三个原型与复现方法](d3-engine/experiments/long-prefix/README.md)
+另 12 条有纯 CPU 对照的官方请求中，最快配置保持 58/58 个判断一致，170/172 个选项的概率差在 1 个百分点内。精度优先模式在相同对照上通过 172/172 个选项。一条 vLLM 中文客服反馈从八核纯 CPU 的 135.08 秒降至 CPU 配 RKNPU 的 2.64 秒。Mali-G52 在真实发票问题段上仅计算 QKᵀ 就用时 2.53 秒，CPU 配 RKNPU 在相同输入上完成全部注意力计算用时 0.60–0.62 秒。[纯 CPU 的逐项对照](d3-engine/results/long-prefix/shapes-suite-cpu.json) · [精度优先配置](d3-engine/README.md) · [Mali 原始计时](d3-engine/results/long-prefix/mali.jsonl)
 
 ## d3.1-nano 单问题板测（2026-11-19）
 
@@ -99,7 +99,7 @@ d3-edge 的 Decision Index 评测冻结了 1,000 条请求，覆盖 831 个题�
 
 ## 本地文档检查
 
-在仓库根目录执行以下命令可校验文章、短文本结果和 nano 的七份概率对照，无需模型或 RK3576。概率对照保留个别选项超过 1 个百分点的原始结果。
+在仓库根目录执行以下命令可校验文章、短文本结果和 nano 的归档概率对照，无需模型或 RK3576。概率对照保留个别选项超过 1 个百分点的原始结果。
 
 ```bash
 python3 -B build_optimization_article.py --check

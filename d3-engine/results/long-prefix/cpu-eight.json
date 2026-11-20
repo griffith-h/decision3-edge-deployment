@@ -1,0 +1,148 @@
+{
+  "backend": "cpu",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 8,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "8",
+    "OMP_WAIT_POLICY": "PASSIVE"
+  },
+  "attention": "prefix_bidir",
+  "state_once": "StateOnce",
+  "permutation_average": false,
+  "model_load_s": 13.770275341999877,
+  "requests": [
+    {
+      "id": "feedback-fresh-crosswoz-000261",
+      "payload_sha256": "863fa3bf37ab8b2a5c719f1e7f2e84169c418596308e944682ba40f0844378ed",
+      "question_lengths": {
+        "feedback": 218
+      },
+      "state_lengths": {
+        "feedback": 56
+      },
+      "expected": {
+        "feedback": "SAT"
+      },
+      "calls": [
+        {
+          "seconds": 135.1614758400001,
+          "usage": {
+            "input_tokens": 218,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "SAT",
+              "probabilities": {
+                "SAT": 0.9687640087832068,
+                "NEED_CLARIFICATION": 0.002425519055265792,
+                "WRONG_ANSWER": 0.0019831061397849806,
+                "WANT_DIFFERENT": 0.0019224517779467601,
+                "NO_FEEDBACK": 0.024904914243795644
+              },
+              "confidence": 0.8995430341667869
+            }
+          },
+          "peak_rss_bytes": 3558219776,
+          "open_fds_after_call": 4,
+          "memory.peak": 707796992,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 917.817421339,
+          "thermal_c_before": {
+            "little-core-thermal": 39.769,
+            "soc-thermal": 39.769,
+            "gpu-thermal": 39.769,
+            "ddr-thermal": 38.845,
+            "bigcore-thermal": 40.692,
+            "npu-thermal": 38.845
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 48.076,
+            "soc-thermal": 44.384,
+            "gpu-thermal": 44.384,
+            "ddr-thermal": 43.461,
+            "bigcore-thermal": 47.153,
+            "npu-thermal": 42.538
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 86.39,
+            "cpu1": 85.74,
+            "cpu2": 85.0,
+            "cpu3": 84.52,
+            "cpu4": 87.85,
+            "cpu5": 87.59,
+            "cpu6": 87.13,
+            "cpu7": 87.75
+          }
+        },
+        {
+          "seconds": 135.07890046799912,
+          "usage": {
+            "input_tokens": 218,
+            "output_tokens": 0
+          },
+          "answers": {
+            "feedback": {
+              "type": "choice",
+              "choice": "SAT",
+              "probabilities": {
+                "SAT": 0.9687640087832068,
+                "NEED_CLARIFICATION": 0.002425519055265792,
+                "WRONG_ANSWER": 0.0019831061397849806,
+                "WANT_DIFFERENT": 0.0019224517779467601,
+                "NO_FEEDBACK": 0.024904914243795644
+              },
+              "confidence": 0.8995430341667869
+            }
+          },
+          "peak_rss_bytes": 3558219776,
+          "open_fds_after_call": 4,
+          "memory.peak": 707796992,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 916.320139298,
+          "thermal_c_before": {
+            "little-core-thermal": 47.153,
+            "soc-thermal": 44.384,
+            "gpu-thermal": 44.384,
+            "ddr-thermal": 43.461,
+            "bigcore-thermal": 47.153,
+            "npu-thermal": 42.538
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 48.999,
+            "soc-thermal": 45.307,
+            "gpu-thermal": 45.307,
+            "ddr-thermal": 43.461,
+            "bigcore-thermal": 48.076,
+            "npu-thermal": 43.461
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 86.04,
+            "cpu1": 85.49,
+            "cpu2": 84.72,
+            "cpu3": 84.07,
+            "cpu4": 86.7,
+            "cpu5": 86.49,
+            "cpu6": 88.05,
+            "cpu7": 87.5
+          }
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec"
+}

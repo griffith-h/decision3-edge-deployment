@@ -1,0 +1,1320 @@
+{
+  "backend": "rknn",
+  "torch": "2.12.0+cpu",
+  "transformers": "5.17.0",
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "threads": 8,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "8",
+    "OMP_WAIT_POLICY": "PASSIVE"
+  },
+  "attention": "prefix_bidir",
+  "state_once": "StateOnce",
+  "permutation_average": false,
+  "model_load_s": 14.001799037999263,
+  "requests": [
+    {
+      "id": "BFCL-tool-selection:live_multiple:live_multiple_51-21-0",
+      "payload_sha256": "c736a52e92a1c6110da340ee13dbb4c6f39e4d285c2a2d7eb6f7f9f951ccd170",
+      "question_lengths": {
+        "tool_inventory_management": 884,
+        "tool_product_search": 884,
+        "tool_order_status_check": 885,
+        "tool_get_product_details": 885
+      },
+      "state_lengths": {
+        "tool_inventory_management": 784,
+        "tool_product_search": 784,
+        "tool_order_status_check": 784,
+        "tool_get_product_details": 784
+      },
+      "expected": {
+        "tool_inventory_management": "no",
+        "tool_product_search": "no",
+        "tool_order_status_check": "yes",
+        "tool_get_product_details": "no"
+      },
+      "calls": [
+        {
+          "seconds": 50.212989314999504,
+          "usage": {
+            "input_tokens": 1186,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_inventory_management": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.0044089202778346045,
+                "no": 0.9955910797221654
+              },
+              "confidence": 0.9591519316919012
+            },
+            "tool_product_search": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.0017250320730047037,
+                "no": 0.9982749679269953
+              },
+              "confidence": 0.9816791052588625
+            },
+            "tool_order_status_check": {
+              "type": "choice",
+              "choice": "yes",
+              "probabilities": {
+                "yes": 0.9977059559447924,
+                "no": 0.0022940440552075628
+              },
+              "confidence": 0.9765802644602496
+            },
+            "tool_get_product_details": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.002743646311186489,
+                "no": 0.9972563536888135
+              },
+              "confidence": 0.9726996111060249
+            }
+          },
+          "peak_rss_bytes": 7324110848,
+          "open_fds_after_call": 997,
+          "memory.peak": 4482674688,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 134.08101087600002,
+          "cpu_samples": {
+            "intervals": 50,
+            "all_cores_at_least_90pct": 0,
+            "process_peak_percent": 370.6
+          },
+          "thermal_c_before": {
+            "little-core-thermal": 38.845,
+            "soc-thermal": 38.845,
+            "gpu-thermal": 37.922,
+            "ddr-thermal": 37.922,
+            "bigcore-thermal": 38.845,
+            "npu-thermal": 37.922
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 40.692,
+            "soc-thermal": 39.769,
+            "gpu-thermal": 39.769,
+            "ddr-thermal": 38.845,
+            "bigcore-thermal": 40.692,
+            "npu-thermal": 38.845
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 27.07,
+            "cpu1": 26.95,
+            "cpu2": 26.91,
+            "cpu3": 26.65,
+            "cpu4": 42.82,
+            "cpu5": 46.36,
+            "cpu6": 38.71,
+            "cpu7": 33.62
+          },
+          "operations": {
+            "npu_matmuls": 701,
+            "fused_projection_batches": 48,
+            "npu_bridge_seconds": 43.48585350300618,
+            "native_tile_batches": 95,
+            "conv": 36,
+            "conv_seconds": 1.0860760879986628,
+            "scan_zero": 18,
+            "scan_seconds": 1.4561921809963678,
+            "conv_tail_excess_backing_bytes": 230547456,
+            "compact_state_kv_bytes": 19267584,
+            "arm_segments": 35,
+            "arm_attention_s": 1.158569097002328,
+            "tail_state_queries_elided": 784,
+            "state_passes": 1,
+            "state_seconds": 43.05166718500004,
+            "scan_continue": 18,
+            "tail_readout_queries": 4,
+            "question_batches": 1,
+            "padded_question_positions": 404,
+            "question_seconds": 7.106031727999834
+          }
+        },
+        {
+          "seconds": 14.650309575999927,
+          "usage": {
+            "input_tokens": 1186,
+            "output_tokens": 0
+          },
+          "answers": {
+            "tool_inventory_management": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.0044089202778346045,
+                "no": 0.9955910797221654
+              },
+              "confidence": 0.9591519316919012
+            },
+            "tool_product_search": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.0017250320730047037,
+                "no": 0.9982749679269953
+              },
+              "confidence": 0.9816791052588625
+            },
+            "tool_order_status_check": {
+              "type": "choice",
+              "choice": "yes",
+              "probabilities": {
+                "yes": 0.9977059559447924,
+                "no": 0.0022940440552075628
+              },
+              "confidence": 0.9765802644602496
+            },
+            "tool_get_product_details": {
+              "type": "choice",
+              "choice": "no",
+              "probabilities": {
+                "yes": 0.002743646311186489,
+                "no": 0.9972563536888135
+              },
+              "confidence": 0.9726996111060249
+            }
+          },
+          "peak_rss_bytes": 7344640000,
+          "open_fds_after_call": 997,
+          "memory.peak": 4500062208,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 51.685092759000014,
+          "cpu_samples": {
+            "intervals": 14,
+            "all_cores_at_least_90pct": 0,
+            "process_peak_percent": 393.7
+          },
+          "thermal_c_before": {
+            "little-core-thermal": 40.692,
+            "soc-thermal": 39.769,
+            "gpu-thermal": 39.769,
+            "ddr-thermal": 38.845,
+            "bigcore-thermal": 40.692,
+            "npu-thermal": 38.845
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 42.538,
+            "soc-thermal": 41.615,
+            "gpu-thermal": 42.538,
+            "ddr-thermal": 40.692,
+            "bigcore-thermal": 42.538,
+            "npu-thermal": 41.615
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 41.96,
+            "cpu1": 43.35,
+            "cpu2": 43.31,
+            "cpu3": 40.87,
+            "cpu4": 47.4,
+            "cpu5": 46.69,
+            "cpu6": 46.15,
+            "cpu7": 46.2
+          },
+          "operations": {
+            "npu_matmuls": 701,
+            "fused_projection_batches": 48,
+            "npu_bridge_seconds": 7.99870815000304,
+            "native_tile_batches": 95,
+            "conv": 36,
+            "conv_seconds": 1.0750993860019662,
+            "scan_zero": 18,
+            "scan_seconds": 1.4551223909975306,
+            "conv_tail_excess_backing_bytes": 230547456,
+            "compact_state_kv_bytes": 19267584,
+            "arm_segments": 35,
+            "arm_attention_s": 1.1544857269982458,
+            "tail_state_queries_elided": 784,
+            "state_passes": 1,
+            "state_seconds": 8.608132101000592,
+            "scan_continue": 18,
+            "tail_readout_queries": 4,
+            "question_batches": 1,
+            "padded_question_positions": 404,
+            "question_seconds": 6.001943006000147
+          }
+        }
+      ]
+    },
+    {
+      "id": "typesafe-invoice-processing-ap_00000-semantic-c99c14de6091",
+      "payload_sha256": "c99c14de6091a2aad3bd97d483997b2be1bc1a0bd35511f722064f9e4c44e07a",
+      "question_lengths": {
+        "statement_not_invoice": 9003,
+        "different_entity": 9026,
+        "too_ambiguous": 9141,
+        "unexplained_charges": 9071,
+        "adjustment_duplicates_line": 9002,
+        "tax_two_rates": 9059,
+        "unusual_urgency": 9108,
+        "bank_change_claimed_in_comms": 9032,
+        "price_basis": 9528,
+        "billed_above_basis": 9222,
+        "line_0_kind": 9651,
+        "line_0_scope": 10605,
+        "line_0_completion": 10289,
+        "line_0_rebilled": 9247,
+        "line_0_owner_declined": 9179,
+        "line_0_unexplained_fee": 9210,
+        "line_0_rate_differs": 9127,
+        "line_0_evidence_0": 9273,
+        "line_0_evidence_1": 9272,
+        "line_0_evidence_2": 9274,
+        "line_1_kind": 9441,
+        "line_1_scope": 10395,
+        "line_1_completion": 10079,
+        "line_1_rebilled": 9212,
+        "line_1_owner_declined": 9144,
+        "line_1_unexplained_fee": 9175,
+        "line_1_rate_differs": 9092,
+        "line_1_evidence_0": 9238,
+        "line_1_evidence_1": 9237,
+        "line_1_evidence_2": 9239,
+        "line_2_kind": 9417,
+        "line_2_scope": 10371,
+        "line_2_completion": 10055,
+        "line_2_rebilled": 9208,
+        "line_2_owner_declined": 9140,
+        "line_2_unexplained_fee": 9171,
+        "line_2_rate_differs": 9088,
+        "line_2_evidence_0": 9234,
+        "line_2_evidence_1": 9233,
+        "line_2_evidence_2": 9235,
+        "line_3_kind": 9417,
+        "line_3_scope": 10371,
+        "line_3_completion": 10055,
+        "line_3_rebilled": 9208,
+        "line_3_owner_declined": 9140,
+        "line_3_unexplained_fee": 9171,
+        "line_3_rate_differs": 9088,
+        "line_3_evidence_0": 9234,
+        "line_3_evidence_1": 9233,
+        "line_3_evidence_2": 9235,
+        "prior_0": 9510,
+        "prior_1": 9526,
+        "approval_0": 9572,
+        "retainage": 9050,
+        "discount_days": 9169
+      },
+      "state_lengths": {
+        "statement_not_invoice": 8902,
+        "different_entity": 8902,
+        "too_ambiguous": 8902,
+        "unexplained_charges": 8902,
+        "adjustment_duplicates_line": 8902,
+        "tax_two_rates": 8902,
+        "unusual_urgency": 8902,
+        "bank_change_claimed_in_comms": 8902,
+        "price_basis": 8902,
+        "billed_above_basis": 8902,
+        "line_0_kind": 8902,
+        "line_0_scope": 8902,
+        "line_0_completion": 8902,
+        "line_0_rebilled": 8902,
+        "line_0_owner_declined": 8902,
+        "line_0_unexplained_fee": 8902,
+        "line_0_rate_differs": 8902,
+        "line_0_evidence_0": 8902,
+        "line_0_evidence_1": 8902,
+        "line_0_evidence_2": 8902,
+        "line_1_kind": 8902,
+        "line_1_scope": 8902,
+        "line_1_completion": 8902,
+        "line_1_rebilled": 8902,
+        "line_1_owner_declined": 8902,
+        "line_1_unexplained_fee": 8902,
+        "line_1_rate_differs": 8902,
+        "line_1_evidence_0": 8902,
+        "line_1_evidence_1": 8902,
+        "line_1_evidence_2": 8902,
+        "line_2_kind": 8902,
+        "line_2_scope": 8902,
+        "line_2_completion": 8902,
+        "line_2_rebilled": 8902,
+        "line_2_owner_declined": 8902,
+        "line_2_unexplained_fee": 8902,
+        "line_2_rate_differs": 8902,
+        "line_2_evidence_0": 8902,
+        "line_2_evidence_1": 8902,
+        "line_2_evidence_2": 8902,
+        "line_3_kind": 8902,
+        "line_3_scope": 8902,
+        "line_3_completion": 8902,
+        "line_3_rebilled": 8902,
+        "line_3_owner_declined": 8902,
+        "line_3_unexplained_fee": 8902,
+        "line_3_rate_differs": 8902,
+        "line_3_evidence_0": 8902,
+        "line_3_evidence_1": 8902,
+        "line_3_evidence_2": 8902,
+        "prior_0": 8902,
+        "prior_1": 8902,
+        "approval_0": 8902,
+        "retainage": 8902,
+        "discount_days": 8902
+      },
+      "expected": {
+        "statement_not_invoice": false,
+        "different_entity": false,
+        "too_ambiguous": false,
+        "unexplained_charges": true,
+        "adjustment_duplicates_line": true,
+        "tax_two_rates": false,
+        "unusual_urgency": false,
+        "bank_change_claimed_in_comms": false,
+        "price_basis": "cap_only",
+        "billed_above_basis": false,
+        "line_0_kind": "work_or_goods",
+        "line_0_scope": "priced_unit",
+        "line_0_completion": "confirmed",
+        "line_0_rebilled": false,
+        "line_0_owner_declined": false,
+        "line_0_unexplained_fee": false,
+        "line_0_rate_differs": false,
+        "line_0_evidence_0": false,
+        "line_0_evidence_1": false,
+        "line_0_evidence_2": false,
+        "line_1_kind": "work_or_goods",
+        "line_1_scope": "component_also_billed",
+        "line_1_completion": "vendor_only",
+        "line_1_rebilled": false,
+        "line_1_owner_declined": false,
+        "line_1_unexplained_fee": false,
+        "line_1_rate_differs": false,
+        "line_1_evidence_0": false,
+        "line_1_evidence_1": false,
+        "line_1_evidence_2": false,
+        "line_2_kind": "work_or_goods",
+        "line_2_scope": "component_also_billed",
+        "line_2_completion": "vendor_only",
+        "line_2_rebilled": false,
+        "line_2_owner_declined": false,
+        "line_2_unexplained_fee": false,
+        "line_2_rate_differs": false,
+        "line_2_evidence_0": false,
+        "line_2_evidence_1": false,
+        "line_2_evidence_2": false,
+        "line_3_kind": "charge_on_top",
+        "line_3_scope": "not_ours",
+        "line_3_completion": "confirmed",
+        "line_3_rebilled": false,
+        "line_3_owner_declined": false,
+        "line_3_unexplained_fee": false,
+        "line_3_rate_differs": false,
+        "line_3_evidence_0": false,
+        "line_3_evidence_1": false,
+        "line_3_evidence_2": false,
+        "prior_0": "earlier_period_or_phase",
+        "prior_1": "earlier_period_or_phase",
+        "approval_0": "approves_as_billed",
+        "retainage": "none",
+        "discount_days": "none"
+      },
+      "calls": [
+        {
+          "seconds": 602.0677785560001,
+          "usage": {
+            "input_tokens": 34994,
+            "output_tokens": 0
+          },
+          "answers": {
+            "statement_not_invoice": {
+              "type": "noul",
+              "noul": 0.0299084475663767
+            },
+            "different_entity": {
+              "type": "noul",
+              "noul": 0.027934815006167794
+            },
+            "too_ambiguous": {
+              "type": "noul",
+              "noul": 0.1601987952023565
+            },
+            "unexplained_charges": {
+              "type": "noul",
+              "noul": 0.22380950557334
+            },
+            "adjustment_duplicates_line": {
+              "type": "noul",
+              "noul": 0.6157931868968364
+            },
+            "tax_two_rates": {
+              "type": "noul",
+              "noul": 0.01821821636564153
+            },
+            "unusual_urgency": {
+              "type": "noul",
+              "noul": 0.02261084729548608
+            },
+            "bank_change_claimed_in_comms": {
+              "type": "noul",
+              "noul": 0.19697700734402251
+            },
+            "price_basis": {
+              "type": "choice",
+              "choice": "period_fee",
+              "probabilities": {
+                "total_fee": 0.005739015664021053,
+                "period_fee": 0.3723243559729793,
+                "unit_rates": 0.3547475730842205,
+                "cap_only": 0.06309905286823236,
+                "none": 0.13475438180622226,
+                "unsure": 0.06933562060432447
+              },
+              "confidence": 0.2216657241847001
+            },
+            "billed_above_basis": {
+              "type": "noul",
+              "noul": 0.481235146522522
+            },
+            "line_0_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9610538841523901,
+                "tax": 0.0010008987490797258,
+                "charge_on_top": 0.029197677249332473,
+                "credit_or_discount": 0.001188890164247165,
+                "expense_or_retainage": 0.0075586496849505075
+              },
+              "confidence": 0.8799600047781535
+            },
+            "line_0_scope": {
+              "type": "choice",
+              "choice": "priced_unit",
+              "probabilities": {
+                "priced_unit": 0.8335501862149755,
+                "component_also_billed": 0.03576079144182769,
+                "extra_approved": 0.02712635796987854,
+                "extra_unapproved": 0.052035911084559225,
+                "not_ours": 0.016357999904379247,
+                "unsure": 0.035168753384379796
+              },
+              "confidence": 0.6051114433462067
+            },
+            "line_0_completion": {
+              "type": "choice",
+              "choice": "confirmed",
+              "probabilities": {
+                "confirmed": 0.5467248146255439,
+                "less": 0.053981596551218515,
+                "not_done": 0.04021153361314462,
+                "vendor_only": 0.19966623856498356,
+                "none": 0.07727199306878424,
+                "unsure": 0.08214382357632523
+              },
+              "confidence": 0.2511530781914434
+            },
+            "line_0_rebilled": {
+              "type": "noul",
+              "noul": 0.38563525676727295
+            },
+            "line_0_owner_declined": {
+              "type": "noul",
+              "noul": 0.038201271181634106
+            },
+            "line_0_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.0781521659814144
+            },
+            "line_0_rate_differs": {
+              "type": "noul",
+              "noul": 0.2361249327659607
+            },
+            "line_0_evidence_0": {
+              "type": "noul",
+              "noul": 0.3562104297813645
+            },
+            "line_0_evidence_1": {
+              "type": "noul",
+              "noul": 0.35304123339425625
+            },
+            "line_0_evidence_2": {
+              "type": "noul",
+              "noul": 0.31513547897338867
+            },
+            "line_1_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9854611546318816,
+                "tax": 0.0005343502093834767,
+                "charge_on_top": 0.00979530020207587,
+                "credit_or_discount": 0.0005669193118897942,
+                "expense_or_retainage": 0.0036422756447692605
+              },
+              "confidence": 0.9450366526874711
+            },
+            "line_1_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.08543395505648717,
+                "component_also_billed": 0.07339321295598784,
+                "extra_approved": 0.06125011477619752,
+                "extra_unapproved": 0.6999323576668608,
+                "not_ours": 0.02788057633878518,
+                "unsure": 0.05210978320568154
+              },
+              "confidence": 0.399248871791415
+            },
+            "line_1_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.028138209815689787,
+                "less": 0.030754918977271666,
+                "not_done": 0.07058742068267701,
+                "vendor_only": 0.12731091986418136,
+                "none": 0.6015095856406253,
+                "unsure": 0.14169894501955488
+              },
+              "confidence": 0.3081010824383701
+            },
+            "line_1_rebilled": {
+              "type": "noul",
+              "noul": 0.4174040133534666
+            },
+            "line_1_owner_declined": {
+              "type": "noul",
+              "noul": 0.04167949904921656
+            },
+            "line_1_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.4456103444099426
+            },
+            "line_1_rate_differs": {
+              "type": "noul",
+              "noul": 0.3152416944503784
+            },
+            "line_1_evidence_0": {
+              "type": "noul",
+              "noul": 0.3219145930383978
+            },
+            "line_1_evidence_1": {
+              "type": "noul",
+              "noul": 0.31200385093688965
+            },
+            "line_1_evidence_2": {
+              "type": "noul",
+              "noul": 0.2271505824580615
+            },
+            "line_2_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9888779476686712,
+                "tax": 0.0005957741942417942,
+                "charge_on_top": 0.007239609517233839,
+                "credit_or_discount": 0.0006304673527923951,
+                "expense_or_retainage": 0.002656201267060805
+              },
+              "confidence": 0.9555362551640947
+            },
+            "line_2_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19460546640190282,
+                "component_also_billed": 0.10775387929403063,
+                "extra_approved": 0.06325149168083022,
+                "extra_unapproved": 0.4820435334469994,
+                "not_ours": 0.03323720593674218,
+                "unsure": 0.11910842323949475
+              },
+              "confidence": 0.1898826758011568
+            },
+            "line_2_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.02403131118405122,
+                "less": 0.020529337150866772,
+                "not_done": 0.053333923021950114,
+                "vendor_only": 0.03516735495937111,
+                "none": 0.7464768858757731,
+                "unsure": 0.12046118780798767
+              },
+              "confidence": 0.48841208557185567
+            },
+            "line_2_rebilled": {
+              "type": "noul",
+              "noul": 0.36082790377223206
+            },
+            "line_2_owner_declined": {
+              "type": "noul",
+              "noul": 0.03211961543025305
+            },
+            "line_2_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.22836145078058687
+            },
+            "line_2_rate_differs": {
+              "type": "noul",
+              "noul": 0.20647497167475565
+            },
+            "line_2_evidence_0": {
+              "type": "noul",
+              "noul": 0.31193794870561514
+            },
+            "line_2_evidence_1": {
+              "type": "noul",
+              "noul": 0.32507785185939514
+            },
+            "line_2_evidence_2": {
+              "type": "noul",
+              "noul": 0.2251295100955446
+            },
+            "line_3_kind": {
+              "type": "choice",
+              "choice": "charge_on_top",
+              "probabilities": {
+                "work_or_goods": 0.08374497055351265,
+                "tax": 0.0013293989107429555,
+                "charge_on_top": 0.9044629881875929,
+                "credit_or_discount": 0.0018765033425187268,
+                "expense_or_retainage": 0.008586139005632855
+              },
+              "confidence": 0.776355533649168
+            },
+            "line_3_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.20061104069795543,
+                "component_also_billed": 0.07784381702902718,
+                "extra_approved": 0.06935487941748385,
+                "extra_unapproved": 0.3406098541930794,
+                "not_ours": 0.059091485579541976,
+                "unsure": 0.2524889230829122
+              },
+              "confidence": 0.11394983225502286
+            },
+            "line_3_completion": {
+              "type": "choice",
+              "choice": "vendor_only",
+              "probabilities": {
+                "confirmed": 0.1906067743197588,
+                "less": 0.13870456918108887,
+                "not_done": 0.08897666699421902,
+                "vendor_only": 0.35898691683252837,
+                "none": 0.10441970157935992,
+                "unsure": 0.11830537109304495
+              },
+              "confidence": 0.07274543688294632
+            },
+            "line_3_rebilled": {
+              "type": "noul",
+              "noul": 0.37205368280410767
+            },
+            "line_3_owner_declined": {
+              "type": "noul",
+              "noul": 0.03456224603277755
+            },
+            "line_3_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.8528208390718949
+            },
+            "line_3_rate_differs": {
+              "type": "noul",
+              "noul": 0.1965266585867605
+            },
+            "line_3_evidence_0": {
+              "type": "noul",
+              "noul": 0.23856579122790383
+            },
+            "line_3_evidence_1": {
+              "type": "noul",
+              "noul": 0.19346265831812273
+            },
+            "line_3_evidence_2": {
+              "type": "noul",
+              "noul": 0.27915517327651895
+            },
+            "prior_0": {
+              "type": "choice",
+              "choice": "earlier_period_or_phase",
+              "probabilities": {
+                "same_obligation": 0.3923697453347512,
+                "earlier_period_or_phase": 0.5594020459828803,
+                "unrelated": 0.009361964606857093,
+                "unsure": 0.038866244075511376
+              },
+              "confidence": 0.3782093429850393
+            },
+            "prior_1": {
+              "type": "choice",
+              "choice": "same_obligation",
+              "probabilities": {
+                "same_obligation": 0.7567318095951002,
+                "earlier_period_or_phase": 0.19126389956337195,
+                "unrelated": 0.010521309469866211,
+                "unsure": 0.04148298137166161
+              },
+              "confidence": 0.4898325510650283
+            },
+            "approval_0": {
+              "type": "choice",
+              "choice": "approves_as_billed",
+              "probabilities": {
+                "approves_as_billed": 0.8740266292887937,
+                "approves_except_lines": 0.03944684071303742,
+                "review_in_progress": 0.010447817533483748,
+                "withholds": 0.015831270699918333,
+                "unsure": 0.06024744176476674
+              },
+              "confidence": 0.672091404700785
+            },
+            "retainage": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "5": 0.019008399401454584,
+                "10": 0.02597481009930891,
+                "15": 0.021796635963529657,
+                "none": 0.9332201545357068
+              },
+              "confidence": 0.770579100210318
+            },
+            "discount_days": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "7": 0.054137977537341585,
+                "10": 0.03949251414204587,
+                "15": 0.04704836330964114,
+                "20": 0.009762630847305812,
+                "30": 0.011003849965172403,
+                "none": 0.8385546641984932
+              },
+              "confidence": 0.6250752148006462
+            }
+          },
+          "peak_rss_bytes": 9661730816,
+          "open_fds_after_call": 1019,
+          "memory.peak": 6732800000,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 2712.58691074,
+          "cpu_samples": {
+            "intervals": 601,
+            "all_cores_at_least_90pct": 36,
+            "process_peak_percent": 800.5
+          },
+          "thermal_c_before": {
+            "little-core-thermal": 40.692,
+            "soc-thermal": 39.769,
+            "gpu-thermal": 40.692,
+            "ddr-thermal": 38.845,
+            "bigcore-thermal": 39.769,
+            "npu-thermal": 38.845
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 44.384,
+            "soc-thermal": 43.461,
+            "gpu-thermal": 44.384,
+            "ddr-thermal": 43.461,
+            "bigcore-thermal": 44.384,
+            "npu-thermal": 42.538
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 53.38,
+            "cpu1": 53.27,
+            "cpu2": 52.73,
+            "cpu3": 52.11,
+            "cpu4": 60.72,
+            "cpu5": 61.09,
+            "cpu6": 59.87,
+            "cpu7": 60.01
+          },
+          "operations": {
+            "npu_matmuls": 17475,
+            "fused_projection_batches": 384,
+            "npu_bridge_seconds": 212.36139194500083,
+            "native_tile_batches": 781,
+            "conv": 288,
+            "conv_seconds": 45.27470501500375,
+            "scan_zero": 18,
+            "scan_seconds": 40.021972092004944,
+            "conv_tail_excess_backing_bytes": 2624643072,
+            "compact_state_kv_bytes": 109387776,
+            "arm_segments": 345,
+            "arm_attention_s": 23.900122005999037,
+            "tail_state_queries_elided": 8902,
+            "state_passes": 1,
+            "state_seconds": 118.43676810899979,
+            "scan_continue": 270,
+            "tail_readout_queries": 55,
+            "question_batches": 15,
+            "padded_question_positions": 27288,
+            "question_seconds": 478.0719231809999,
+            "hybrid_segments": 80,
+            "hybrid_attention_s": 176.13818832000834
+          }
+        },
+        {
+          "seconds": 599.9839181240004,
+          "usage": {
+            "input_tokens": 34994,
+            "output_tokens": 0
+          },
+          "answers": {
+            "statement_not_invoice": {
+              "type": "noul",
+              "noul": 0.0299084475663767
+            },
+            "different_entity": {
+              "type": "noul",
+              "noul": 0.027934815006167794
+            },
+            "too_ambiguous": {
+              "type": "noul",
+              "noul": 0.1601987952023565
+            },
+            "unexplained_charges": {
+              "type": "noul",
+              "noul": 0.22380950557334
+            },
+            "adjustment_duplicates_line": {
+              "type": "noul",
+              "noul": 0.6157931868968364
+            },
+            "tax_two_rates": {
+              "type": "noul",
+              "noul": 0.01821821636564153
+            },
+            "unusual_urgency": {
+              "type": "noul",
+              "noul": 0.02261084729548608
+            },
+            "bank_change_claimed_in_comms": {
+              "type": "noul",
+              "noul": 0.19697700734402251
+            },
+            "price_basis": {
+              "type": "choice",
+              "choice": "period_fee",
+              "probabilities": {
+                "total_fee": 0.005739015664021053,
+                "period_fee": 0.3723243559729793,
+                "unit_rates": 0.3547475730842205,
+                "cap_only": 0.06309905286823236,
+                "none": 0.13475438180622226,
+                "unsure": 0.06933562060432447
+              },
+              "confidence": 0.2216657241847001
+            },
+            "billed_above_basis": {
+              "type": "noul",
+              "noul": 0.481235146522522
+            },
+            "line_0_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9610538841523901,
+                "tax": 0.0010008987490797258,
+                "charge_on_top": 0.029197677249332473,
+                "credit_or_discount": 0.001188890164247165,
+                "expense_or_retainage": 0.0075586496849505075
+              },
+              "confidence": 0.8799600047781535
+            },
+            "line_0_scope": {
+              "type": "choice",
+              "choice": "priced_unit",
+              "probabilities": {
+                "priced_unit": 0.8335501862149755,
+                "component_also_billed": 0.03576079144182769,
+                "extra_approved": 0.02712635796987854,
+                "extra_unapproved": 0.052035911084559225,
+                "not_ours": 0.016357999904379247,
+                "unsure": 0.035168753384379796
+              },
+              "confidence": 0.6051114433462067
+            },
+            "line_0_completion": {
+              "type": "choice",
+              "choice": "confirmed",
+              "probabilities": {
+                "confirmed": 0.5467248146255439,
+                "less": 0.053981596551218515,
+                "not_done": 0.04021153361314462,
+                "vendor_only": 0.19966623856498356,
+                "none": 0.07727199306878424,
+                "unsure": 0.08214382357632523
+              },
+              "confidence": 0.2511530781914434
+            },
+            "line_0_rebilled": {
+              "type": "noul",
+              "noul": 0.38563525676727295
+            },
+            "line_0_owner_declined": {
+              "type": "noul",
+              "noul": 0.038201271181634106
+            },
+            "line_0_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.0781521659814144
+            },
+            "line_0_rate_differs": {
+              "type": "noul",
+              "noul": 0.2361249327659607
+            },
+            "line_0_evidence_0": {
+              "type": "noul",
+              "noul": 0.3562104297813645
+            },
+            "line_0_evidence_1": {
+              "type": "noul",
+              "noul": 0.35304123339425625
+            },
+            "line_0_evidence_2": {
+              "type": "noul",
+              "noul": 0.31513547897338867
+            },
+            "line_1_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9854611546318816,
+                "tax": 0.0005343502093834767,
+                "charge_on_top": 0.00979530020207587,
+                "credit_or_discount": 0.0005669193118897942,
+                "expense_or_retainage": 0.0036422756447692605
+              },
+              "confidence": 0.9450366526874711
+            },
+            "line_1_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.08543395505648717,
+                "component_also_billed": 0.07339321295598784,
+                "extra_approved": 0.06125011477619752,
+                "extra_unapproved": 0.6999323576668608,
+                "not_ours": 0.02788057633878518,
+                "unsure": 0.05210978320568154
+              },
+              "confidence": 0.399248871791415
+            },
+            "line_1_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.028138209815689787,
+                "less": 0.030754918977271666,
+                "not_done": 0.07058742068267701,
+                "vendor_only": 0.12731091986418136,
+                "none": 0.6015095856406253,
+                "unsure": 0.14169894501955488
+              },
+              "confidence": 0.3081010824383701
+            },
+            "line_1_rebilled": {
+              "type": "noul",
+              "noul": 0.4174040133534666
+            },
+            "line_1_owner_declined": {
+              "type": "noul",
+              "noul": 0.04167949904921656
+            },
+            "line_1_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.4456103444099426
+            },
+            "line_1_rate_differs": {
+              "type": "noul",
+              "noul": 0.3152416944503784
+            },
+            "line_1_evidence_0": {
+              "type": "noul",
+              "noul": 0.3219145930383978
+            },
+            "line_1_evidence_1": {
+              "type": "noul",
+              "noul": 0.31200385093688965
+            },
+            "line_1_evidence_2": {
+              "type": "noul",
+              "noul": 0.2271505824580615
+            },
+            "line_2_kind": {
+              "type": "choice",
+              "choice": "work_or_goods",
+              "probabilities": {
+                "work_or_goods": 0.9888779476686712,
+                "tax": 0.0005957741942417942,
+                "charge_on_top": 0.007239609517233839,
+                "credit_or_discount": 0.0006304673527923951,
+                "expense_or_retainage": 0.002656201267060805
+              },
+              "confidence": 0.9555362551640947
+            },
+            "line_2_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.19460546640190282,
+                "component_also_billed": 0.10775387929403063,
+                "extra_approved": 0.06325149168083022,
+                "extra_unapproved": 0.4820435334469994,
+                "not_ours": 0.03323720593674218,
+                "unsure": 0.11910842323949475
+              },
+              "confidence": 0.1898826758011568
+            },
+            "line_2_completion": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "confirmed": 0.02403131118405122,
+                "less": 0.020529337150866772,
+                "not_done": 0.053333923021950114,
+                "vendor_only": 0.03516735495937111,
+                "none": 0.7464768858757731,
+                "unsure": 0.12046118780798767
+              },
+              "confidence": 0.48841208557185567
+            },
+            "line_2_rebilled": {
+              "type": "noul",
+              "noul": 0.36082790377223206
+            },
+            "line_2_owner_declined": {
+              "type": "noul",
+              "noul": 0.03211961543025305
+            },
+            "line_2_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.22836145078058687
+            },
+            "line_2_rate_differs": {
+              "type": "noul",
+              "noul": 0.20647497167475565
+            },
+            "line_2_evidence_0": {
+              "type": "noul",
+              "noul": 0.31193794870561514
+            },
+            "line_2_evidence_1": {
+              "type": "noul",
+              "noul": 0.32507785185939514
+            },
+            "line_2_evidence_2": {
+              "type": "noul",
+              "noul": 0.2251295100955446
+            },
+            "line_3_kind": {
+              "type": "choice",
+              "choice": "charge_on_top",
+              "probabilities": {
+                "work_or_goods": 0.08374497055351265,
+                "tax": 0.0013293989107429555,
+                "charge_on_top": 0.9044629881875929,
+                "credit_or_discount": 0.0018765033425187268,
+                "expense_or_retainage": 0.008586139005632855
+              },
+              "confidence": 0.776355533649168
+            },
+            "line_3_scope": {
+              "type": "choice",
+              "choice": "extra_unapproved",
+              "probabilities": {
+                "priced_unit": 0.20061104069795543,
+                "component_also_billed": 0.07784381702902718,
+                "extra_approved": 0.06935487941748385,
+                "extra_unapproved": 0.3406098541930794,
+                "not_ours": 0.059091485579541976,
+                "unsure": 0.2524889230829122
+              },
+              "confidence": 0.11394983225502286
+            },
+            "line_3_completion": {
+              "type": "choice",
+              "choice": "vendor_only",
+              "probabilities": {
+                "confirmed": 0.1906067743197588,
+                "less": 0.13870456918108887,
+                "not_done": 0.08897666699421902,
+                "vendor_only": 0.35898691683252837,
+                "none": 0.10441970157935992,
+                "unsure": 0.11830537109304495
+              },
+              "confidence": 0.07274543688294632
+            },
+            "line_3_rebilled": {
+              "type": "noul",
+              "noul": 0.37205368280410767
+            },
+            "line_3_owner_declined": {
+              "type": "noul",
+              "noul": 0.03456224603277755
+            },
+            "line_3_unexplained_fee": {
+              "type": "noul",
+              "noul": 0.8528208390718949
+            },
+            "line_3_rate_differs": {
+              "type": "noul",
+              "noul": 0.1965266585867605
+            },
+            "line_3_evidence_0": {
+              "type": "noul",
+              "noul": 0.23856579122790383
+            },
+            "line_3_evidence_1": {
+              "type": "noul",
+              "noul": 0.19346265831812273
+            },
+            "line_3_evidence_2": {
+              "type": "noul",
+              "noul": 0.27915517327651895
+            },
+            "prior_0": {
+              "type": "choice",
+              "choice": "earlier_period_or_phase",
+              "probabilities": {
+                "same_obligation": 0.3923697453347512,
+                "earlier_period_or_phase": 0.5594020459828803,
+                "unrelated": 0.009361964606857093,
+                "unsure": 0.038866244075511376
+              },
+              "confidence": 0.3782093429850393
+            },
+            "prior_1": {
+              "type": "choice",
+              "choice": "same_obligation",
+              "probabilities": {
+                "same_obligation": 0.7567318095951002,
+                "earlier_period_or_phase": 0.19126389956337195,
+                "unrelated": 0.010521309469866211,
+                "unsure": 0.04148298137166161
+              },
+              "confidence": 0.4898325510650283
+            },
+            "approval_0": {
+              "type": "choice",
+              "choice": "approves_as_billed",
+              "probabilities": {
+                "approves_as_billed": 0.8740266292887937,
+                "approves_except_lines": 0.03944684071303742,
+                "review_in_progress": 0.010447817533483748,
+                "withholds": 0.015831270699918333,
+                "unsure": 0.06024744176476674
+              },
+              "confidence": 0.672091404700785
+            },
+            "retainage": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "5": 0.019008399401454584,
+                "10": 0.02597481009930891,
+                "15": 0.021796635963529657,
+                "none": 0.9332201545357068
+              },
+              "confidence": 0.770579100210318
+            },
+            "discount_days": {
+              "type": "choice",
+              "choice": "none",
+              "probabilities": {
+                "7": 0.054137977537341585,
+                "10": 0.03949251414204587,
+                "15": 0.04704836330964114,
+                "20": 0.009762630847305812,
+                "30": 0.011003849965172403,
+                "none": 0.8385546641984932
+              },
+              "confidence": 0.6250752148006462
+            }
+          },
+          "peak_rss_bytes": 9802543104,
+          "open_fds_after_call": 1019,
+          "memory.peak": 6872993792,
+          "memory.swap.current": 0,
+          "process_cpu_seconds": 2706.3416337390004,
+          "cpu_samples": {
+            "intervals": 598,
+            "all_cores_at_least_90pct": 36,
+            "process_peak_percent": 800.9
+          },
+          "thermal_c_before": {
+            "little-core-thermal": 44.384,
+            "soc-thermal": 43.461,
+            "gpu-thermal": 43.461,
+            "ddr-thermal": 42.538,
+            "bigcore-thermal": 44.384,
+            "npu-thermal": 42.538
+          },
+          "thermal_c_after": {
+            "little-core-thermal": 45.307,
+            "soc-thermal": 44.384,
+            "gpu-thermal": 44.384,
+            "ddr-thermal": 43.461,
+            "bigcore-thermal": 46.23,
+            "npu-thermal": 43.461
+          },
+          "host_cpu_busy_percent": {
+            "cpu0": 53.7,
+            "cpu1": 53.44,
+            "cpu2": 53.26,
+            "cpu3": 52.23,
+            "cpu4": 61.76,
+            "cpu5": 60.25,
+            "cpu6": 60.0,
+            "cpu7": 60.41
+          },
+          "operations": {
+            "npu_matmuls": 17475,
+            "fused_projection_batches": 384,
+            "npu_bridge_seconds": 212.09344634595436,
+            "native_tile_batches": 781,
+            "conv": 288,
+            "conv_seconds": 45.15575761699802,
+            "scan_zero": 18,
+            "scan_seconds": 40.33529743599229,
+            "conv_tail_excess_backing_bytes": 2624643072,
+            "compact_state_kv_bytes": 109387776,
+            "arm_segments": 345,
+            "arm_attention_s": 24.130065031013146,
+            "tail_state_queries_elided": 8902,
+            "state_passes": 1,
+            "state_seconds": 116.77436777900039,
+            "scan_continue": 270,
+            "tail_readout_queries": 55,
+            "question_batches": 15,
+            "padded_question_positions": 27288,
+            "question_seconds": 477.4646389270001,
+            "hybrid_segments": 80,
+            "hybrid_attention_s": 174.71061412999643
+          }
+        }
+      ]
+    }
+  ],
+  "checkpoint_manifest_sha256": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec",
+  "aggressive_prefix_backend": "hybrid",
+  "fuse_projections": true,
+  "max_question_rows": 4,
+  "sdpa_precision": "fp32"
+}

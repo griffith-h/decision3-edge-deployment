@@ -1,0 +1,124 @@
+{
+  "date": "2026-11-20",
+  "model": "FriendlyElec NanoPi R76S",
+  "kernel": "6.1.115-vendor-rk35xx",
+  "container_image": "sha256:cd5c294eb741dd011ad31f8dbc6ab10a088123922122f06d2c29b7d89067d49d",
+  "checkpoint_revision": "71d06677f56e243042fe5d5f983804648a5689e8",
+  "verified_files_sha256": {
+    "MODEL_MANIFEST.json": "1ba45391c53d7dcd08ef0fa01ee838f39413de0baaac27f194489b441784d3ec",
+    "d3_runtime.py": "ce79977d22c2307f00c03b4c214a21b9fee0dc9ab566ac04adc76524f8380380",
+    "libd3_segment.so": "37dd619b9d6ca0251efaf6a2000d64591abd7b837c2610f0a61568a256716a27",
+    "libd3_state.so": "5ecc71cd6ef6835822f0dcf5f46b7b8ada61877714847f1f07e277679e156389",
+    "libd3_tiles.so": "4e76f36399e61874453c5c11cb48ec838640137cce3801538ca6b12b644fa118",
+    "libnative_short.so": "b411e3c02d710ee773747cc844780ab1abd686e4aef2381f24c8f4bf58705336",
+    "model.safetensors": "93d72e7e2862a488b4950ecc668782cd2da48b196ee514ae1aa3c173fee2e4ef",
+    "readout.safetensors": "b7a500ca640cbb6d4b9a8862f9ccf5e4aa64f1d2169b9dc6b7fee3dbb4a8d971"
+  },
+  "cpu_frequency_policies": {
+    "policy0": {
+      "affected_cpus": "0 1 2 3",
+      "scaling_governor": "ondemand",
+      "cpuinfo_max_freq": "2016000",
+      "scaling_max_freq": "2016000",
+      "scaling_min_freq": "2016000"
+    },
+    "policy4": {
+      "affected_cpus": "4 5 6 7",
+      "scaling_governor": "ondemand",
+      "cpuinfo_max_freq": "2208000",
+      "scaling_max_freq": "2208000",
+      "scaling_min_freq": "408000"
+    }
+  },
+  "devfreq_governors": {
+    "27700000.npu": "rknpu_ondemand",
+    "27800000.gpu": "simple_ondemand",
+    "27d00000.vop": "vop2_ondemand",
+    "dmc": "dmc_ondemand"
+  },
+  "experimental_sources_sha256": {
+    "stable": {
+      "adapter.py": "15260fafc27eea920cccb54cd3e81c538b7d3d4d805a64526263b23fd5018559",
+      "bench.py": "187faf1b4beb090c6581daa8bff7dbf986e9ed4724bf83670136f0cc6ae62888",
+      "compare.py": "462ad284a45362b3b02d7345282c6f68e6c81e9bd8eb71b86bddf27c8f1300c9",
+      "cpu_attention.py": "e9f4cb48a85ca500f7dffb821c8f75e7eb8a5fabe5639d8d3460839e3a35380b",
+      "engine.py": "49e4df8cb48c3945365d3a6f1970214fb6d0686fb0a71fa94709fc06b4f181d5",
+      "fast_prefix.py": "bbe24e09276962e58dca1dcbdef9a239d7d62c2aaf844c118325f789feced474",
+      "infer.py": "6b924aa96fec529b548a47248625171c662bea1ec63bd5e2fecacc317637786c",
+      "prefix_rknn.py": "03bf2e0f40047c790592ed6460e25ed4e1d851f5aff82e540e94c3c5c4de2687",
+      "probe_prefix.py": "5076a7266b9471e4be0a40677f3256af681c69dddbb2b052955d8ba66fe1a32d",
+      "run-board.sh": "a02e70fc0ad335b2fc077ca0bceffe849dd11fb2a2d3d68dfdd3fdd96454803f",
+      "state_kernels.py": "e009925884df20630011c19be8045d420407415171779463c7155766b60f753e",
+      "test_engine.py": "5cf33417404ccba8e1cad299456ba4096b11d9dd3ce573958ef1a366edc9883d",
+      "workflow_eval.py": "dea5b6e5ca0d0a94c200302862b998621c81497ada94b8475382b1860e1d713a"
+    },
+    "trial": {
+      "adapter.py": "15260fafc27eea920cccb54cd3e81c538b7d3d4d805a64526263b23fd5018559",
+      "bench.py": "ee0a7ec291dc5d90467b49b53ad2b455606b0800a1fd45ea8459271ec1bb8f6f",
+      "compare.py": "462ad284a45362b3b02d7345282c6f68e6c81e9bd8eb71b86bddf27c8f1300c9",
+      "cpu_attention.py": "e9f4cb48a85ca500f7dffb821c8f75e7eb8a5fabe5639d8d3460839e3a35380b",
+      "engine.py": "97843cb9ffb062f255008f118e683151110e1a60775b3080e1b1649616fbc9f7",
+      "fast_prefix.py": "261af409500fae5178d10f0e707e35fe12088b256f8881feb89e73608fafff31",
+      "infer.py": "366bfb8b664029f52996021e0ea80731cdb305127107d3bed5e4113131e37239",
+      "prefix_rknn.py": "03bf2e0f40047c790592ed6460e25ed4e1d851f5aff82e540e94c3c5c4de2687",
+      "probe_prefix.py": "8d2bd8d9c27280ade9d484804bbc82ccaa4f2e25829d0b77c6920a779093cbfa",
+      "run-board.sh": "a02e70fc0ad335b2fc077ca0bceffe849dd11fb2a2d3d68dfdd3fdd96454803f",
+      "state_kernels.py": "e009925884df20630011c19be8045d420407415171779463c7155766b60f753e",
+      "test_engine.py": "e16d4236d145fc2a02f146fa64560920f850392287212768dd36298d1164bd9b",
+      "workflow_eval.py": "87d5c4089561be0671219d641414c67e32474688c78eefec349156f23106af58"
+    }
+  },
+  "trial_patch_sha256": "aaf371f3fc52021f05a00c7976062403365afb3200a3d51cc5cfd3c28f1bcb7e",
+  "board_unit_tests": {
+    "command": "python -B -m unittest -v test_engine",
+    "stable": 14,
+    "trial": 15,
+    "failed": 0,
+    "skipped": 0,
+    "batch_padding": 15,
+    "square_split": 16
+  },
+  "workflow_evals_commit": "0ac3b8ad845429f0d8e064ecfb2430a47c5a25cb",
+  "repository_revision": "a0c2ac524464a61442b62f7c90ca4cd00414c3b1",
+  "trial_patch_base": "4606a73fe9a4c2ef3df728099ab4baa61ca3f1ed",
+  "batch_padding_patch_sha256": "9f64fe276d856a68baf12b9e4ee206d8f9ed79ed7f5c5d0a29a64798154fd160",
+  "batch_padding_source_sha256": {
+    "engine.py": "0a2b904bec044842127880cded4547dda1a1b4ada3020d48904b320fee97fc36",
+    "test_engine.py": "ec334d82e2bbf98afff5d2ef7e793f3771b294d1cb2d40089d56df4a51efd7d4"
+  },
+  "square_split_patch_sha256": "7068e64945fa0c1355fd8cdf16ee38315567eaee28bc6da49c7d68d31100aada",
+  "square_split_source_sha256": {
+    "fast_prefix.py": "2bce7fc0a2d4ba4c56186388d3b53778f32a4c3af35fee04f48e70e15f7e0ecd",
+    "test_engine.py": "f97fe671e6a4a851aa8d6f2377a4937e973624d0dae7fa5ce7858ee1bc8b8d79"
+  },
+  "gpu_probe": {
+    "device": "Mali-G52 r1 (Panfrost)",
+    "backend": "Mesa Rusticl / CLBlast, resident FP32 QK transposed product",
+    "capture_sha256": "f93253695c141bb1d14cac8308f0e69ce77609838ab57e5e342fc6b345851421",
+    "qk_input_sha256": "81d2b098007c16a9ed2d15efcf6617ce002f4def7208cfae27f5fd447d67fac6",
+    "results_sha256": "8e56abeaad7d8bb7b55c72464db8b93ec1c1b444dcb5361ec1946de40ee6735b",
+    "edge_running_during_probe": true
+  },
+  "completion": {
+    "stage_exit_codes": {
+      "controls": 0,
+      "trial": 0,
+      "fusion": 0,
+      "combined": 0,
+      "supplement": 0,
+      "padding": 0,
+      "shapes": 0,
+      "shapesuite": 0,
+      "gpu": 0
+    },
+    "original_edge_container_restored": true,
+    "edge_health": "healthy",
+    "edge_restart_policy": "unless-stopped",
+    "active_containers": [
+      "decision3-edge-graph"
+    ],
+    "remaining_benchmark_containers": 0,
+    "active_benchmark_units": 0,
+    "same_boot_across_runs": true
+  }
+}

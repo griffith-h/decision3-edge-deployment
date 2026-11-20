@@ -1,0 +1,77 @@
+--- a/d3-engine/engine.py
++++ b/d3-engine/engine.py
+@@ -7,6 +7,7 @@
+ from collections import Counter
+ from collections.abc import Mapping
+ from contextlib import ExitStack
++from functools import lru_cache
+ from pathlib import Path
+
+ import torch
+@@ -114,6 +115,32 @@
+         return original(x)
+
+
++def question_batch_sizes(lengths, limit):
++    """Keep row order, group count and the row limit; minimize padded question positions."""
++    count = len(lengths)
++    full, tail = divmod(count, limit)
++    if not tail or not full:
++        return (limit,) * full + ((tail,) if tail else ())
++
++    @lru_cache(maxsize=None)
++    def partition(start, groups):
++        remaining = count - start
++        if groups == 1:
++            return remaining * max(lengths[start:]), (remaining,)
++        smallest = max(1, remaining - (groups - 1) * limit)
++        largest = min(limit, remaining - (groups - 1))
++        best_cost, best_sizes = float("inf"), ()
++        for size in range(largest, smallest - 1, -1):
++            stop = start + size
++            rest_cost, rest_sizes = partition(stop, groups - 1)
++            cost = size * max(lengths[start:stop]) + rest_cost
++            if cost < best_cost:
++                best_cost, best_sizes = cost, (size,) + rest_sizes
++        return best_cost, best_sizes
++
++    return partition(0, full + 1)[1]
++
++
+ class QuestionBranches:
+     """Hold one immutable state cache per request and bound the live question activations."""
+
+@@ -152,13 +179,16 @@
+     def questions(self, cache, embeds, lengths, rope):
+         start = time.perf_counter()
+         hidden = []
+-        for i in range(0, len(lengths), self.rows):
+-            group = lengths[i:i+self.rows]
++        i = 0
++        for size in question_batch_sizes(lengths, self.rows):
++            group = lengths[i:i+size]
+             width = max(group)
+             part = slice(i, i + len(group))
+             hidden.append(self.question_group(cache, embeds[part, :width], group,
+                                               tuple(t[part, :width] for t in rope)))
+             self.counts["question_batches"] += 1
++            self.counts["padded_question_positions"] += size * width
++            i += size
+         self.counts["question_seconds"] += time.perf_counter() - start
+         return torch.cat(hidden, dim=0)
+
+--- a/d3-engine/test_engine.py
++++ b/d3-engine/test_engine.py
+@@ -339,6 +339,12 @@
+         self.assertEqual(got.flatten().tolist(), [2, 10, 20])
+         self.assertEqual(batches, [[3, 4], [7]])
+
++        batches.clear()
++        got = owner.questions(cache, x, [1, 6, 7], (x, x))
++        self.assertEqual(got.flatten().tolist(), [0, 12, 20])
++        self.assertEqual(batches, [[1], [6, 7]])
++        self.assertEqual(owner.counts["padded_question_positions"], 2*4 + 7 + 1 + 2*7)
++
+     def test_cached_conv_tail_owns_only_three_tokens(self):
+         parent = torch.arange(24 * 8).view(1, 24, 8)
+         tail = parent[:, -3:, :].transpose(1, 2)

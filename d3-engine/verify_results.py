@@ -25,6 +25,42 @@ COMPARISONS = (
     ("eight-core/long8-vs-previous.json", 1, (
         "eight-core/reference.json", "eight-core/long8.json", "--engine-request", INVOICE,
     )),
+    ("long-prefix/four-vs-eight.json", 0, (
+        "long-prefix/four.json", "long-prefix/eight.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/hybrid-vs-eight.json", 0, (
+        "long-prefix/eight.json", "long-prefix/hybrid.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/hybrid-vs-previous.json", 1, (
+        "eight-core/reference.json", "long-prefix/hybrid.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/combined-vs-hybrid.json", 0, (
+        "long-prefix/hybrid.json", "long-prefix/combined.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/four-suite-cpu.json", 1, (
+        "cpu.json", "long-prefix/four-suite.json", *CPU_CONTROLS, "--compare-cpu-schedules",
+    )),
+    ("long-prefix/padded-vs-combined.json", 0, (
+        "long-prefix/combined.json", "long-prefix/padded.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/padded-vs-eight.json", 0, (
+        "long-prefix/eight.json", "long-prefix/padded.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/shapes-vs-padded.json", 1, (
+        "long-prefix/padded.json", "long-prefix/shapes.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/shapes-vs-eight.json", 1, (
+        "long-prefix/eight.json", "long-prefix/shapes.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/shapes-vs-previous.json", 0, (
+        "eight-core/reference.json", "long-prefix/shapes.json", "--engine-request", INVOICE,
+    )),
+    ("long-prefix/shapes-suite-cpu.json", 1, (
+        "cpu.json", "long-prefix/shapes-suite.json", *CPU_CONTROLS, "--compare-cpu-schedules",
+    )),
+    ("long-prefix/shapes-suite-cpu-eight-feedback.json", 0, (
+        "long-prefix/cpu-eight.json", "long-prefix/shapes-suite.json", "--request", "feedback-fresh-crosswoz-000261",
+    )),
 )
 
 

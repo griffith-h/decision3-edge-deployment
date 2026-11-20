@@ -1,0 +1,37 @@
+--- a/d3-engine/fast_prefix.py
++++ b/d3-engine/fast_prefix.py
+@@ -128,8 +128,11 @@
+         if self.npu is not None and self.npu.supports(q, kv[0]):
+             split = self.arm_worker is not None and q.shape[2] >= 64
+             if split:
+-                cpu_rows = round(q.shape[2] * 3 / 8)
++                square = q.shape[0] == 1 and q.shape[2] == kv[0].shape[2]
++                cpu_rows = round(q.shape[2] * (0.5 if square else 0.375))
+                 result = split_segment(q, *kv, scale, self.npu, self.arm_worker, cpu_rows)
++                if square and result is not None:
++                    self.counts["hybrid_square_segments"] += 1
+             else:
+                 result = self.npu(q, *kv, scale)
+             if result is not None:
+--- a/d3-engine/test_engine.py
++++ b/d3-engine/test_engine.py
+@@ -29,6 +29,19 @@
+             for got, want in zip(actual, reference):
+                 torch.testing.assert_close(got, want, rtol=2e-5, atol=3e-6)
+             self.assertIsNone(split_segment(*args, lambda *unused: None, pool, 5))
++
++    def test_hybrid_split_uses_half_only_for_a_single_square_segment(self):
++        owner = object.__new__(FastBranches)
++        owner.arm_worker, owner.counts = object(), Counter()
++        owner.npu = SimpleNamespace(supports=lambda q, k: True)
++        with patch("fast_prefix.split_segment", return_value=(object(), object())) as kernel:
++            for batch, keys, expected in ((1, 128, 64), (1, 256, 48), (2, 128, 48)):
++                q = SimpleNamespace(shape=(batch, 4, 128, 16))
++                key = SimpleNamespace(shape=(1, 2, keys, 16))
++                owner.segment(q, (key, key), 0.25)
++                self.assertEqual(kernel.call_args.args[-1], expected)
++        self.assertEqual(owner.counts["hybrid_square_segments"], 1)
++        self.assertEqual(owner.counts["hybrid_segments"], 3)
+
+     def test_single_pass_is_scoped_to_one_text_question_and_released_on_error(self):
+         owner = object.__new__(D3Engine)

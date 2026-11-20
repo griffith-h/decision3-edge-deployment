@@ -1,0 +1,473 @@
+diff --git a/d3-engine/bench.py b/d3-engine/bench.py
+index edc02052773d8328ddb7c56e71d11be352a29de3..084f13c5375ed5817fc68fec13c21d6cf0d333ad 100644
+--- a/d3-engine/bench.py
++++ b/d3-engine/bench.py
+@@ -12,6 +12,7 @@
+
+ import torch
+ import transformers
++from d3_runtime import D3
+
+
+ def peak_memory():
+@@ -88,7 +89,8 @@
+     cli.add_argument("--checkpoint-state-kernels", action="store_true",
+                      help="diagnose probability differences with the checkpoint convolution and delta rule")
+     cli.add_argument("--aggressive", action="store_true")
+-    cli.add_argument("--prefix-backend", choices=("arm", "rknn"))
++    cli.add_argument("--fuse-projections", action="store_true")
++    cli.add_argument("--prefix-backend", choices=("arm", "rknn", "hybrid"), default="arm")
+     cli.add_argument("--capture-prefix", type=Path, help="save actual long state/question tensors for a separate replay")
+     cli.add_argument("--attention", choices=("checkpoint", "probe", "fp32"),
+                      help="probe replays both CPU attentions and returns BF16; fp32 uses the alternative")
+@@ -96,15 +98,16 @@
+     args.attention = args.attention or ("fp32" if args.aggressive else "checkpoint")
+     if args.aggressive and (args.backend != "rknn" or args.attention != "fp32" or args.checkpoint_state_kernels):
+         cli.error("aggressive mode requires the RKNN engine with FP32 attention")
+-    if args.prefix_backend == "rknn" and not args.aggressive:
+-        cli.error("--prefix-backend rknn requires --aggressive")
++    if args.prefix_backend != "arm" and not args.aggressive:
++        cli.error("RKNN prefix attention requires --aggressive")
++    if args.fuse_projections and not args.aggressive:
++        cli.error("--fuse-projections requires --aggressive")
+     if args.capture_prefix and not args.aggressive:
+         cli.error("--capture-prefix requires --aggressive")
+     if args.repeats < 1:
+         cli.error("repeats must be positive")
+     if args.backend == "cpu" and args.attention != "checkpoint":
+         cli.error("the pure CPU control always uses the checkpoint attention")
+-    from d3_runtime import D3
+     torch.set_num_threads(int(os.environ.get("D3_THREADS", 3)))
+     torch.set_num_interop_threads(1)
+     start = time.perf_counter()
+@@ -128,9 +131,11 @@
+             precision = "fp32" if args.attention == "fp32" else "checkpoint"
+             engine = stack.enter_context(D3Engine(model, question_rows=args.question_rows, attention=precision,
+                                                   checkpoint_state_kernels=args.checkpoint_state_kernels,
+-                                                  aggressive=args.aggressive, prefix_backend=args.prefix_backend))
++                                                  aggressive=args.aggressive, prefix_backend=args.prefix_backend,
++                                                  fuse_projections=args.fuse_projections))
+             if args.aggressive:
+-                data["aggressive_prefix_backend"] = engine.prefix_backend
++                data["aggressive_prefix_backend"] = args.prefix_backend
++                data["fuse_projections"] = args.fuse_projections
+                 if args.capture_prefix:
+                     from probe_prefix import capture
+                     stack.enter_context(capture(engine.fast_branches, args.capture_prefix))
+diff --git a/d3-engine/engine.py b/d3-engine/engine.py
+index d36b84469ee11614c52f4ba790ab3fa3968343d6..1e700bd25caeade6029e4a46dc8fe48f63d84c5c 100644
+--- a/d3-engine/engine.py
++++ b/d3-engine/engine.py
+@@ -20,6 +20,7 @@
+
+     def __init__(self, model, *, native_tiles=False):
+         self.native_tiles = native_tiles
++        self.projection_weights = {}
+         super().__init__(model, "libd3_tiles.so" if native_tiles else "libnative_short.so")
+         if native_tiles:
+             try:
+@@ -29,6 +30,46 @@
+             except BaseException:
+                 self.close()
+                 raise
++
++    def install(self, module, members, kind):
++        if self.native_tiles and kind == "projection":
++            self.projection_weights[module] = (module.weight, module.weight._version)
++        super().install(module, members, kind)
++
++    def project_together(self, modules, x):
++        # Concatenating independent output columns leaves the reduction over K intact.
++        registered = [self.projection_weights.get(m) for m in modules]
++        if (torch.is_grad_enabled() or x.device.type != "cpu" or x.dtype != torch.bfloat16
++                or x.ndim != 3 or not x.numel() or any(pair is None or m.training or m._forward_hooks
++                or m._forward_pre_hooks or m.in_features != x.shape[-1] or m.weight is not pair[0]
++                or m.weight._version != pair[1] or m.weight.dtype != x.dtype or m.weight.device != x.device
++                for m, pair in zip(modules, registered))):
++            return tuple(m(x) for m in modules)
++        widths = [m.out_features for m in modules]
++        key = tuple(id(m) for m in modules)
++        flat = x.reshape(-1, x.shape[-1]).contiguous()
++        start = time.perf_counter()
++        try:
++            if key not in self.kernels.handles:
++                weight = torch.cat([m.weight.detach().half().T for m in modules], dim=1).contiguous()
++                if not bool(torch.isfinite(weight).all()):
++                    raise ValueError("native fused weight overflow")
++                handle = self.kernels.lib.nm_create(flat.shape[1], sum(widths), weight.data_ptr(), 0)
++                if not handle:
++                    raise RuntimeError(f"RKNN fused projection: {self.kernels.lib.nm_error()!r}")
++                self.kernels.handles[key] = handle
++            out = torch.empty((*x.shape[:-1], sum(widths)), dtype=x.dtype)
++            rc = self.kernels.lib.d3_tiles(self.kernels.handles[key], None, None, flat.data_ptr(), out.data_ptr(),
++                                          None, len(flat), flat.shape[1], sum(widths))
++            self.kernels.status(rc)
++            self.counts["npu_matmuls"] += (len(flat) + 255) // 256
++            self.counts["fused_projection_batches"] += 1
++            return out.split(widths, dim=-1)
++        except ValueError:
++            self.counts["fused_range_fallback"] += 1
++        finally:
++            self.counts["npu_bridge_seconds"] += time.perf_counter() - start
++        return tuple(m(x) for m in modules)
+
+     def native_forward(self, members, flat, out_width):
+         x = flat.contiguous()
+@@ -129,7 +170,7 @@
+     fast_branches = None
+
+     def __init__(self, model, *, question_rows=4, attention="auto", checkpoint_state_kernels=False,
+-                 aggressive=False, prefix_backend=None):
++                 aggressive=False, prefix_backend="arm", fuse_projections=False):
+         if type(question_rows) is not int or question_rows < 1:
+             raise ValueError("question_rows must be a positive integer")
+         if type(checkpoint_state_kernels) is not bool:
+@@ -138,10 +179,10 @@
+             attention = "fp32" if model.attention_mode == "prefix_bidir" else "checkpoint"
+         if attention not in ("checkpoint", "fp32"):
+             raise ValueError("attention must be auto, checkpoint or fp32")
+-        if prefix_backend is None:
+-            prefix_backend = "rknn" if aggressive else "arm"
+-        if prefix_backend not in ("arm", "rknn") or (prefix_backend != "arm" and not aggressive):
++        if prefix_backend not in ("arm", "rknn", "hybrid") or (prefix_backend != "arm" and not aggressive):
+             raise ValueError("the RKNN prefix kernel requires aggressive mode")
++        if fuse_projections and not aggressive:
++            raise ValueError("fused sibling projections require aggressive mode")
+         if aggressive and (model.attention_mode != "prefix_bidir" or attention != "fp32" or checkpoint_state_kernels):
+             raise ValueError("aggressive mode requires FP32 prefix_bidir attention and native state kernels")
+         if attention == "fp32" and model.attention_mode != "prefix_bidir":
+@@ -154,7 +195,6 @@
+         if model.attention_mode == "prefix_bidir" and type(state_once).__name__ != "StateOnce":
+             raise ValueError("prefix_bidir needs the released plain StateOnce implementation")
+         self.model = model
+-        self.prefix_backend = prefix_backend
+         self.lock = threading.Lock()
+         self.resources = ExitStack()
+         self.closed = False
+@@ -170,7 +210,8 @@
+             if model.attention_mode == "prefix_bidir":
+                 if aggressive:
+                     from fast_prefix import FastBranches
+-                    branches = FastBranches(state_once, self.stages, question_rows, prefix_backend, self.linear.pool)
++                    project = self.linear.project_together if fuse_projections else None
++                    branches = FastBranches(state_once, self.stages, question_rows, prefix_backend, self.linear.pool, project)
+                     self.resources.callback(branches.close)
+                     self.fast_branches = branches
+                 else:
+diff --git a/d3-engine/fast_prefix.py b/d3-engine/fast_prefix.py
+index 1d81bfc345e131366919db7a1110035ac1ca210c..a0485b227ce95f7c6a7b925cae514e09c0c034aa 100644
+--- a/d3-engine/fast_prefix.py
++++ b/d3-engine/fast_prefix.py
+@@ -1,6 +1,7 @@
+ """D3 prefix attention with compact GQA keys and the checkpoint's last-token readout."""
+
+ import time
++from concurrent.futures import ThreadPoolExecutor
+
+ import torch
+
+@@ -27,38 +28,92 @@
+             + (second_lse - total).exp().unsqueeze(-1) * second)
+
+
++def split_segment(q, k, v, scale, chip, cpu_pool, cpu_rows):
++    """Two devices read the same complete K/V. Each one owns distinct query rows."""
++    first = cpu_pool.submit(cpu_segment, q[:, :, :cpu_rows], k, v, scale)
++    try:
++        last = chip(q[:, :, cpu_rows:], k, v, scale)
++    finally:
++        host = first.result()
++    if last is None:
++        return None
++    return tuple(torch.cat((a, b), dim=2) for a, b in zip(host, last))
++
++
++class ProjectedDelta:
++    """Supply two already-projected inputs to the unmodified checkpoint delta rule."""
++
++    def __init__(self, delta, x, qkv, z):
++        self.delta, self.x, self.qkv, self.z = delta, x, qkv, z
++
++    def __getattr__(self, name):
++        return getattr(self.delta, name)
++
++    def in_proj_qkv(self, x):
++        return self.qkv if x is self.x else self.delta.in_proj_qkv(x)
++
++    def in_proj_z(self, x):
++        return self.z if x is self.x else self.delta.in_proj_z(x)
++
++
+ class FastBranches(QuestionBranches):
+     single = False
+-
+-    def __init__(self, source, counts, rows, backend, pool):
++    combined = None
++
++    def __init__(self, source, counts, rows, backend, pool, combined=None):
+         super().__init__(source, counts, rows)
+         self.tail, full = self.source.stack[-1]
+         if not full:
+             raise ValueError("last-token pruning requires a final full-attention layer")
+         self.npu = None
+-        if backend == "rknn":
++        self.arm_worker = None
++        if backend in ("rknn", "hybrid"):
+             from prefix_rknn import RknnSegments
+             self.npu = RknnSegments(pool)
++            if backend == "hybrid":
++                self.arm_worker = ThreadPoolExecutor(max_workers=1)
+         self.source._attention = self.attention
++        self.combined = combined
++        if combined is not None:
++            original = self.source._delta
++            def delta(layer, hidden, entry, present):
++                qkv, z = combined((layer.in_proj_qkv, layer.in_proj_z), hidden)
++                return original(ProjectedDelta(layer, hidden, qkv, z), hidden, entry, present)
++            self.source._delta = delta
+
+     def close(self):
++        if self.arm_worker is not None:
++            self.arm_worker.shutdown(wait=True)
+         if self.npu is not None:
+             self.npu.close()
+         del self.source._attention
++        if self.combined is not None:
++            del self.source._delta
+
+     def rotate(self, x, rope):
+         # The checkpoint also supports partial rotary dimensions. Use its exact implementation.
+         return self.source.qwen.apply_rotary_pos_emb(x, x[:, :0], *rope)[0]
+
+-    def kv(self, attn, x, rope):
++    def kv(self, attn, x, rope, projected=None):
+         shape = (*x.shape[:-1], -1, attn.head_dim)
+-        k = self.rotate(attn.k_norm(attn.k_proj(x).view(shape)).transpose(1, 2), rope)
+-        return k, attn.v_proj(x).view(shape).transpose(1, 2)
+-
+-    def query(self, attn, x, rope):
++        if projected is None:
++            projected = (self.combined((attn.k_proj, attn.v_proj), x) if self.combined
++                         else (attn.k_proj(x), attn.v_proj(x)))
++        k, v = projected
++        k = self.rotate(attn.k_norm(k.reshape(shape)).transpose(1, 2), rope)
++        return k, v.reshape(shape).transpose(1, 2)
++
++    def query(self, attn, x, rope, projected=None):
+         shape = (*x.shape[:-1], -1, 2 * attn.head_dim)
+-        q, gate = attn.q_proj(x).view(shape).chunk(2, dim=-1)
++        projected = attn.q_proj(x) if projected is None else projected
++        q, gate = projected.reshape(shape).chunk(2, dim=-1)
+         return self.rotate(attn.q_norm(q).transpose(1, 2), rope), gate.flatten(-2)
++
++    def qkv(self, attn, x, rope):
++        if self.combined:
++            q, k, v = self.combined((attn.q_proj, attn.k_proj, attn.v_proj), x)
++            return self.query(attn, x, rope, q), self.kv(attn, x, rope, (k, v))
++        return self.query(attn, x, rope), self.kv(attn, x, rope)
+
+     def cache_kv(self, kv):
+         if self.npu is None or not self.npu.long_keys(kv[0]):
+@@ -71,9 +126,14 @@
+         name = "arm"
+         result = None
+         if self.npu is not None and self.npu.supports(q, kv[0]):
+-            result = self.npu(q, *kv, scale)
++            split = self.arm_worker is not None and q.shape[2] >= 64
++            if split:
++                cpu_rows = round(q.shape[2] * 3 / 8)
++                result = split_segment(q, *kv, scale, self.npu, self.arm_worker, cpu_rows)
++            else:
++                result = self.npu(q, *kv, scale)
+             if result is not None:
+-                name = "rknn"
++                name = "hybrid" if split else "rknn"
+             else:
+                 self.counts["segment_range_fallback"] += 1
+         if result is None:
+@@ -104,10 +164,9 @@
+         return attn.o_proj(hidden * torch.sigmoid(gate))
+
+     def attention(self, attn, hidden, rope, entry, present):
+-        kv = self.kv(attn, hidden, rope)
++        (q, gate), kv = self.qkv(attn, hidden, rope)
+         if entry is None:
+             kv = self.cache_kv(kv)
+-        q, gate = self.query(attn, hidden, rope)
+         lengths = present.sum(-1).tolist() if present is not None else None
+         out = self.read(q, kv, entry, lengths, attn.scaling)
+         return self.project(attn, out, gate), kv
+@@ -148,8 +207,7 @@
+                 if full:
+                     attn = layer.self_attn
+                     x = layer.input_layernorm(hidden)
+-                    k, v = self.kv(attn, x, rope)
+-                    q, gate = self.query(attn, x, rope)
++                    (q, gate), (k, v) = self.qkv(attn, x, rope)
+                     prefix = self.segment(q[:, :, :split], (k[:, :, :split], v[:, :, :split]), attn.scaling)[0]
+                     suffix = self.segment(q[:, :, split:], (k, v), attn.scaling)[0]
+                     hidden = hidden + self.project(attn, torch.cat((prefix, suffix), dim=2), gate)
+diff --git a/d3-engine/infer.py b/d3-engine/infer.py
+index 53cfefa02f028d734f966baa481f86dc0a358854..de4dfafc4983fbf012096d2e1ad01a8f7b5c3eba 100644
+--- a/d3-engine/infer.py
++++ b/d3-engine/infer.py
+@@ -28,7 +28,8 @@
+                            help="keep checkpoint attention and state math, with RKNN projection and MLP")
+     cli.add_argument("--permutation-average", action="store_true")
+     cli.add_argument("--aggressive", action="store_true")
+-    cli.add_argument("--prefix-backend", choices=("arm", "rknn"))
++    cli.add_argument("--fuse-projections", action="store_true")
++    cli.add_argument("--prefix-backend", choices=("arm", "rknn", "hybrid"), default="arm")
+     args = cli.parse_args()
+     # Keep native SDK diagnostics off the machine-readable output channel.
+     with os.fdopen(os.dup(sys.stdout.fileno()), "w", encoding="utf-8") as responses:
+@@ -44,7 +45,7 @@
+         attention = "checkpoint" if args.checkpoint_math else args.attention
+         with D3Engine(model, question_rows=args.question_rows, attention=attention,
+                       checkpoint_state_kernels=args.checkpoint_math, aggressive=args.aggressive,
+-                      prefix_backend=args.prefix_backend) as engine:
++                      prefix_backend=args.prefix_backend, fuse_projections=args.fuse_projections) as engine:
+             serve_lines(engine, sys.stdin, responses)
+
+
+diff --git a/d3-engine/probe_prefix.py b/d3-engine/probe_prefix.py
+index 6f3a8682445d8b91a8e47e6d20909699cc6934f0..26ab68102f3214aa235c27ce723ce5b55e3156fa 100644
+--- a/d3-engine/probe_prefix.py
++++ b/d3-engine/probe_prefix.py
+@@ -4,12 +4,29 @@
+ import hashlib
+ import json
+ import os
++import struct
+ import time
+ from concurrent.futures import ThreadPoolExecutor
+ from contextlib import contextmanager
+ from pathlib import Path
+
+ import torch
++
++
++def export_mali_input(capture_path, output):
++    """Write the real question queries and common keys in CLBlast's head-major FP32 layout."""
++    data = torch.load(capture_path, map_location="cpu", weights_only=True)
++    q, k = data["q"], data["k"]
++    batch, heads, length, dim = q.shape
++    shared, kv_heads, keys, key_dim = k.shape
++    if shared != 1 or dim != key_dim or heads % kv_heads:
++        raise ValueError("expected grouped queries over one shared segment")
++    groups = heads // kv_heads
++    q = q.reshape(batch, kv_heads, groups, length, dim).permute(1, 0, 2, 3, 4)
++    with output.open("wb") as f:
++        f.write(struct.pack("<4If", kv_heads, batch * groups * length, keys, dim, data["scale"]))
++        for t in (q, k):
++            t.float().contiguous().numpy().astype("<f4", copy=False).tofile(f)
+
+
+ @contextmanager
+@@ -39,13 +56,16 @@
+
+ @torch.inference_mode()
+ def main():
+-    from fast_prefix import cpu_segment
+-    from prefix_rknn import RknnSegments
+-
+     cli = argparse.ArgumentParser(description=__doc__)
+     cli.add_argument("directory", type=Path)
+     cli.add_argument("output", type=Path)
++    cli.add_argument("--mali-input", action="store_true", help="export the captured rectangular Q/K for the GPU screen")
+     args = cli.parse_args()
++    if args.mali_input:
++        export_mali_input(args.directory / "questions.pt", args.output)
++        return
++    from fast_prefix import cpu_segment
++    from prefix_rknn import RknnSegments
+     torch.set_num_threads(int(os.environ.get("D3_THREADS", 8)))
+     torch.set_num_interop_threads(1)
+     reports = []
+diff --git a/d3-engine/test_engine.py b/d3-engine/test_engine.py
+index bb87c387d7d535ceeccbb66b14e5edd263feaece..929ef35f407c0538a5e5e538cfa28c10023ad926 100644
+--- a/d3-engine/test_engine.py
++++ b/d3-engine/test_engine.py
+@@ -12,11 +12,24 @@
+
+ from cpu_attention import AttentionPrecision, bind_attention
+ from engine import D3Engine, QuestionBranches, TiledNPU
+-from fast_prefix import FastBranches, cpu_segment
++from fast_prefix import FastBranches, cpu_segment, split_segment
+ from state_kernels import StateKernels
+
+
+ class EngineTests(unittest.TestCase):
++    @torch.inference_mode()
++    def test_concurrent_query_parts_keep_row_order_and_propagate_range_fallback(self):
++        torch.manual_seed(904)
++        queries = torch.randn(3, 4, 13, 16).bfloat16()
++        k, v = torch.randn(2, 1, 2, 51, 16).bfloat16().unbind()
++        args = queries, k, v, 0.25
++        reference = cpu_segment(*args)
++        with ThreadPoolExecutor(1) as pool:
++            actual = split_segment(*args, cpu_segment, pool, 5)
++            for got, want in zip(actual, reference):
++                torch.testing.assert_close(got, want, rtol=2e-5, atol=3e-6)
++            self.assertIsNone(split_segment(*args, lambda *unused: None, pool, 5))
++
+     def test_single_pass_is_scoped_to_one_text_question_and_released_on_error(self):
+         owner = object.__new__(D3Engine)
+         owner.lock, owner.closed = threading.Lock(), False
+@@ -103,11 +116,15 @@
+         with torch.inference_mode(False):
+             layer = nn.Module()
+             layer.mlp = Mlp().bfloat16().eval()
++            layer.a = nn.Linear(512, 512, bias=False).bfloat16().eval()
++            layer.b = nn.Linear(512, 512, bias=False).bfloat16().eval()
+         model = SimpleNamespace(backbone=SimpleNamespace(language_model=SimpleNamespace(layers=[layer])))
+         x = torch.randn(2, 139, 128).bfloat16()
++        sibling_input = torch.randn(1, 259, 512).bfloat16()
+         old = TiledNPU(model)
+         try:
+             reference = layer.mlp(x)
++            sibling_ref = layer.a(sibling_input), layer.b(sibling_input)
+         finally:
+             old.close()
+         bad = x.clone()
+@@ -119,6 +136,13 @@
+             torch.testing.assert_close(layer.mlp(bad), fallback, rtol=0, atol=0)
+             self.assertEqual(new.counts["native_tile_batches"], 1)
+             self.assertEqual(new.counts["linear_range_fallback"], 1)
++            siblings = (layer.a, layer.b)
++            for actual, ref in zip(new.project_together(siblings, sibling_input), sibling_ref):
++                torch.testing.assert_close(actual, ref, rtol=0.008, atol=0.004)
++            layer.a.weight.zero_()
++            changed, _ = new.project_together(siblings, sibling_input)
++            self.assertEqual(changed.count_nonzero().item(), 0)
++            self.assertEqual(new.counts["fused_projection_batches"], 1)
+         finally:
+             new.close()
+
+@@ -164,13 +188,6 @@
+                 self.assertIsNot(model.state_once.source, source)
+                 self.assertIs(model.state_once.source.qwen, source.qwen)
+             self.assertIs(model.state_once, source)
+-        with patch("engine.TiledNPU"), patch("fast_prefix.FastBranches") as fast:
+-            with D3Engine(model, aggressive=True) as owner:
+-                self.assertEqual(owner.prefix_backend, "rknn")
+-                self.assertEqual(fast.call_args.args[3], "rknn")
+-            with D3Engine(model, aggressive=True, prefix_backend="arm") as owner:
+-                self.assertEqual(owner.prefix_backend, "arm")
+-                self.assertEqual(fast.call_args.args[3], "arm")
+
+     def test_second_owner_cannot_replace_live_buffers(self):
+         model = SimpleNamespace(backbone_type="qwen3_5", attention_mode="noncausal_full_attention", device="cpu",
+diff --git a/d3-engine/workflow_eval.py b/d3-engine/workflow_eval.py
+index e74e85acb62975d57806058fac5f68a3aa0a0d09..96744b5da03e838eebae596a8f85ef547662a320 100644
+--- a/d3-engine/workflow_eval.py
++++ b/d3-engine/workflow_eval.py
+@@ -88,7 +88,7 @@
+         run = json.loads(path.read_text())
+         settings = tuple(run.get(k) for k in (
+             "backend", "sdpa_precision", "checkpoint_manifest_sha256", "permutation_average",
+-            "aggressive_prefix_backend", "max_question_rows", "state_kernels", "threads", "cpu_affinity"))
++            "aggressive_prefix_backend", "fuse_projections", "max_question_rows", "state_kernels", "threads", "cpu_affinity"))
+         if runtime is not None and settings != runtime:
+             raise ValueError("workflow replay cannot mix model settings")
+         runtime = settings

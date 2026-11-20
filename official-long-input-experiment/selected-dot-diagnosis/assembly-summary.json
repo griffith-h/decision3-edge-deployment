@@ -1,0 +1,77 @@
+{
+  "loops": [
+    {
+      "mode": "old",
+      "range": "0x190c\u20130x1984",
+      "instructions": 31,
+      "mnemonics": {
+        "ldr": 5,
+        "shll": 5,
+        "add": 1,
+        "trn2": 2,
+        "trn1": 2,
+        "mov": 10,
+        "fmla": 4,
+        "cmp": 1,
+        "b": 1
+      },
+      "stack_memory_in_K_loop": []
+    },
+    {
+      "mode": "4",
+      "range": "0x940\u20130x9b8",
+      "instructions": 31,
+      "mnemonics": {
+        "ldr": 5,
+        "shll": 5,
+        "add": 1,
+        "trn1": 2,
+        "trn2": 2,
+        "mov": 10,
+        "fmla": 4,
+        "cmp": 1,
+        "b": 1
+      },
+      "stack_memory_in_K_loop": []
+    },
+    {
+      "mode": "8",
+      "range": "0xe20\u20130xf00",
+      "instructions": 57,
+      "mnemonics": {
+        "ldr": 9,
+        "shll": 9,
+        "trn1": 4,
+        "add": 1,
+        "trn2": 4,
+        "mov": 20,
+        "fmla": 8,
+        "cmp": 1,
+        "b": 1
+      },
+      "stack_memory_in_K_loop": []
+    },
+    {
+      "mode": "16",
+      "range": "0x1740\u20130x1900",
+      "instructions": 113,
+      "mnemonics": {
+        "ldr": 17,
+        "shll": 17,
+        "trn1": 8,
+        "trn2": 8,
+        "add": 1,
+        "mov": 44,
+        "fmla": 16,
+        "cmp": 1,
+        "b": 1
+      },
+      "stack_memory_in_K_loop": []
+    }
+  ],
+  "frozen_libraries": {
+    "libselected_dot_ilp.so": "eda108c088d63679460a6b187069d3a90da132caeef113160b4ec68b23a1bb8a",
+    "libsparse_cpu.so": "17da1be76215bdf3ffd58548205a44c453d3a4b911655254c22b896237e216a0"
+  },
+  "interpretation": "No SP-based memory access in any K hot loop. Width16 post-loop vector stores are output temporary materialization, not K-loop spilling. Static instructions per output per K4:31/4,57/8,113/16. Static counts alone cannot establish runtime scheduling or cache causality."
+}

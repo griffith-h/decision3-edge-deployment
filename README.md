@@ -4,17 +4,33 @@
 
 d3.1-nano 的八核模式已在 16 GB RK3576 上用 TypeSafe 和 vLLM 的公开请求实测。55 题发票的热态耗时从旧版同板复测的 20 分 19 秒降至 **11 分 20 秒**，55 个字段与旧版判断一致。12 条有纯 CPU 对照的请求中，58 个字段判断全部一致，170/172 个选项的概率差在 1 个百分点内。精度优先模式在相同对照上通过 172/172 个选项。[八核实测与资源占用](d3-engine/EIGHT-CORE.md) · [引擎与逐项概率](d3-engine/README.md)
 
+截至 2026-11-20，板端连接中断后的四核对照仍待复测。CPU 与 NPU 同时计算一段注意力、合并投影和 Mali 矩阵乘的实验源码已单独归档。现有结果可在普通电脑上用 `python3 -B d3-engine/verify_results.py` 离线复核。[项目状态](WORK_STATUS.md) · [三个原型与复现方法](d3-engine/experiments/long-prefix/README.md)
+
 ## d3.1-nano 单问题板测（2026-11-19）
 
 在 16 GB NanoPi R76S 上，同一条 115-token 中文分类请求的热态中位数从原版纯 CPU 的 **108.09 秒**降到默认前向加 NPU 的 **10.87 秒**。单问题一次前向配合 NPU 和 edge 的 CPU 算子后为 **1.53 秒（70.68×）**。三种方式均选中“编程任务”，最快方案相对原版纯 CPU 的最大选项概率差为 **0.004984 个百分点**。[计时、选项概率与复测方法](d3.1-nano-npu-test/README.md)
 
 ## 技术总结文章
 
-[不改模型，重做推理执行：从秒级到 300 毫秒级](d3-edge-inference-engine-optimization.md)：可编辑的 Markdown 文章草稿，按阶段整理引擎优化、关键代码与验证证据，明确区分已部署的短输入 graph-half v1 和尚未部署的长输入实验候选。
+[我是怎样用 AI，把推理从 6～7 秒推进到 300ms～2s 的](d3-edge-inference-engine-optimization.md)：AI 协作过程复盘，只讲每轮用了什么、怎么推进和取得什么效果，保留 25 条当时发送给 Codex 的指令，部分来自 Codex 建议。已部署短输入与未部署长输入实验分别标注。
 
-## 最新独立实验与继续工作入口
+[图解 HTML 版](d3-edge-inference-engine-optimization.html)：结果图、优化过程和已发送指令卡片，不展开底层代码教学。[Prompt 原文归档](ai-optimization-prompts.json) 保留实际发送的文字，机器地址已脱敏。`python3 build_optimization_article.py` 从 Prompt 归档、叙述配置和结果 JSON 重建 HTML，`--check` 检查一致性；显式加 `--write-markdown` 才会同时重建 Markdown 草稿，普通重建不会覆盖手动编辑的 Markdown。样式源文件为 `optimization-article.css`，生成的 HTML 内嵌样式，可离线阅读。不运行模型或更改服务。
 
-[工作状态与下一步](WORK_STATUS.md) 记录当前线上版本、六轮未部署实验、复现入口及已知精度限制，供下次继续工作时先读。
+[文章测试来源与复现说明](article-reproduction.md)：本次使用自建固定请求与回归集，未重跑官方完整准确率基准。短输入 100 次、长输入 90 次均为重复同一请求的性能计时；34 例是输出回归集。说明中提供请求原文、原始 JSON、统计重算与设备复测入口，并列明新机器所需依赖。
+
+## d3-edge 官方来源样本与长输入实验（2026-10）
+
+d3-edge 的 Decision Index 评测冻结了 1,000 条请求，覆盖 831 个题组、43 项基准和 8,508 个问题。整批评测暂停。开发阶段 r080 在独立 CPU 和 native 参照下通过全部 34 例回归，最大非 confidence 差为 0.00943618。完整 18 题请求耗时 270.82 秒，通过数值门槛，仍高于 120 秒目标。后续候选的组件、整请求和拒绝记录可按轮次查阅。[样本、权限与重建](official-evaluation/README.md) · [评测计划](official-evaluation/PLAN.md) · [十月最终结果](official-long-input-experiment/CURRENT.md) · [开发记录](official-long-input-experiment/README.md)
+
+[31秒请求耗时账本](official-long-input-experiment/REQUEST_COST.html)：3组固定请求对照、27项不重复耗时，CPU修复/读取、扫描、注意力合计约77.91%；无插桩中位30.99秒，数值门槛不变。详见[Markdown与复现](official-long-input-experiment/REQUEST_COST.md)，收益估算不代表已实现提速。
+
+账本后的首项选点重算实验r088：8/16独立输出交错均未通过组件性能筛选，已及时停止，未跑候选整请求及34/18题；数值门槛未变，详见[负面结果归档](official-long-input-experiment/rejected-selected-dot-ilp/README.md)。
+
+[选点重算为什么变慢](official-long-input-experiment/SELECTED_DOT_DIAGNOSIS.html)：1040个PMU窗口与行步幅×对齐控制，定位L1回填放大和16路尾部重复计算；未发现K热循环落栈。只诊断，未部署；没有将组件收益当整请求提速。
+
+原 4 路加缓存布局的三组整请求净节省分别为 +0.469、−0.077 和 −1.207 秒，含准备及释放，再扣除安装成本。中位数 −0.077 秒，未达到节省 1 秒的条件。81 项 ARM 检查通过，响应和修复计数一致，缓存活跃峰值 63.656 MiB。候选到此停止。[完整请求实测](official-long-input-experiment/SELECTED_LAYOUT_REQUEST_PAIRS.html) · [前轮组件估算](official-long-input-experiment/SELECTED_LAYOUT_TRIAL.html)
+
+[工作状态与下一步](WORK_STATUS.md) 记录最近一次能确认的板端状态、各阶段结果、复现入口及已知精度限制。
 
 [多长度推理 HTML 报告](mlp-length-experiment/report.html#bf16-pipeline) 保留六轮实验。最新615 token暖态方法：上一合格候选P50 1743.55ms → 1579.62ms，候选P95 1642.71ms，P50下降9.40%；1秒目标未达成。34例原current数值门槛通过，confidence独立报告；不代表业务准确率。未部署；研究成果随本次main提交归档，适用范围和原始记录见第六阶段及 [WORK_STATUS.md](WORK_STATUS.md)。
 
@@ -82,6 +98,17 @@ d3.1-nano 的八核模式已在 16 GB RK3576 上用 TypeSafe 和 vLLM 的公开�
 旧实验脚本含原测试机的固定目录，需先准备其依赖和模型才能运行；克隆本仓库不代表这些历史目录已经存在。
 
 ## 本地文档检查
+
+在仓库根目录执行以下命令可校验文章、短文本结果和 nano 的七份概率对照，无需模型或 RK3576。概率对照保留个别选项超过 1 个百分点的原始结果。
+
+```bash
+python3 -B build_optimization_article.py --check
+python3 -B d3.1-nano-npu-test/verify.py
+python3 -B d3-engine/verify_results.py
+python3 -B d3-engine/test_compare.py
+```
+
+基础安装手册、历史报告与交付工具另有以下检查。
 
 ```bash
 python3 build_install_guide.py

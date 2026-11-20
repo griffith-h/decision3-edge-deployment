@@ -39,6 +39,8 @@
 
 ## 复测
 
+在普通电脑的仓库根目录运行 `python3 -B d3-engine/verify_results.py` 即可重算七份概率对照，包括本轮 12 条 CPU 配对和 55 题发票配对。CPU/NPU 分担同一段查询、投影合并和 Mali 矩阵乘另存有原型源码，目前缺少这些方案的整单板测结果。[离线复核脚本](verify_results.py) · [原型源码与验证范围](experiments/long-prefix/README.md)
+
 先按项目说明生成官方请求、准备固定权重并运行 `stage-board.sh`。以下命令在板上创建独立容器，模型加载单独计时。订单先给惰性权重打包预热。基准按请求保存完整返回值、输入哈希、内存、温度、进程 CPU 时间和各核忙碌率。[环境与公开数据准备](README.md#板端复测)
 
 ```bash

@@ -1,0 +1,690 @@
+{
+  "iteration": "r093",
+  "passed_numerical_and_runtime": true,
+  "speed_gate_passed": false,
+  "scope": "One fixed B2/T1193 full model request, not HTTP, full18 or official accuracy",
+  "payload_sha256": "acecf821f479ac8a7af688d9bcfce7affd4bf578c72a3e70f0271cce361603bb",
+  "arm_checks": 81,
+  "pairs": [
+    {
+      "pair": 0,
+      "old_seconds": 31.32526761,
+      "new_seconds": 30.842188156,
+      "new_over_old": 0.9845786008913204,
+      "gross_saved_seconds": 0.4830794540000021,
+      "net_saved_seconds": 0.46922856400000207
+    },
+    {
+      "pair": 1,
+      "old_seconds": 30.687463353,
+      "new_seconds": 30.750239684,
+      "new_over_old": 1.0020456669969062,
+      "gross_saved_seconds": -0.06277633100000202,
+      "net_saved_seconds": -0.07662722100000202
+    },
+    {
+      "pair": 2,
+      "old_seconds": 30.62451921,
+      "new_seconds": 31.817207595,
+      "new_over_old": 1.0389455382734807,
+      "gross_saved_seconds": -1.1926883850000003,
+      "net_saved_seconds": -1.2065392750000004
+    }
+  ],
+  "median_net_saved_seconds": -0.07662722100000202,
+  "median_seconds": {
+    "old": 30.687463353,
+    "new": 30.842188156
+  },
+  "install_seconds": 0.01385089,
+  "cost_rule": "Full system_one wall includes copies/evictions/releases; conservatively subtract whole one-off scope installation from each pair saving",
+  "memory_rule": "Exact live padded payload <=64MiB; cumulative allocation is traffic, not live memory. cgroup/RSS include model/SDK/allocator; cumulative peak cannot identify a per-mode increment or be added to RSS.",
+  "full_response_equal_qualified": true,
+  "maximum_cpu_nonconfidence": 9.748302590040225e-06,
+  "choices_noul_usage_model_equal": true,
+  "cache_limit_bytes": 67108864,
+  "cache_counts": {
+    "calls": 1488,
+    "selected": 32252120,
+    "builds": 288,
+    "hits": 1200,
+    "evictions": 248,
+    "invalidations": 0,
+    "oversize_bypasses": 0,
+    "peak_bytes": 66748416,
+    "allocated_bytes": 1961361408,
+    "prepare_seconds": 1.0366622442379594,
+    "release_seconds": 0.016420908737927675,
+    "requests": 4
+  },
+  "whole_run_cgroup_peak_bytes": 6766145536,
+  "warmups_and_records": [
+    {
+      "mode": "old",
+      "pair": null,
+      "seconds": 33.659143173,
+      "process_cpu_seconds": 76.219580083,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 0,
+        "selected": 0,
+        "builds": 0,
+        "hits": 0,
+        "evictions": 0,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 0,
+        "prepare_seconds": 0.0,
+        "release_seconds": 0.0,
+        "requests": 0
+      },
+      "cache_peak_payload_bytes": 0,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6013587456",
+        "memory.peak": "6443319296",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "6661712 kB",
+          "VmRSS": "6620380 kB",
+          "RssAnon": "3235296 kB",
+          "RssFile": "784472 kB",
+          "RssShmem": "2600612 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6057865216",
+        "memory.peak": "6443319296",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "6694120 kB",
+          "VmRSS": "6675736 kB",
+          "RssAnon": "3577604 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "new",
+      "pair": null,
+      "seconds": 30.392586346,
+      "process_cpu_seconds": 69.371617065,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 372,
+        "selected": 8063030,
+        "builds": 72,
+        "hits": 300,
+        "evictions": 62,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 490340352,
+        "prepare_seconds": 0.24460105714388192,
+        "release_seconds": 0.0037814248353242874,
+        "requests": 1
+      },
+      "cache_peak_payload_bytes": 66748416,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6057865216",
+        "memory.peak": "6443319296",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "6694120 kB",
+          "VmRSS": "6675736 kB",
+          "RssAnon": "3577604 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6542049280",
+        "memory.peak": "6577418240",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7181380 kB",
+          "VmRSS": "7146960 kB",
+          "RssAnon": "4048828 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "old",
+      "pair": 0,
+      "seconds": 31.32526761,
+      "process_cpu_seconds": 71.331727464,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 0,
+        "selected": 0,
+        "builds": 0,
+        "hits": 0,
+        "evictions": 0,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 0,
+        "prepare_seconds": 0.0,
+        "release_seconds": 0.0,
+        "requests": 0
+      },
+      "cache_peak_payload_bytes": 0,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6542041088",
+        "memory.peak": "6577418240",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7181380 kB",
+          "VmRSS": "7146960 kB",
+          "RssAnon": "4048828 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6042955776",
+        "memory.peak": "6684311552",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7286200 kB",
+          "VmRSS": "6659808 kB",
+          "RssAnon": "3561676 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "new",
+      "pair": 0,
+      "seconds": 30.842188156,
+      "process_cpu_seconds": 70.049488846,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 372,
+        "selected": 8063030,
+        "builds": 72,
+        "hits": 300,
+        "evictions": 62,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 490340352,
+        "prepare_seconds": 0.26040827040560544,
+        "release_seconds": 0.0023869459982961416,
+        "requests": 1
+      },
+      "cache_peak_payload_bytes": 66748416,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6042943488",
+        "memory.peak": "6684311552",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7286200 kB",
+          "VmRSS": "6659808 kB",
+          "RssAnon": "3561676 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6506008576",
+        "memory.peak": "6684311552",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7286200 kB",
+          "VmRSS": "7111708 kB",
+          "RssAnon": "4013576 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "new",
+      "pair": 1,
+      "seconds": 30.750239684,
+      "process_cpu_seconds": 69.746121293,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 372,
+        "selected": 8063030,
+        "builds": 72,
+        "hits": 300,
+        "evictions": 62,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 490340352,
+        "prepare_seconds": 0.25501183816231787,
+        "release_seconds": 0.007108920020982623,
+        "requests": 1
+      },
+      "cache_peak_payload_bytes": 66748416,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6505992192",
+        "memory.peak": "6684311552",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7286200 kB",
+          "VmRSS": "7111708 kB",
+          "RssAnon": "4013576 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6616031232",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7219620 kB",
+          "RssAnon": "4121488 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "old",
+      "pair": 1,
+      "seconds": 30.687463353,
+      "process_cpu_seconds": 70.27235124,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 0,
+        "selected": 0,
+        "builds": 0,
+        "hits": 0,
+        "evictions": 0,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 0,
+        "prepare_seconds": 0.0,
+        "release_seconds": 0.0,
+        "requests": 0
+      },
+      "cache_peak_payload_bytes": 0,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6616272896",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7219620 kB",
+          "RssAnon": "4121488 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6666416128",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7268668 kB",
+          "RssAnon": "4170536 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "old",
+      "pair": 2,
+      "seconds": 30.62451921,
+      "process_cpu_seconds": 70.16363549,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 0,
+        "selected": 0,
+        "builds": 0,
+        "hits": 0,
+        "evictions": 0,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 0,
+        "prepare_seconds": 0.0,
+        "release_seconds": 0.0,
+        "requests": 0
+      },
+      "cache_peak_payload_bytes": 0,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_old",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6666653696",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7268668 kB",
+          "RssAnon": "4170536 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6672879616",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7274960 kB",
+          "RssAnon": "4176828 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    },
+    {
+      "mode": "new",
+      "pair": 2,
+      "seconds": 31.817207595,
+      "process_cpu_seconds": 71.953692702,
+      "counter_delta": {
+        "projection_calls": 180,
+        "native_mlp_calls": 48,
+        "attention_calls": 0,
+        "graph_calls": 0,
+        "repair_calls": 372,
+        "repair_selected": 8063030,
+        "repair_changed": 120402,
+        "repair_density_rejections": 0,
+        "read_errors": 0,
+        "cpu_fallbacks": 0
+      },
+      "cache_delta": {
+        "calls": 372,
+        "selected": 8063030,
+        "builds": 72,
+        "hits": 300,
+        "evictions": 62,
+        "invalidations": 0,
+        "oversize_bypasses": 0,
+        "allocated_bytes": 490340352,
+        "prepare_seconds": 0.27664107852615416,
+        "release_seconds": 0.003143617883324623,
+        "requests": 1
+      },
+      "cache_peak_payload_bytes": 66748416,
+      "cache_empty_after": true,
+      "backend_before": {
+        "stage": "before_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "backend_after": {
+        "stage": "after_new",
+        "mkldnn": true,
+        "threads": 3,
+        "float32_precision": "highest",
+        "autocast_cpu": false,
+        "grad_enabled": true,
+        "inference_mode": false
+      },
+      "memory_before": {
+        "memory.current": "6672850944",
+        "memory.peak": "6755840000",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7355740 kB",
+          "VmRSS": "7274960 kB",
+          "RssAnon": "4176828 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      },
+      "memory_after": {
+        "memory.current": "6684995584",
+        "memory.peak": "6766145536",
+        "memory.max": "8589934592",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+        "process_status": {
+          "VmHWM": "7365884 kB",
+          "VmRSS": "7286988 kB",
+          "RssAnon": "4188856 kB",
+          "RssFile": "795168 kB",
+          "RssShmem": "2302964 kB"
+        }
+      }
+    }
+  ],
+  "service_healthy": true,
+  "resources_closed": true,
+  "cache_and_methods_restored": true,
+  "no_oom": true,
+  "sources_sha256": "cf6dcd5a9e458d993838fa3a20c8cc1dcfded7e273ed904c033a2f1cdd23f7c9",
+  "record_sha256": "f8acff061ee293a7377c45542b5d4b853faaab8575e310202d297595c496000f",
+  "qualified_reference_sha256": "f2a3ec0c4071284ff1bdb68e14efbf19d31da5a14cfa7e15389fb5d0011633fe",
+  "cpu_reference_sha256": "37ba15be14a05780fbfbba84edc27ed60a8ea21e9fb876394f217cfe3887b94a",
+  "gate_source_sha256": "841c6b517241d3d9af051bcd18a2f51a83c2d30a4aef4b05eaec1e85f1195683",
+  "not_full34_or_full18": true,
+  "not_deployed": true
+}

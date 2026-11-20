@@ -1,0 +1,3723 @@
+{
+  "passed": true,
+  "windows": 528,
+  "calls": 372,
+  "selected": 8063030,
+  "geometries": 9,
+  "workloads": 11,
+  "arm_tests": 80,
+  "changed_prior_files": [
+    "probe.py",
+    "host_run.py",
+    "test_host_run.py"
+  ],
+  "vs_original_cpu": {
+    "max_delta": 9.748302590040225e-06,
+    "choices_unchanged": true,
+    "noul_predictions_unchanged": true,
+    "usage_equal": true,
+    "model_equal": true
+  },
+  "minimum_running_fraction": 1.0,
+  "all_replay_bf16_bits_equal": true,
+  "rows": [
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 20.84819339991858,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3107.918934550266,
+        "inst_retired": 2086.720246819681,
+        "inst_spec": 2092.3607169549223,
+        "mem_access": 339.4588255333983,
+        "l1d_cache": 339.45799364596456,
+        "l1d_cache_refill": 26.728197286726513
+      },
+      "median_cpi": 1.4893805099054287,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 22.878734110337163,
+      "paired_time_ratio_to_old": 1.1000399430834729,
+      "counts_per_selected": {
+        "cpu_cycles": 3411.3736719511326,
+        "inst_retired": 2079.2783389716815,
+        "inst_spec": 2084.928827408446,
+        "mem_access": 336.8932292285631,
+        "l1d_cache": 336.8923735729169,
+        "l1d_cache_refill": 26.646636665900804
+      },
+      "median_cpi": 1.6406522996450668,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6296606358642914,
+        1.1935048775901635,
+        1.0065750085767822,
+        1.266382833353155
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 20.5441685522803,
+      "paired_time_ratio_to_old": 0.9803977492918343,
+      "counts_per_selected": {
+        "cpu_cycles": 3125.200140232453,
+        "inst_retired": 1971.026485711343,
+        "inst_spec": 1975.4914606094699,
+        "mem_access": 313.77278513271904,
+        "l1d_cache": 313.77192947707294,
+        "l1d_cache_refill": 54.35590125100025
+      },
+      "median_cpi": 1.5855688695775978,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7439232835791894,
+        0.9881594514956737,
+        0.9781592734664419,
+        0.9826362251172267
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 24.290345829083687,
+      "paired_time_ratio_to_old": 1.1587296422105835,
+      "counts_per_selected": {
+        "cpu_cycles": 3676.9152980137696,
+        "inst_retired": 2031.5029947947614,
+        "inst_spec": 2039.507629596178,
+        "mem_access": 310.99544706687055,
+        "l1d_cache": 310.9945914112244,
+        "l1d_cache_refill": 86.39320810126316
+      },
+      "median_cpi": 1.8099289831636112,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8553736389371991,
+        1.1506777992455726,
+        1.205832944194536,
+        1.1667814851755947
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 20.40345061363445,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3061.2003158531334,
+        "inst_retired": 2086.721058900271,
+        "l1d_tlb_refill": 1.104796689352105,
+        "l2d_cache": 128.35343727964886,
+        "l2d_cache_refill": 35.614062330816544,
+        "bus_access": 145.44469004930585
+      },
+      "median_cpi": 1.4669905006154125,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 20.3347435583257,
+      "paired_time_ratio_to_old": 0.9939202552092313,
+      "counts_per_selected": {
+        "cpu_cycles": 3028.1979892092318,
+        "inst_retired": 2079.2758525525737,
+        "l1d_tlb_refill": 1.1192385192931862,
+        "l2d_cache": 128.4678561336513,
+        "l2d_cache_refill": 35.93163073705227,
+        "bus_access": 146.72677119398293
+      },
+      "median_cpi": 1.456372552637184,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.975025049219767,
+        1.4461195373038418,
+        0.8847949840694874,
+        1.0128154611986957
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 19.811502269779645,
+      "paired_time_ratio_to_old": 0.972559833668952,
+      "counts_per_selected": {
+        "cpu_cycles": 3015.331653712991,
+        "inst_retired": 1971.0257251285466,
+        "l1d_tlb_refill": 1.1531478356401705,
+        "l2d_cache": 153.08681867758946,
+        "l2d_cache_refill": 24.38586372363379,
+        "bus_access": 101.88045381440196
+      },
+      "median_cpi": 1.5298121360174246,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9625097160319923,
+        0.9742054988571738,
+        1.0309380042140435,
+        0.9709141684807303
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 24.294782274713118,
+      "paired_time_ratio_to_old": 1.1914099838194712,
+      "counts_per_selected": {
+        "cpu_cycles": 3672.7310019357883,
+        "inst_retired": 2031.4838310132916,
+        "l1d_tlb_refill": 1.2465437057812214,
+        "l2d_cache": 266.9657486854858,
+        "l2d_cache_refill": 20.852754603770695,
+        "bus_access": 89.74576067522851
+      },
+      "median_cpi": 1.807905601778515,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.230976375136567,
+        1.1906374244312399,
+        1.1921825432077024,
+        1.1430220881387516
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 18.00180489145633,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 2705.5646482172524,
+        "inst_retired": 2086.721246405058,
+        "l1i_cache_refill": 0.11169739368346551,
+        "br_mis_pred": 0.4406679395864859,
+        "br_pred": 77.59708918625563,
+        "inst_spec": 2092.3978904391042
+      },
+      "median_cpi": 1.296563075524686,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 19.458009887279733,
+      "paired_time_ratio_to_old": 1.009666206740714,
+      "counts_per_selected": {
+        "cpu_cycles": 2905.2694034442784,
+        "inst_retired": 2079.275672970525,
+        "l1i_cache_refill": 0.12016151820777114,
+        "br_mis_pred": 0.3358448411095002,
+        "br_pred": 76.52836472057825,
+        "inst_spec": 2084.856478290379
+      },
+      "median_cpi": 1.3972506551050965,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1733238380202062,
+        0.997647241153477,
+        0.9974049898898135,
+        1.0216851723279512
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 21.334404112874633,
+      "paired_time_ratio_to_old": 1.1525235990538998,
+      "counts_per_selected": {
+        "cpu_cycles": 3247.7846824434773,
+        "inst_retired": 1971.0264936340805,
+        "l1i_cache_refill": 0.11890576431968775,
+        "br_mis_pred": 0.32063978745936295,
+        "br_pred": 44.64151725704265,
+        "inst_spec": 1975.3779370248008
+      },
+      "median_cpi": 1.6477630711709372,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.205100208001959,
+        1.0210927969774612,
+        1.0999469901058405,
+        1.52744187696076
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 23.740348561356463,
+      "paired_time_ratio_to_old": 1.287845780104239,
+      "counts_per_selected": {
+        "cpu_cycles": 3597.4704864824894,
+        "inst_retired": 2031.4835457947431,
+        "l1i_cache_refill": 0.1257681754199711,
+        "br_mis_pred": 0.3011881465283885,
+        "br_pred": 28.39128683742807,
+        "inst_spec": 2039.591811322648
+      },
+      "median_cpi": 1.7708588057290344,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3937945647242327,
+        1.1809542198298497,
+        1.2877485712496834,
+        1.2879429889587946
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 14.55235545290634,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3261.8854042268304,
+        "inst_retired": 2082.889035151208,
+        "inst_spec": 2089.24635701275,
+        "mem_access": 339.37903050700254,
+        "l1d_cache": 339.378161980241,
+        "l1d_cache_refill": 26.699053969287927
+      },
+      "median_cpi": 1.566037378569404,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 13.63377245919158,
+      "paired_time_ratio_to_old": 0.9561521434033537,
+      "counts_per_selected": {
+        "cpu_cycles": 3055.050704773278,
+        "inst_retired": 2075.5322350088663,
+        "inst_spec": 2081.7109434371946,
+        "mem_access": 336.82122673373624,
+        "l1d_cache": 336.8203220183597,
+        "l1d_cache_refill": 26.61289490826186
+      },
+      "median_cpi": 1.4719347889831356,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.005090170862813,
+        0.9072141159438943,
+        1.164404150925859,
+        0.49683028550695557
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 21.99461849522777,
+      "paired_time_ratio_to_old": 1.4494114921296024,
+      "counts_per_selected": {
+        "cpu_cycles": 5018.945705014536,
+        "inst_retired": 1965.73473443588,
+        "inst_spec": 1970.6495343731528,
+        "mem_access": 313.46776348327484,
+        "l1d_cache": 313.4668587678983,
+        "l1d_cache_refill": 54.2130016646763
+      },
+      "median_cpi": 2.5532200518930663,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.6716857201525088,
+        1.227137264106696,
+        1.8690826939965155,
+        0.8995195152864436
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 19.394824834307656,
+      "paired_time_ratio_to_old": 1.160709143667309,
+      "counts_per_selected": {
+        "cpu_cycles": 4336.543945041556,
+        "inst_retired": 2028.2595130821842,
+        "inst_spec": 2037.1139383466627,
+        "mem_access": 311.0728386349655,
+        "l1d_cache": 311.0719339195889,
+        "l1d_cache_refill": 86.7613270365143
+      },
+      "median_cpi": 2.138064381380637,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2988598184150213,
+        1.0225584689195963,
+        1.7473456222748414,
+        0.9904819445016892
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 21.64710270396123,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4821.774317241462,
+        "inst_retired": 2082.893423020784,
+        "l1d_tlb_refill": 1.1484833954571225,
+        "l2d_cache": 127.27242337060761,
+        "l2d_cache_refill": 38.21125254828164,
+        "bus_access": 156.01769623276516
+      },
+      "median_cpi": 2.314940354080378,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 17.158345406642184,
+      "paired_time_ratio_to_old": 0.8236858983416926,
+      "counts_per_selected": {
+        "cpu_cycles": 3803.7517611792664,
+        "inst_retired": 2075.5381669260187,
+        "l1d_tlb_refill": 1.1675653506073655,
+        "l2d_cache": 128.53648717113595,
+        "l2d_cache_refill": 39.18675888732072,
+        "bus_access": 159.8684558921097
+      },
+      "median_cpi": 1.8326583692233647,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0109175890751931,
+        1.7222017778332006,
+        0.5433134089528152,
+        0.6364542076081922
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 18.44860045821406,
+      "paired_time_ratio_to_old": 0.7639318956030884,
+      "counts_per_selected": {
+        "cpu_cycles": 4220.730357121316,
+        "inst_retired": 1965.7371394709226,
+        "l1d_tlb_refill": 1.1983965427809746,
+        "l2d_cache": 155.067224876054,
+        "l2d_cache_refill": 28.084672312090618,
+        "bus_access": 116.9680846572335
+      },
+      "median_cpi": 2.147153318502489,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6865038258618605,
+        1.6147497017186292,
+        0.7811486906350673,
+        0.7467151005711095
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 20.793331457146753,
+      "paired_time_ratio_to_old": 1.175679897015054,
+      "counts_per_selected": {
+        "cpu_cycles": 4617.217342790625,
+        "inst_retired": 2028.2596261716062,
+        "l1d_tlb_refill": 1.2913123198108543,
+        "l2d_cache": 275.46742723072657,
+        "l2d_cache_refill": 24.085973594373876,
+        "bus_access": 103.76525199338955
+      },
+      "median_cpi": 2.276442748466311,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6025987098022533,
+        1.3067589218294222,
+        1.0784728617376167,
+        1.272886932292491
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 14.19005300461625,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3186.6770859720864,
+        "inst_retired": 2082.890350004222,
+        "l1i_cache_refill": 0.16842483021508098,
+        "br_mis_pred": 0.35626937598764763,
+        "br_pred": 77.763267650997,
+        "inst_spec": 2089.2703530802546
+      },
+      "median_cpi": 1.5299306166963715,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 21.870226366445422,
+      "paired_time_ratio_to_old": 1.508195044741195,
+      "counts_per_selected": {
+        "cpu_cycles": 4837.655398436651,
+        "inst_retired": 2075.5361388557158,
+        "l1i_cache_refill": 0.17863454323936356,
+        "br_mis_pred": 0.36280142100628476,
+        "br_pred": 76.71233217529765,
+        "inst_spec": 2081.8391612082173
+      },
+      "median_cpi": 2.3306494410153737,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2526651511943279,
+        1.763724938288062,
+        1.150692091261811,
+        2.2062685800783917
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 15.661903084643804,
+      "paired_time_ratio_to_old": 1.2186563084876365,
+      "counts_per_selected": {
+        "cpu_cycles": 3563.5419667305996,
+        "inst_retired": 1965.7339473335023,
+        "l1i_cache_refill": 0.1813185321897731,
+        "br_mis_pred": 0.2393394371464071,
+        "br_pred": 44.879790467918795,
+        "inst_spec": 1970.6170520754172
+      },
+      "median_cpi": 1.8128268599757518,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7941969153707213,
+        1.223470179424208,
+        1.2138424375510648,
+        1.2981162192434794
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        4096
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 21.82080342511957,
+      "paired_time_ratio_to_old": 1.4834142555173233,
+      "counts_per_selected": {
+        "cpu_cycles": 4863.711361114127,
+        "inst_retired": 2028.260871663108,
+        "l1i_cache_refill": 0.18879600477689717,
+        "br_mis_pred": 0.1790748380559476,
+        "br_pred": 28.708919890469126,
+        "inst_spec": 2037.105589331596
+      },
+      "median_cpi": 2.3979712863721865,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2440684858099513,
+        1.5856677684820408,
+        1.3811607425526058,
+        1.797457389836863
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 22.683650313410908,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6114.973379482621,
+        "inst_retired": 4153.668966192472,
+        "inst_spec": 4161.043759790846,
+        "mem_access": 673.8142200135485,
+        "l1d_cache": 673.8127381557221,
+        "l1d_cache_refill": 53.061708793767735
+      },
+      "median_cpi": 1.4721865577645818,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 21.439808857394382,
+      "paired_time_ratio_to_old": 1.0074493564669595,
+      "counts_per_selected": {
+        "cpu_cycles": 5804.034614611119,
+        "inst_retired": 4146.144647847072,
+        "inst_spec": 4153.0675991786275,
+        "mem_access": 671.1775662602142,
+        "l1d_cache": 671.1760420635928,
+        "l1d_cache_refill": 52.776956581565685
+      },
+      "median_cpi": 1.3998649492453445,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.49777815737457726,
+        1.3529482908643518,
+        1.0006913888734827,
+        1.0142073240604363
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 29.334286489756778,
+      "paired_time_ratio_to_old": 1.2928085471122301,
+      "counts_per_selected": {
+        "cpu_cycles": 7961.903560163428,
+        "inst_retired": 3972.6842610821795,
+        "inst_spec": 3977.8461011262116,
+        "mem_access": 630.7581184639484,
+        "l1d_cache": 630.7565942673272,
+        "l1d_cache_refill": 148.31172996316525
+      },
+      "median_cpi": 2.0041606123554314,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7071494189276433,
+        1.2510000132424273,
+        1.3346170809820332,
+        2.2964475278509053
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 39.44927237171214,
+      "paired_time_ratio_to_old": 1.7262526005399694,
+      "counts_per_selected": {
+        "cpu_cycles": 10703.249891506839,
+        "inst_retired": 4255.522553346882,
+        "inst_spec": 4290.195322092382,
+        "mem_access": 651.1441450738812,
+        "l1d_cache": 651.1426208772598,
+        "l1d_cache_refill": 227.21702601718954
+      },
+      "median_cpi": 2.515144957288973,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9680510483752116,
+        1.6882149224141199,
+        1.7642902786658192,
+        2.3318574865765944
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 22.613620501942933,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6115.529589525382,
+        "inst_retired": 4153.666716943986,
+        "l1d_tlb_refill": 1.1941815910919176,
+        "l2d_cache": 268.54380477581606,
+        "l2d_cache_refill": 68.34635251280748,
+        "bus_access": 276.9070240060968
+      },
+      "median_cpi": 1.472319964889994,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 25.45458469830919,
+      "paired_time_ratio_to_old": 1.1796195752894394,
+      "counts_per_selected": {
+        "cpu_cycles": 6875.657751704137,
+        "inst_retired": 4146.141895825394,
+        "l1d_tlb_refill": 1.2165682289682036,
+        "l2d_cache": 266.51741447563404,
+        "l2d_cache_refill": 68.04738769634616,
+        "bus_access": 275.770640162581
+      },
+      "median_cpi": 1.65832351953443,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2954342735909377,
+        1.008961091327328,
+        1.3424936198923352,
+        1.0638048769879411
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 39.947800076333806,
+      "paired_time_ratio_to_old": 1.6665455742737756,
+      "counts_per_selected": {
+        "cpu_cycles": 10839.496874867691,
+        "inst_retired": 3972.687971019095,
+        "l1d_tlb_refill": 1.5706925568398322,
+        "l2d_cache": 412.7048350903933,
+        "l2d_cache_refill": 58.230219844193236,
+        "bus_access": 247.90111509801432
+      },
+      "median_cpi": 2.728507060118498,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.6598940161493656,
+        1.6731971323981856,
+        1.4983730483225677,
+        2.043000569042891
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 41.60272101580631,
+      "paired_time_ratio_to_old": 1.7351648332759466,
+      "counts_per_selected": {
+        "cpu_cycles": 11270.48190545747,
+        "inst_retired": 4255.520110927643,
+        "l1d_tlb_refill": 1.9434142004318558,
+        "l2d_cache": 821.9076723188958,
+        "l2d_cache_refill": 55.283839281934036,
+        "bus_access": 251.45162263431985
+      },
+      "median_cpi": 2.6484380430945835,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.7362243170675915,
+        1.734105349484302,
+        2.194564082597781,
+        1.7171862518303689
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 22.762630382203497,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6144.316342245649,
+        "inst_retired": 4153.662845590415,
+        "l1i_cache_refill": 0.21760288327194208,
+        "br_mis_pred": 0.3943382446335577,
+        "br_pred": 144.87981868411026,
+        "inst_spec": 4161.043196155637
+      },
+      "median_cpi": 1.4792525493180984,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 22.6206494262442,
+      "paired_time_ratio_to_old": 0.9941280964007995,
+      "counts_per_selected": {
+        "cpu_cycles": 6109.174869808205,
+        "inst_retired": 4146.139485160253,
+        "l1i_cache_refill": 0.22425007409289133,
+        "br_mis_pred": 0.40256255556966847,
+        "br_pred": 143.75603327829288,
+        "inst_spec": 4153.024328930099
+      },
+      "median_cpi": 1.473461009151439,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6282022405944521,
+        0.9855631948459469,
+        1.7551625548348275,
+        1.002692997955652
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 41.04438444483094,
+      "paired_time_ratio_to_old": 1.668971900466314,
+      "counts_per_selected": {
+        "cpu_cycles": 11126.757708306872,
+        "inst_retired": 3972.682276451162,
+        "l1i_cache_refill": 0.21151668148524494,
+        "br_mis_pred": 0.3917688090096956,
+        "br_pred": 80.3355905203438,
+        "inst_spec": 3978.02866865659
+      },
+      "median_cpi": 2.8008170464158892,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.006100816457938,
+        2.0304576233092972,
+        2.002611009494786,
+        1.335332791437842
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 45.39173211378511,
+      "paired_time_ratio_to_old": 1.8956035716323356,
+      "counts_per_selected": {
+        "cpu_cycles": 12294.160313201235,
+        "inst_retired": 4255.522172297727,
+        "l1i_cache_refill": 0.2545434819425039,
+        "br_mis_pred": 0.2890284305008679,
+        "br_pred": 48.72731434438376,
+        "inst_spec": 4290.505490812482
+      },
+      "median_cpi": 2.8889898396775866,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4356589574119816,
+        1.8483225895701982,
+        1.9428845536944728,
+        2.0524065106768057
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 24.055676092393696,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6267.579698547779,
+        "inst_retired": 4152.545668741268,
+        "inst_spec": 4159.911160506372,
+        "mem_access": 673.2495829628688,
+        "l1d_cache": 673.2481011050425,
+        "l1d_cache_refill": 30.12699521571616
+      },
+      "median_cpi": 1.5093345663135267,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 18.81142525235191,
+      "paired_time_ratio_to_old": 0.7893544365181918,
+      "counts_per_selected": {
+        "cpu_cycles": 4898.223855794064,
+        "inst_retired": 4145.017521910327,
+        "inst_spec": 4151.891993733858,
+        "mem_access": 670.6098755239426,
+        "l1d_cache": 670.6083513273212,
+        "l1d_cache_refill": 29.730962360811212
+      },
+      "median_cpi": 1.181714608584194,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8656865150211822,
+        0.7130223580152014,
+        1.0373662698884685,
+        0.6081339846581006
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 22.419738105963912,
+      "paired_time_ratio_to_old": 0.9928094525437379,
+      "counts_per_selected": {
+        "cpu_cycles": 6106.101475507006,
+        "inst_retired": 3971.5601210889536,
+        "inst_spec": 3975.938661670689,
+        "mem_access": 630.0835005715737,
+        "l1d_cache": 630.0819763749523,
+        "l1d_cache_refill": 67.95533045429528
+      },
+      "median_cpi": 1.537456162857675,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.943048518382975,
+        0.922882995277076,
+        1.0465793146722413,
+        1.0425703867045006
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 25.7971657672897,
+      "paired_time_ratio_to_old": 1.0450851741197522,
+      "counts_per_selected": {
+        "cpu_cycles": 7002.455834285956,
+        "inst_retired": 4254.39700453025,
+        "inst_spec": 4258.195399889919,
+        "mem_access": 644.8409585503196,
+        "l1d_cache": 644.8394343536984,
+        "l1d_cache_refill": 68.7121321817181
+      },
+      "median_cpi": 1.6459367337215918,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8901478960461515,
+        0.7232599300346247,
+        1.7752978756559123,
+        1.2000224521933531
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 19.9602774111554,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 5217.785280917905,
+        "inst_retired": 4152.542895550193,
+        "l1d_tlb_refill": 1.2044265210212117,
+        "l2d_cache": 232.26790084254202,
+        "l2d_cache_refill": 64.64999153224099,
+        "bus_access": 261.3821055082772
+      },
+      "median_cpi": 1.256468949774849,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 19.2133694072254,
+      "paired_time_ratio_to_old": 1.0999914401312125,
+      "counts_per_selected": {
+        "cpu_cycles": 5010.390350988611,
+        "inst_retired": 4145.015390151996,
+        "l1d_tlb_refill": 1.2211969177357211,
+        "l2d_cache": 231.42352343452308,
+        "l2d_cache_refill": 64.63972437444431,
+        "bus_access": 261.1405986705619
+      },
+      "median_cpi": 1.2087754545017302,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0044724356063517,
+        1.1955104446560734,
+        1.5761061582279634,
+        0.786994082707483
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 24.53695550793782,
+      "paired_time_ratio_to_old": 1.2322889071646554,
+      "counts_per_selected": {
+        "cpu_cycles": 6691.78404250815,
+        "inst_retired": 3971.557860197299,
+        "l1d_tlb_refill": 1.4395444345653923,
+        "l2d_cache": 213.82736991405224,
+        "l2d_cache_refill": 56.05747914814344,
+        "bus_access": 226.7871607604048
+      },
+      "median_cpi": 1.68492952163932,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4960780817044155,
+        2.1022812697984508,
+        0.9391741019600393,
+        0.9684997326248956
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 24.066463694907725,
+      "paired_time_ratio_to_old": 1.2446407087076925,
+      "counts_per_selected": {
+        "cpu_cycles": 6521.355768660824,
+        "inst_retired": 4254.3912782082225,
+        "l1d_tlb_refill": 1.6450040221855287,
+        "l2d_cache": 280.7677145518438,
+        "l2d_cache_refill": 54.77482535247047,
+        "bus_access": 221.6940365807189
+      },
+      "median_cpi": 1.5328508167065742,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9717404377706855,
+        1.5869251458448097,
+        1.4456056988706074,
+        1.0436757185447776
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 31.087670160923153,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 8037.244290613489,
+        "inst_retired": 4152.54240653711,
+        "l1i_cache_refill": 0.18926288157839027,
+        "br_mis_pred": 0.3803696176806808,
+        "br_pred": 144.66425123840975,
+        "inst_spec": 4159.864225835132
+      },
+      "median_cpi": 1.935502603634891,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 17.194112343713638,
+      "paired_time_ratio_to_old": 0.6401924360596243,
+      "counts_per_selected": {
+        "cpu_cycles": 4510.866558702739,
+        "inst_retired": 4145.0127863161015,
+        "l1i_cache_refill": 0.19705321986536262,
+        "br_mis_pred": 0.3872539057538422,
+        "br_pred": 143.53028917397012,
+        "inst_spec": 4151.832888775985
+      },
+      "median_cpi": 1.088262848313758,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.5091915465343837,
+        0.6701192149132155,
+        0.6102656572060331,
+        0.850730617045654
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 21.40188805060461,
+      "paired_time_ratio_to_old": 0.893295022027836,
+      "counts_per_selected": {
+        "cpu_cycles": 5826.095158558787,
+        "inst_retired": 3971.5553960794277,
+        "l1i_cache_refill": 0.1831068207798806,
+        "br_mis_pred": 0.4073775350353529,
+        "br_pred": 80.11456242855328,
+        "inst_spec": 3975.9609763326134
+      },
+      "median_cpi": 1.4669558310463051,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8966859648839495,
+        0.5363288112029126,
+        0.8899040791717223,
+        0.9895961149264959
+      ]
+    },
+    {
+      "shape": [
+        512,
+        2048,
+        1024
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 25.236982584465295,
+      "paired_time_ratio_to_old": 0.9083948507479547,
+      "counts_per_selected": {
+        "cpu_cycles": 6837.629679495321,
+        "inst_retired": 4254.394292730429,
+        "l1i_cache_refill": 0.20942461577543503,
+        "br_mis_pred": 0.2063402345569245,
+        "br_pred": 48.4958762013633,
+        "inst_spec": 4258.270237944029
+      },
+      "median_cpi": 1.6071922519200705,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9086643443691499,
+        0.9081253571267595,
+        0.6842174165701216,
+        0.9479435534055626
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 16.069689377521474,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6506.601920078598,
+        "inst_retired": 4168.930391811367,
+        "inst_spec": 4177.298474509302,
+        "mem_access": 677.1435840755216,
+        "l1d_cache": 677.142046304009,
+        "l1d_cache_refill": 53.0772623395485
+      },
+      "median_cpi": 1.5607373644439133,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 15.70963308525582,
+      "paired_time_ratio_to_old": 1.0366975090799824,
+      "counts_per_selected": {
+        "cpu_cycles": 6350.688473121036,
+        "inst_retired": 4161.517054313235,
+        "inst_spec": 4169.573714252152,
+        "mem_access": 674.5800655688686,
+        "l1d_cache": 674.5784637235429,
+        "l1d_cache_refill": 52.72735257683517
+      },
+      "median_cpi": 1.525966461144953,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0830524505766863,
+        0.9903425675832783,
+        1.5194922091007255,
+        0.8032484628334032
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 30.521763081196696,
+      "paired_time_ratio_to_old": 1.9007691262999122,
+      "counts_per_selected": {
+        "cpu_cycles": 12486.952975160719,
+        "inst_retired": 3974.064749257812,
+        "inst_spec": 3980.9883305568014,
+        "mem_access": 632.0001868819546,
+        "l1d_cache": 631.9985850366288,
+        "l1d_cache_refill": 146.05102678285385
+      },
+      "median_cpi": 3.1421109194446672,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        2.0289104088495558,
+        2.0101885908243644,
+        1.7913496617754603,
+        1.1356845958989161
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 29.719413248434044,
+      "paired_time_ratio_to_old": 1.8657058674546447,
+      "counts_per_selected": {
+        "cpu_cycles": 11951.504012622541,
+        "inst_retired": 4264.6660793233805,
+        "inst_spec": 4303.243395057772,
+        "mem_access": 653.8202462570214,
+        "l1d_cache": 653.8186444116956,
+        "l1d_cache_refill": 226.33592031353453
+      },
+      "median_cpi": 2.8024463978467016,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        2.0883619623177987,
+        2.0744920420541555,
+        1.552299665268906,
+        1.6569196928551342
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 15.412306713794049,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6238.621758932958,
+        "inst_retired": 4168.92644593238,
+        "l1d_tlb_refill": 1.2642217167510306,
+        "l2d_cache": 269.7123165887102,
+        "l2d_cache_refill": 69.48395751906196,
+        "bus_access": 281.4856100894898
+      },
+      "median_cpi": 1.4964576260156446,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 18.72209175295817,
+      "paired_time_ratio_to_old": 1.1590625780068309,
+      "counts_per_selected": {
+        "cpu_cycles": 7526.526091390615,
+        "inst_retired": 4161.508006556887,
+        "l1d_tlb_refill": 1.293773093270114,
+        "l2d_cache": 266.1080818436172,
+        "l2d_cache_refill": 68.4141143931142,
+        "bus_access": 277.3233992225711
+      },
+      "median_cpi": 1.8086052702959434,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.7314977864290755,
+        0.8839746761975911,
+        1.434150479816071,
+        0.6870035040504935
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 21.573280915617943,
+      "paired_time_ratio_to_old": 1.3641421389909083,
+      "counts_per_selected": {
+        "cpu_cycles": 8847.740944234425,
+        "inst_retired": 3974.054660302001,
+        "l1d_tlb_refill": 1.6370672347878088,
+        "l2d_cache": 418.83677730078387,
+        "l2d_cache_refill": 58.882368488498756,
+        "bus_access": 250.31812648170694
+      },
+      "median_cpi": 2.2263803625466663,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3874604320603723,
+        1.340823845921444,
+        1.5992025876555722,
+        0.8547491092635836
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 37.08301558314512,
+      "paired_time_ratio_to_old": 2.455149383085816,
+      "counts_per_selected": {
+        "cpu_cycles": 14797.818273317529,
+        "inst_retired": 4264.662272270989,
+        "l1d_tlb_refill": 2.019830845133594,
+        "l2d_cache": 827.0014843766685,
+        "l2d_cache_refill": 55.890078704000345,
+        "bus_access": 255.47764357873604
+      },
+      "median_cpi": 3.469675872296599,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        2.409157912613103,
+        2.5011408535585296,
+        2.7210523421801773,
+        1.1145709066168283
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 26.7384670538983,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 10743.97351615728,
+        "inst_retired": 4168.928557698469,
+        "l1i_cache_refill": 0.30532239806924244,
+        "br_mis_pred": 0.44244569744345486,
+        "br_pred": 145.853241600991,
+        "inst_spec": 4177.273013177848
+      },
+      "median_cpi": 2.5771255607077954,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 20.945489416286968,
+      "paired_time_ratio_to_old": 0.7831285262037523,
+      "counts_per_selected": {
+        "cpu_cycles": 8402.206619358834,
+        "inst_retired": 4161.511511928408,
+        "l1i_cache_refill": 0.3182412806219431,
+        "br_mis_pred": 0.4521315221802183,
+        "br_pred": 144.76111146707674,
+        "inst_spec": 4169.61214519126
+      },
+      "median_cpi": 2.018908213972433,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.741887675828504,
+        1.0022790652632203,
+        0.5969158212058376,
+        0.8243693765790006
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 22.945765706632905,
+      "paired_time_ratio_to_old": 0.9161237070255763,
+      "counts_per_selected": {
+        "cpu_cycles": 9409.458098396019,
+        "inst_retired": 3974.057241942718,
+        "l1i_cache_refill": 0.3194373251318853,
+        "br_mis_pred": 0.3323855748488926,
+        "br_pred": 80.92954817282843,
+        "inst_spec": 3980.9128969906665
+      },
+      "median_cpi": 2.367723625249616,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7074368558710088,
+        0.979664393357347,
+        0.9102051328609151,
+        0.9220422811902376
+      ]
+    },
+    {
+      "shape": [
+        338,
+        2048,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 29.173692339099944,
+      "paired_time_ratio_to_old": 1.0886139447667647,
+      "counts_per_selected": {
+        "cpu_cycles": 11752.965322718439,
+        "inst_retired": 4264.659709318468,
+        "l1i_cache_refill": 0.3482945686764486,
+        "br_mis_pred": 0.27387550458127763,
+        "br_pred": 49.366881313940326,
+        "inst_spec": 4303.131345977232
+      },
+      "median_cpi": 2.7558975850012337,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9809607517774318,
+        1.466118224369577,
+        1.1738561640195726,
+        1.0033717255139567
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 21.659876000032657,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4487.614211338289,
+        "inst_retired": 2102.062818261148,
+        "inst_spec": 2108.434865773418,
+        "mem_access": 342.3756484887313,
+        "l1d_cache": 342.3742567002832,
+        "l1d_cache_refill": 35.183570636945724
+      },
+      "median_cpi": 2.1348622640997745,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 26.218430229669647,
+      "paired_time_ratio_to_old": 1.062323957650009,
+      "counts_per_selected": {
+        "cpu_cycles": 5457.683080933603,
+        "inst_retired": 2094.5181705714067,
+        "inst_spec": 2100.6296259476494,
+        "mem_access": 339.7295788183053,
+        "l1d_cache": 339.72818702985717,
+        "l1d_cache_refill": 35.066634633440486
+      },
+      "median_cpi": 2.6056986913386533,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7413240833685617,
+        1.0829309226566846,
+        2.034203430635427,
+        1.0417169926433334
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 27.060016459371482,
+      "paired_time_ratio_to_old": 1.2748658328632294,
+      "counts_per_selected": {
+        "cpu_cycles": 5584.416746749732,
+        "inst_retired": 2011.9159238271973,
+        "inst_spec": 2016.2978997985958,
+        "mem_access": 320.61594739186944,
+        "l1d_cache": 320.6145556034213,
+        "l1d_cache_refill": 49.92370937395294
+      },
+      "median_cpi": 2.7756706963333144,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7394519099436556,
+        1.4446862497464348,
+        1.5700460056646142,
+        1.105045415980024
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 25.98718134686351,
+      "paired_time_ratio_to_old": 1.2407189179752938,
+      "counts_per_selected": {
+        "cpu_cycles": 5342.29357347207,
+        "inst_retired": 2141.903267020873,
+        "inst_spec": 2148.1215495244724,
+        "mem_access": 327.5784040825794,
+        "l1d_cache": 327.5770122941313,
+        "l1d_cache_refill": 80.44208981822064
+      },
+      "median_cpi": 2.4941806365924184,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.5357004807251883,
+        1.7291878723239253,
+        1.3438335247532271,
+        1.1376043111973606
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 29.45997240021825,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6173.336348874971,
+        "inst_retired": 2102.066052880597,
+        "l1d_tlb_refill": 1.279974078860648,
+        "l2d_cache": 132.23229611956125,
+        "l2d_cache_refill": 45.043810039286726,
+        "bus_access": 184.03866999517663
+      },
+      "median_cpi": 2.936795799304446,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 22.15239439263112,
+      "paired_time_ratio_to_old": 0.8108014244491737,
+      "counts_per_selected": {
+        "cpu_cycles": 4609.81567271616,
+        "inst_retired": 2094.5166793694975,
+        "l1d_tlb_refill": 1.307920307224413,
+        "l2d_cache": 132.29511438070938,
+        "l2d_cache_refill": 45.35435559826652,
+        "bus_access": 185.22983103393682
+      },
+      "median_cpi": 2.2008967737554146,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1988820494317631,
+        0.8181710459045601,
+        0.8034318029937872,
+        0.536790790086028
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 21.626277891401614,
+      "paired_time_ratio_to_old": 0.7446327721567352,
+      "counts_per_selected": {
+        "cpu_cycles": 4447.959240481161,
+        "inst_retired": 2011.915888848387,
+        "l1d_tlb_refill": 1.3504158796434371,
+        "l2d_cache": 149.34109678820883,
+        "l2d_cache_refill": 37.05570283475642,
+        "bus_access": 153.64192560191168
+      },
+      "median_cpi": 2.2108096386995526,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8819211221483304,
+        0.6058498037520589,
+        1.1821191088816132,
+        0.6073444221651401
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 20.454036162441806,
+      "paired_time_ratio_to_old": 0.7223149581672328,
+      "counts_per_selected": {
+        "cpu_cycles": 4201.157023560991,
+        "inst_retired": 2141.9101523235136,
+        "l1d_tlb_refill": 1.4899555585011397,
+        "l2d_cache": 272.45729087273975,
+        "l2d_cache_refill": 33.54474342122219,
+        "bus_access": 142.51302684531635
+      },
+      "median_cpi": 1.9614067306476124,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.5206577647357633,
+        0.5444373744319878,
+        0.858490268186076,
+        0.5861396481483897
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 28.978499842600687,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6069.843622626504,
+        "inst_retired": 2102.071513256969,
+        "l1i_cache_refill": 0.15276903307522655,
+        "br_mis_pred": 0.5745766643470193,
+        "br_pred": 78.40462198952108,
+        "inst_spec": 2108.64673610881
+      },
+      "median_cpi": 2.8875554566531134,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 27.016756241209805,
+      "paired_time_ratio_to_old": 0.9986635783799847,
+      "counts_per_selected": {
+        "cpu_cycles": 5647.174365686892,
+        "inst_retired": 2094.5182331650667,
+        "l1i_cache_refill": 0.16061165052118426,
+        "br_mis_pred": 0.47770376997934405,
+        "br_pred": 77.285837632045,
+        "inst_spec": 2100.6827477144107
+      },
+      "median_cpi": 2.6961672645130177,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7668336068879669,
+        1.2304935498720024,
+        0.665376405497353,
+        1.3313856221029372
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 24.134994950145483,
+      "paired_time_ratio_to_old": 0.9241861573580199,
+      "counts_per_selected": {
+        "cpu_cycles": 4979.071170832827,
+        "inst_retired": 2011.917919460369,
+        "l1i_cache_refill": 0.15873015873015872,
+        "br_mis_pred": 0.3586451049916603,
+        "br_pred": 45.649891565688364,
+        "inst_spec": 2016.2315965433572
+      },
+      "median_cpi": 2.474784116014799,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8089627257089204,
+        0.7182905443644502,
+        1.0612282628103673,
+        1.0394095890071193
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 22.12463055426876,
+      "paired_time_ratio_to_old": 0.8352834160015483,
+      "counts_per_selected": {
+        "cpu_cycles": 4540.244732007084,
+        "inst_retired": 2141.9104671328055,
+        "l1i_cache_refill": 0.17155817712533092,
+        "br_mis_pred": 0.36458229777645224,
+        "br_pred": 29.691860614964305,
+        "inst_spec": 2148.055837227027
+      },
+      "median_cpi": 2.1197228048207926,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6889768759992173,
+        0.8441393522374905,
+        0.826427479765606,
+        0.8475397445037728
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 22.47163413134827,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4608.007516260126,
+        "inst_retired": 2101.213356349056,
+        "inst_spec": 2107.883433198673,
+        "mem_access": 341.99899984033596,
+        "l1d_cache": 341.9976080518878,
+        "l1d_cache_refill": 26.184880417657038
+      },
+      "median_cpi": 2.1930193454419284,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 19.18667763344605,
+      "paired_time_ratio_to_old": 0.8900706423597615,
+      "counts_per_selected": {
+        "cpu_cycles": 3941.0406781805527,
+        "inst_retired": 2093.6643801570735,
+        "inst_spec": 2100.0134042482687,
+        "mem_access": 339.3507562954327,
+        "l1d_cache": 339.34936450698456,
+        "l1d_cache_refill": 26.107327374550756
+      },
+      "median_cpi": 1.8823648280035874,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6533541177417082,
+        1.140188520250238,
+        0.8772674175725708,
+        0.9028738671469523
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 19.2999064033343,
+      "paired_time_ratio_to_old": 0.8162415038871103,
+      "counts_per_selected": {
+        "cpu_cycles": 3981.6086935565017,
+        "inst_retired": 2011.0613109924175,
+        "inst_spec": 2015.0623352523144,
+        "mem_access": 320.1487586873808,
+        "l1d_cache": 320.14736689893266,
+        "l1d_cache_refill": 34.119351884487585
+      },
+      "median_cpi": 1.9798545245685784,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6568682868583182,
+        1.1474051814077202,
+        0.7568697818602157,
+        0.8756132259140047
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 19.654496318914674,
+      "paired_time_ratio_to_old": 0.7867633626201802,
+      "counts_per_selected": {
+        "cpu_cycles": 4046.832358780167,
+        "inst_retired": 2141.054064353647,
+        "inst_spec": 2144.0974748981016,
+        "mem_access": 326.4623358548202,
+        "l1d_cache": 326.46094406637206,
+        "l1d_cache_refill": 34.93555597730963
+      },
+      "median_cpi": 1.8901121361549333,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6547355113805168,
+        0.7843235463461681,
+        1.191132389340627,
+        0.7892031788941922
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 19.894991630942307,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4083.8962259035325,
+        "inst_retired": 2101.2192744624895,
+        "l1d_tlb_refill": 1.1729372460061396,
+        "l2d_cache": 125.55116027558617,
+        "l2d_cache_refill": 43.945685606437166,
+        "bus_access": 179.35912359503175
+      },
+      "median_cpi": 1.9434667807425017,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 24.637198498980563,
+      "paired_time_ratio_to_old": 1.1732466611192387,
+      "counts_per_selected": {
+        "cpu_cycles": 5051.022813882939,
+        "inst_retired": 2093.6615016855103,
+        "l1d_tlb_refill": 1.1941394258722025,
+        "l2d_cache": 124.10483751924254,
+        "l2d_cache_refill": 43.38479938062402,
+        "bus_access": 177.13360867849383
+      },
+      "median_cpi": 2.4125307645508753,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4385088708753524,
+        0.722483489421301,
+        1.2554014244967135,
+        1.091091897741764
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 24.42424590911039,
+      "paired_time_ratio_to_old": 1.1962499223227714,
+      "counts_per_selected": {
+        "cpu_cycles": 5057.779195172723,
+        "inst_retired": 2011.0617553404609,
+        "l1d_tlb_refill": 1.2693005208662829,
+        "l2d_cache": 114.42623521224775,
+        "l2d_cache_refill": 36.03956956984097,
+        "bus_access": 147.72428429839704
+      },
+      "median_cpi": 2.5149805282589135,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2323780414363568,
+        1.1561594382627665,
+        1.2990967050345188,
+        1.1601218032091858
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 23.513426940718833,
+      "paired_time_ratio_to_old": 1.248448212535075,
+      "counts_per_selected": {
+        "cpu_cycles": 4885.382213124385,
+        "inst_retired": 2141.051542866783,
+        "l1d_tlb_refill": 1.3919782374897198,
+        "l2d_cache": 135.9261764679301,
+        "l2d_cache_refill": 32.81491924915724,
+        "bus_access": 134.80690290919935
+      },
+      "median_cpi": 2.2817713565852147,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3086633236848761,
+        1.2511663217208642,
+        1.2457301033492858,
+        0.6368178595112761
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 20.696159727363426,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4245.272282924683,
+        "inst_retired": 2101.213356349056,
+        "l1i_cache_refill": 0.14394315960077964,
+        "br_mis_pred": 0.35827556808767663,
+        "br_pred": 78.25903683419341,
+        "inst_spec": 2107.8768161784865
+      },
+      "median_cpi": 2.020387002528615,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 24.411843232387167,
+      "paired_time_ratio_to_old": 1.2029427815241367,
+      "counts_per_selected": {
+        "cpu_cycles": 5005.458246346556,
+        "inst_retired": 2093.665431529732,
+        "l1i_cache_refill": 0.15106477841342142,
+        "br_mis_pred": 0.3638954411397,
+        "br_pred": 77.13784128189138,
+        "inst_spec": 2100.060744636945
+      },
+      "median_cpi": 2.3907657867348133,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4247209623482302,
+        0.9811646007000431,
+        1.58398275852416,
+        0.8387031495998253
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 16.61789745346389,
+      "paired_time_ratio_to_old": 0.8527356323658641,
+      "counts_per_selected": {
+        "cpu_cycles": 3412.6743215031315,
+        "inst_retired": 2011.0640237748796,
+        "l1i_cache_refill": 0.1374767658692502,
+        "br_mis_pred": 0.46778100118392396,
+        "br_pred": 45.48375644304663,
+        "inst_spec": 2015.0741970856793
+      },
+      "median_cpi": 1.696953279233762,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1035505976944238,
+        0.6019206670373046,
+        1.323444325353672,
+        0.48212623730361054
+      ]
+    },
+    {
+      "shape": [
+        615,
+        1024,
+        3584
+      ],
+      "layout": "pad64",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 19.24443882043389,
+      "paired_time_ratio_to_old": 1.0082081241710432,
+      "counts_per_selected": {
+        "cpu_cycles": 3970.4644340813443,
+        "inst_retired": 2141.0507129150137,
+        "l1i_cache_refill": 0.1438181396427743,
+        "br_mis_pred": 0.3668808574862854,
+        "br_pred": 29.520256245725975,
+        "inst_spec": 2144.0511346690887
+      },
+      "median_cpi": 1.8544505486430753,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1231113671018333,
+        0.9253596289886119,
+        1.0910566193534745,
+        0.4767554054605064
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 18.521253495815802,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 11002.411432809153,
+        "inst_retired": 7315.095167879541,
+        "inst_spec": 7326.064896652817,
+        "mem_access": 1186.101504020262,
+        "l1d_cache": 1186.099309573167,
+        "l1d_cache_refill": 46.66466593229307
+      },
+      "median_cpi": 1.5040703344761928,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 17.88715667895634,
+      "paired_time_ratio_to_old": 0.9998679743178044,
+      "counts_per_selected": {
+        "cpu_cycles": 10617.162952875766,
+        "inst_retired": 7307.674645028666,
+        "inst_spec": 7317.765397992905,
+        "mem_access": 1183.5089469256056,
+        "l1d_cache": 1183.5066570677677,
+        "l1d_cache_refill": 45.96244286197535
+      },
+      "median_cpi": 1.4528784514432154,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.131639176426279,
+        0.8680967722093298,
+        1.1806637631784445,
+        0.7382576728661722
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 22.469411328942936,
+      "paired_time_ratio_to_old": 1.2108114251184856,
+      "counts_per_selected": {
+        "cpu_cycles": 13792.405786227893,
+        "inst_retired": 7139.736293379362,
+        "inst_spec": 7148.244529061245,
+        "mem_access": 1133.3052406519155,
+        "l1d_cache": 1133.3029507940773,
+        "l1d_cache_refill": 132.67238552879235
+      },
+      "median_cpi": 1.931667338557343,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1786675678380671,
+        1.2197191856168907,
+        1.3104081435645996,
+        1.2019036646200805
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 25.619075369005174,
+      "paired_time_ratio_to_old": 1.4115624254364536,
+      "counts_per_selected": {
+        "cpu_cycles": 15436.501418150592,
+        "inst_retired": 7906.091190986286,
+        "inst_spec": 7916.8480020123,
+        "mem_access": 1198.1562264183676,
+        "l1d_cache": 1198.1539365605295,
+        "l1d_cache_refill": 178.0210597531464
+      },
+      "median_cpi": 1.9524820802747418,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.7184426316792178,
+        1.036450461605139,
+        1.6602790906336502,
+        1.1628457602392572
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 24.735629410398275,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 14728.005737655152,
+        "inst_retired": 7315.089707782915,
+        "l1d_tlb_refill": 1.4956154426624801,
+        "l2d_cache": 403.09855496092496,
+        "l2d_cache_refill": 118.06628010859478,
+        "bus_access": 475.97018847958645
+      },
+      "median_cpi": 2.0133746350202926,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 26.067587674002755,
+      "paired_time_ratio_to_old": 0.972242851258104,
+      "counts_per_selected": {
+        "cpu_cycles": 15521.399545497914,
+        "inst_retired": 7307.667701728669,
+        "l1d_tlb_refill": 1.5216018596421228,
+        "l2d_cache": 399.71790079017444,
+        "l2d_cache_refill": 117.95513092956085,
+        "bus_access": 475.5689602831097
+      },
+      "median_cpi": 2.123985002308337,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1180187025658306,
+        0.9006512099642787,
+        1.0438344925519292,
+        0.6533412028278143
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 26.53024222871119,
+      "paired_time_ratio_to_old": 1.1047879989979634,
+      "counts_per_selected": {
+        "cpu_cycles": 16285.223256802352,
+        "inst_retired": 7139.7156629745605,
+        "l1d_tlb_refill": 2.195566002550069,
+        "l2d_cache": 387.7925380125075,
+        "l2d_cache_refill": 108.64770884110641,
+        "bus_access": 439.63465925354103
+      },
+      "median_cpi": 2.280934593511504,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9034508529586287,
+        1.1047090081291298,
+        1.1048669898667969,
+        1.1296097397620763
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 21.32978036322377,
+      "paired_time_ratio_to_old": 0.8937278196445916,
+      "counts_per_selected": {
+        "cpu_cycles": 12856.514281253523,
+        "inst_retired": 7906.089933299216,
+        "l1d_tlb_refill": 2.3697643354641733,
+        "l2d_cache": 662.1234484912092,
+        "l2d_cache_refill": 108.34055997432583,
+        "bus_access": 439.397004102662
+      },
+      "median_cpi": 1.6261556172401392,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0445936924176384,
+        0.7340885842031837,
+        0.8569034373140142,
+        0.930552201975169
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 17.797410223548386,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 10570.134086789081,
+        "inst_retired": 7315.083848695909,
+        "l1i_cache_refill": 0.4553044036394862,
+        "br_mis_pred": 0.5326608321551553,
+        "br_pred": 248.25302061739424,
+        "inst_spec": 7325.931750960613
+      },
+      "median_cpi": 1.4449771046307371,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 23.644392315128986,
+      "paired_time_ratio_to_old": 1.2911611428836491,
+      "counts_per_selected": {
+        "cpu_cycles": 14069.856129272883,
+        "inst_retired": 7307.662549548533,
+        "l1i_cache_refill": 0.4807357035674944,
+        "br_mis_pred": 0.5417248527638758,
+        "br_pred": 247.10692508521913,
+        "inst_spec": 7317.679957672325
+      },
+      "median_cpi": 1.925356166573362,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0548733931038354,
+        1.4524364140517347,
+        1.2880967293361447,
+        1.2942255564311533
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 24.398742402395744,
+      "paired_time_ratio_to_old": 1.3343510289460299,
+      "counts_per_selected": {
+        "cpu_cycles": 14975.137152943422,
+        "inst_retired": 7139.717397715347,
+        "l1i_cache_refill": 0.4806186085644153,
+        "br_mis_pred": 0.46530952112480595,
+        "br_pred": 137.372201646269,
+        "inst_spec": 7147.975015395825
+      },
+      "median_cpi": 2.09744095300482,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1135970758447042,
+        1.5065027158162834,
+        1.4213291059929114,
+        1.247372951899148
+      ]
+    },
+    {
+      "shape": [
+        320,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 23.823401509699497,
+      "paired_time_ratio_to_old": 1.3004936154109883,
+      "counts_per_selected": {
+        "cpu_cycles": 14416.640440277211,
+        "inst_retired": 7906.083748948314,
+        "l1i_cache_refill": 0.5023809317292763,
+        "br_mis_pred": 0.42417014337632597,
+        "br_pred": 82.55626198055356,
+        "inst_spec": 7916.49027244104
+      },
+      "median_cpi": 1.8234871934304087,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2338292596389735,
+        1.569343505315591,
+        1.3296423906349744,
+        1.271344840187002
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 17.306278081377968,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 10933.10880121396,
+        "inst_retired": 7334.0497470915525,
+        "inst_spec": 7345.13578233013,
+        "mem_access": 1189.3513446299105,
+        "l1d_cache": 1189.3491190355758,
+        "l1d_cache_refill": 46.909037261844546
+      },
+      "median_cpi": 1.4907345072403644,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 20.88919536132986,
+      "paired_time_ratio_to_old": 1.183102675523501,
+      "counts_per_selected": {
+        "cpu_cycles": 13179.28182009779,
+        "inst_retired": 7326.652103355252,
+        "inst_spec": 7336.967345304333,
+        "mem_access": 1186.78562215478,
+        "l1d_cache": 1186.783396560445,
+        "l1d_cache_refill": 47.09603355252065
+      },
+      "median_cpi": 1.7988138277808008,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9951038239456309,
+        1.327977030531631,
+        2.1171941554489555,
+        1.0382283205153708
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 24.294421416319288,
+      "paired_time_ratio_to_old": 1.4488063902540558,
+      "counts_per_selected": {
+        "cpu_cycles": 15725.167071320182,
+        "inst_retired": 7133.224380374304,
+        "inst_spec": 7140.584960377677,
+        "mem_access": 1132.297618445456,
+        "l1d_cache": 1132.2953928511213,
+        "l1d_cache_refill": 133.67438880458607
+      },
+      "median_cpi": 2.2044975222843863,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4519874525858234,
+        1.2267677665131025,
+        1.6695052379581605,
+        1.4456253279222882
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 22.917721915291622,
+      "paired_time_ratio_to_old": 1.4606563489013147,
+      "counts_per_selected": {
+        "cpu_cycles": 14652.614845725846,
+        "inst_retired": 7744.514681335357,
+        "inst_spec": 7757.125518462317,
+        "mem_access": 1174.5767408531447,
+        "l1d_cache": 1174.5745152588097,
+        "l1d_cache_refill": 175.70231411229133
+      },
+      "median_cpi": 1.8920002045037918,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.592839048958723,
+        1.3509182554310204,
+        1.5703944423716087,
+        1.11026463054771
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 22.28961550281383,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 14075.554097116845,
+        "inst_retired": 7334.053030686224,
+        "l1d_tlb_refill": 1.5032878098128477,
+        "l2d_cache": 406.18251559602095,
+        "l2d_cache_refill": 118.67824987354578,
+        "bus_access": 478.368567695161
+      },
+      "median_cpi": 1.9192049977491006,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 20.098896124788247,
+      "paired_time_ratio_to_old": 0.958264943813935,
+      "counts_per_selected": {
+        "cpu_cycles": 12697.724827179227,
+        "inst_retired": 7326.654202495363,
+        "l1d_tlb_refill": 1.5372702748271792,
+        "l2d_cache": 407.70219187320856,
+        "l2d_cache_refill": 119.2242623503625,
+        "bus_access": 480.65592227280393
+      },
+      "median_cpi": 1.7330862151420448,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7340105135237397,
+        1.3543773724637547,
+        0.9247826960506416,
+        0.9917471915772286
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 19.578827671163403,
+      "paired_time_ratio_to_old": 0.9350487494716464,
+      "counts_per_selected": {
+        "cpu_cycles": 12683.168854324733,
+        "inst_retired": 7133.232182599899,
+        "l1d_tlb_refill": 2.191523351879953,
+        "l2d_cache": 391.79988619119877,
+        "l2d_cache_refill": 106.82960714887878,
+        "bus_access": 432.02901281402796
+      },
+      "median_cpi": 1.7780374374483814,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9606674792410165,
+        0.9094300197022764,
+        0.8172651795367112,
+        1.0010050300638198
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 19.940314872656018,
+      "paired_time_ratio_to_old": 0.9666932744080317,
+      "counts_per_selected": {
+        "cpu_cycles": 12761.305981284775,
+        "inst_retired": 7744.509319676277,
+        "l1d_tlb_refill": 2.338572753329961,
+        "l2d_cache": 657.5136739167087,
+        "l2d_cache_refill": 106.88623756533468,
+        "bus_access": 433.2248440397909
+      },
+      "median_cpi": 1.6477874658399174,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9218874919078178,
+        0.7429108211274872,
+        1.0319710781729299,
+        1.0114990569082454
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 15.728686877992004,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 9935.022513066935,
+        "inst_retired": 7334.044482380712,
+        "l1i_cache_refill": 0.46981959197437195,
+        "br_mis_pred": 0.5385601079076041,
+        "br_pred": 248.9768757376496,
+        "inst_spec": 7344.98379699882
+      },
+      "median_cpi": 1.3546432612416723,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 21.187923121033236,
+      "paired_time_ratio_to_old": 1.45866797216335,
+      "counts_per_selected": {
+        "cpu_cycles": 13370.793841679313,
+        "inst_retired": 7326.658257460799,
+        "l1i_cache_refill": 0.5000716573933569,
+        "br_mis_pred": 0.559045692126117,
+        "br_pred": 247.8469060866633,
+        "inst_spec": 7336.898259146856
+      },
+      "median_cpi": 1.8249498276552427,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3839678082481275,
+        1.1056394986064886,
+        1.692723569085329,
+        1.5333681360785723
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 26.214708166662604,
+      "paired_time_ratio_to_old": 1.6604238475270094,
+      "counts_per_selected": {
+        "cpu_cycles": 16990.56002360479,
+        "inst_retired": 7133.237995279042,
+        "l1i_cache_refill": 0.4736680155117181,
+        "br_mis_pred": 0.5287978418479178,
+        "br_pred": 137.34497133704267,
+        "inst_spec": 7140.749903051762
+      },
+      "median_cpi": 2.381886087146751,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        2.2475472867234485,
+        1.3120442927400322,
+        1.9251994611005165,
+        1.3956482339535023
+      ]
+    },
+    {
+      "shape": [
+        295,
+        3584,
+        1024
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 18.086022493662313,
+      "paired_time_ratio_to_old": 1.1406058386771492,
+      "counts_per_selected": {
+        "cpu_cycles": 11643.129640870005,
+        "inst_retired": 7744.514078570224,
+        "l1i_cache_refill": 0.5182389141797337,
+        "br_mis_pred": 0.4211979430112966,
+        "br_pred": 81.26371185297589,
+        "inst_spec": 7757.704463834092
+      },
+      "median_cpi": 1.5034038067798607,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3187798392661338,
+        0.9624318380881645,
+        1.7934665176722324,
+        0.8931955613912832
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 9.293729672208428,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3928.558896716454,
+        "inst_retired": 2154.4810273931184,
+        "inst_spec": 2164.059318497914,
+        "mem_access": 352.4111719175183,
+        "l1d_cache": 352.4087379814961,
+        "l1d_cache_refill": 27.68560198343109
+      },
+      "median_cpi": 1.8234374629898502,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 8.575127763754649,
+      "paired_time_ratio_to_old": 1.0480267660693072,
+      "counts_per_selected": {
+        "cpu_cycles": 3588.5278935115193,
+        "inst_retired": 2146.7606669891757,
+        "inst_spec": 2155.8828460422083,
+        "mem_access": 349.6809487815202,
+        "l1d_cache": 349.67844530446877,
+        "l1d_cache_refill": 27.575438410836306
+      },
+      "median_cpi": 1.6716018223643117,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2393938888353144,
+        0.9600811698226589,
+        1.1359723623159557,
+        0.7449051885889993
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 9.265316564225309,
+      "paired_time_ratio_to_old": 1.0210693971934586,
+      "counts_per_selected": {
+        "cpu_cycles": 3965.8193082179355,
+        "inst_retired": 2110.5768776077884,
+        "inst_spec": 2117.7895643103348,
+        "mem_access": 337.83904728789986,
+        "l1d_cache": 337.8365438108484,
+        "l1d_cache_refill": 54.36560893753401
+      },
+      "median_cpi": 1.8790215476604506,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.4827023362839742,
+        0.7463502186625164,
+        1.1717710504723127,
+        0.8703677439146046
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 11.213590841456924,
+      "paired_time_ratio_to_old": 1.250681384906259,
+      "counts_per_selected": {
+        "cpu_cycles": 4814.58542057205,
+        "inst_retired": 2321.314605127895,
+        "inst_spec": 2334.618986212735,
+        "mem_access": 357.32276108121187,
+        "l1d_cache": 357.32025760416036,
+        "l1d_cache_refill": 84.62683679022797
+      },
+      "median_cpi": 2.0740793341341917,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.7772735901599994,
+        1.0341602506460343,
+        1.4672025191664835,
+        0.8640710081043981
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 9.291269527950687,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 3913.022596299208,
+        "inst_retired": 2154.487735078914,
+        "l1d_tlb_refill": 1.282824877547318,
+        "l2d_cache": 135.03523916067002,
+        "l2d_cache_refill": 40.12303622180565,
+        "bus_access": 164.12096359678299
+      },
+      "median_cpi": 1.8162209955052617,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 12.297608651747197,
+      "paired_time_ratio_to_old": 1.3366831469900957,
+      "counts_per_selected": {
+        "cpu_cycles": 5155.128785450807,
+        "inst_retired": 2146.7690678478566,
+        "l1d_tlb_refill": 1.3280703876156497,
+        "l2d_cache": 133.94514573380906,
+        "l2d_cache_refill": 39.629322126141375,
+        "bus_access": 162.1698267521316
+      },
+      "median_cpi": 2.401341739766866,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3039075293286921,
+        0.8098340409394169,
+        1.3694587646514993,
+        1.6557333200466635
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 11.107261004128857,
+      "paired_time_ratio_to_old": 1.1657606795013735,
+      "counts_per_selected": {
+        "cpu_cycles": 4764.535089496281,
+        "inst_retired": 2110.5734534679805,
+        "l1d_tlb_refill": 1.342474451230574,
+        "l2d_cache": 157.34754641107818,
+        "l2d_cache_refill": 30.101918425349215,
+        "bus_access": 125.55995646126867
+      },
+      "median_cpi": 2.2574620192106867,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2383479471683194,
+        1.0931734118344278,
+        0.9466242625254678,
+        1.5033862941227811
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 11.135872544558799,
+      "paired_time_ratio_to_old": 1.2153114797921982,
+      "counts_per_selected": {
+        "cpu_cycles": 4798.863989840963,
+        "inst_retired": 2321.319395900103,
+        "l1d_tlb_refill": 1.4162484126504202,
+        "l2d_cache": 288.8187231662333,
+        "l2d_cache_refill": 27.658972304529236,
+        "bus_access": 118.8100033258753
+      },
+      "median_cpi": 2.0673001822612145,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2773648042898336,
+        0.9038521596078789,
+        1.1532581552945629,
+        1.3013789603522297
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 11.536002154057117,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4934.713075225252,
+        "inst_retired": 2154.4917639233236,
+        "l1i_cache_refill": 0.2809230815746508,
+        "br_mis_pred": 0.5653096087561227,
+        "br_pred": 81.00982493801777,
+        "inst_spec": 2163.4344878152024
+      },
+      "median_cpi": 2.2904400590427665,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 10.3969360023494,
+      "paired_time_ratio_to_old": 0.9038612623474478,
+      "counts_per_selected": {
+        "cpu_cycles": 4445.464035193808,
+        "inst_retired": 2146.7717149422506,
+        "l1i_cache_refill": 0.29380480135453835,
+        "br_mis_pred": 0.571841930217089,
+        "br_pred": 79.80722621999153,
+        "inst_spec": 2155.1633261776624
+      },
+      "median_cpi": 2.0707680574994227,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.2937239001158982,
+        1.0336286462075561,
+        0.7740938784873396,
+        0.5914402451385447
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 10.623631477558417,
+      "paired_time_ratio_to_old": 0.979313442299671,
+      "counts_per_selected": {
+        "cpu_cycles": 4565.3181184616315,
+        "inst_retired": 2110.5787582391004,
+        "l1i_cache_refill": 0.3147971216060954,
+        "br_mis_pred": 0.4518503960815142,
+        "br_pred": 48.323851061256576,
+        "inst_spec": 2117.8335716877305
+      },
+      "median_cpi": 2.163075207784766,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.9726959971271645,
+        1.1119403962741747,
+        0.9859308874721776,
+        0.5965694605852823
+      ]
+    },
+    {
+      "shape": [
+        512,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 12.654481238037672,
+      "paired_time_ratio_to_old": 1.1024223824360682,
+      "counts_per_selected": {
+        "cpu_cycles": 5438.9468313478865,
+        "inst_retired": 2321.3145582632887,
+        "l1i_cache_refill": 0.31995978714398016,
+        "br_mis_pred": 0.39679657737195384,
+        "br_pred": 32.26638749470884,
+        "inst_spec": 2334.09254399226
+      },
+      "median_cpi": 2.343048229481497,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3894667335105728,
+        1.0199762537233008,
+        1.1848685111488355,
+        0.7600344744086961
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "old",
+      "median_ms_per_call": 7.195336998847779,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4643.3408135228365,
+        "inst_retired": 2161.0576682666597,
+        "inst_spec": 2170.7293042705105,
+        "mem_access": 354.7496523692373,
+        "l1d_cache": 354.7470852497594,
+        "l1d_cache_refill": 26.963602390630015
+      },
+      "median_cpi": 2.1485049203890565,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "4",
+      "median_ms_per_call": 7.660832128749462,
+      "paired_time_ratio_to_old": 1.1489585882112237,
+      "counts_per_selected": {
+        "cpu_cycles": 4922.203026393197,
+        "inst_retired": 2153.5647128035084,
+        "inst_spec": 2162.9537534094557,
+        "mem_access": 352.16052686116166,
+        "l1d_cache": 352.157852778372,
+        "l1d_cache_refill": 26.870076345063644
+      },
+      "median_cpi": 2.2854748858802205,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0725012962630622,
+        0.5696440828437869,
+        1.2924951093933925,
+        1.225415880159385
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "8",
+      "median_ms_per_call": 6.181937154906336,
+      "paired_time_ratio_to_old": 0.8097093410799348,
+      "counts_per_selected": {
+        "cpu_cycles": 4008.832518852284,
+        "inst_retired": 2106.4717884265697,
+        "inst_spec": 2115.6482962750024,
+        "mem_access": 338.81135682960746,
+        "l1d_cache": 338.80868274681785,
+        "l1d_cache_refill": 53.33007206653118
+      },
+      "median_cpi": 1.9031028947058863,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.7116332768814488,
+        0.7574394837546932,
+        1.3547915817176224,
+        0.8619791984051763
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "core",
+      "mode": "16",
+      "median_ms_per_call": 7.302351721591549,
+      "paired_time_ratio_to_old": 1.0587841262695792,
+      "counts_per_selected": {
+        "cpu_cycles": 4788.307959073163,
+        "inst_retired": 2318.411208752273,
+        "inst_spec": 2329.857580021928,
+        "mem_access": 357.87809859343247,
+        "l1d_cache": 357.87542451064286,
+        "l1d_cache_refill": 83.20454727778372
+      },
+      "median_cpi": 2.0653379883373653,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.1249817366706598,
+        0.785278715719238,
+        1.2726400701644394,
+        0.9925865158684986
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "old",
+      "median_ms_per_call": 7.263223062182078,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 4700.562264346454,
+        "inst_retired": 2161.056869384426,
+        "l1d_tlb_refill": 1.3922077227510963,
+        "l2d_cache": 132.50643284041075,
+        "l2d_cache_refill": 40.449458163974754,
+        "bus_access": 165.49963398491815
+      },
+      "median_cpi": 2.1751264163717723,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "4",
+      "median_ms_per_call": 6.334124263958074,
+      "paired_time_ratio_to_old": 0.797156013446819,
+      "counts_per_selected": {
+        "cpu_cycles": 4093.8372068536737,
+        "inst_retired": 2153.557840410739,
+        "l1d_tlb_refill": 1.4569221975612365,
+        "l2d_cache": 133.06499023959782,
+        "l2d_cache_refill": 40.73562513370413,
+        "bus_access": 166.62119444593006
+      },
+      "median_cpi": 1.9009648867829183,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.525131219705861,
+        0.6777166684300683,
+        0.8106942836595892,
+        0.7836177432340486
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "8",
+      "median_ms_per_call": 6.29199553077342,
+      "paired_time_ratio_to_old": 0.8479369876846765,
+      "counts_per_selected": {
+        "cpu_cycles": 4092.6839150577607,
+        "inst_retired": 2106.4727594528827,
+        "l1d_tlb_refill": 1.4739527623275217,
+        "l2d_cache": 156.3269835009092,
+        "l2d_cache_refill": 31.146292384212217,
+        "bus_access": 129.74636826131137
+      },
+      "median_cpi": 1.9429085208091492,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.3898731995936864,
+        0.8938978037562276,
+        0.7827137032381296,
+        0.8019761716131254
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "cache",
+      "mode": "16",
+      "median_ms_per_call": 8.22313694152399,
+      "paired_time_ratio_to_old": 1.1026426481129579,
+      "counts_per_selected": {
+        "cpu_cycles": 5388.760208311049,
+        "inst_retired": 2318.411497887475,
+        "l1d_tlb_refill": 1.5408399294042145,
+        "l2d_cache": 284.8667721815167,
+        "l2d_cache_refill": 28.728306503369346,
+        "bus_access": 122.72955997967696
+      },
+      "median_cpi": 2.3243307822832655,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.128556620928489,
+        1.2390289806362764,
+        0.9960485408846476,
+        1.076728675297427
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "old",
+      "median_ms_per_call": 9.84298654657323,
+      "paired_time_ratio_to_old": 1.0,
+      "counts_per_selected": {
+        "cpu_cycles": 6350.097171154668,
+        "inst_retired": 2161.0587646406034,
+        "l1i_cache_refill": 0.40283887314151245,
+        "br_mis_pred": 0.6888186570756231,
+        "br_pred": 82.01146178735694,
+        "inst_spec": 2170.5912764734194
+      },
+      "median_cpi": 2.938421333253819,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "4",
+      "median_ms_per_call": 6.537026885780506,
+      "paired_time_ratio_to_old": 0.7216098632195032,
+      "counts_per_selected": {
+        "cpu_cycles": 4225.493933174671,
+        "inst_retired": 2153.553874411702,
+        "l1i_cache_refill": 0.43237913145790996,
+        "br_mis_pred": 0.5951655925767462,
+        "br_pred": 80.87396212161728,
+        "inst_spec": 2162.9973326024174
+      },
+      "median_cpi": 1.9621021316182836,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        1.0120280332825464,
+        0.7345964108346357,
+        0.5936132864938863,
+        0.7086233156043705
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "8",
+      "median_ms_per_call": 6.884586044179741,
+      "paired_time_ratio_to_old": 0.7814435338648168,
+      "counts_per_selected": {
+        "cpu_cycles": 4498.882883530325,
+        "inst_retired": 2106.4769443924483,
+        "l1i_cache_refill": 0.4748970478126003,
+        "br_mis_pred": 0.5309625361001177,
+        "br_pred": 49.19201919991443,
+        "inst_spec": 2115.741379425607
+      },
+      "median_cpi": 2.1355971429703713,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.6192671756759893,
+        0.7347680733483697,
+        0.9135275723881803,
+        0.8281189943812639
+      ]
+    },
+    {
+      "shape": [
+        338,
+        1024,
+        2560
+      ],
+      "layout": "original",
+      "suite": "front",
+      "mode": "16",
+      "median_ms_per_call": 7.526526736910455,
+      "paired_time_ratio_to_old": 0.8136149609086282,
+      "counts_per_selected": {
+        "cpu_cycles": 4954.943707214676,
+        "inst_retired": 2318.408511271259,
+        "l1i_cache_refill": 0.45947928922879455,
+        "br_mis_pred": 0.4697527810461012,
+        "br_pred": 33.196621964916034,
+        "inst_spec": 2330.2090898759225
+      },
+      "median_cpi": 2.137204713671064,
+      "median_active_threads": 3.0,
+      "paired_time_ratios": [
+        0.8109564112004849,
+        0.6866614529941498,
+        0.8162735106167714,
+        0.894843410811588
+      ]
+    }
+  ],
+  "padding_alignment_confound": "Original weights in the two controls are offset16 modulo64, whereas pad64 allocations are aligned0; requires separate factorial control before attributing stride versus alignment.",
+  "scope": "Frozen-kernel CPU replay, not candidate model latency; counts are target-process thread sums, not additive wall time."
+}

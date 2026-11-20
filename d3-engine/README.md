@@ -237,6 +237,10 @@ PYTHONPATH="$work/kit" "$work/kit/.venv/bin/python" d3-engine/workflow_eval.py "
 
 ## 验证记录
 
+在仓库根目录执行 `python3 -B d3-engine/verify_results.py`，可从已提交的原始响应重新计算七份对照，涵盖早期的五份和八核版新增的两份。该命令同时核对各对照原本的门槛判定。八核实验的资源、精度及板端状态另行记录。[八核验证记录](EIGHT-CORE.md) · [长输入原型](experiments/long-prefix/README.md)
+
+以下为八核优化前的验证记录。
+
 - 在 RK3576 的固定镜像内运行 `python -u test_engine.py`，9 项通过。覆盖默认精度与检查点模式、问题分组与顺序、掩码、分块矩阵乘尾块与回退、卷积及递推续算、缓存占用和实例并发。
 - 通过 `run-board.sh … infer` 和 `run-board.sh … infer --checkpoint-math` 分别启动两种模式的实际常驻进程，依次输入 vLLM 留出请求 `feedback-fresh-crosswoz-000261`、缺少 `state` 和 `questions` 的 JSON 对象、同一条留出请求。标准输出可逐行解析，中间返回 `invalid_request`，前后两次的答案和 token 计数均与各自模式的板测记录逐项相同。
 - 宿主机的 `python3 -B d3-engine/test_compare.py` 四项通过。`shellcheck d3-engine/{run-board,stage-board,build-state}.sh` 和 `git diff --check` 通过。官方重建的 Decision Index 全集和本地冻结样本提取出的三个输入及其字段对照表逐字节相同。
